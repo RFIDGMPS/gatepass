@@ -118,7 +118,7 @@
                      <span class="d-none d-lg-inline-flex">admin@gmail.com</span>
                      </a>
                      <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="logout" class="dropdown-item" style="border: 1px solid #b0a8a7">
+                        <a href="index.php" class="dropdown-item" style="border: 1px solid #b0a8a7">
                         <i class="bi bi-arrow-right-circle"></i> Log Out </a>
                      </div>
                   </div>
