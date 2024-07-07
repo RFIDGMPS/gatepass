@@ -251,7 +251,7 @@
 					$('.edit-department').html($getdepartment);
 					$('.edit-status1').html($getstatus);
 					$('.edit-address').html($getaddress);
-					$('.edit-form').attr('action','edit1.php?id='+$id);
+					$('.edit-form').attr('action','edit1.php?edit=user?id='+$id);
 					
                	});
          });

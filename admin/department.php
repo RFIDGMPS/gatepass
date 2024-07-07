@@ -191,33 +191,30 @@
                                 <table class="table table-border" id="myDataTable">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Department Name</th>
+                                            <th scope="col" >Department Name</th>
                                             <th scope="col">Department Description</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>HUMSS AUSTEN</td>
-                                            <td>ROOM</td>
+                                        
+                                        <?php include 'connection.php'; ?>
+                                 <?php $results = mysqli_query($db, "SELECT * FROM department"); ?>
+                                 <?php while ($row = mysqli_fetch_array($results)) { ?>
+                                    <tr  class="table-<?php echo $row['department_id'];?>">
+                                            <td class="department_name"><?php echo $row['department_name']; ?></td>
+                                            <td class="department_desc"><?php echo $row['department_desc']; ?></td>
                                             <td width="14%">
-                                                <center><button class="btn btn-outline-primary btn-sm btn-edit" data-edit="15"><i class="bi bi-plus-edit"></i> Edit</button> <button class="btn btn-outline-danger btn-sm btn-del" data-del="15"><i class="bi bi-plus-trash"></i> Delete</button>                                                    </center>
-                                            </td>
+                                            <center>
+                                          <button data-id="<?php echo $row['department_id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_department_id" >
+                                          <i class="bi bi-plus-edit"></i> Edit </button>
+                                          <button user_name="<?php echo $row['first_name'] .' '. $row['last_name']; ?>" data-id="<?php echo $row['department_id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_department_id">
+                                          <i class="bi bi-plus-trash"></i> Delete </button>
+                                       </center> </td>
                                         </tr>
-                                        <tr>
-                                            <td>Accounting Department</td>
-                                            <td>Accounting Department</td>
-                                            <td width="14%">
-                                                <center><button class="btn btn-outline-primary btn-sm btn-edit" data-edit="2"><i class="bi bi-plus-edit"></i> Edit</button> <button class="btn btn-outline-danger btn-sm btn-del" data-del="2"><i class="bi bi-plus-trash"></i> Delete</button>                                                    </center>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>MIS depertment</td>
-                                            <td>MIS depertment</td>
-                                            <td width="14%">
-                                                <center><button class="btn btn-outline-primary btn-sm btn-edit" data-edit="1"><i class="bi bi-plus-edit"></i> Edit</button> <button class="btn btn-outline-danger btn-sm btn-del" data-del="1"><i class="bi bi-plus-trash"></i> Delete</button>                                                    </center>
-                                            </td>
-                                        </tr>
+                                       
+                                   
+                                 <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -234,20 +231,20 @@
                             <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-plus-circle"></i> New Department</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="POST">
+                        <form method="POST" action="transac.php?action=add_department">
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-dept"></div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Name:</b></label>
-                                        <input type="text" id="department_name" class="form-control" autocomplete="off">
+                                        <input name="department_name" type="text" id="department_name" class="form-control" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Description: </b></label>
-                                        <textarea type="text" id="department_description" class="form-control" autocomplete="off"></textarea>
+                                        <textarea name="department_desc" type="text" id="department_description" class="form-control" autocomplete="off"></textarea>
                                         <span class="deptdesc-error"></span>
                                     </div>
                                 </div>
@@ -255,13 +252,42 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-outline-warning" id="btn-department">Save</button>
+                                <button type="submit" class="btn btn-outline-warning" id="btn-department">Save</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-
+            <script type="text/javascript">
+         $(document).ready(function() {
+         	$("#myDataTable").DataTable();
+			 $('.d_user_id').click(function(){
+				$('#delemployee-modal').modal('show');
+            		    
+						$('.user_name').html($(this).attr('user_name'));
+               		$id = $(this).attr('data-id');
+               		$('.remove_id').click(function(){
+               			window.location = 'del.php?id=' + $id;
+						 
+               		});
+               	});
+               	$('.e_department_id').click(function(){
+               		$id = $(this).attr('data-id');
+                       $('#editdepartment-modal').modal('show');
+               		// $('#editModal').load('edit.php?id=' + $id);
+					
+					$department_name =  $('.table-'+$id+' .department_name').val();
+					$department_desc =  $('.table-'+$id+' .department_desc').val();
+				
+					$('.edit-name').val($department_name);
+					$('.edit-desc').val($department_desc);
+					$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=department');
+					
+               	});
+         });
+		 
+		 </script>
+<!--
             <script type="text/javascript">
                 document.addEventListener('DOMContentLoaded', () => {
                     let btn = document.querySelector('#btn-department');
@@ -368,7 +394,8 @@
 
                     });
                 });
-            </script>
+            </script>-->
+            
             <div class="modal fade" id="editdepartment-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -376,20 +403,20 @@
                             <h5 class="modal-title"><i class="bi bi-pencil"></i> Edit Department</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="POST">
+                        <form method="POST"  class="edit-form" role="form" action="">
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-editdept"></div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Name:</b></label>
-                                        <input type="text" id="edit_departmentname" class="form-control" autocomplete="off">
+                                        <input name="department_name" type="text" id="edit_departmentname" class="form-control edit-name" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Description: </b></label>
-                                        <textarea type="text" id="edit_departmentdescription" class="form-control" autocomplete="off"></textarea>
+                                        <textarea name="department_desc" type="text" id="edit_departmentdescription" class="form-control edit-desc" autocomplete="off"></textarea>
                                         <span class="deptdesc-error"></span>
                                     </div>
                                 </div>
@@ -398,13 +425,13 @@
                             <div class="modal-footer">
                                 <input type="hidden" name="" id="edit_departmentid">
                                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-outline-primary" id="btn-editdepartment">Update</button>
+                                <button type="submit" class="btn btn-outline-primary" id="btn-editdepartment">Update</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-
+<!--
             <script type="text/javascript">
                 document.addEventListener('DOMContentLoaded', () => {
                     let btn = document.querySelector('#btn-editdepartment');
@@ -516,7 +543,7 @@
 
                     });
                 });
-            </script>
+            </script>-->
             <div class="modal fade" id="deldepartment-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -545,7 +572,7 @@
                     </div>
                 </div>
             </div>
-
+<!--
             <script type="text/javascript">
                 document.addEventListener('DOMContentLoaded', () => {
                     let btn = document.querySelector('#btn-deldepartment');
@@ -583,7 +610,7 @@
 
                     });
                 });
-            </script>
+            </script>-->
             <div class="container-fluid pt-4 px-4" style="margin-top: 60%">
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
@@ -597,14 +624,14 @@
                 </div>
             </div>
 
-            <script>
+          <!--  <script>
                 $(document).ready(function() {
                     load_data();
                     var count = 1;
 
                     function load_data() {
                         $(document).on('click', '.btn-edit', function() {
-                            $('#editdepartment-modal').modal('show');
+                            
                             var department_id = $(this).data("edit");
                             // console.log(department_id);
                             getID(department_id); //argument    
@@ -631,7 +658,7 @@
                     }
 
                 });
-            </script>
+            </script>-->
             <script>
                 $(document).ready(function() {
                     load_data();
