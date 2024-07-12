@@ -1,6 +1,6 @@
 
 <?php
-  include('connection.php');
+  include('../connection.php');
 $id = $_GET['id'];
 		
 					
@@ -70,6 +70,7 @@ switch ($_GET['edit'])
 							alert("Update Successfull.");
 							window.location = "department.php";
 						</script>';
+						break;
 }
 ?>	
 	

@@ -1,6 +1,6 @@
 <?php
        
- include('connection.php');
+ include('../connection.php');
        
        
 
@@ -12,7 +12,7 @@ switch ($_GET['action'])
 {
     case 'add':
         $id_no = $_POST['id_no'];
- $rfid_number = $_POST['frid_number'];
+ $rfid_number = $_POST['rfid_number'];
  $last_name = $_POST['last_name'];
  $first_name = $_POST['first_name'];
  $middle_name = $_POST['middle_name'];
@@ -43,6 +43,7 @@ switch ($_GET['action'])
         $query = "INSERT INTO department (department_name, department_desc)
         VALUES ('$department_name', '$department_desc')";
         mysqli_query($db, $query) or die('Error in updating Database');
+        break;
 }
 ?>
         <script type="text/javascript">

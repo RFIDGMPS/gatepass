@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2024 at 04:30 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Jul 12, 2024 at 03:51 AM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 5.6.40
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -20,6 +21,49 @@ SET time_zone = "+00:00";
 --
 -- Database: `gatepassdb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `department`
+--
+
+CREATE TABLE `department` (
+  `department_id` int(11) NOT NULL,
+  `department_name` varchar(50) NOT NULL,
+  `department_desc` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `department`
+--
+
+INSERT INTO `department` (`department_id`, `department_name`, `department_desc`) VALUES
+(1, 'BSIT', 'Bachelor of Science and Information Technology'),
+(2, 'BSHM', 'Bachelor in Science and Hospitality Management'),
+(3, 'we', 'asda'),
+(4, 'BSBA', 'Bachelor in Science and Business Administration'),
+(5, 'BSIS', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `departments`
+--
+
+CREATE TABLE `departments` (
+  `department_name` varchar(50) NOT NULL,
+  `department_desc` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `departments`
+--
+
+INSERT INTO `departments` (`department_name`, `department_desc`) VALUES
+('BSIT', 'Bachelor of Science and Information Technology'),
+('BSIT', 'Bachelor of Science and Information Technology'),
+('BSBA', 'Bachelor in Science and Business Administration');
 
 -- --------------------------------------------------------
 
@@ -46,7 +90,7 @@ CREATE TABLE `users` (
   `complete_address` varchar(255) NOT NULL,
   `photo` varchar(255) DEFAULT NULL,
   `place_of_birth` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
@@ -70,6 +114,12 @@ INSERT INTO `users` (`id`, `id_no`, `rfid_number`, `last_name`, `first_name`, `m
 --
 
 --
+-- Indexes for table `department`
+--
+ALTER TABLE `department`
+  ADD PRIMARY KEY (`department_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -78,6 +128,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `department`
+--
+ALTER TABLE `department`
+  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
