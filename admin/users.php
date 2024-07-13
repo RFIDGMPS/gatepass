@@ -1,60 +1,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8">
-      <title>Admin123</title>
-      <meta content="width=device-width, initial-scale=1.0" name="viewport">
-      <meta content="" name="keywords">
-      <meta content="" name="description">
-      <!-- Favicon -->
-      <!--     <link href="img/favicon.ico" rel="icon"> -->
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-      <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-      <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-      <link href="css/bootstrap.min.css" rel="stylesheet">
-      <link href="css/style.css" rel="stylesheet">
-      <link href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css" rel="stylesheet" />
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-      <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-      <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
-      <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-      <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-      <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/2.2.3/jquery.elevatezoom.js" integrity="sha512-EjW7LChk2bIML+/kvj1NDrPSKHqfQ+zxJGBUKcopijd85cGwAX8ojz+781Rc0e7huwyI3j5Bn6rkctL3Gy61qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-      <style type="text/css">
-         @media (max-width: 576px) and (max-width: 768px) {
-         #lnamez {
-         margin-top: 30%;
-         display: block;
-         /* remove extra space below image */
-         }
-         #up_img {
-         position: relative;
-         margin-top: 4%;
-         display: block;
-         /* remove extra space below image */
-         }
-         }
-         @media (max-width: 992px) and (max-width: 1200px) {
-         #lnamez {
-         margin-top: 30%;
-         display: block;
-         /* remove extra space below image */
-         }
-         #up_img {
-         position: relative;
-         margin-top: 4%;
-         display: block;
-         /* remove extra space below image */
-         }
-         }
-      </style>
-   </head>
+   <?php
+include 'header.php';
+   ?>
    <body>
       <div class="container-fluid position-relative bg-white d-flex p-0">
          <!-- Spinner Start
@@ -65,39 +14,9 @@
          </div> -->
          <!-- Spinner End -->
          <!-- Sidebar Start -->
-         <div class="sidebar pe-4 pb-3" style="background-color: #fcaf42">
-            <nav class="navbar  navbar-light">
-               <a href="dashboard" class="navbar-brand mx-4 mb-3">
-                  <h3 class="text" style="color: #f0ddcc">RFID Gate Pass</h3>
-               </a>
-               <div class="d-flex align-items-center ms-4 mb-4">
-                  <div class="position-relative">
-                     <img class="rounded-circle" src="img/2601828.png" alt="" style="width: 40px; height: 40px;">
-                     <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-                  </div>
-                  <div class="ms-3">
-                     <h6 class="mb-0">admin@gmail.com</h6>
-                     <span>Administrator</span>
-                  </div>
-               </div>
-               <div class="navbar-nav w-100">
-                  <a href="dashboard.php" class="nav-item nav-link">
-                  <i class="fa fa-tachometer-alt me-2"></i>Dashboard </a>
-                  <a href="department.php" class="nav-item nav-link">
-                  <i class="fa fa-city me-2"></i>Department </a>
-                  <a href="sections.php" class="nav-item nav-link">
-                  <i class="fa fa-puzzle-piece me-2"></i>Sections </a>
-                  <a href="users.php" class="nav-item nav-link active">
-                  <i class="fa fa-users me-2"></i>Users </a>
-                  <a href="entrance.php" class="nav-item nav-link">
-                  <i class="fa fa-address-card me-2"></i>Entrance </a>
-                  <a href="messages.php" class="nav-item nav-link">
-                  <i class="fa fa-envelope me-2"></i>Messages </a>
-                  <a href="report.php" class="nav-item nav-link">
-                  <i class="fa fa-print me-2"></i>Report </a>
-               </div>
-            </nav>
-         </div>
+        <?php
+		include 'sidebar.php';
+		?>
          <!-- Sidebar End -->
          <!-- Content Start -->
          <div class="content">
@@ -154,7 +73,7 @@
                                  </tr>
                               </thead>
                               <tbody>
-                                 <?php include 'connection.php'; ?>
+                                 <?php include '../connection.php'; ?>
                                  <?php $results = mysqli_query($db, "SELECT * FROM users"); ?>
                                  <?php while ($row = mysqli_fetch_array($results)) { ?>
                                  <tr class="table-<?php echo $row['id'];?>">
@@ -182,7 +101,16 @@
                                     <td><?php echo $row['role']; ?></td>
                                     <td><?php echo $row['contact_number']; ?></td>
                                     <td><?php echo $row['department']; ?></td>
-                                    <td><span class="badge bg-success"><?php echo $row['status']; ?></span> </td></td>
+                                    <td><?php if ($row['status'] == 'Active') {
+											echo '<span class="badge bg-success">Active</span>';
+									} 
+									elseif($row['status'] == 'Inactive'){
+										echo '<span class="badge bg-warning">Inactive</span>';
+									}
+									else {
+										echo '<span class="badge bg-danger">Blocked</span>';
+									}
+									?></td>
                                     <td width="14%">
                                        <center>
                                           <button data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_user_id" >
@@ -209,7 +137,7 @@
 						$('.user_name').html($(this).attr('user_name'));
                		$id = $(this).attr('data-id');
                		$('.remove_id').click(function(){
-               			window.location = 'del.php?id=' + $id;
+               			window.location = 'del.php?type=user&id=' + $id;
 						 
                		});
                	});
@@ -251,7 +179,7 @@
 					$('.edit-department').html($getdepartment);
 					$('.edit-status1').html($getstatus);
 					$('.edit-address').html($getaddress);
-					$('.edit-form').attr('action','edit1.php?id='+$id);
+					$('.edit-form').attr('action','edit1.php?edit=user&id='+$id);
 					
                	});
          });
@@ -1043,7 +971,12 @@
          <div class="col-lg-4 col-md-6 col-sm-12">
             <div class="form-group">
                <label>STATUS:</label>
-               <input type="text" class="form-control edit-status1" name="status" id="status" value="Active" autocomplete="off" readonly="">
+			   <select class="form-control" name="status" id="status" autocomplete="off">
+                  <option class="edit-status1"></option>
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+                  <option value="Block">Block</option>
+               </select>
             </div>
          </div>
       </div>
@@ -1602,16 +1535,10 @@
                	});
                });
             </script>
-            <div class="container-fluid pt-4 px-4" style="margin-top: 60%">
-               <div class="bg-light rounded-top p-4">
-                  <div class="row">
-                     <div class="col-12 col-sm-6 text-center text-sm-start"> &copy; <a href="#">2023</a>, All Right Reserved. </div>
-                     <div class="col-12 col-sm-6 text-center text-sm-end"> Created By <a href="#">Junil Toledo</a>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
+			
+            <?php
+include 'footer.php';
+			?>
          <!-- <script>
             $(document).ready(function() {
             	load_data();

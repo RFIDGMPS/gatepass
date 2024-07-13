@@ -12,7 +12,7 @@
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <link rel="shortcut icon" href="assets/img/brand/favicon-bar.svg" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>2RFID ATTENDANCE</title>
+    <title>ADMIN</title>
 
         <style type="text/css">
  
@@ -64,11 +64,102 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="card">
+                    <form id="rfidForm" method="POST">
                       <div class="card-body">
                          <p class="card-text">
                           <div id="mgs-add"></div>
-                         <input type="text" class="form-control" name="" id="rfidcard">
-                       
+                     
+    <input type="text" id="rfidcard" name="rfid_number" class="form-control" placeholder="Scan RFID card" autofocus>
+    <input type="submit" name="submit" value="Submit">
+ 
+
+
+    
+<?php
+// Check if form is submitted
+if(isset($_POST['submit'])) {
+    // Retrieve RFID number from form
+    $rfid_number = $_POST['rfid_number'];
+    $time = date('H:i'); // Current time
+    // Include database connection
+    include 'connection.php';
+
+    // Query to check if RFID number exists in users table
+    $query = "SELECT * FROM users WHERE rfid_number = '$rfid_number'";
+    $result = mysqli_query($db, $query);
+    $user = mysqli_fetch_assoc($result);
+    $id = $user['id'];
+    // Check if RFID number exists
+    if(mysqli_num_rows($result) > 0) {
+        // RFID exists, fetch user data
+        $query1 = "SELECT * FROM entrance WHERE rfid_number = '$rfid_number'";
+         $result1 = mysqli_query($db, $query1);
+
+         if(mysqli_num_rows($result1) > 0) {
+            $user1 = mysqli_fetch_assoc($result1);
+    $id1 = $user1['id'];
+            if($user1['time_out_am'] == '') {
+                $update_field = 'time_out_am';
+            } elseif($user1['time_in_pm'] == '') {
+                $update_field = 'time_in_pm';
+            } elseif($user1['time_out_pm'] == '') {
+                $update_field = 'time_out_pm';
+            }
+    
+            // Build query based on available field to update
+            if($update_field) {
+                $insert_query = "UPDATE entrance SET $update_field = '$time' WHERE id = '$id1'";
+                 // Execute query
+            if(mysqli_query($db, $insert_query)) {
+               echo "User information updated successfully.";
+           } else {
+               echo "Error updating record: " . mysqli_error($db);
+           }
+            } else {
+                echo "All time slots are filled."; // Handle case where all slots are filled
+            }
+    
+           
+    
+         } else {
+         
+            
+            $full_name = $user['first_name'] . ' ' . $user['last_name'];
+            $photo_name = $user['photo']; // Assuming 'photo' is the column storing photo file name
+            $date_logged = date('Y-m-d'); // Current date as date_logged
+            $role = $user['role'];
+            $department = $user['department'];
+            $status = $user['status'];
+           
+    
+            // Determine appropriate time field to update
+           
+            $update_field = null;
+           
+    // Insert query for entrance table
+    $insert_query = "INSERT INTO entrance (photo, role, full_name, rfid_number, time_in_am, date_logged, department, status) 
+                    VALUES ('$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
+     // Execute query
+     if(mysqli_query($db, $insert_query)) {
+       echo "User information updated successfully.";
+   } else {
+       echo "Error updating record: " . mysqli_error($db);
+   }
+        }
+
+
+    } else {
+        // RFID does not exist in the database
+        echo "RFID number $rfid_number does not exist in the database.";
+    }
+
+    // Close database connection
+    mysqli_close($db);
+}
+?>
+
+<div id="rfidDisplay"></div>
+
                           <center><img class="w-100" height="170px" alt="img"  src="assets/img/section//istockphoto-1184670010-612x612.jpg" id="img"></center>
                     
                           <div class="card-body">
@@ -78,6 +169,9 @@
                         
                       </p>      
                       </div>
+                              </form>
+                            
+
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -89,466 +183,35 @@
                       <thead>
                         <tr>
                           <th scope="col">Photo</th>
-                          <th scope="col">Employee ID</th>
-                          <th scope="col">Time In</th>
-                          <th scope="col">Time Out</th>
+                          <th scope="col">Role</th>
+                          <th scope="col">Full Name</th>
+                          <th scope="col">Time In (AM)</th>
+                          <th scope="col">Time Out (AM)</th>
+                          <th scope="col">Time In (PM)</th>
+                          <th scope="col">Time Out (PM)</th>
                           <th scope="col">Date logged</th>
                         </tr>
                       </thead>
                       <tbody>
                           	 
 
-
+                      <?php include 'connection.php'; ?>
+                                 <?php $results = mysqli_query($db, "SELECT * FROM entrance"); ?>
+                                 <?php while ($row = mysqli_fetch_array($results)) { ?>
                         <tr>
-                          <td><center><img src="../uploads/download.jpg" width="50px" height="50px" ></center></td>
-                          <td>LANCE ALARILLA</td>
-                         <td>8:41 am</td>
+                          <td><center><img src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" ></center></td>
+                          <td><?php echo $row['role']; ?></td>
+                          <td><?php echo $row['full_name']; ?></td>
+                         <td><?php echo $row['time_in_am']; ?></td>
                           <td>
-                             8:41 am</td>
-
-                          <td>Mar 18, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/download.jpg" width="50px" height="50px" ></center></td>
-                          <td>LANCE ALARILLA</td>
-                         <td>8:42 am</td>
+                          <?php echo $row['time_out_am']; ?></td>
+                          <td><?php echo $row['time_in_pm']; ?></td>
                           <td>
-                             8:42 am</td>
-
-                          <td>Mar 18, 2024</td>
+                          <?php echo $row['time_out_pm']; ?></td>
+                          <td><?php echo $row['date_logged']; ?></td>
                         </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/download.jpg" width="50px" height="50px" ></center></td>
-                          <td>LANCE ALARILLA</td>
-                         <td>2:34 pm</td>
-                          <td>
-                             </td>
-
-                          <td>Mar 18, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/382666826_1043752916810255_4754522340657598554_n.jpg" width="50px" height="50px" ></center></td>
-                          <td>ARIANE CALVADORES</td>
-                         <td>5:42 pm</td>
-                          <td>
-                             5:43 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/382666826_1043752916810255_4754522340657598554_n.jpg" width="50px" height="50px" ></center></td>
-                          <td>ARIANE CALVADORES</td>
-                         <td>5:43 pm</td>
-                          <td>
-                             6:10 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/382666826_1043752916810255_4754522340657598554_n.jpg" width="50px" height="50px" ></center></td>
-                          <td>ARIANE CALVADORES</td>
-                         <td>6:11 pm</td>
-                          <td>
-                             </td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/382666826_1043752916810255_4754522340657598554_n.jpg" width="50px" height="50px" ></center></td>
-                          <td>ARIANE CALVADORES</td>
-                         <td>3:23 pm</td>
-                          <td>
-                             </td>
-
-                          <td>Mar 17, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/431343536_395697873209200_7086884325319238891_n.jpg" width="50px" height="50px" ></center></td>
-                          <td>APRIL JOHN</td>
-                         <td>5:34 pm</td>
-                          <td>
-                             5:42 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/431343536_395697873209200_7086884325319238891_n.jpg" width="50px" height="50px" ></center></td>
-                          <td>APRIL JOHN</td>
-                         <td>5:42 pm</td>
-                          <td>
-                             5:43 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/431343536_395697873209200_7086884325319238891_n.jpg" width="50px" height="50px" ></center></td>
-                          <td>APRIL JOHN</td>
-                         <td>5:43 pm</td>
-                          <td>
-                             5:44 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/431343536_395697873209200_7086884325319238891_n.jpg" width="50px" height="50px" ></center></td>
-                          <td>APRIL JOHN</td>
-                         <td>5:44 pm</td>
-                          <td>
-                             5:44 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/431343536_395697873209200_7086884325319238891_n.jpg" width="50px" height="50px" ></center></td>
-                          <td>APRIL JOHN</td>
-                         <td>6:09 pm</td>
-                          <td>
-                             </td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/431343536_395697873209200_7086884325319238891_n.jpg" width="50px" height="50px" ></center></td>
-                          <td>APRIL JOHN</td>
-                         <td>3:03 pm</td>
-                          <td>
-                             </td>
-
-                          <td>Mar 17, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/athletic-man-practicing-gymnastics-keep-fit_23-2150989809.avif" width="50px" height="50px" ></center></td>
-                          <td>Lester Bailon</td>
-                         <td>6:07 am</td>
-                          <td>
-                             6:07 am</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/athletic-man-practicing-gymnastics-keep-fit_23-2150989809.avif" width="50px" height="50px" ></center></td>
-                          <td>Lester Bailon</td>
-                         <td>12:04 pm</td>
-                          <td>
-                             12:04 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/athletic-man-practicing-gymnastics-keep-fit_23-2150989809.avif" width="50px" height="50px" ></center></td>
-                          <td>Lester Bailon</td>
-                         <td>12:05 pm</td>
-                          <td>
-                             12:07 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/athletic-man-practicing-gymnastics-keep-fit_23-2150989809.avif" width="50px" height="50px" ></center></td>
-                          <td>Lester Bailon</td>
-                         <td>12:09 pm</td>
-                          <td>
-                             12:09 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/athletic-man-practicing-gymnastics-keep-fit_23-2150989809.avif" width="50px" height="50px" ></center></td>
-                          <td>Lester Bailon</td>
-                         <td>12:54 pm</td>
-                          <td>
-                             12:54 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/athletic-man-practicing-gymnastics-keep-fit_23-2150989809.avif" width="50px" height="50px" ></center></td>
-                          <td>Lester Bailon</td>
-                         <td>5:42 pm</td>
-                          <td>
-                             5:42 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/athletic-man-practicing-gymnastics-keep-fit_23-2150989809.avif" width="50px" height="50px" ></center></td>
-                          <td>Lester Bailon</td>
-                         <td>6:08 pm</td>
-                          <td>
-                             6:09 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/athletic-man-practicing-gymnastics-keep-fit_23-2150989809.avif" width="50px" height="50px" ></center></td>
-                          <td>Lester Bailon</td>
-                         <td>11:13 pm</td>
-                          <td>
-                             11:13 pm</td>
-
-                          <td>Mar 17, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/athletic-man-practicing-gymnastics-keep-fit_23-2150989809.avif" width="50px" height="50px" ></center></td>
-                          <td>Lester Bailon</td>
-                         <td>11:15 pm</td>
-                          <td>
-                             11:20 pm</td>
-
-                          <td>Mar 17, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/athletic-man-practicing-gymnastics-keep-fit_23-2150989809.avif" width="50px" height="50px" ></center></td>
-                          <td>Lester Bailon</td>
-                         <td>11:20 pm</td>
-                          <td>
-                             </td>
-
-                          <td>Mar 17, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/athletic-man-practicing-gymnastics-keep-fit_23-2150989809.avif" width="50px" height="50px" ></center></td>
-                          <td>Lester Bailon</td>
-                         <td>4:06 am</td>
-                          <td>
-                             4:06 am</td>
-
-                          <td>Mar 18, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/athletic-man-practicing-gymnastics-keep-fit_23-2150989809.avif" width="50px" height="50px" ></center></td>
-                          <td>Lester Bailon</td>
-                         <td>4:09 am</td>
-                          <td>
-                             4:09 am</td>
-
-                          <td>Mar 18, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/athletic-man-practicing-gymnastics-keep-fit_23-2150989809.avif" width="50px" height="50px" ></center></td>
-                          <td>Lester Bailon</td>
-                         <td>5:56 am</td>
-                          <td>
-                             5:57 am</td>
-
-                          <td>Mar 18, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="../uploads/athletic-man-practicing-gymnastics-keep-fit_23-2150989809.avif" width="50px" height="50px" ></center></td>
-                          <td>Lester Bailon</td>
-                         <td>5:57 am</td>
-                          <td>
-                             </td>
-
-                          <td>Mar 18, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>4:59 am</td>
-                          <td>
-                             4:59 am</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>5:03 am</td>
-                          <td>
-                             5:03 am</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>5:15 am</td>
-                          <td>
-                             5:15 am</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>5:16 am</td>
-                          <td>
-                             5:16 am</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>5:46 am</td>
-                          <td>
-                             5:46 am</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>6:07 am</td>
-                          <td>
-                             6:07 am</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>12:01 pm</td>
-                          <td>
-                             12:05 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>12:06 pm</td>
-                          <td>
-                             12:06 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>12:08 pm</td>
-                          <td>
-                             12:09 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>12:54 pm</td>
-                          <td>
-                             12:54 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>12:55 pm</td>
-                          <td>
-                             12:55 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>4:11 pm</td>
-                          <td>
-                             4:11 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>5:25 pm</td>
-                          <td>
-                             5:25 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>5:25 pm</td>
-                          <td>
-                             5:25 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>5:25 pm</td>
-                          <td>
-                             5:25 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>5:42 pm</td>
-                          <td>
-                             6:09 pm</td>
-
-                          <td>Mar 16, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>3:04 pm</td>
-                          <td>
-                             3:26 pm</td>
-
-                          <td>Mar 17, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>5:39 pm</td>
-                          <td>
-                             5:39 pm</td>
-
-                          <td>Feb 06, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>5:40 pm</td>
-                          <td>
-                             5:40 pm</td>
-
-                          <td>Feb 06, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>5:43 pm</td>
-                          <td>
-                             5:44 pm</td>
-
-                          <td>Feb 06, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>5:45 pm</td>
-                          <td>
-                             5:45 pm</td>
-
-                          <td>Feb 06, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>5:45 pm</td>
-                          <td>
-                             5:45 pm</td>
-
-                          <td>Feb 06, 2024</td>
-                        </tr>
-                                                 <tr>
-                          <td><center><img src="" width="50px" height="50px" ></center></td>
-                          <td></td>
-                         <td>2:26 am</td>
-                          <td>
-                             2:26 am</td>
-
-                          <td>Sep 15, 2023</td>
-                        </tr>
+                        <?php }?>
+                        
                                                </tbody>
                     </table>
                   </div>
@@ -561,11 +224,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-        <script src="assets/custom/js/scan_rfid.js"></script>
+        <!-- <script src="assets/custom/js/scan_rfid.js"></script>-->
         <script src="script.js"></script>
-    <script>
+   <!-- <script>
         AOS.init();
     </script>
+    
  <script type="text/javascript">
     // Disable right-click
     document.addEventListener('contextmenu', (e) => e.preventDefault());
@@ -632,7 +296,7 @@
             window.addEventListener('blur', detectDevTool);
         }
     }();
-  </script>
+  </script>-->
 
 </body>
 

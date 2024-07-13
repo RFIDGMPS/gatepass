@@ -4,71 +4,9 @@
 
 
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <title>Administrator</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-    <!-- Favicon -->
-    <!--     <link href="img/favicon.ico" rel="icon"> -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-
-    <link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-    <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/2.2.3/jquery.elevatezoom.js" integrity="sha512-EjW7LChk2bIML+/kvj1NDrPSKHqfQ+zxJGBUKcopijd85cGwAX8ojz+781Rc0e7huwyI3j5Bn6rkctL3Gy61qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <style type="text/css">
-        @media (max-width: 576px) and (max-width: 768px) {
-            #lnamez {
-                margin-top: 30%;
-                display: block;
-                /* remove extra space below image */
-            }
-            #up_img {
-                position: relative;
-                margin-top: 4%;
-                display: block;
-                /* remove extra space below image */
-            }
-        }
-
-        @media (max-width: 992px) and (max-width: 1200px) {
-            #lnamez {
-                margin-top: 30%;
-                display: block;
-                /* remove extra space below image */
-            }
-            #up_img {
-                position: relative;
-                margin-top: 4%;
-                display: block;
-                /* remove extra space below image */
-            }
-        }
-    </style>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#myDataTable").DataTable();
-        });
-    </script>
-</head>
+<?php
+include 'header.php';
+   ?>
 
 <body>
     <div class="container-fluid position-relative bg-white d-flex p-0">
@@ -80,34 +18,9 @@
         </div>
         <!-- Spinner End -->
         <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3" style="background-color: #fcaf42">
-            <nav class="navbar  navbar-light">
-                <a href="dashboard" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text" style="color: #f0ddcc">RFID Attendance</h3>
-                </a>
-                <div class="d-flex align-items-center ms-4 mb-4">
-                    <div class="position-relative">
-                        <img class="rounded-circle" src="img/2601828.png" alt="" style="width: 40px; height: 40px;">
-                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-                    </div>
-                    <div class="ms-3">
-                        <h6 class="mb-0">admin@gmail.com</h6>
-                        <span>Administrator</span>
-                    </div>
-                </div>
-                <div class="navbar-nav w-100">
-                    <a href="dashboard.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-
-                   <a href="department.php" class="nav-item nav-link active"><i class="fa fa-city me-2"></i>Department</a>
-                   <a href="sections.php" class="nav-item nav-link"><i class="fa fa-puzzle-piece me-2"></i>Sections</a>
-                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Users</a>
-                   
-                    <a href="entrance.php" class="nav-item nav-link"><i class="fa fa-address-card me-2"></i>Entrance</a>
-                    <a href="messages.php" class="nav-item nav-link"><i class="fa fa-envelope me-2"></i>Messages</a>
-                    <a href="report.php" class="nav-item nav-link"><i class="fa fa-print me-2"></i>Report</a>
-                </div>
-            </nav>
-        </div>
+        <?php
+		include 'sidebar.php';
+		?>
         <!-- Sidebar End -->
 
         <!-- Content Start -->
@@ -191,33 +104,30 @@
                                 <table class="table table-border" id="myDataTable">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Department Name</th>
+                                            <th scope="col" >Department Name</th>
                                             <th scope="col">Department Description</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>HUMSS AUSTEN</td>
-                                            <td>ROOM</td>
+                                        
+                                        <?php include '../connection.php'; ?>
+                                 <?php $results = mysqli_query($db, "SELECT * FROM department"); ?>
+                                 <?php while ($row = mysqli_fetch_array($results)) { ?>
+                                    <tr  class="table-<?php echo $row['department_id'];?>">
+                                            <td class="department_name"><?php echo $row['department_name']; ?></td>
+                                            <td class="department_desc"><?php echo $row['department_desc']; ?></td>
                                             <td width="14%">
-                                                <center><button class="btn btn-outline-primary btn-sm btn-edit" data-edit="15"><i class="bi bi-plus-edit"></i> Edit</button> <button class="btn btn-outline-danger btn-sm btn-del" data-del="15"><i class="bi bi-plus-trash"></i> Delete</button>                                                    </center>
-                                            </td>
+                                            <center>
+                                          <button data-id="<?php echo $row['department_id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_department_id" >
+                                          <i class="bi bi-plus-edit"></i> Edit </button>
+                                          <button department_name="<?php echo $row['department_name'];?>" data-id="<?php echo $row['department_id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_department_id">
+                                          <i class="bi bi-plus-trash"></i> Delete </button>
+                                       </center> </td>
                                         </tr>
-                                        <tr>
-                                            <td>Accounting Department</td>
-                                            <td>Accounting Department</td>
-                                            <td width="14%">
-                                                <center><button class="btn btn-outline-primary btn-sm btn-edit" data-edit="2"><i class="bi bi-plus-edit"></i> Edit</button> <button class="btn btn-outline-danger btn-sm btn-del" data-del="2"><i class="bi bi-plus-trash"></i> Delete</button>                                                    </center>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>MIS depertment</td>
-                                            <td>MIS depertment</td>
-                                            <td width="14%">
-                                                <center><button class="btn btn-outline-primary btn-sm btn-edit" data-edit="1"><i class="bi bi-plus-edit"></i> Edit</button> <button class="btn btn-outline-danger btn-sm btn-del" data-del="1"><i class="bi bi-plus-trash"></i> Delete</button>                                                    </center>
-                                            </td>
-                                        </tr>
+                                       
+                                   
+                                 <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -234,20 +144,20 @@
                             <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-plus-circle"></i> New Department</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="POST">
+                        <form method="POST" action="transac.php?action=add_department">
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-dept"></div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Name:</b></label>
-                                        <input type="text" id="department_name" class="form-control" autocomplete="off">
+                                        <input name="department_name" type="text" id="department_name" class="form-control" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Description: </b></label>
-                                        <textarea type="text" id="department_description" class="form-control" autocomplete="off"></textarea>
+                                        <textarea name="department_desc" type="text" id="department_description" class="form-control" autocomplete="off"></textarea>
                                         <span class="deptdesc-error"></span>
                                     </div>
                                 </div>
@@ -255,13 +165,41 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-outline-warning" id="btn-department">Save</button>
+                                <button type="submit" class="btn btn-outline-warning" id="btn-department">Save</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-
+            <script type="text/javascript">
+         $(document).ready(function() {
+         	$("#myDataTable").DataTable();
+			 $('.d_department_id').click(function(){
+                $('#deldepartment-modal').modal('show');
+						$('.department_name').html($(this).attr('department_name'));
+               		$id = $(this).attr('data-id');
+               		$('.remove_id').click(function(){
+               			window.location = 'del.php?type=department&id=' + $id;
+						 
+               		});
+               	});
+               	$('.e_department_id').click(function(){
+               		$id = $(this).attr('data-id');
+                       $('#editdepartment-modal').modal('show');
+               		// $('#editModal').load('edit.php?id=' + $id);
+					
+					$department_name =  $('.table-'+$id+' .department_name').val();
+					$department_desc =  $('.table-'+$id+' .department_desc').val();
+				
+					$('.edit-name').val($department_name);
+					$('.edit-desc').val($department_desc);
+					$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=department');
+					
+               	});
+         });
+		 
+		 </script>
+<!--
             <script type="text/javascript">
                 document.addEventListener('DOMContentLoaded', () => {
                     let btn = document.querySelector('#btn-department');
@@ -368,7 +306,8 @@
 
                     });
                 });
-            </script>
+            </script>-->
+            
             <div class="modal fade" id="editdepartment-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -376,20 +315,20 @@
                             <h5 class="modal-title"><i class="bi bi-pencil"></i> Edit Department</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="POST">
+                        <form method="POST"  class="edit-form" role="form" action="">
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-editdept"></div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Name:</b></label>
-                                        <input type="text" id="edit_departmentname" class="form-control" autocomplete="off">
+                                        <input name="department_name" type="text" id="edit_departmentname" class="form-control edit-name" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Description: </b></label>
-                                        <textarea type="text" id="edit_departmentdescription" class="form-control" autocomplete="off"></textarea>
+                                        <textarea name="department_desc" type="text" id="edit_departmentdescription" class="form-control edit-desc" autocomplete="off"></textarea>
                                         <span class="deptdesc-error"></span>
                                     </div>
                                 </div>
@@ -398,13 +337,13 @@
                             <div class="modal-footer">
                                 <input type="hidden" name="" id="edit_departmentid">
                                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-outline-primary" id="btn-editdepartment">Update</button>
+                                <button type="submit" class="btn btn-outline-primary" id="btn-editdepartment">Update</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-
+<!--
             <script type="text/javascript">
                 document.addEventListener('DOMContentLoaded', () => {
                     let btn = document.querySelector('#btn-editdepartment');
@@ -516,7 +455,7 @@
 
                     });
                 });
-            </script>
+            </script>-->
             <div class="modal fade" id="deldepartment-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -530,7 +469,7 @@
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Name:</b></label>
-                                        <input type="text" id="delete_departmentname" class="form-control" autocomplete="off" readonly="">
+                                        <input  type="text" id="delete_departmentname" class="form-control" autocomplete="off" readonly="">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
@@ -539,13 +478,13 @@
                             <div class="modal-footer">
                                 <input type="hidden" name="" id="delete_departmentid">
                                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">No</button>
-                                <button type="button" class="btn btn-outline-primary" id="btn-deldepartment">Yes</button>
+                                <button type="button" class="btn btn-outline-primary remove_id" id="btn-deldepartment">Yes</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-
+<!--
             <script type="text/javascript">
                 document.addEventListener('DOMContentLoaded', () => {
                     let btn = document.querySelector('#btn-deldepartment');
@@ -583,7 +522,7 @@
 
                     });
                 });
-            </script>
+            </script>-->
             <div class="container-fluid pt-4 px-4" style="margin-top: 60%">
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
@@ -597,14 +536,14 @@
                 </div>
             </div>
 
-            <script>
+          <!--  <script>
                 $(document).ready(function() {
                     load_data();
                     var count = 1;
 
                     function load_data() {
                         $(document).on('click', '.btn-edit', function() {
-                            $('#editdepartment-modal').modal('show');
+                            
                             var department_id = $(this).data("edit");
                             // console.log(department_id);
                             getID(department_id); //argument    
@@ -631,8 +570,8 @@
                     }
 
                 });
-            </script>
-            <script>
+            </script>-->
+           <!-- <script>
                 $(document).ready(function() {
                     load_data();
                     var count = 1;
@@ -663,7 +602,7 @@
                     }
 
                 });
-            </script>
+            </script>-->
 
         </div>
 
