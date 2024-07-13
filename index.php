@@ -12,6 +12,7 @@
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <link rel="shortcut icon" href="assets/img/brand/favicon-bar.svg" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script.js"></script>
     <title>ADMIN</title>
 
         <style type="text/css">
@@ -224,79 +225,7 @@ if(isset($_POST['submit'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-        <!-- <script src="assets/custom/js/scan_rfid.js"></script>-->
-        <script src="script.js"></script>
-   <!-- <script>
-        AOS.init();
-    </script>
-    
- <script type="text/javascript">
-    // Disable right-click
-    document.addEventListener('contextmenu', (e) => e.preventDefault());
-
-    function ctrlShiftKey(e, keyCode) {
-      return e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0);
-    }
-
-    document.onkeydown = (e) => {
-      // Disable F12, Ctrl + Shift + I, Ctrl + Shift + J, Ctrl + U
-      if (
-        event.keyCode === 123 ||
-        ctrlShiftKey(e, 'I') ||
-        ctrlShiftKey(e, 'J') ||
-        ctrlShiftKey(e, 'C') ||
-        (e.ctrlKey && e.keyCode === 'U'.charCodeAt(0))
-      )
-        return false;
-    };
-  </script>
-  <script>
-      $('body').keydown(function(e) {
-        if(e.which==123){
-            e.preventDefault();
-        }
-        if(e.ctrlKey && e.shiftKey && e.which == 73){
-            e.preventDefault();
-        }
-        if(e.ctrlKey && e.shiftKey && e.which == 75){
-            e.preventDefault();
-        }
-        if(e.ctrlKey && e.shiftKey && e.which == 67){
-            e.preventDefault();
-        }
-        if(e.ctrlKey && e.shiftKey && e.which == 74){
-            e.preventDefault();
-        }
-    });
-!function() {
-        function detectDevTool(allow) {
-            if(isNaN(+allow)) allow = 100;
-            var start = +new Date();
-            debugger;
-            var end = +new Date();
-            if(isNaN(start) || isNaN(end) || end - start > allow) {
-                console.log('DEVTOOLS detected '+allow);
-            }
-        }
-        if(window.attachEvent) {
-            if (document.readyState === "complete" || document.readyState === "interactive") {
-                detectDevTool();
-              window.attachEvent('onresize', detectDevTool);
-              window.attachEvent('onmousemove', detectDevTool);
-              window.attachEvent('onfocus', detectDevTool);
-              window.attachEvent('onblur', detectDevTool);
-            } else {
-                setTimeout(argument.callee, 0);
-            }
-        } else {
-            window.addEventListener('load', detectDevTool);
-            window.addEventListener('resize', detectDevTool);
-            window.addEventListener('mousemove', detectDevTool);
-            window.addEventListener('focus', detectDevTool);
-            window.addEventListener('blur', detectDevTool);
-        }
-    }();
-  </script>-->
+     
 
 </body>
 
