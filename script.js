@@ -11,7 +11,7 @@ function startTime() {
     min = checkTime(min);
     sec = checkTime(sec);
     document.getElementById("clock").innerHTML = hr + ":" + min + ":" + sec + " " + ap;
-    document.getElementById("date").innerHTML = today;
+    document.getElementById("today").innerHTML = today;
     var time = setTimeout(function(){ startTime() }, 500);
 }
 function checkTime(i) {

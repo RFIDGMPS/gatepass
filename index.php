@@ -58,7 +58,7 @@
                     <div id="clockdate" style="border: 1px solid #f5af5b;background-color: #f5af5b">
                         <div class="clockdate-wrapper">
                             <div id="clock" style="font-weight: bold; color: #fff;font-size: 60px"></div>
-                            <div id="date" style="color: #fff"><i class="fas fa-calendar"></i> June 27, 2024</div>
+                            <div id="date" style="color: #fff"><i class="fas fa-calendar"></i><span class="today"></span></div>
                         </div>
                     </div>
                 </center><br><Br>
