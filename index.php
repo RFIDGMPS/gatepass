@@ -12,7 +12,7 @@
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <link rel="shortcut icon" href="assets/img/brand/favicon-bar.svg" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>RFID ATTENDANCE</title>
+    <title>2RFID ATTENDANCE</title>
 
         <style type="text/css">
  
