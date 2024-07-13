@@ -31,5 +31,4 @@ function checkTime(i) {
     return i;
 }
 
-// Call startTime() when the page loads
-startTime();
+
