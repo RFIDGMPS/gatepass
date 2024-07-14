@@ -132,58 +132,59 @@ include 'header.php';
   <div class="row" >
     <div  style="padding:30px 30px 30px 30px;margin: 10px 10px 10px 10px;width:38%;" class="bg-light rounded">
      
-    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+    <div
+id="myChart" style="width:100%; max-width:600px; height:500px;">
+</div>
 
 <script>
-var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-var yValues = [55, 49, 44, 24, 15];
-var barColors = ["red", "green","blue","orange","brown"];
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
 
-new Chart("myChart", {
-  type: "bar",
-  data: {
-    labels: xValues,
-    datasets: [{
-      backgroundColor: barColors,
-      data: yValues
-    }]
-  },
-  options: {
-    legend: {display: false},
-    title: {
-      display: true,
-      text: "World Wine Production 2018"
-    }
-  }
-});
+function drawChart() {
+const data = google.visualization.arrayToDataTable([
+  ['Contry', 'Mhl'],
+  ['Italy',54.8],
+  ['France',48.6],
+  ['Spain',44.4],
+  ['USA',23.9],
+  ['Argentina',14.5]
+]);
+
+const options = {
+  title:'World Wide Wine Production'
+};
+
+const chart = new google.visualization.PieChart(document.getElementById('myChart'));
+  chart.draw(data, options);
+}
 </script>
     </div>
     <div  style="padding:30px 30px 30px 30px;margin: 10px 10px 10px 10px;width:38%;" class="bg-light rounded">
-    <canvas id="myChart1" style="width:100%;max-width:600px"></canvas>
+    <div id="myChart" style="width:100%; max-width:600px; height:500px;"></div>
 
 <script>
-const xValues = [50,60,70,80,90,100,110,120,130,140,150];
-const yValues = [7,8,8,9,9,9,10,11,14,14,15];
+google.charts.load('current',{packages:['corechart']});
+google.charts.setOnLoadCallback(drawChart);
 
-new Chart("myChart1", {
-  type: "line",
-  data: {
-    labels: xValues,
-    datasets: [{
-      fill: false,
-      lineTension: 0,
-      backgroundColor: "rgba(0,0,255,1.0)",
-      borderColor: "rgba(0,0,255,0.1)",
-      data: yValues
-    }]
-  },
-  options: {
-    legend: {display: false},
-    scales: {
-      yAxes: [{ticks: {min: 6, max:16}}],
-    }
-  }
-});
+function drawChart() {
+// Set Data
+const data = google.visualization.arrayToDataTable([
+  ['Price', 'Size'],
+  [50,7],[60,8],[70,8],[80,9],[90,9],
+  [100,9],[110,10],[120,11],
+  [130,14],[140,14],[150,15]
+]);
+// Set Options
+const options = {
+  title: 'House Prices vs. Size',
+  hAxis: {title: 'Square Meters'},
+  vAxis: {title: 'Price in Millions'},
+  legend: 'none'
+};
+// Draw
+const chart = new google.visualization.LineChart(document.getElementById('myChart'));
+chart.draw(data, options);
+}
 </script>
     </div>
     <div  style="padding:30px 30px 30px 30px;margin: 10px 10px 10px 10px;width:20%;" class="bg-light rounded">
