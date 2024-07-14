@@ -130,30 +130,34 @@ include 'header.php';
                 <br>
                 <div  style="margin:0;padding:0;">
   <div class="row" >
-    <div  style="padding:20px 20px 20px 20px;margin: 10px 10px 10px 10px;width:65%;" class="bg-light rounded">
-    <div id="myChart1" style="width:100%; max-width:600px; height:500px;"></div>
+  <div style="padding:20px; margin:10px; width:100%;" class="bg-light rounded">
+    <div id="myChart1" style="width:100%; height:500px;"></div>
+  </div>
+</div>
 
 <script>
-google.charts.load('current',{packages:['corechart']});
+google.charts.load('current', {packages:['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
-// Set Data
-const data = google.visualization.arrayToDataTable([
-  ['Entrants', 'Day'],
-  [1,50],[2,110],[3,33],[4,45],[5,56],
-  [6,62],[7,73]
-]);
-// Set Options
-const options = {
-  title: 'Weekly Entrants',
-  hAxis: {title: 'Days'},
-  vAxis: {title: 'Number of Entrants'},
-  legend: 'none'
-};
-// Draw
-const chart = new google.visualization.LineChart(document.getElementById('myChart1'));
-chart.draw(data, options);
+  // Set Data
+  const data = google.visualization.arrayToDataTable([
+    ['Entrants', 'Day'],
+    [1, 50], [2, 110], [3, 33], [4, 45], [5, 56],
+    [6, 62], [7, 73]
+  ]);
+  
+  // Set Options
+  const options = {
+    title: 'Weekly Entrants',
+    hAxis: {title: 'Days'},
+    vAxis: {title: 'Number of Entrants'},
+    legend: 'none'
+  };
+  
+  // Draw
+  const chart = new google.visualization.LineChart(document.getElementById('myChart1'));
+  chart.draw(data, options);
 }
 </script>
    
