@@ -169,10 +169,9 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
 const data = google.visualization.arrayToDataTable([
-    ['Contry', 'Mhl'],
-  ['Italy',54.8],
-  ['France',48.6],
-  ['Spain',44.4],
+    ['Arrived', 'Not Arrived'],
+  ['Arrived',38],
+  ['Not Arrived',62],
  
 ]);
 
