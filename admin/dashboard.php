@@ -142,16 +142,12 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
 const data = google.visualization.arrayToDataTable([
-  ['Contry', 'Mhl'],
-  ['Italy',54.8],
-  ['France',48.6],
-  ['Spain',44.4],
-  ['USA',23.9],
-  ['Argentina',14.5]
+  ['Arrived',38],
+  ['Not Arrived',62]
 ]);
 
 const options = {
-  title:'World Wide Wine Production'
+  title:'Entrants Status'
 };
 
 const chart = new google.visualization.PieChart(document.getElementById('myChart'));
@@ -169,16 +165,15 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
 // Set Data
 const data = google.visualization.arrayToDataTable([
-  ['Price', 'Size'],
-  [50,7],[60,8],[70,8],[80,9],[90,9],
-  [100,9],[110,10],[120,11],
-  [130,14],[140,14],[150,15]
+  ['Entrants', 'Day'],
+  [50,1],[60,2],[70,3],[80,4],[90,5],
+  [100,6],[110,7]
 ]);
 // Set Options
 const options = {
-  title: 'House Prices vs. Size',
-  hAxis: {title: 'Square Meters'},
-  vAxis: {title: 'Price in Millions'},
+  title: 'Weekly Entrants',
+  hAxis: {title: 'Days'},
+  vAxis: {title: 'Number of Entrants'},
   legend: 'none'
 };
 // Draw
