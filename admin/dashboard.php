@@ -130,7 +130,7 @@ include 'header.php';
                 <br>
                 <div  style="margin:0;padding:0;">
   <div class="row" >
-    <div  style="padding:30px 30px 30px 30px;margin: 10px 10px 10px 10px;width:38%;" class="bg-light rounded">
+    <div  style="padding:30px 30px 30px 30px;margin: 10px 10px 10px 10px;width:31%;" class="bg-light rounded">
      
     <div
 id="myChart" style="width:100%; max-width:600px; height:500px;">
@@ -159,7 +159,7 @@ const chart = new google.visualization.PieChart(document.getElementById('myChart
 }
 </script>
     </div>
-    <div  style="padding:30px 30px 30px 30px;margin: 10px 10px 10px 10px;width:38%;" class="bg-light rounded">
+    <div  style="padding:30px 30px 30px 30px;margin: 10px 10px 10px 10px;width:31%;" class="bg-light rounded">
     <div id="myChart1" style="width:100%; max-width:600px; height:500px;"></div>
 
 <script>
@@ -187,7 +187,7 @@ chart.draw(data, options);
 }
 </script>
     </div>
-    <div  style="padding:30px 30px 30px 30px;margin: 10px 10px 10px 10px;width:20%;" class="bg-light rounded">
+    <div  style="padding:30px 30px 30px 30px;margin: 10px 10px 10px 10px;width:31%;" class="bg-light rounded">
     <i class="fas fa-mail"> Messages</i> 
 
     </div>
