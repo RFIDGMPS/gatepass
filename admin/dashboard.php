@@ -130,32 +130,7 @@ include 'header.php';
                 <br>
                 <div  style="margin:0;padding:0;">
   <div class="row" >
-    <div  style="padding:20px 20px 20px 20px;margin: 10px 10px 10px 10px;width:70%;" class="bg-light rounded">
-     
-    <div
-id="myChart" style="width:100%; max-width:600px; height:500px;">
-</div>
-
-<script>
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
-
-function drawChart() {
-const data = google.visualization.arrayToDataTable([
-  ['Arrived',38],
-  ['Not Arrived',62]
-]);
-
-const options = {
-  title:'Entrants Status'
-};
-
-const chart = new google.visualization.PieChart(document.getElementById('myChart'));
-  chart.draw(data, options);
-}
-</script>
-    </div>
-    <div  style="padding:20px 20px 20px 20px;margin: 10px 10px 10px 10px;width:25%;" class="bg-light rounded">
+    <div  style="padding:20px 20px 20px 20px;margin: 10px 10px 10px 10px;width:65%;" class="bg-light rounded">
     <div id="myChart1" style="width:100%; max-width:600px; height:500px;"></div>
 
 <script>
@@ -179,6 +154,31 @@ const options = {
 // Draw
 const chart = new google.visualization.LineChart(document.getElementById('myChart1'));
 chart.draw(data, options);
+}
+</script>
+   
+    </div>
+    <div  style="padding:20px 20px 20px 20px;margin: 10px 10px 10px 10px;width:30%;" class="bg-light rounded">
+    <div
+id="myChart" style="width:100%; max-width:600px; height:500px;">
+</div>
+
+<script>
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+const data = google.visualization.arrayToDataTable([
+  ['Arrived',38],
+  ['Not Arrived',62]
+]);
+
+const options = {
+  title:'Entrants Status'
+};
+
+const chart = new google.visualization.PieChart(document.getElementById('myChart'));
+  chart.draw(data, options);
 }
 </script>
     </div>
