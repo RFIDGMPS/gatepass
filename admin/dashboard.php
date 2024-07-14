@@ -160,7 +160,7 @@ include 'header.php';
             </script>
         </div>
         
-        <div style="padding:20px; margin:10px;width:30%;" class="bg-light rounded">
+        <div style="padding:20px; margin:10px;width:28%;" class="bg-light rounded">
             <div id="myChart" style="width:100%; height:300px;"></div>
 
             <script>
