@@ -132,8 +132,6 @@ include 'header.php';
   <div class="row" >
   <div style="padding:20px; margin:10px; width:80%;" class="bg-light rounded">
     <div id="myChart1" style="width:100%; height:500px;"></div>
-  </div>
-</div>
 
 <script>
 google.charts.load('current', {packages:['corechart']});
