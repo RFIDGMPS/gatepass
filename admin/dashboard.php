@@ -160,7 +160,7 @@ const chart = new google.visualization.PieChart(document.getElementById('myChart
 </script>
     </div>
     <div  style="padding:30px 30px 30px 30px;margin: 10px 10px 10px 10px;width:38%;" class="bg-light rounded">
-    <div id="myChart" style="width:100%; max-width:600px; height:500px;"></div>
+    <div id="myChart1" style="width:100%; max-width:600px; height:500px;"></div>
 
 <script>
 google.charts.load('current',{packages:['corechart']});
@@ -182,7 +182,7 @@ const options = {
   legend: 'none'
 };
 // Draw
-const chart = new google.visualization.LineChart(document.getElementById('myChart'));
+const chart = new google.visualization.LineChart(document.getElementById('myChart1'));
 chart.draw(data, options);
 }
 </script>
