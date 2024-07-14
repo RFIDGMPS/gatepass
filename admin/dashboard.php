@@ -130,7 +130,7 @@ include 'header.php';
                 <br>
                 <div  style="margin:0;padding:0;">
   <div class="row" >
-  <div style="padding:20px; margin:10px; width:65%;" class="bg-light rounded">
+  <div style="padding:20px; margin:10px; width:40%;" class="bg-light rounded">
     <div id="myChart1" style="width:100%; height:500px;"></div>
 
 <script>
