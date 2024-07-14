@@ -166,8 +166,8 @@ function drawChart() {
 // Set Data
 const data = google.visualization.arrayToDataTable([
   ['Entrants', 'Day'],
-  [50,1],[60,2],[70,3],[80,4],[90,5],
-  [100,6],[110,7]
+  [1,50],[2,110],[3,33],[4,45],[5,56],
+  [6,62],[7,73]
 ]);
 // Set Options
 const options = {
