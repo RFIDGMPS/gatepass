@@ -164,10 +164,10 @@ $strangers = getCount($db, "SELECT COUNT(*) AS count FROM personell_logs WHERE d
                 <br>
                 <div style="margin:0;padding:0;">
     <div class="row">
-    <div style="padding:20px; margin:10px; width:45%;" class="bg-light rounded">
+    <div style="padding:20px; margin:10px; width:50%;" class="bg-light rounded">
     <div id="myChart1" style="width:100%; height:300px;"></div>
     </div>
-<div style="padding:20px; margin:10px;width:26%;" class="bg-light rounded">
+<div style="padding:20px; margin:10px;width:50%;" class="bg-light rounded">
     <div id="myChart" style="width:100%; height:300px;"></div>
 
     <script>
@@ -207,35 +207,7 @@ $strangers = getCount($db, "SELECT COUNT(*) AS count FROM personell_logs WHERE d
 
 
         
-        <div style="padding:20px; margin:10px;width:25%;" class="bg-light rounded">
-        <div style="background-color:white;padding:10px;">
-            <p style="color:black;"><b>Visitors</b></p>
-            <div class="table-responsive" style="height:250px;">
-                    <table class="table table-border" id="myDataTable">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Photo</th>
-                                            <th scope="col">Name</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php include '../connection.php'; 
-                                  $today = date('Y-m-d');?>
-                                 <?php $results = mysqli_query($db, "SELECT * FROM visitor_logs WHERE date_logged='$today'"); ?>
-                                 <?php while ($row = mysqli_fetch_array($results)) { ?>
-                                        <tr>
-                                            <td>
-                                                <center><img src="uploads/<?php echo $row['photo']; ?>" width="50px" height="50px"></center>
-                                            </td>
-                                            <td><?php echo $row['name']; ?></td>
-                                        </tr>
-                                        <?php } ?>
-                                      
-                                    </tbody>
-                                </table>
-                    </div>
-        </div>
-    </div>
+        
 </div>
                                  </div>
 
