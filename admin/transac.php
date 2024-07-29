@@ -141,7 +141,7 @@ switch ($_GET['action'])
             VALUES ('','$role')";
             mysqli_query($db, $query) or die('Error in updating Database');
             echo '<script type="text/javascript">
-            alert("Successfully added. '.$role.'");
+            alert("Successfully added.");
             window.location = "role.php";
     </script>';
             break;
