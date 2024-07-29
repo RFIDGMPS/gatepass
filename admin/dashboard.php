@@ -164,10 +164,10 @@ $strangers = getCount($db, "SELECT COUNT(*) AS count FROM personell_logs WHERE d
                 <br>
                 <div style="margin:0;padding:0;">
     <div class="row">
-    <div style="padding:20px; margin:10px; width:50%;" class="bg-light rounded">
+    <div style="padding:20px; margin:10px; width:49%;" class="bg-light rounded">
     <div id="myChart1" style="width:100%; height:300px;"></div>
     </div>
-<div style="padding:20px; margin:10px;width:50%;" class="bg-light rounded">
+<div style="padding:20px; margin:10px;width:49%;" class="bg-light rounded">
     <div id="myChart" style="width:100%; height:300px;"></div>
 
     <script>
