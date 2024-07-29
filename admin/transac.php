@@ -137,7 +137,7 @@ switch ($_GET['action'])
         case 'add_role':
             $role = $_POST['role1'];
           
-            $query = "INSERT INTO role (id,role_)
+            $query = "INSERT INTO role (id,role)
             VALUES ('','$role')";
             mysqli_query($db, $query) or die('Error in updating Database');
             echo '<script type="text/javascript">
