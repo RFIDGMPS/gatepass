@@ -135,7 +135,7 @@ switch ($_GET['action'])
         
         break;
         case 'add_role':
-            $role = $_POST['role'];
+            $role = $_POST['role1'];
           
             $query = "INSERT INTO role (id,role)
             VALUES ('','$role')";
