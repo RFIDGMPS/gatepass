@@ -1,5 +1,6 @@
-<!DOCTYPE html>
 
+
+<!DOCTYPE html>
 
 
 
@@ -8,7 +9,71 @@
 <?php
 include 'header.php';
    ?>
+<head> 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {packages: ['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
 
+    function drawChart() {
+        // Use the PHP generated data
+        const weeklyData = <?php
+            include '../connection.php';
+
+            // Function to get count of logs for each day
+            function getEntrantsCount($db, $tableName) {
+                $data = array_fill(0, 7, 0); // Initialize array with 0 values for each day of the week
+                for ($i = 0; $i < 7; $i++) {
+                    $date = date('Y-m-d', strtotime("last Monday +$i days"));
+                    $sql = "SELECT COUNT(*) as count FROM $tableName WHERE date_logged = '$date'";
+                    $result = $db->query($sql);
+                    if ($result && $row = $result->fetch_assoc()) {
+                        $data[$i] = $row['count'];
+                    }
+                }
+                return $data;
+            }
+
+            // Fetch data from personell_logs and visitor_logs
+            $personellData = getEntrantsCount($db, 'personell_logs');
+            $visitorData = getEntrantsCount($db, 'visitor_logs');
+
+            // Sum the entrants from both tables for each day
+            $totalData = [];
+            for ($i = 0; $i < 7; $i++) {
+                $totalData[$i] = $personellData[$i] + $visitorData[$i];
+            }
+
+            // Close connection
+            $db->close();
+
+            echo json_encode($totalData);
+        ?>;
+        
+        const daysOfWeek = ['1', '2', '3', '4', '5', '6', '7'];
+        const dataArray = [['Day', 'Entrants']];
+        for (let i = 0; i < weeklyData.length; i++) {
+            dataArray.push([daysOfWeek[i], weeklyData[i]]);
+        }
+        const data = google.visualization.arrayToDataTable(dataArray);
+
+        // Set Options
+        const options = {
+            title: 'Weekly Entrants',
+            hAxis: {title: 'Day'},
+            vAxis: {title: 'Number of Entrants'},
+            legend: 'none'
+        };
+
+        // Draw
+        const chart = new google.visualization.LineChart(document.getElementById('myChart1'));
+        chart.draw(data, options);
+    }
+</script>
+
+
+
+</head>
 <body>
     <div class="container-fluid position-relative bg-white d-flex p-0">
         <!-- Spinner Start
@@ -26,67 +91,36 @@ include 'header.php';
 
         <!-- Content Start -->
         <div class="content">
-            <!-- Navbar Start -->
-            <nav class="navbar navbar-expand  navbar-light sticky-top px-4 py-0" style="background-color: #fcaf42">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-warning mb-0"></h2>
-                </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-
-                <div class="navbar-nav align-items-center ms-auto">
-                    <!--      <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                       
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all message</a>
-                        </div>
-                    </div> -->
-                    <!--  <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notification</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                 
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all notifications</a>
-                        </div>
-                    </div> -->
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/2601828.png" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">admin@gmail.com</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="logout" class="dropdown-item" style="border: 1px solid #b0a8a7"><i class="bi bi-arrow-right-circle"></i> Log Out</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            <!-- Navbar End -->
+        <?php
+		include 'navbar.php';
+		?>
 
             <!-- Sale & Revenue Start -->
+            <?php
+include '../connection.php';
+$today = date('Y-m-d');
+
+function getCount($db, $query) {
+    $result = $db->query($query);
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row["count"];
+    }
+    return 0;
+}
+
+$entrants_today = getCount($db, "
+    SELECT COUNT(*) AS count FROM (
+        SELECT id FROM personell_logs WHERE date_logged = '$today'
+        UNION ALL
+        SELECT id FROM visitor_logs WHERE date_logged = '$today'
+    ) AS combined_logs
+");
+$visitor = getCount($db, "SELECT COUNT(*) AS count FROM visitor_logs WHERE date_logged = '$today'");
+$blocked = getCount($db, "SELECT COUNT(*) AS count FROM personell WHERE status = 'Block'");
+$strangers = getCount($db, "SELECT COUNT(*) AS count FROM personell_logs WHERE date_logged = '$today' AND role='Stranger'");
+?>
+
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-6 col-xl-3">
@@ -94,7 +128,7 @@ include 'header.php';
                             <i class="fa fa-users fa-3x text-warning"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Entrants</p>
-                                <h6 class="mb-0">3</h6>
+                                <h6 class="mb-0"><?php echo $entrants_today; ?></h6>
                             </div>
                         </div>
                     </div>
@@ -104,7 +138,7 @@ include 'header.php';
                            
                             <div class="ms-3">
                                 <p class="mb-2">Visitors</p>
-                                <h6 class="mb-0">6</h6>
+                                <h6 class="mb-0"><?php echo $visitor; ?></h6>
                             </div>
                         </div>
                     </div>
@@ -113,7 +147,7 @@ include 'header.php';
                             <i class="fa fa-ban fa-3x text-warning"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Blocked</p>
-                                <h6 class="mb-0">50</h6>
+                                <h6 class="mb-0"><?php echo $blocked; ?></h6>
                             </div>
                         </div>
                     </div>
@@ -122,7 +156,7 @@ include 'header.php';
                             <i class="fa fa-user-secret fa-3x text-warning"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Strangers</p>
-                                <h6 class="mb-0">16</h6>
+                                <h6 class="mb-0"><?php echo $strangers; ?></h6>
                             </div>
                         </div>
                     </div>
@@ -130,65 +164,80 @@ include 'header.php';
                 <br>
                 <div style="margin:0;padding:0;">
     <div class="row">
-        <div style="padding:20px; margin:10px; width:40%;" class="bg-light rounded">
-            <div id="myChart1" style="width:100%; height:300px;"></div>
+    <div style="padding:20px; margin:10px; width:45%;" class="bg-light rounded">
+    <div id="myChart1" style="width:100%; height:300px;"></div>
+    </div>
+<div style="padding:20px; margin:10px;width:26%;" class="bg-light rounded">
+    <div id="myChart" style="width:100%; height:300px;"></div>
 
-            <script>
-            google.charts.load('current', {packages:['corechart']});
-            google.charts.setOnLoadCallback(drawChart1);
+    <script>
+    google.charts.load('current', {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart2);
 
-            function drawChart1() {
-                // Set Data
-                const data = google.visualization.arrayToDataTable([
-                    ['Entrants', 'Day'],
-                    [1, 50], [2, 110], [3, 33], [4, 45], [5, 56],
-                    [6, 62], [7, 73]
+    function drawChart2() {
+        // Fetch data from the PHP script
+        fetch('status.php')
+            .then(response => response.json())
+            .then(data => {
+                // Create DataTable
+                const chartData = google.visualization.arrayToDataTable([
+                    ['Status', 'Percentage'],
+                    ['Arrived', data.arrived],
+                    ['Not Arrived', data.not_arrived]
                 ]);
 
                 // Set Options
                 const options = {
-                    title: 'Weekly Entrants',
-                    hAxis: {title: 'Days'},
-                    vAxis: {title: 'Number of Entrants'},
-                    legend: 'none'
+                    title: 'Entrants Status',
+                    pieSliceText: 'percentage', // Show percentage on slices
+                    slices: {
+                        0: { offset: 0.1 }, // Slightly offset the 'Arrived' slice
+                    }
                 };
 
-                // Draw
-                const chart = new google.visualization.LineChart(document.getElementById('myChart1'));
-                chart.draw(data, options);
-            }
-            </script>
-        </div>
-        
-        <div style="padding:20px; margin:10px;width:28%;" class="bg-light rounded">
-            <div id="myChart" style="width:100%; height:300px;"></div>
-
-            <script>
-            google.charts.load('current', {packages:['corechart']});
-            google.charts.setOnLoadCallback(drawChart2);
-
-            function drawChart2() {
-                const data = google.visualization.arrayToDataTable([
-                    ['Arrived', 'Not Arrived'],
-                    ['Arrived', 38],
-                    ['Not Arrived', 62]
-                ]);
-
-                const options = {
-                    title: 'Entrants Status'
-                };
-
+                // Draw Chart
                 const chart = new google.visualization.PieChart(document.getElementById('myChart'));
-                chart.draw(data, options);
-            }
-            </script>
-        </div>
+                chart.draw(chartData, options);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+    </script>
+</div>
+
+
+
         
-        <div style="padding:20px; margin:10px;width:30%; height:300px;" class="bg-light rounded">
-            <p>Visitors</p>
+        <div style="padding:20px; margin:10px;width:25%;" class="bg-light rounded">
+        <div style="background-color:white;padding:10px;">
+            <p style="color:black;"><b>Visitors</b></p>
+            <div class="table-responsive" style="height:250px;">
+                    <table class="table table-border" id="myDataTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Photo</th>
+                                            <th scope="col">Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php include '../connection.php'; 
+                                  $today = date('Y-m-d');?>
+                                 <?php $results = mysqli_query($db, "SELECT * FROM visitor_logs WHERE date_logged='$today'"); ?>
+                                 <?php while ($row = mysqli_fetch_array($results)) { ?>
+                                        <tr>
+                                            <td>
+                                                <center><img src="uploads/<?php echo $row['photo']; ?>" width="50px" height="50px"></center>
+                                            </td>
+                                            <td><?php echo $row['name']; ?></td>
+                                        </tr>
+                                        <?php } ?>
+                                      
+                                    </tbody>
+                                </table>
+                    </div>
         </div>
     </div>
 </div>
+                                 </div>
 
 
 
@@ -219,7 +268,18 @@ include 'header.php';
                                     </thead>
                                     <tbody>
                                     <?php include '../connection.php'; ?>
-                                 <?php $results = mysqli_query($db, "SELECT * FROM entrance"); ?>
+                                 <?php  $results = mysqli_query($db, "
+            SELECT id, rfid_number, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm, 'personell_logs' AS source, 
+            GREATEST(STR_TO_DATE(time_in_am, '%H:%i:%s'), STR_TO_DATE(time_out_am, '%H:%i:%s'), STR_TO_DATE(time_in_pm, '%H:%i:%s'), STR_TO_DATE(time_out_pm, '%H:%i:%s')) AS latest_time
+            FROM personell_logs
+            WHERE DATE(date_logged) = CURDATE()
+            UNION ALL
+            SELECT id, rfid_number, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm, 'visitor_logs' AS source, 
+            GREATEST(STR_TO_DATE(time_in_am, '%H:%i:%s'), STR_TO_DATE(time_out_am, '%H:%i:%s'), STR_TO_DATE(time_in_pm, '%H:%i:%s'), STR_TO_DATE(time_out_pm, '%H:%i:%s')) AS latest_time
+            FROM visitor_logs
+            WHERE DATE(date_logged) = CURDATE()
+            ORDER BY latest_time DESC, source DESC
+        ");  ?>
                                  <?php while ($row = mysqli_fetch_array($results)) { ?>
                                         <tr>
                                             <td>

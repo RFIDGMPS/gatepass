@@ -1,4 +1,25 @@
 
+<?php
+include 'connection.php';
+$logo1 = "";
+    $name = "";
+    $address = "";
+    $logo2 = "";
+// Fetch data from the about table
+$sql = "SELECT * FROM about LIMIT 1";
+$result = $db->query($sql);
+
+if ($result->num_rows > 0) {
+    // Output data of each row
+    $row = $result->fetch_assoc();
+    $logo1 = $row['logo1'];
+    $name = $row['name'];
+    $address = $row['address'];
+    $logo2 = $row['logo2'];
+} 
+?>
+
+
 <!doctype html>
 <html lang="en">
 
@@ -14,43 +35,75 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="script.js"></script>
     <title>ADMIN</title>
-
+    <style>
+        .preview-1 {
+            width: 140px!important;
+            height: 130px!important;
+            position: absolute;
+            border: 1px solid gray;
+            top: 15%;
+            cursor: pointer; /* Add cursor pointer to indicate clickability */
+        }
+    </style>
         <style type="text/css">
- 
+
+.column {
+    flex: 1;
+    text-align: center;
+}
+
+.column.wide {
+    flex: 2; /* Makes this column twice as wide as the others */
+}
+
+.column:first-child img,
+.column:last-child img {
+    max-width: 100%;
+    height: auto;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.text .row {
+    line-height: 1.5;
+    margin-bottom: 5px;
+    font-size:60px;
+}
+
+
+
     </style>
 </head>
 
 <body onload="startTime()">
 
-        <nav class="navbar navbar-expand-lg navbar-light py-2" style="height: 1%;border-bottom: 1px solid #FBC257;margin-bottom: 5%;padding: 15px!important;">
-
-        <div class="container">
-               <a class="navbar-brand" href="index">
-                <img src="assets/img/nav_brand/logo.png" alt="brand" style="height: 90px" id="imgs">
-                <span></span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                   
-                    </li>
-                        <li class="nav-item" style="border: 1px solid #ffc107;;background-color:#ffc107;border-radius: 7% ;max-width: 100px!important;margin-right: 2%">
-                     <a class="nav-link" href="attendance">&nbsp;&nbsp;&nbsp;&nbsp;<font color=" #FFF">VISITOR</font></a>
-
-                    </li>
-                      <li class="nav-item" style="border: 1px solid #ffc107;;background-color:#e35c30;border-radius: 7% ;max-width: 100px!important;">
-                     <a class="nav-link" href="employee-login">&nbsp;&nbsp;&nbsp;&nbsp;<font color=" #FFF">REPORT</font></a>
-
-                    </li>
-    
-                </ul>
-
-            </div>
+<nav class="navbar navbar-expand-lg navbar-light py-2" style="height: 1%; border-bottom: 1px solid #FBC257; margin-bottom: 5%; padding: 0px 300px 0px 300px; display: flex; justify-content: center; align-items: center;">
+    <div style="text-align: left; margin-right: 10px;">
+        <img src="<?php echo 'admin/uploads/'.$logo1; ?>" alt="Image 1" style="height: 100px;">
+    </div>
+    <div class="column wide">
+        <div class="text">
+            <h1><div class="row"><b><?php echo $name; ?></b></div></h1>
+            <h4><div><i><?php echo $address; ?></i></div></h4>
         </div>
-    </nav>
+    </div>
+    <div style="text-align: right; margin-left: 10px;">
+        <img src="<?php echo 'admin/uploads/'.$logo2; ?>" alt="Image 2" style="height: 100px;">
+    </div>
+</nav>
 
+
+
+
+
+
+    
     <!-- Section -->
     <section class="hero" style="margin-top: 0%">
         <div class="container">
@@ -77,23 +130,26 @@
 
     
 <?php
+$rfid_number='';
 // Check if form is submitted
 if(isset($_POST['submit'])) {
     // Retrieve RFID number from form
     $rfid_number = $_POST['rfid_number'];
-    $time = date('H:i'); // Current time
+    date_default_timezone_set('Asia/Manila'); // Set your timezone
+    $time = date('H:i:s'); // Current time
+    $date_logged = date('Y-m-d'); // Current date as date_logged
     // Include database connection
     include 'connection.php';
 
     // Query to check if RFID number exists in users table
-    $query = "SELECT * FROM users WHERE rfid_number = '$rfid_number'";
+    $query = "SELECT * FROM personell WHERE rfid_number = '$rfid_number'";
     $result = mysqli_query($db, $query);
     $user = mysqli_fetch_assoc($result);
-    $id = $user['id'];
+    //$id = $user['id'];
     // Check if RFID number exists
     if(mysqli_num_rows($result) > 0) {
         // RFID exists, fetch user data
-        $query1 = "SELECT * FROM entrance WHERE rfid_number = '$rfid_number'";
+        $query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
          $result1 = mysqli_query($db, $query1);
 
          if(mysqli_num_rows($result1) > 0) {
@@ -109,7 +165,7 @@ if(isset($_POST['submit'])) {
     
             // Build query based on available field to update
             if($update_field) {
-                $insert_query = "UPDATE entrance SET $update_field = '$time' WHERE id = '$id1'";
+                $insert_query = "UPDATE personell_logs SET $update_field = '$time' WHERE id = '$id1'";
                  // Execute query
             if(mysqli_query($db, $insert_query)) {
                echo "User information updated successfully.";
@@ -127,7 +183,7 @@ if(isset($_POST['submit'])) {
             
             $full_name = $user['first_name'] . ' ' . $user['last_name'];
             $photo_name = $user['photo']; // Assuming 'photo' is the column storing photo file name
-            $date_logged = date('Y-m-d'); // Current date as date_logged
+            
             $role = $user['role'];
             $department = $user['department'];
             $status = $user['status'];
@@ -138,7 +194,7 @@ if(isset($_POST['submit'])) {
             $update_field = null;
            
     // Insert query for entrance table
-    $insert_query = "INSERT INTO entrance (photo, role, full_name, rfid_number, time_in_am, date_logged, department, status) 
+    $insert_query = "INSERT INTO personell_logs (photo, role, full_name, rfid_number, time_in_am, date_logged, department, status) 
                     VALUES ('$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
      // Execute query
      if(mysqli_query($db, $insert_query)) {
@@ -150,10 +206,87 @@ if(isset($_POST['submit'])) {
 
 
     } else {
-        // RFID does not exist in the database
-        echo "RFID number $rfid_number does not exist in the database.";
-    }
 
+
+// Query to check if RFID number exists in users table
+$query = "SELECT * FROM visitor WHERE rfid_number = '$rfid_number'";
+$result = mysqli_query($db, $query);
+$user = mysqli_fetch_assoc($result);
+
+if(mysqli_num_rows($result) > 0) {
+  
+// RFID exists, fetch user data
+$query1 = "SELECT * FROM visitor_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
+$result1 = mysqli_query($db, $query1);
+
+if(mysqli_num_rows($result1) > 0) {
+
+   $user1 = mysqli_fetch_assoc($result1);
+$id1 = $user1['id'];
+   if($user1['time_out_am'] == '') {
+       $update_field = 'time_out_am';
+   } elseif($user1['time_in_pm'] == '') {
+       $update_field = 'time_in_pm';
+   } elseif($user1['time_out_pm'] == '') {
+       $update_field = 'time_out_pm';
+   }
+
+   // Build query based on available field to update
+   if($update_field) {
+       $insert_query = "UPDATE visitor_logs SET $update_field = '$time' WHERE id = '$id1'";
+        // Execute query
+   if(mysqli_query($db, $insert_query)) {
+      echo "User information updated successfully.";
+  } else {
+      echo "Error updating record: " . mysqli_error($db);
+  }
+   } else {
+       echo "All time slots are filled."; // Handle case where all slots are filled
+   }
+
+  
+
+} else {
+
+    echo '<script>$(document).ready(function() {
+        $("#visitorModal").modal("show");
+    });</script>';
+   
+}
+
+
+
+
+
+
+
+ 
+
+    
+
+
+} else {
+
+    
+
+
+
+
+        // Determine appropriate time field to update
+       
+        $update_field = null;
+       
+// Insert query for entrance table
+$insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in_am, date_logged) 
+                VALUES ('Stranger', '$rfid_number', '$time', '$date_logged')";
+ // Execute query
+ if(mysqli_query($db, $insert_query)) {
+   echo "Stranger";
+} else {
+   echo "Error updating record: " . mysqli_error($db);
+}
+    }
+    }
     // Close database connection
     mysqli_close($db);
 }
@@ -161,11 +294,24 @@ if(isset($_POST['submit'])) {
 
 <div id="rfidDisplay"></div>
 
-                          <center><img class="w-100" height="170px" alt="img"  src="assets/img/section//istockphoto-1184670010-612x612.jpg" id="img"></center>
-                    
+                          <center><img class="w-100 entrant" height="200px" alt="img"  src="assets/img/section//istockphoto-1184670010-612x612.jpg" id="img"></center>
+                          <script type="text/javascript">
+         $(document).ready(function() {
+         
+    	$getphoto =  $('.pic').attr('src');
+					$('.entrant').attr('src',$getphoto);
+                    $getname =  $('.entrant_name').html();
+                    $('.display_name').html($getname);  
+                    $gettime =  $('.time').html();
+                    $('.d_time').html($gettime);  
+         });
+		 
+		 </script>
                           <div class="card-body">
-                             <p id="fname"></p>
-                             <p id="lname"></p>
+                             <p class="display_name"></p>
+                             <div class="alert alert-success" role="alert">
+                             <i class="fa fa-clock"></i> Time in: <span class="d_time"> </span>
+                     </div>
                           </div>
                         
                       </p>      
@@ -180,53 +326,317 @@ if(isset($_POST['submit'])) {
                         Just tap the rfid card on the RFID Reader for it to time in and time out.
                      </div>
                        <div class="table-responsive">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th scope="col">Photo</th>
-                          <th scope="col">Role</th>
-                          <th scope="col">Full Name</th>
-                          <th scope="col">Time In (AM)</th>
-                          <th scope="col">Time Out (AM)</th>
-                          <th scope="col">Time In (PM)</th>
-                          <th scope="col">Time Out (PM)</th>
-                          <th scope="col">Date logged</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                          	 
+                       <table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Photo</th>
+            <th scope="col">Role</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Time In (AM)</th>
+            <th scope="col">Time Out (AM)</th>
+            <th scope="col">Time In (PM)</th>
+            <th scope="col">Time Out (PM)</th>
+          
+        </tr>
+    </thead>
+    <tbody>
+        <?php 
+        include 'connection.php'; 
 
-                      <?php include 'connection.php'; ?>
-                                 <?php $results = mysqli_query($db, "SELECT * FROM entrance"); ?>
-                                 <?php while ($row = mysqli_fetch_array($results)) { ?>
-                        <tr>
-                          <td><center><img src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" ></center></td>
-                          <td><?php echo $row['role']; ?></td>
-                          <td><?php echo $row['full_name']; ?></td>
-                         <td><?php echo $row['time_in_am']; ?></td>
-                          <td>
-                          <?php echo $row['time_out_am']; ?></td>
-                          <td><?php echo $row['time_in_pm']; ?></td>
-                          <td>
-                          <?php echo $row['time_out_pm']; ?></td>
-                          <td><?php echo $row['date_logged']; ?></td>
-                        </tr>
-                        <?php }?>
-                        
-                                               </tbody>
-                    </table>
+        // Combine and fetch data from both tables for the current date, ordering by the latest update
+        $results = mysqli_query($db, "
+            SELECT id, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm, 'personell_logs' AS source, 
+            GREATEST(STR_TO_DATE(time_in_am, '%H:%i:%s'), STR_TO_DATE(time_out_am, '%H:%i:%s'), STR_TO_DATE(time_in_pm, '%H:%i:%s'), STR_TO_DATE(time_out_pm, '%H:%i:%s')) AS latest_time
+            FROM personell_logs
+            WHERE DATE(date_logged) = CURDATE()
+            UNION ALL
+            SELECT id, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm, 'visitor_logs' AS source, 
+            GREATEST(STR_TO_DATE(time_in_am, '%H:%i:%s'), STR_TO_DATE(time_out_am, '%H:%i:%s'), STR_TO_DATE(time_in_pm, '%H:%i:%s'), STR_TO_DATE(time_out_pm, '%H:%i:%s')) AS latest_time
+            FROM visitor_logs
+            WHERE DATE(date_logged) = CURDATE()
+            ORDER BY latest_time DESC, source DESC
+        "); 
+
+        // Fetch and display the results
+        while ($row = mysqli_fetch_array($results)) { ?>
+            <tr>
+                <td><center><img class="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" ></center></td>
+                <td><?php echo $row['role']; ?></td>
+                <td class="entrant_name"><?php echo $row['full_name']; ?></td>
+                <td class="time"><?php echo $row['time_in_am']; ?></td>
+                <td><?php echo $row['time_out_am']; ?></td>
+                <td><?php echo $row['time_in_pm']; ?></td>
+                <td><?php echo $row['time_out_pm']; ?></td>
+            
+            </tr>
+        <?php } ?>
+    </tbody>
+</table>
+
                   </div>
               </div>
             </div>
         </div>
     </section>
+
+
+
+ <!-- Modal -->
+ <form role="form" method="post" action="admin/transac.php?action=add_visitor_log" enctype="multipart/form-data">
+               <div class="modal fade" id="visitorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <h5 class="modal-title" id="exampleModalLabel">
+                              <i class="bi bi-plus-circle"></i> Visitor E-Logbook
+                           </h5>
+                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="col-lg-11 mb-2 mt-1" id="mgs-emp" style="margin-left: 4%"></div>
+                        <div class="modal-body">
+                           <div class="row justify-content-md-center">
+                              <div id="msg-emp" style=""></div>
+                              <div class="col-sm-12 col-md-12 col-lg-10">
+                                 <div class="" style="border: 1PX solid #b3f0fc;padding: 1%;background-color: #f7cfa1;color: black;font-size: 1.2rem">PERSONAL INFORMATION</div>
+                                 <?php 
+        include 'connection.php'; 
+
+        // Combine and fetch data from both tables for the current date, ordering by the latest update
+        $results = mysqli_query($db, "SELECT * FROM visitor WHERE rfid_number = '$rfid_number'"); 
+     
+        // Fetch and display the results
+        while ($row = mysqli_fetch_array($results)) { ?>
+                                 <div class="row">
+                                    <div class="col-lg-3 col-md-6 col-sm-12" id="up_img">
+                                    <div class="file-uploader">
+                                         
+                                          <img id="captured" class="preview-1" src="assets/img/pngtree-vector-add-user-icon-png-image_780447.jpg" style="width: 140px!important;height: 130px!important;position: absolute;border: 1px solid gray;top: 15%" title="Upload Photo.." />
+                                          
+                                       </div>
+
+                                       <input type="hidden" id="capturedImage" name="capturedImage">
+                                    </div>
+        
+                                    <div class="col-lg-4 col-md-6 col-sm-12" id="lnamez">
+                                       <div class="form-group">
+                                          <label>VISITOR CODE:</label>
+                                          <input readonly value="<?php echo $row['v_code']; ?>" required type="text" class="form-control" name="v_code" id="v_code" autocomplete="off">
+                                          <span class="id-error"></span>
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-5 col-md-6 col-sm-12">
+                                       <div class="form-group">
+                                          <label>RFID NUMBER:</label>
+                                          <input readonly value="<?php echo $row['rfid_number']; ?>" required type="text" class="form-control" name="rfid_number" id="rfid_number" minlength="10" maxlength="10" autocomplete="off">
+                                          <span class="rfidno-error"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <?php }?>
+                                 <div class="row mb-3">
+                                    <div class="col-lg-3 col-md-6 col-sm-12" id="up_img">
+                                      
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12" id="lnamez">
+                                    <div class="form-group">
+                                          <label>NAME:</label>
+                                          <input required type="text" class="form-control" name="fullName" id="fullName" autocomplete="off">
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-5 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                          <label>SEX:</label>
+                                          <select readonly required class="form-control dept_ID" name="sex" id="sex_id" autocomplete="off">
+                                             <option value="">&larr; Select Section &rarr;</option>
+                                             <option value="Male">Male</option>
+                                             <option value="Female">Female</option>
+                                          </select>
+                                          <span class="sex-error"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="row mb-2">
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                          <label>CIVIL STATUS:</label>
+                                          <select readonly required class="form-control dept_ID" name="stat" id="stat_id" autocomplete="off">
+                                             <option value="">&larr; Select Status &rarr;</option>
+                                             <option value="Single">Single</option>
+                                             <option value="Married">Married</option>
+                                             <option value="Widowed">Widowed</option>
+                                          </select>
+                                          <span class="stat-error"></span>
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                          <label>DEPARTMENT:</label>
+                                          <select readonly required class="form-control dept_ID" name="department" id="dept_id" autocomplete="off">
+										  <option value="">&larr; Select Department &rarr;</option>
+<?php
+										  $sql = "SELECT * FROM department";
+$result = $db->query($sql);
+
+// Initialize an array to store department options
+$department_options = [];
+
+// Fetch and store department options
+while ($row = $result->fetch_assoc()) {
+    $department_id = $row['department_id'];
+    $department_name = $row['department_name'];
+    $department_options[] = "<option value='$department_id'>$department_name</option>";
+}?>
+                          <?php
+    // Output department options
+    foreach ($department_options as $option) {
+        echo $option;
+    }
+    ?>            
+
+                                          </select>
+                                          <span class="dprt-error"></span>
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                          <label>CONTACT NUMBER:</label>
+                                          <input required type="text" class="form-control" name="contact_number" id="contact_number" minlength="11" maxlength="11" autocomplete="off">
+                                       </div>
+                                    </div>
+                                 </div>
+                                
+                                 <div class="row">
+                                    <div class="col-lg-12 col-md-6 col-sm-12">
+                                       <div class="form-group">
+                                          <label>ADDRESS:</label>
+                                          <input required type="text" class="form-control" name="address" id="complete_address" autocomplete="off">
+                                          <span class="ca-error"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-lg-12 col-md-6 col-sm-12">
+                                       <div class="form-group">
+                                          <label>PURPOSE OF VISIT:</label>
+                                          <input style="height:100px;" required type="text" class="form-control" name="purpose" id="purpose" autocomplete="off">
+                                          <span class="ca-error"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                           <button type="submit" id="btn-emp" class="btn btn-outline-warning">Save</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </form>
+
+
+            <div class="modal fade" id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="cameraModalLabel" aria-hidden="true">
+                                                   <div class="modal-dialog" role="document">
+                                                      <div class="modal-content">
+                                                         <div class="modal-header">
+                                                            <h5 class="modal-title" id="cameraModalLabel">Capture Photo</h5>
+                                                            
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                  
+                                                               </button>
+                                                         </div>
+                                                          <div class="modal-body" id="my_camera">
+                  .
+                                                               </div>
+                                                            <div class="modal-footer">
+                                                           
+                                                                 <button onclick="saveSnap()" type="button" class="btn btn-primary" id="captureButton">Capture</button>
+                                                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                  </div>
+                                                                        </div>
+                                                    </div>
+                                    </div>
+
+                                    <div id="results" style="visibility:hidden;position:absolute;"></div>
+                                       <script>
+            $(document).ready(function() {
+            $('.preview-1').click(function() {
+                // Show the modal
+                $('#cameraModal').modal('show');
+
+            });
+
+           
+        });
+
+       
+    </script>
+                                    <script type="text/javascript" src="admin/assets/webcam.min.js"></script>
+<script>
+
+$(document).ready(function() {
+            // Initialize Webcam.js
+            Webcam.set({
+width:460,
+height:400,
+image_format: 'jpeg',
+jpeg_quality: 90
+});
+Webcam.attach('#my_camera');
+            });
+       
+
+   
+
+function saveSnap(){
+
+Webcam.snap(function(data_uri){
+
+   $('.preview-1').attr('src', data_uri); // Update preview image src
+   document.getElementById('capturedImage').value = data_uri;
+   $('#cameraModal').modal('hide');
+   
+});
+
+}
+
+
+</script>
+
+
   <!-- end Section -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
      
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="lib/chart/chart.min.js"></script>
+      <script src="lib/easing/easing.min.js"></script>
+      <script src="lib/waypoints/waypoints.min.js"></script>
+      <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+      <script src="lib/tempusdominus/js/moment.min.js"></script>
+      <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+      <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+      <!-- Template Javascript -->
+      <script src="js/main.js"></script>
+       <script type="text/javascript">
+            function readURL(input) {
+            	if (input.files && input.files[0]) {
+            		var reader = new FileReader();
+            		reader.onload = function(e) {
+            			var num = $(input).attr('class').split('-')[2];
+            			$('.file-uploader .preview-' + num).attr('src', e.target.result);
+            		}
+            		reader.readAsDataURL(input.files[0]);
+            	}
+            }
+            $("[class^=upload-field-]").change(function() {
+            	readURL(this);
+            });
+         </script>
+         
 </body>
 
 </html>

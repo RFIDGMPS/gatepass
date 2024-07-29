@@ -4,6 +4,37 @@
 <?php
 include 'header.php';
    ?>
+<?php
+include '../connection.php';
+$username = "";
+    $password = "";
+// Fetch data from the about table
+$sql = "SELECT * FROM user LIMIT 1";
+$result = $db->query($sql);
+
+if ($result->num_rows > 0) {
+    // Output data of each row
+    $row = $result->fetch_assoc();
+    $username = $row['username'];
+    $password = $row['password'];
+} 
+
+
+
+if(isset($_POST['login'])){
+    if($_POST['username'] == $username && $_POST['password'] == $password){
+        echo '<script type="text/javascript">
+			window.location = "dashboard.php";
+		</script>';
+    }
+    else {
+        echo '<script type="text/javascript">
+        alert("Invalid username and password.");
+    </script>';
+    }
+
+}
+?>
 
 <body>
     <div class="container-fluid position-relative bg-white d-flex p-0">
@@ -21,7 +52,7 @@ include 'header.php';
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
                     <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
-                         <form role="form" id="logform">
+                         <form role="form" id="logform" method="POST">
                             <div class="">
                                 <center><span id="myalert2"></span></center>
                             </div>
@@ -48,7 +79,7 @@ include 'header.php';
                             <h3>Sign In</h3>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" name="email_address" id="email_address" placeholder="name@example.com" autocomplete="off">
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Username" autocomplete="off">
                             <label for="floatingInput">Email address</label>
                         </div>
                         <div class="form-floating mb-4">
@@ -61,7 +92,7 @@ include 'header.php';
                                 <label class="form-check-label" for="exampleCheck1">Show Password</label>
                             </div>
                         </div>
-                        <button type="button" id="login-button" class="btn btn-warning py-3 w-100 mb-4">Sign In</button>
+                        <button type="submit" name="login" id="login-button" class="btn btn-warning py-3 w-100 mb-4">Sign In</button>
                     </form>
                     </div>
                 </div>

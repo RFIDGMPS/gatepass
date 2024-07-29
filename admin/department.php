@@ -25,65 +25,9 @@ include 'header.php';
 
         <!-- Content Start -->
         <div class="content">
-            <!-- Navbar Start -->
-            <nav class="navbar navbar-expand  navbar-light sticky-top px-4 py-0" style="background-color: #fcaf42">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-warning mb-0"></h2>
-                </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-
-                <div class="navbar-nav align-items-center ms-auto">
-                    <!--      <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                       
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all message</a>
-                        </div>
-                    </div> -->
-                    <!--  <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notification</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                 
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all notifications</a>
-                        </div>
-                    </div> -->
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/2601828.png" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">admin@gmail.com</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="logout" class="dropdown-item" style="border: 1px solid #b0a8a7"><i class="bi bi-arrow-right-circle"></i> Log Out</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            <!-- Navbar End -->
+        <?php
+		include 'navbar.php';
+		?>
 
 
             <div class="container-fluid pt-4 px-4">
@@ -115,13 +59,13 @@ include 'header.php';
                                  <?php $results = mysqli_query($db, "SELECT * FROM department"); ?>
                                  <?php while ($row = mysqli_fetch_array($results)) { ?>
                                     <tr  class="table-<?php echo $row['department_id'];?>">
-                                            <td class="department_name"><?php echo $row['department_name']; ?></td>
-                                            <td class="department_desc"><?php echo $row['department_desc']; ?></td>
+                                            <td><?php echo $row['department_name']; ?></td>
+                                            <td><?php echo $row['department_desc']; ?></td>
                                             <td width="14%">
                                             <center>
-                                          <button data-id="<?php echo $row['department_id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_department_id" >
+                                          <button department_name="<?php echo $row['department_name'];?>" department_desc="<?php echo $row['department_desc'];?>" data-id="<?php echo $row['department_id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_department_id" >
                                           <i class="bi bi-plus-edit"></i> Edit </button>
-                                          <button department_name="<?php echo $row['department_name'];?>" data-id="<?php echo $row['department_id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_department_id">
+                                          <button department_name="<?php echo $row['department_name'];?>" department_desc="<?php echo $row['department_desc'];?>"  data-id="<?php echo $row['department_id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_department_id">
                                           <i class="bi bi-plus-trash"></i> Delete </button>
                                        </center> </td>
                                         </tr>
@@ -176,8 +120,11 @@ include 'header.php';
          	$("#myDataTable").DataTable();
 			 $('.d_department_id').click(function(){
                 $('#deldepartment-modal').modal('show');
-						$('.department_name').html($(this).attr('department_name'));
+						
                		$id = $(this).attr('data-id');
+                       $dptname =  $(this).attr('department_name');
+       
+       $('.d-dpt').val($dptname);
                		$('.remove_id').click(function(){
                			window.location = 'del.php?type=department&id=' + $id;
 						 
@@ -187,126 +134,21 @@ include 'header.php';
                		$id = $(this).attr('data-id');
                        $('#editdepartment-modal').modal('show');
                		// $('#editModal').load('edit.php?id=' + $id);
-					
-					$department_name =  $('.table-'+$id+' .department_name').val();
-					$department_desc =  $('.table-'+$id+' .department_desc').val();
-				
-					$('.edit-name').val($department_name);
-					$('.edit-desc').val($department_desc);
+                      
+                       $dptname =  $(this).attr('department_name');
+                       $dptdesc =  $(this).attr('department_desc');
+       
+
+
+					$('.edit-name').val($dptname);
+					$('.edit-desc').val($dptdesc);
 					$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=department');
 					
                	});
          });
 		 
 		 </script>
-<!--
-            <script type="text/javascript">
-                document.addEventListener('DOMContentLoaded', () => {
-                    let btn = document.querySelector('#btn-department');
-                    btn.addEventListener('click', (e) => {
-                        e.preventDefault();
 
-
-                        const department_name = document.querySelector('input[id=department_name]').value;
-                        console.log(department_name);
-
-                        const department_description = document.querySelector('textarea[id=department_description]').value;
-                        console.log(department_description);
-
-                        var data = new FormData(this.form);
-
-                        data.append('department_name', department_name);
-                        data.append('department_description', department_description);
-
-
-                        function isValidDepartmentName() {
-                            var pattern = /^[a-zA-Z \s]+$/;
-                            var department_name = $("#department_name").val();
-                            if (pattern.test(department_name) && department_name !== "") {
-                                $("#department_name").removeClass("is-invalid").addClass("is-valid");
-                                $(".deptname-error").css({
-                                    "color": "green",
-                                    "font-size": "14px",
-                                    "display": "none"
-                                });
-                                return true;
-                            } else if (department_name === "") {
-                                $("#department_name").removeClass("is-valid").addClass("is-invalid");
-                                $(".deptname-error").html('Required Department Name');
-                                $(".deptname-error").css({
-                                    "color": "red",
-                                    "font-size": "14px"
-                                });
-                            } else {
-                                $("#department_name").removeClass("is-valid").addClass("is-invalid");
-                                $(".deptname-error").html('Please input Character only');
-                                $(".deptname-error").css({
-                                    "color": "red",
-                                    "font-size": "14px",
-                                    "display": "block"
-                                });
-                            }
-                        };
-
-
-                        function isValidDepartmentDecs() {
-                            var pattern = /^[a-zA-Z \s]+$/;
-                            var department_description = $("#department_description").val();
-                            if (pattern.test(department_description) && department_description !== "") {
-                                $("#department_description").removeClass("is-invalid").addClass("is-valid");
-                                $(".deptdesc-error").css({
-                                    "color": "green",
-                                    "font-size": "14px",
-                                    "display": "none"
-                                });
-                                return true;
-                            } else if (department_description === "") {
-                                $("#department_description").removeClass("is-valid").addClass("is-invalid");
-                                $(".deptdesc-error").html('Required Department Description');
-                                $(".deptdesc-error").css({
-                                    "color": "red",
-                                    "font-size": "14px"
-                                });
-                            } else {
-                                $("#department_description").removeClass("is-valid").addClass("is-invalid");
-                                $(".deptdesc-error").html('Please input Character only');
-                                $(".deptdesc-error").css({
-                                    "color": "red",
-                                    "font-size": "14px",
-                                    "display": "block"
-                                });
-                            }
-                        };
-
-
-                        isValidDepartmentName();
-                        isValidDepartmentDecs();
-
-                        if (isValidDepartmentName() === true && isValidDepartmentDecs() === true) {
-
-                            $.ajax({
-                                url: '../config/init/add_department.php',
-                                type: "POST",
-                                data: data,
-                                processData: false,
-                                contentType: false,
-                                async: false,
-                                cache: false,
-                                success: function(response) {
-                                    $("#mgs-dept").html(response);
-                                    $('#mgs-dept').animate({
-                                        scrollTop: 0
-                                    }, 'slow');
-                                },
-                                error: function(response) {
-                                    console.log("Failed");
-                                }
-                            });
-                        }
-
-                    });
-                });
-            </script>-->
             
             <div class="modal fade" id="editdepartment-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -343,119 +185,7 @@ include 'header.php';
                     </div>
                 </div>
             </div>
-<!--
-            <script type="text/javascript">
-                document.addEventListener('DOMContentLoaded', () => {
-                    let btn = document.querySelector('#btn-editdepartment');
-                    btn.addEventListener('click', (e) => {
-                        e.preventDefault();
 
-
-                        const department_name = document.querySelector('input[id=edit_departmentname]').value;
-                        console.log(department_name);
-
-                        const department_description = document.querySelector('textarea[id=edit_departmentdescription]').value;
-                        console.log(department_description);
-
-                        const department_id = document.querySelector('input[id=edit_departmentid]').value;
-                        console.log(department_id);
-
-                        var data = new FormData(this.form);
-
-                        data.append('department_name', department_name);
-                        data.append('department_description', department_description);
-                        data.append('department_id', department_id);
-
-
-                        function isValidDepartmentName2() {
-                            var pattern = /^[a-zA-Z \s]+$/;
-                            var department_name = $("#edit_departmentname").val();
-                            if (pattern.test(department_name) && department_name !== "") {
-                                $("#edit_departmentname").removeClass("is-invalid").addClass("is-valid");
-                                $(".deptname-error").html('Please input Character');
-                                $(".deptname-error").css({
-                                    "color": "green",
-                                    "font-size": "14px",
-                                    "display": "none"
-                                });
-                                return true;
-                            } else if (department_name === "") {
-                                $("#edit_departmentname").removeClass("is-valid").addClass("is-invalid");
-                                $(".deptname-error").html('Required Department Name');
-                                $(".deptname-error").css({
-                                    "color": "red",
-                                    "font-size": "14px"
-                                });
-                            } else {
-                                $("#edit_departmentname").removeClass("is-valid").addClass("is-invalid");
-                                $(".deptname-error").html('Please input Character only');
-                                $(".deptname-error").css({
-                                    "color": "red",
-                                    "font-size": "14px",
-                                    "display": "block"
-                                });
-                            }
-                        };
-
-
-                        function isValidDepartmentDecs2() {
-                            var pattern = /^[a-zA-Z \s]+$/;
-                            var department_description = $("#edit_departmentdescription").val();
-                            if (pattern.test(department_description) && department_description !== "") {
-                                $("#edit_departmentdescription").removeClass("is-invalid").addClass("is-valid");
-                                $(".deptdesc-error").css({
-                                    "color": "green",
-                                    "font-size": "14px",
-                                    "display": "none"
-                                });
-                                return true;
-                            } else if (department_description === "") {
-                                $("#edit_departmentdescription").removeClass("is-valid").addClass("is-invalid");
-                                $(".deptdesc-error").html('Required Department Description');
-                                $(".deptdesc-error").css({
-                                    "color": "red",
-                                    "font-size": "14px"
-                                });
-                            } else {
-                                $("#edit_departmentdescription").removeClass("is-valid").addClass("is-invalid");
-                                $(".deptdesc-error").html('Please input Character only');
-                                $(".deptdesc-error").css({
-                                    "color": "red",
-                                    "font-size": "14px",
-                                    "display": "block"
-                                });
-                            }
-                        };
-
-
-                        isValidDepartmentName2();
-                        isValidDepartmentDecs2();
-
-                        if (isValidDepartmentName2() === true && isValidDepartmentDecs2() === true) {
-
-                            $.ajax({
-                                url: '../config/init/edit_department.php',
-                                type: "POST",
-                                data: data,
-                                processData: false,
-                                contentType: false,
-                                async: false,
-                                cache: false,
-                                success: function(response) {
-                                    $("#mgs-editdept").html(response);
-                                    $('#mgs-editdept').animate({
-                                        scrollTop: 0
-                                    }, 'slow');
-                                },
-                                error: function(response) {
-                                    console.log("Failed");
-                                }
-                            });
-                        }
-
-                    });
-                });
-            </script>-->
             <div class="modal fade" id="deldepartment-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -469,7 +199,7 @@ include 'header.php';
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Name:</b></label>
-                                        <input  type="text" id="delete_departmentname" class="form-control" autocomplete="off" readonly="">
+                                        <input  type="text" id="delete_departmentname" class="form-control d-dpt" autocomplete="off" readonly="">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
@@ -484,117 +214,12 @@ include 'header.php';
                     </div>
                 </div>
             </div>
-<!--
-            <script type="text/javascript">
-                document.addEventListener('DOMContentLoaded', () => {
-                    let btn = document.querySelector('#btn-deldepartment');
-                    btn.addEventListener('click', (e) => {
-                        e.preventDefault();
 
-                        const department_id = document.querySelector('input[id=delete_departmentid]').value;
-                        console.log(department_id);
-
-                        var data = new FormData(this.form);
-
-                        data.append('department_id', department_id);
-
-
-
-                        $.ajax({
-                            url: '../config/init/delete_department.php',
-                            type: "POST",
-                            data: data,
-                            processData: false,
-                            contentType: false,
-                            async: false,
-                            cache: false,
-                            success: function(response) {
-                                $("#mgs-deldept").html(response);
-                                $('#mgs-deldept').animate({
-                                    scrollTop: 0
-                                }, 'slow');
-                            },
-                            error: function(response) {
-                                console.log("Failed");
-                            }
-                        });
-                        // }
-
-                    });
-                });
-            </script>-->
             <?php
 include 'footer.php';
 			?>
 
-          <!--  <script>
-                $(document).ready(function() {
-                    load_data();
-                    var count = 1;
-
-                    function load_data() {
-                        $(document).on('click', '.btn-edit', function() {
-                            
-                            var department_id = $(this).data("edit");
-                            // console.log(department_id);
-                            getID(department_id); //argument    
-
-                        });
-                    }
-
-                    function getID(department_id) {
-                        $.ajax({
-                            type: 'POST',
-                            url: '../config/init/row_depertment.php',
-                            data: {
-                                department_id: department_id
-                            },
-                            dataType: 'json',
-                            success: function(response) {
-
-                                $('#edit_departmentid').val(response.department_id);
-                                $('#edit_departmentname').val(response.department_name);
-                                $('#edit_departmentdescription').val(response.department_description);
-
-                            }
-                        });
-                    }
-
-                });
-            </script>-->
-           <!-- <script>
-                $(document).ready(function() {
-                    load_data();
-                    var count = 1;
-
-                    function load_data() {
-                        $(document).on('click', '.btn-del', function() {
-                            $('#deldepartment-modal').modal('show');
-                            var department_id = $(this).data("del");
-                            get_delId(department_id); //argument    
-
-                        });
-                    }
-
-                    function get_delId(department_id) {
-                        $.ajax({
-                            type: 'POST',
-                            url: '../config/init/row_depertment.php',
-                            data: {
-                                department_id: department_id
-                            },
-                            dataType: 'json',
-                            success: function(response2) {
-                                $('#delete_departmentid').val(response2.department_id);
-                                $('#delete_departmentname').val(response2.department_name);
-
-                            }
-                        });
-                    }
-
-                });
-            </script>-->
-
+          
         </div>
 
         <a href="#" class="btn btn-lg btn-warning btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>

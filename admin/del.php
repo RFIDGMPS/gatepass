@@ -3,12 +3,12 @@
 
 	switch ($_GET['type'])
 {
-    case 'user':
+    case 'personell':
        
-		$db->query("DELETE FROM `users` WHERE `id` = '$_REQUEST[id]'") or die(mysqli_error($db));
+		$db->query("DELETE FROM `personell` WHERE `id` = '$_REQUEST[id]'") or die(mysqli_error($db));
 		echo'<script type="text/javascript">
 				alert("Successfully Deleted.");
-				window.location = "users.php";
+				window.location = "personell.php";
 			</script>	';
     break;
     case 'department':
@@ -18,6 +18,20 @@
 				window.location = "department.php";
 			</script>	';
         break;
+		case 'visitor':
+			$db->query("DELETE FROM `visitor` WHERE `id` = '$_REQUEST[id]'") or die(mysqli_error($db));
+			echo'<script type="text/javascript">
+					alert("Successfully Deleted.");
+					window.location = "visitor.php";
+				</script>	';
+			break;
+			case 'role':
+				$db->query("DELETE FROM `role` WHERE `id` = '$_REQUEST[id]'") or die(mysqli_error($db));
+				echo'<script type="text/javascript">
+						alert("Successfully Deleted.");
+						window.location = "role.php";
+					</script>	';
+				break;
 }
 	?>
 	
