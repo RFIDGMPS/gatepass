@@ -124,7 +124,7 @@ if ($result->num_rows > 0) {
                           <div id="mgs-add"></div>
                      
     <input type="text" id="rfidcard" name="rfid_number" class="form-control" placeholder="Scan RFID card" autofocus>
-    <input type="submit" name="submit" value="Submit" hidden>
+    <input type="submit" name="submit" value="Submit">
  
 
 
@@ -319,11 +319,11 @@ $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in_am, date
 
     if($time_in_out == 'TIME IN') {
 echo '<div class="alert alert-success" role="alert">
-                             <h4>TIME IN</h4>
+                             <center><h4>TIME IN</h4></center>
                      </div>';
     }else {
         echo '<div class="alert alert-danger" role="alert">
-                             <h4>TIME OUT</h4>
+                            <center> <h4>TIME OUT</h4></center>
                      </div>';
     }
                              
