@@ -148,6 +148,7 @@ if(isset($_POST['submit'])) {
     
     $result = mysqli_query($db, $query);
     $user = mysqli_fetch_assoc($result);
+    echo "<script>alert('".$user['status']."');</script>";
     //$id = $user['id'];
     // Check if RFID number exists
     if(mysqli_num_rows($result) > 0) {
