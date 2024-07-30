@@ -138,7 +138,7 @@ switch ($_GET['action'])
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $role = $_POST['role1'];
             
-            $query = "INSERT INTO role (id,role)
+            $query = "INSERT INTO role (id,role_)
             VALUES (NULL,'$role')";
             mysqli_query($db, $query) or die('Error in updating Database');
             echo '<script type="text/javascript">
