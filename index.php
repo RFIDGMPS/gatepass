@@ -315,20 +315,7 @@ $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in_am, date
 		 </script>
                           <div class="card-body">
                    
-                             <?php
-
-    if($time_in_out == 'TIME IN') {
-echo '<div class="alert alert-success" role="alert">
-                             <center><h4>TIME IN</h4></center>
-                     </div>';
-    }else {
-        echo '<div class="alert alert-danger" role="alert">
-                            <center> <h4>TIME OUT</h4></center>
-                     </div>';
-    }
-                             
-                     
-                     ?>
+                            
                           </div>
                         
                       </p>      
