@@ -18,21 +18,6 @@ if ($result->num_rows > 0) {
     $logo2 = $row['logo2'];
 } 
 ?>
-<?php
-include 'connection.php';
-
-
-// SQL to truncate table
-$sql = "TRUNCATE TABLE personell_logs";
-
-if ($conn->query($sql) === TRUE) {
-    echo "Table truncated successfully";
-} else {
-    echo "Error truncating table: " . $conn->error;
-}
-
-$conn->close();
-?>
 
 
 <!doctype html>
