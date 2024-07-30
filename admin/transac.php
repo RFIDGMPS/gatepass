@@ -137,8 +137,8 @@ switch ($_GET['action'])
         case 'add_role':
             $role = $_POST['role1'];
             echo '<script type="text/javascript">
-            alert("Successfully added. '.$role.'");
-            window.location = "role.php";
+            alert("Successfully added1. '.$role.'");
+        
     </script>';
             $query = "INSERT INTO role (id,role)
             VALUES (NULL,'$role')";
