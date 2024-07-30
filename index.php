@@ -18,6 +18,21 @@ if ($result->num_rows > 0) {
     $logo2 = $row['logo2'];
 } 
 ?>
+<?php
+include 'connection.php';
+
+
+// SQL to truncate table
+$sql = "TRUNCATE TABLE personell_logs";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Table truncated successfully";
+} else {
+    echo "Error truncating table: " . $conn->error;
+}
+
+$conn->close();
+?>
 
 
 <!doctype html>
@@ -144,6 +159,7 @@ if(isset($_POST['submit'])) {
 
     // Query to check if RFID number exists in users table
     $query = "SELECT * FROM personell WHERE rfid_number = '$rfid_number'";
+    
     $result = mysqli_query($db, $query);
     $user = mysqli_fetch_assoc($result);
     //$id = $user['id'];
