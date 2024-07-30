@@ -28,12 +28,17 @@ $yesterday = date('Y-m-d', strtotime('-1 day'));
 $current_period = date('A');
 
 // Update status for missing time-ins and time-outs
-$queries = [
-    "UPDATE personell_logs SET time_in_am = 'No time in' WHERE time_in_am IS NULL AND '$current_period' = 'PM'",
-    "UPDATE personell_logs SET time_out_am = 'No time out' WHERE time_out_am IS NULL AND '$current_period' = 'PM'",
-    "UPDATE personell_logs SET time_in_pm = 'No time in' WHERE time_in_pm IS NULL AND date_logged = '$yesterday'",
-    "UPDATE personell_logs SET time_out_pm = 'No time out' WHERE time_out_pm IS NULL AND date_logged = '$yesterday'"
-];
+$queries = [];
+
+if ($current_period === 'PM') {
+    // For the current period being PM
+    $queries[] = "UPDATE personell_logs SET time_in_pm = 'No time in' WHERE time_in_pm IS NULL AND date_logged = '$yesterday'";
+    $queries[] = "UPDATE personell_logs SET time_out_pm = 'No time out' WHERE time_out_pm IS NULL AND date_logged = '$yesterday'";
+} else {
+    // For the current period being AM
+    $queries[] = "UPDATE personell_logs SET time_in_am = 'No time in' WHERE time_in_am IS NULL AND date_logged = '$yesterday'";
+    $queries[] = "UPDATE personell_logs SET time_out_am = 'No time out' WHERE time_out_am IS NULL AND date_logged = '$yesterday'";
+}
 
 foreach ($queries as $query) {
     mysqli_query($db, $query);
