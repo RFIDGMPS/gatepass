@@ -141,7 +141,7 @@ switch ($_GET['edit'])
 																					
 																					</script>';
 																	$query = "UPDATE role SET 
-																					role_ = '$role'
+																					role = '$role'
 																					
 																				 WHERE id = '$id'";
 																						$result = mysqli_query($db, $query) or die(mysqli_error($db));
