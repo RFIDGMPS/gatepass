@@ -130,182 +130,100 @@ if ($result->num_rows > 0) {
 
 
     
-<?php
-$rfid_number='';
-$time_in_out ='TIME IN';
+    <?php
+$rfid_number = '';
+$time_in_out = 'TIME IN';
+
 // Check if form is submitted
-if(isset($_POST['submit'])) {
-    // Retrieve RFID number from form
+if (isset($_POST['submit'])) {
     $rfid_number = $_POST['rfid_number'];
-    date_default_timezone_set('Asia/Manila'); // Set your timezone
-    $time = date('H:i:s'); // Current time
-    $date_logged = date('Y-m-d'); // Current date as date_logged
-    // Include database connection
+    date_default_timezone_set('Asia/Manila');
+    $time = date('H:i:s');
+    $date_logged = date('Y-m-d');
+    $current_period = date('A'); // Get AM/PM period
+
     include 'connection.php';
 
-    // Query to check if RFID number exists in users table
+    // Check if RFID number exists in personell table
     $query = "SELECT * FROM personell WHERE rfid_number = '$rfid_number'";
-    
     $result = mysqli_query($db, $query);
     $user = mysqli_fetch_assoc($result);
-    if($user['status'] == 'Block') {
-        echo "<script>alert('This Personnel is Blocked!');</script>";
-    }
-    //$id = $user['id'];
-    // Check if RFID number exists
-    if(mysqli_num_rows($result) > 0) {
-        
-        // RFID exists, fetch user data
-        $query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
-         $result1 = mysqli_query($db, $query1);
 
-         if(mysqli_num_rows($result1) > 0) {
+    if ($user) {
+        if ($user['status'] == 'Block') {
+            echo "<script>alert('This Personnel is Blocked!');</script>";
+        } else {
+            // Check if user is already logged today
+            $query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
+            $result1 = mysqli_query($db, $query1);
             $user1 = mysqli_fetch_assoc($result1);
-    $id1 = $user1['id'];
-            if($user1['time_out_am'] == '') {
-                $update_field = 'time_out_am';
-                $time_in_out ='TIME OUT';
-            } elseif($user1['time_in_pm'] == '' && $current_period === "PM") {
-                $update_field = 'time_in_pm';
-              
-            } elseif($user1['time_out_pm'] == '' && $current_period === "PM") {
-                $update_field = 'time_out_pm';
-                $time_in_out ='TIME OUT';
-            }else {
-                echo "<script>alert('Please wait for the appropriate time period.');</script>";
+
+            if ($user1) {
+                // Update existing log entry
+                if (($current_period === "AM" && $user1['time_out_am'] === '') ||
+                    ($current_period === "PM" && $user1['time_out_pm'] === '')) {
+                    $update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
+                    $time_in_out = 'TIME OUT';
+
+                    $update_query = "UPDATE personell_logs SET $update_field = '$time' WHERE id = '{$user1['id']}'";
+                    mysqli_query($db, $update_query);
+                } else {
+                    echo "<script>alert('Please wait for the appropriate time period.');</script>";
+                }
+            } else {
+                // Insert new log entry
+                $full_name = $user['first_name'] . ' ' . $user['last_name'];
+                $photo_name = $user['photo'];
+                $role = $user['role'];
+                $department = $user['department'];
+                $status = $user['status'];
+
+                $time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
+
+                $insert_query = "INSERT INTO personell_logs (photo, role, full_name, rfid_number, $time_field, date_logged, department, status) 
+                                 VALUES ('$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
+                mysqli_query($db, $insert_query);
             }
-    
-            // Build query based on available field to update
-            if($update_field) {
-                $insert_query = "UPDATE personell_logs SET $update_field = '$time' WHERE id = '$id1'";
-                 // Execute query
-           if(mysqli_query($db, $insert_query)) {
-               
-           } else {
-               echo "Error updating record: " . mysqli_error($db);
-           }
-            } 
-    
-           
-    
-         } else {
-         
-            
-            $full_name = $user['first_name'] . ' ' . $user['last_name'];
-            $photo_name = $user['photo']; // Assuming 'photo' is the column storing photo file name
-            
-            $role = $user['role'];
-            $department = $user['department'];
-            $status = $user['status'];
-           
-    
-            // Determine appropriate time field to update
-           
-            $update_field = null;
-           
-    // Insert query for entrance table
-    $insert_query = "INSERT INTO personell_logs (photo, role, full_name, rfid_number, time_in_am, date_logged, department, status) 
-                    VALUES ('$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
-     // Execute query
-     if(mysqli_query($db, $insert_query)) {
-       
-   } else {
-       echo "<script>alert('Please wait for the appropriate time period.');</script>";
-   }
         }
-
-
     } else {
+        // Check if RFID number exists in visitor table
+        $query = "SELECT * FROM visitor WHERE rfid_number = '$rfid_number'";
+        $result = mysqli_query($db, $query);
+        $visitor = mysqli_fetch_assoc($result);
 
-        
-// Query to check if RFID number exists in users table
-$query = "SELECT * FROM visitor WHERE rfid_number = '$rfid_number'";
-$result = mysqli_query($db, $query);
-$user = mysqli_fetch_assoc($result);
+        if ($visitor) {
+            $query1 = "SELECT * FROM visitor_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
+            $result1 = mysqli_query($db, $query1);
+            $visitor1 = mysqli_fetch_assoc($result1);
 
-if(mysqli_num_rows($result) > 0) {
-  
-// RFID exists, fetch user data
-$query1 = "SELECT * FROM visitor_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
-$result1 = mysqli_query($db, $query1);
+            if ($visitor1) {
+                if (($current_period === "AM" && $visitor1['time_out_am'] === '') ||
+                    ($current_period === "PM" && $visitor1['time_out_pm'] === '')) {
+                    $update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
+                    $time_in_out = 'TIME OUT';
 
-if(mysqli_num_rows($result1) > 0) {
-    $current_period = date('A');
-   $user1 = mysqli_fetch_assoc($result1);
-$id1 = $user1['id'];
-   if($user1['time_out_am'] == '') {
-       $update_field = 'time_out_am';
-       $time_in_out ='TIME OUT';
-   } elseif($user1['time_in_pm'] == '' && $current_period === "PM") {
-       $update_field = 'time_in_pm';
-   } elseif($user1['time_out_pm'] == '' && $current_period === "PM") {
-       $update_field = 'time_out_pm';
-       $time_in_out ='TIME OUT';
-   }
-   else {
-    echo "<script>alert('Please wait for the appropriate time period.');</script>";
-}
-
-   // Build query based on available field to update
-   if($update_field) {
-       $insert_query = "UPDATE visitor_logs SET $update_field = '$time' WHERE id = '$id1'";
-        // Execute query
-   if(mysqli_query($db, $insert_query)) {
-     
-  } else {
-      echo "Error updating record: " . mysqli_error($db);
-  }
-   } 
-
-  
-
-} else {
-
-    echo '<script>$(document).ready(function() {
-        $("#visitorModal").modal("show");
-    });</script>';
-   
-}
-
-
-
-
-
-
-
- 
-
-    
-
-
-} else {
-
-    
-
-
-
-
-        // Determine appropriate time field to update
-       
-        $update_field = null;
-       
-// Insert query for entrance table
-$insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in_am, date_logged,photo) 
-                VALUES ('Stranger', '$rfid_number', '$time', '$date_logged','stranger.jpg')";
- // Execute query
- if(mysqli_query($db, $insert_query)) {
- 
-} else {
-   echo "Error updating record: " . mysqli_error($db);
-}
+                    $update_query = "UPDATE visitor_logs SET $update_field = '$time' WHERE id = '{$visitor1['id']}'";
+                    mysqli_query($db, $update_query);
+                } else {
+                    echo "<script>alert('Please wait for the appropriate time period.');</script>";
+                }
+            } else {
+                echo '<script>$(document).ready(function() {
+                    $("#visitorModal").modal("show");
+                });</script>';
+            }
+        } else {
+            $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in_$current_period, date_logged, photo) 
+                             VALUES ('Stranger', '$rfid_number', '$time', '$date_logged', 'stranger.jpg')";
+            mysqli_query($db, $insert_query);
+        }
     }
-    
+
     // Close database connection
     mysqli_close($db);
 }
-}
-
 ?>
+
 
 <div id="rfidDisplay"></div>
 <br/>
