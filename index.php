@@ -214,7 +214,9 @@ if(isset($_POST['submit'])) {
 
     } else {
 
-
+        if($user['status'] == 'Block') {
+            echo "<script>alert('This Personnel is Blocked!');</script>";
+        }else {
 // Query to check if RFID number exists in users table
 $query = "SELECT * FROM visitor WHERE rfid_number = '$rfid_number'";
 $result = mysqli_query($db, $query);
@@ -281,9 +283,7 @@ $id1 = $user1['id'];
 
 
 
-if($user['status'] == 'Block') {
-    echo "<script>alert('This Personnel is Blocked!');</script>";
-}else {
+
         // Determine appropriate time field to update
        
         $update_field = null;
@@ -303,6 +303,7 @@ $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in_am, date
     mysqli_close($db);
 }
 }
+
 ?>
 
 <div id="rfidDisplay"></div>
