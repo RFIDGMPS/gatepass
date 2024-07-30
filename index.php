@@ -131,6 +131,7 @@ if ($result->num_rows > 0) {
     
 <?php
 $rfid_number='';
+$time_in_out ='TIME IN';
 // Check if form is submitted
 if(isset($_POST['submit'])) {
     // Retrieve RFID number from form
@@ -157,21 +158,24 @@ if(isset($_POST['submit'])) {
     $id1 = $user1['id'];
             if($user1['time_out_am'] == '') {
                 $update_field = 'time_out_am';
+                $time_in_out ='TIME OUT';
             } elseif($user1['time_in_pm'] == '') {
                 $update_field = 'time_in_pm';
+              
             } elseif($user1['time_out_pm'] == '') {
                 $update_field = 'time_out_pm';
+                $time_in_out ='TIME OUT';
             }
     
             // Build query based on available field to update
             if($update_field) {
                 $insert_query = "UPDATE personell_logs SET $update_field = '$time' WHERE id = '$id1'";
                  // Execute query
-            if(mysqli_query($db, $insert_query)) {
+           /* if(mysqli_query($db, $insert_query)) {
                echo "User information updated successfully.";
            } else {
                echo "Error updating record: " . mysqli_error($db);
-           }
+           }*/
             } else {
                 echo "All time slots are filled."; // Handle case where all slots are filled
             }
@@ -197,11 +201,11 @@ if(isset($_POST['submit'])) {
     $insert_query = "INSERT INTO personell_logs (photo, role, full_name, rfid_number, time_in_am, date_logged, department, status) 
                     VALUES ('$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
      // Execute query
-     if(mysqli_query($db, $insert_query)) {
+     /*if(mysqli_query($db, $insert_query)) {
        echo "User information updated successfully.";
    } else {
        echo "Error updating record: " . mysqli_error($db);
-   }
+   }*/
         }
 
 
@@ -225,21 +229,23 @@ if(mysqli_num_rows($result1) > 0) {
 $id1 = $user1['id'];
    if($user1['time_out_am'] == '') {
        $update_field = 'time_out_am';
+       $time_in_out ='TIME OUT';
    } elseif($user1['time_in_pm'] == '') {
        $update_field = 'time_in_pm';
    } elseif($user1['time_out_pm'] == '') {
        $update_field = 'time_out_pm';
+       $time_in_out ='TIME OUT';
    }
 
    // Build query based on available field to update
    if($update_field) {
        $insert_query = "UPDATE visitor_logs SET $update_field = '$time' WHERE id = '$id1'";
         // Execute query
-   if(mysqli_query($db, $insert_query)) {
+   /*if(mysqli_query($db, $insert_query)) {
       echo "User information updated successfully.";
   } else {
       echo "Error updating record: " . mysqli_error($db);
-  }
+  }*/
    } else {
        echo "All time slots are filled."; // Handle case where all slots are filled
    }
@@ -280,11 +286,11 @@ $id1 = $user1['id'];
 $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in_am, date_logged,photo) 
                 VALUES ('Stranger', '$rfid_number', '$time', '$date_logged','stranger.jpg')";
  // Execute query
- if(mysqli_query($db, $insert_query)) {
+ /*if(mysqli_query($db, $insert_query)) {
    echo "Stranger";
 } else {
    echo "Error updating record: " . mysqli_error($db);
-}
+}*/
     }
     }
     // Close database connection
@@ -302,16 +308,27 @@ $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in_am, date
 					$('.entrant').attr('src',$getphoto);
                     $getname =  $('.entrant_name').html();
                     $('.display_name').html($getname);  
-                    $gettime =  $('.time').html();
-                    $('.d_time').html($gettime);  
+                    $getrole =  $('.role').html();
+                    $('.d_role').html($getrole);  
          });
 		 
 		 </script>
                           <div class="card-body">
-                             <p class="display_name"></p>
-                             <div class="alert alert-success" role="alert">
-                             <i class="fa fa-clock"></i> Time in: <span class="d_time"> </span>
-                     </div>
+                   
+                             <?php
+
+    if($time_in_out == 'TIME IN') {
+echo '<div class="alert alert-success" role="alert">
+                             <h4>TIME IN</h4>
+                     </div>';
+    }else {
+        echo '<div class="alert alert-danger" role="alert">
+                             <h4>TIME OUT</h4>
+                     </div>';
+    }
+                             
+                     
+                     ?>
                           </div>
                         
                       </p>      
@@ -361,7 +378,7 @@ $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in_am, date
         while ($row = mysqli_fetch_array($results)) { ?>
             <tr>
                 <td><center><img class="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" ></center></td>
-                <td><?php echo $row['role']; ?></td>
+                <td class="role"><?php echo $row['role']; ?></td>
                 <td class="entrant_name"><?php echo $row['full_name']; ?></td>
                 <td class="time"><?php echo $row['time_in_am']; ?></td>
                 <td><?php echo $row['time_out_am']; ?></td>
