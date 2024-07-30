@@ -551,7 +551,7 @@ while ($row = $result->fetch_assoc()) {
 $(document).ready(function() {
             // Initialize Webcam.js
             Webcam.set({
-width:460,
+width:400,
 height:400,
 image_format: 'jpeg',
 jpeg_quality: 90
