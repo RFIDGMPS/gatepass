@@ -96,9 +96,16 @@ switch ($_GET['action'])
                         $imageName = $_POST['fullName'] . '.jpeg';
                         $filePath = 'uploads/' . $imageName;
                 
+                        $current_period=date('A');
+
+ $time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
+
+
+
+
                         if (file_put_contents($filePath, $decodedData)) {
                             // Insert query for entrance table
-                            $insert_query = "INSERT INTO visitor_logs (photo, v_code, name, rfid_number, time_in_am, date_logged, department, sex,civil_status,contact_number,address,purpose,role) 
+                            $insert_query = "INSERT INTO visitor_logs (photo, v_code, name, rfid_number,  $time_field, date_logged, department, sex,civil_status,contact_number,address,purpose,role) 
                             VALUES ('$imageName','$v_code', '$name', '$rfid_number', '$time', '$date_logged', '$department', '$sex','$civil_status','$contact_number','$address','$purpose','Visitor')";
                   
                             // Execute query
