@@ -101,7 +101,7 @@ mysqli_close($db);
 .text .row {
     line-height: 1.5;
     margin-bottom: 5px;
-    font-size:30px;
+    font-size:50px;
 }
 
 
@@ -115,7 +115,7 @@ mysqli_close($db);
     <div style="text-align: left; margin-right: 10px;">
         <img src="<?php echo 'admin/uploads/'.$logo1; ?>" alt="Image 1" style="height: 100px;">
     </div>
-    <div class="column wide">
+    <div class="column wide" style="flex-grow: 2; text-align: center;">
         <div class="text">
             <h1><div class="row"><b><?php echo $name; ?></b></div></h1>
             <h4><div><i><?php echo $address; ?></i></div></h4>
@@ -125,6 +125,7 @@ mysqli_close($db);
         <img src="<?php echo 'admin/uploads/'.$logo2; ?>" alt="Image 2" style="height: 100px;">
     </div>
 </nav>
+
 
 
 
