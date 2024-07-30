@@ -7,7 +7,7 @@ $logo1 = "";
     $logo2 = "";
 // Fetch data from the about table
 //$sql = "SELECT * FROM about LIMIT 1";
-$sql = "TRUNCATE TABLE visitor";
+$sql = "TRUNCATE TABLE visitor_logs";
 $result = $db->query($sql);
 
 if ($result->num_rows > 0) {
