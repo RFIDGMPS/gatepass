@@ -148,7 +148,9 @@ if(isset($_POST['submit'])) {
     
     $result = mysqli_query($db, $query);
     $user = mysqli_fetch_assoc($result);
-
+    if($user['status'] == 'Block') {
+        echo "<script>alert('This Personnel is Blocked!');</script>";
+    }
     //$id = $user['id'];
     // Check if RFID number exists
     if(mysqli_num_rows($result) > 0) {
@@ -214,9 +216,7 @@ if(isset($_POST['submit'])) {
 
     } else {
 
-        if($user['status'] == 'Block') {
-            echo "<script>alert('This Personnel is Blocked!');</script>";
-        }else {
+        
 // Query to check if RFID number exists in users table
 $query = "SELECT * FROM visitor WHERE rfid_number = '$rfid_number'";
 $result = mysqli_query($db, $query);
@@ -298,7 +298,7 @@ $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in_am, date
    echo "Error updating record: " . mysqli_error($db);
 }
     }
-    }
+    
     // Close database connection
     mysqli_close($db);
 }
