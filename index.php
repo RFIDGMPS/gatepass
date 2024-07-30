@@ -268,6 +268,7 @@ if (isset($_POST['submit'])) {
 		 
 		 </script>
                           <div class="card-body">
+                            <h5 class="display_name"></h5>
                     <?php
 
     if($time_in_out == 'TIME IN') {
