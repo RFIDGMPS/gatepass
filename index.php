@@ -101,7 +101,7 @@ mysqli_close($db);
 .text .row {
     line-height: 1.5;
     margin-bottom: 5px;
-    font-size:40px;
+    font-size:20px;
 }
 
 
