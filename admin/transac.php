@@ -104,7 +104,7 @@ switch ($_GET['action'])
                             // Execute query
                             if (mysqli_query($db, $insert_query)) {
                                 echo '<script type="text/javascript">
-                                        alert("Successfully added.");
+                                       
                                         window.location = "../index.php";
                                       </script>';
                             } else {

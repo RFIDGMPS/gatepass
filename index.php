@@ -180,9 +180,7 @@ if(isset($_POST['submit'])) {
            } else {
                echo "Error updating record: " . mysqli_error($db);
            }
-            } else {
-                echo "All time slots are filled."; // Handle case where all slots are filled
-            }
+            } 
     
            
     
@@ -253,9 +251,7 @@ $id1 = $user1['id'];
   } else {
       echo "Error updating record: " . mysqli_error($db);
   }
-   } else {
-       echo "All time slots are filled."; // Handle case where all slots are filled
-   }
+   } 
 
   
 
