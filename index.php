@@ -144,11 +144,11 @@ if(isset($_POST['submit'])) {
     include 'connection.php';
 
     // Query to check if RFID number exists in users table
-    $query = "SELECT * FROM personell WHERE rfid_number = '$rfid_number' AND status != 'Blocked'";
+    $query = "SELECT * FROM personell WHERE rfid_number = '$rfid_number' AND status != 'Block'";
     
     $result = mysqli_query($db, $query);
     $user = mysqli_fetch_assoc($result);
-    echo "<script>alert('".$user['status']."');</script>";
+
     //$id = $user['id'];
     // Check if RFID number exists
     if(mysqli_num_rows($result) > 0) {
