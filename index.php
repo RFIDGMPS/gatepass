@@ -281,7 +281,9 @@ $id1 = $user1['id'];
 
 
 
-
+if($user['status'] == 'Block') {
+    echo "<script>alert('This Personnel is Blocked!');</script>";
+}else {
         // Determine appropriate time field to update
        
         $update_field = null;
@@ -299,6 +301,7 @@ $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in_am, date
     }
     // Close database connection
     mysqli_close($db);
+}
 }
 ?>
 
