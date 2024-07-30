@@ -34,7 +34,7 @@ if ($result->num_rows > 0) {
     <link rel="shortcut icon" href="assets/img/brand/favicon-bar.svg" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="script.js"></script>
-    <title>ADMIN</title>
+    <title>RFID GPMS</title>
     <style>
         .preview-1 {
             width: 140px!important;
