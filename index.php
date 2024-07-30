@@ -124,7 +124,7 @@ if ($result->num_rows > 0) {
                           <div id="mgs-add"></div>
                      
     <input type="text" id="rfidcard" name="rfid_number" class="form-control" placeholder="Scan RFID card" autofocus>
-    <input type="submit" name="submit" value="Submit">
+    <input type="submit" name="submit" value="Submit" hidden>
  
 
 
@@ -277,8 +277,8 @@ $id1 = $user1['id'];
         $update_field = null;
        
 // Insert query for entrance table
-$insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in_am, date_logged) 
-                VALUES ('Stranger', '$rfid_number', '$time', '$date_logged')";
+$insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in_am, date_logged,photo) 
+                VALUES ('Stranger', '$rfid_number', '$time', '$date_logged','stranger.jpg')";
  // Execute query
  if(mysqli_query($db, $insert_query)) {
    echo "Stranger";
