@@ -136,7 +136,10 @@ switch ($_GET['edit'])
 																case 'role':
 																	$id = $_GET['id'];
 																	$role = $_POST['role'];
-																	
+																	echo '<script type="text/javascript">
+																						alert("Update Successfull.'.$role.'");
+																					
+																					</script>';
 																	$query = "UPDATE role SET 
 																					role = '$role'
 																					

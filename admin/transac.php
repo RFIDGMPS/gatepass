@@ -135,18 +135,17 @@ switch ($_GET['action'])
         
         break;
         case 'add_role':
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $role = $_POST['role1'];
-            echo '<script type="text/javascript">
-            alert("Successfully added1. '.$role.'");
-        
-    </script>';
+            
             $query = "INSERT INTO role (id,role)
             VALUES (NULL,'$role')";
             mysqli_query($db, $query) or die('Error in updating Database');
             echo '<script type="text/javascript">
-            alert("Successfully added. '.$role.'");
+            alert("Successfully added.");
             window.location = "role.php";
     </script>';
+            }
             break;
 }
 ?>
