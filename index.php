@@ -7,7 +7,7 @@ $logo1 = "";
     $logo2 = "";
 // Fetch data from the about table
 //$sql = "SELECT * FROM about LIMIT 1";
-$sql = "TRUNCATE TABLE role";
+$sql = "TRUNCATE TABLE visitor";
 $result = $db->query($sql);
 
 if ($result->num_rows > 0) {
