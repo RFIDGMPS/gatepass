@@ -50,7 +50,7 @@ include 'header.php';
             echo json_encode($totalData);
         ?>;
         
-        const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
         const dataArray = [['Day', 'Entrants']];
         for (let i = 0; i < weeklyData.length; i++) {
             dataArray.push([daysOfWeek[i], weeklyData[i]]);
