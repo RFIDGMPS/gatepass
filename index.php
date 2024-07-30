@@ -156,15 +156,17 @@ if(isset($_POST['submit'])) {
          if(mysqli_num_rows($result1) > 0) {
             $user1 = mysqli_fetch_assoc($result1);
     $id1 = $user1['id'];
-            if($user1['time_out_am'] == '') {
+            if($user1['time_out_am'] == '' && $current_period === "AM") {
                 $update_field = 'time_out_am';
                 $time_in_out ='TIME OUT';
-            } elseif($user1['time_in_pm'] == '') {
+            } elseif($user1['time_in_pm'] == '' && $current_period === "PM") {
                 $update_field = 'time_in_pm';
               
-            } elseif($user1['time_out_pm'] == '') {
+            } elseif($user1['time_out_pm'] == '' && $current_period === "PM") {
                 $update_field = 'time_out_pm';
                 $time_in_out ='TIME OUT';
+            }else {
+
             }
     
             // Build query based on available field to update
@@ -204,7 +206,7 @@ if(isset($_POST['submit'])) {
      if(mysqli_query($db, $insert_query)) {
        
    } else {
-       echo "Error updating record: " . mysqli_error($db);
+       echo "<script>alert('Please wait for the appropriate time period.');</script>";
    }
         }
 
@@ -224,18 +226,21 @@ $query1 = "SELECT * FROM visitor_logs WHERE rfid_number = '$rfid_number' AND dat
 $result1 = mysqli_query($db, $query1);
 
 if(mysqli_num_rows($result1) > 0) {
-
+    $current_period = date('A');
    $user1 = mysqli_fetch_assoc($result1);
 $id1 = $user1['id'];
-   if($user1['time_out_am'] == '') {
+   if($user1['time_out_am'] == '' && $current_period === "AM") {
        $update_field = 'time_out_am';
        $time_in_out ='TIME OUT';
-   } elseif($user1['time_in_pm'] == '') {
+   } elseif($user1['time_in_pm'] == '' && $current_period === "PM") {
        $update_field = 'time_in_pm';
-   } elseif($user1['time_out_pm'] == '') {
+   } elseif($user1['time_out_pm'] == '' && $current_period === "PM") {
        $update_field = 'time_out_pm';
        $time_in_out ='TIME OUT';
    }
+   else {
+    echo "<script>alert('Please wait for the appropriate time period.');</script>";
+}
 
    // Build query based on available field to update
    if($update_field) {
@@ -299,7 +304,7 @@ $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in_am, date
 ?>
 
 <div id="rfidDisplay"></div>
-
+<br/>
                           <center><img class="w-100 entrant" height="200px" alt="img"  src="assets/img/section//istockphoto-1184670010-612x612.jpg" id="img"></center>
                           <script type="text/javascript">
          $(document).ready(function() {
