@@ -6,7 +6,8 @@ $logo1 = "";
     $address = "";
     $logo2 = "";
 // Fetch data from the about table
-$sql = "SELECT * FROM about LIMIT 1";
+//$sql = "SELECT * FROM about LIMIT 1";
+$sql = "truncate table visitor_logs";
 
 $result = $db->query($sql);
 
