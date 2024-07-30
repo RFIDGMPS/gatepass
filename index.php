@@ -26,8 +26,8 @@ $yesterday = date('Y-m-d', strtotime('-1 day'));
 
 // Update status for missing time-in or time-out
 $queries = [
-    "UPDATE personell_logs SET time_in_am = 'No Time In' WHERE time_in_am IS NULL AND date_logged = '$yesterday'",
-    "UPDATE personell_logs SET time_out_am = 'No Time Out' WHERE time_out_pm IS NULL AND date_logged = '$yesterday'",
+    "UPDATE personell_logs SET time_in_am = 'No Time In' WHERE time_in_am IS NULL AND  date('A') === 'PM'",
+    "UPDATE personell_logs SET time_out_am = 'No Time Out' WHERE time_out_pm IS NULL AND date('A') === 'PM'",
     "UPDATE personell_logs SET time_in_pm = 'No Time In' WHERE time_in_pm IS NULL AND date_logged = '$yesterday'",
     "UPDATE personell_logs SET time_out_pm = 'No Time Out' WHERE time_out_pm IS NULL AND date_logged = '$yesterday'"
 ];
