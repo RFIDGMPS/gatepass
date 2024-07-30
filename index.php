@@ -518,7 +518,7 @@ while ($row = $result->fetch_assoc()) {
                                     <div class="col-lg-12 col-md-6 col-sm-12">
                                        <div class="form-group">
                                           <label>PURPOSE OF VISIT:</label>
-                                          <input style="height:100px;" required type="text" class="form-control" name="purpose" id="purpose" autocomplete="off">
+                                          <textarea style="height:100px;" required type="text" class="form-control" name="purpose" id="purpose" autocomplete="off"></textarea>
                                           <span class="ca-error"></span>
                                        </div>
                                     </div>
