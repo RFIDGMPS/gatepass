@@ -124,14 +124,14 @@ if ($result->num_rows > 0) {
                           <div id="mgs-add"></div>
                      
     <input type="text" id="rfidcard" name="rfid_number" class="form-control" placeholder="Scan RFID card" autofocus>
-    <input type="submit" name="submit" value="Submit">
+    <input type="submit" name="submit" value="Submit" hidden>
  
 
 
     
 <?php
 $rfid_number='';
-$time_in_out ='TIME IN';
+//$time_in_out ='TIME IN';
 // Check if form is submitted
 if(isset($_POST['submit'])) {
     // Retrieve RFID number from form
@@ -158,13 +158,13 @@ if(isset($_POST['submit'])) {
     $id1 = $user1['id'];
             if($user1['time_out_am'] == '') {
                 $update_field = 'time_out_am';
-                $time_in_out ='TIME OUT';
+                //$time_in_out ='TIME OUT';
             } elseif($user1['time_in_pm'] == '') {
                 $update_field = 'time_in_pm';
               
             } elseif($user1['time_out_pm'] == '') {
                 $update_field = 'time_out_pm';
-                $time_in_out ='TIME OUT';
+                //$time_in_out ='TIME OUT';
             }
     
             // Build query based on available field to update
@@ -229,12 +229,12 @@ if(mysqli_num_rows($result1) > 0) {
 $id1 = $user1['id'];
    if($user1['time_out_am'] == '') {
        $update_field = 'time_out_am';
-       $time_in_out ='TIME OUT';
+       //$time_in_out ='TIME OUT';
    } elseif($user1['time_in_pm'] == '') {
        $update_field = 'time_in_pm';
    } elseif($user1['time_out_pm'] == '') {
        $update_field = 'time_out_pm';
-       $time_in_out ='TIME OUT';
+       //$time_in_out ='TIME OUT';
    }
 
    // Build query based on available field to update
