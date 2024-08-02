@@ -30,10 +30,10 @@ include 'header.php';
                      <div class="bg-light rounded h-100 p-4">
                         <div class="row">
                            <div class="col-9">
-                              <h6 class="mb-4">Manage Employee</h6>
+                              <h6 class="mb-4">Manage Personnel</h6>
                            </div>
                            <div class="col-3">
-                              <button type="button" class="btn btn-outline-warning m-2" data-bs-toggle="modal" data-bs-target="#employeeModal">Add Employee</button>
+                              <button type="button" class="btn btn-outline-warning m-2" data-bs-toggle="modal" data-bs-target="#employeeModal">Add Personnel</button>
                            </div>
                         </div>
                         <hr>

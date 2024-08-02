@@ -51,13 +51,13 @@ if ($result1->num_rows > 0) {
                 <i class="fa fa-user-tie me-2"></i>Roles
             </a>
             <a href="personell.php" class="nav-item nav-link <?php echo ($current_page == 'personell.php') ? 'active' : ''; ?>">
-                <i class="fa fa-users me-2"></i>Personell
+                <i class="fa fa-users me-2"></i>Personnel
             </a>
             <a href="visitor.php" class="nav-item nav-link <?php echo ($current_page == 'visitor.php') ? 'active' : ''; ?>">
                 <i class="fa fa-user-plus me-2"></i>Visitor
             </a>
             <a href="personell_logs.php" class="nav-item nav-link <?php echo ($current_page == 'personell_logs.php') ? 'active' : ''; ?>">
-                <i class="fa fa-address-card me-2"></i>Personell Logs
+                <i class="fa fa-address-card me-2"></i>Personnel Logs
             </a>
             <a href="visitor_logs.php" class="nav-item nav-link <?php echo ($current_page == 'visitor_logs.php') ? 'active' : ''; ?>">
                 <i class="fa fa-book me-2"></i>Visitor Logs
