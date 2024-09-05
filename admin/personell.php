@@ -13,7 +13,7 @@ include 'header.php';
    
    // Fetch data from the 'user' table (you can limit this query based on specific user login)
    $sql = "DELETE FROM personell WHERE role="";"; // Make sure to adjust this query for actual user login implementation
-   $result = $db->query($sql);
+  $db->query($sql);
    
    
    ?>
