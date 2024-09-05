@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
-
+<?php
+include 'auth.php'; // Include session validation
+?>
 
 
 <html lang="en">

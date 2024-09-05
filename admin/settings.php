@@ -1,4 +1,7 @@
 <?php
+include 'auth.php'; // Include session validation
+?>
+<?php
 include '../connection.php';
 $logo1 = "";
     $name = "";

@@ -1,4 +1,7 @@
 <?php
+include 'auth.php'; // Include session validation
+?>
+<?php
 // Start session if not already started
 session_start();
 

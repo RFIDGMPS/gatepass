@@ -1,6 +1,9 @@
+
 <?php
-// Start session if not already started
-session_start();
+include 'auth.php'; // Include session validation
+?>
+<?php
+
 
 include 'header.php';
 
