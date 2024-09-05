@@ -9,14 +9,24 @@ include 'auth.php'; // Include session validation
    <?php
 include 'header.php';
    ?>
-   <?php include '../connection.php'; 
-   
-   // Fetch data from the 'user' table (you can limit this query based on specific user login)
-   $sql = "DELETE FROM personell WHERE role="";"; // Make sure to adjust this query for actual user login implementation
-  $db->query($sql);
-   
-   
-   ?>
+ <?php 
+// Include the database connection
+include '../connection.php'; 
+
+// Prepare the DELETE SQL query
+$sql = "DELETE FROM personell WHERE role IS NULL OR role = ''"; // Check for NULL or empty string
+
+// Execute the query
+if ($db->query($sql) === TRUE) {
+    echo "Records where role is NULL or an empty string have been deleted successfully.";
+} else {
+    echo "Error deleting records: " . $db->error;
+}
+
+// Close the database connection
+$db->close();
+?>
+
    <body>
       <div class="container-fluid position-relative bg-white d-flex p-0">
          <!-- Spinner Start
