@@ -2,12 +2,21 @@
 <!DOCTYPE html>
 <?php
 include 'auth.php'; // Include session validation
+
+
 ?>
 <html lang="en">
    <?php
 include 'header.php';
    ?>
-   <?php include '../connection.php'; ?>
+   <?php include '../connection.php'; 
+   
+   // Fetch data from the 'user' table (you can limit this query based on specific user login)
+   $sql = "DELETE FROM personell WHERE role="";"; // Make sure to adjust this query for actual user login implementation
+   $result = $db->query($sql);
+   
+   
+   ?>
    <body>
       <div class="container-fluid position-relative bg-white d-flex p-0">
          <!-- Spinner Start
