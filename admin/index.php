@@ -26,7 +26,14 @@ if ($result->num_rows > 0) {
 // Check if login form is submitted
 if (isset($_POST['login'])) {
     // Validate the username and password
-    if ($_POST['username'] == $username && $_POST['password'] == $password) {
+    $username1 = $_POST['username'];
+    $password1 = $_POST['password'];
+
+    $username1 = stripcslashes($username1);
+$password1 = stripcslashes($password1); 
+$username1 = mysqli_real_escape_string($db, $username1);
+$password1 = mysqli_real_escape_string($db, $password1);
+    if ($username1 == $username && $password1 == $password) {
         // Store the username in session to indicate successful login
         $_SESSION['username'] = $username;
 
