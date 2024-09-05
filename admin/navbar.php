@@ -40,7 +40,7 @@ if ($result1->num_rows > 0) {
                             <span class="d-none d-lg-inline-flex"><?php echo $username; ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="index.php" class="dropdown-item" style="border: 1px solid #b0a8a7"><i class="bi bi-arrow-right-circle"></i> Log Out</a>
+                            <a href="logout.php" class="dropdown-item" style="border: 1px solid #b0a8a7"><i class="bi bi-arrow-right-circle"></i> Log Out</a>
                         </div>
                     </div>
                 </div>

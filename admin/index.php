@@ -2,14 +2,18 @@
 <html lang="en">
 
 <?php
+// Start the session
+session_start();
+
 include 'header.php';
-   ?>
+?>
 <?php
 include '../connection.php';
 $username = "";
-    $password = "";
-// Fetch data from the about table
-$sql = "SELECT * FROM user LIMIT 1";
+$password = "";
+
+// Fetch data from the 'user' table (you can limit this query based on specific user login)
+$sql = "SELECT * FROM user LIMIT 1"; // Make sure to adjust this query for actual user login implementation
 $result = $db->query($sql);
 
 if ($result->num_rows > 0) {
@@ -19,22 +23,27 @@ if ($result->num_rows > 0) {
     $password = $row['password'];
 } 
 
+// Check if login form is submitted
+if (isset($_POST['login'])) {
+    // Validate the username and password
+    if ($_POST['username'] == $username && $_POST['password'] == $password) {
+        // Store the username in session to indicate successful login
+        $_SESSION['username'] = $username;
 
-
-if(isset($_POST['login'])){
-    if($_POST['username'] == $username && $_POST['password'] == $password){
+        // Redirect to the dashboard
         echo '<script type="text/javascript">
-			window.location = "dashboard.php";
-		</script>';
-    }
-    else {
+            window.location = "dashboard.php";
+        </script>';
+        exit();
+    } else {
+        // Show invalid login message
         echo '<script type="text/javascript">
-        alert("Invalid username and password.");
-    </script>';
+            alert("Invalid username and password.");
+        </script>';
     }
-
 }
 ?>
+
 
 <body>
     <div class="container-fluid position-relative bg-white d-flex p-0">
