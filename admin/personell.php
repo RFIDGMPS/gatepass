@@ -12,15 +12,7 @@ include 'header.php';
  <?php 
 // Include the database connection
 include '../connection.php'; 
-// Prepare the DELETE SQL query
-$sql = "DELETE FROM personell WHERE role IS NULL OR role = ''"; // Check for NULL or empty string
 
-// Execute the query
-if ($db->query($sql) === TRUE) {
-    echo "Records where role is NULL or an empty string have been deleted successfully.";
-} else {
-    echo "Error deleting records: " . $db->error;
-}
 ?>
 
    <body>
