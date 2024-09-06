@@ -170,6 +170,7 @@ mysqli_close($db);
     <?php
 $rfid_number = '';
 $time_in_out = 'Tap Your Card';
+$alertClass ='alert-primary';
 
 // Check if form is submitted
 if (isset($_POST['submit'])) {
