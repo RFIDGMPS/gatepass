@@ -308,23 +308,23 @@ if (isset($_POST['submit'])) {
         LIMIT 1
     ");
     if(isset($_POST['submit'])){
+        
 
+        if($time_in_out == 'TIME IN') {
+            echo '<div class="alert alert-success" role="alert" id="alert">
+                                         <center><h3 id="in_out">TIME IN</h3></center>
+                                 </div>';
+                }else {
+                    echo '<div class="alert alert-danger" role="alert" id="alert">
+                                        <center> <h3 id="in_out">TIME OUT</h3></center>
+                                 </div>';
+                }
+                                         
+                                 
+                                 
         // Fetch and display the results
         while ($row = mysqli_fetch_array($results)) { ?>
-           <?php
-
-if($time_in_out == 'TIME IN') {
-    echo '<div class="alert alert-success" role="alert" id="alert">
-                                 <center><h3 id="in_out">TIME IN</h3></center>
-                         </div>';
-        }else {
-            echo '<div class="alert alert-danger" role="alert" id="alert">
-                                <center> <h3 id="in_out">TIME OUT</h3></center>
-                         </div>';
-        }
-                                 
-                         
-                         ?>
+           
          <img class="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" hidden>
                 
          <div class="row">
