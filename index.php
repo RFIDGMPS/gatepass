@@ -112,7 +112,7 @@ mysqli_close($db);
 	border-radius: .2em .2em 0 0;
 	padding: .4em;
 	color: black;
-    margin:11px 0px;
+    margin:13px 0px;
 }
 
     </style>
