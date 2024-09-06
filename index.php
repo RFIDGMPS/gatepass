@@ -111,8 +111,7 @@ mysqli_close($db);
 	background: white;
 	border-radius: .2em .2em 0 0;
 	padding: .4em;
-	color: black;
-    opacity: 0.1;
+	color: #ced4da;
     margin:13px 0px;
     height:70px;
 }
