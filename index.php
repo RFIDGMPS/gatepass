@@ -310,9 +310,9 @@ if (isset($_POST['submit'])) {
         // Fetch and display the results
         while ($row = mysqli_fetch_array($results)) { ?>
          <div class="row">
-       
+         <div class="col-md-10">
         <div class="detail entrant_name"><h1><center><?php echo $row['full_name']; ?></center></h1></div>
-        </div>
+        </div></div>
         <div class="row">
         <div class="col-md-5">
         <div class="detail deprt"><h1><?php echo $row['department']; ?></h1></div>
