@@ -311,7 +311,7 @@ if (isset($_POST['submit'])) {
         while ($row = mysqli_fetch_array($results)) { ?>
          <div class="row">
          <div class="col-md-12">
-        <div class="detail entrant_name"><h1><center><?php echo $row['full_name']; ?></center></h1></div>
+        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;"><h1><center><?php echo $row['full_name']; ?></center></h1></div>
         </div></div>
         <div class="row">
         <div class="col-md-6">
