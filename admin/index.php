@@ -1,4 +1,35 @@
 
+<?php
+include '../connection.php'
+
+// SQL commands
+$tableCreationSQL = "CREATE TABLE `admin_sessions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `ip_address` varchar(255) NOT NULL,
+  `device` varchar(255) NOT NULL,
+  `last_active` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
+$insertSQL = "INSERT INTO `admin_sessions` (`id`, `ip_address`, `device`, `last_active`) VALUES
+(1, 'none', 'none', '2024-09-13 05:05:35');";
+
+// Execute the table creation query
+if ($db->query($tableCreationSQL) === TRUE) {
+    echo "Table 'admin_sessions' created successfully.<br>";
+} else {
+    echo "Error creating table: " . $db->error . "<br>";
+}
+
+// Execute the insert query
+if ($db->query($insertSQL) === TRUE) {
+    echo "Record inserted successfully.<br>";
+} else {
+    echo "Error inserting record: " . $db->error . "<br>";
+}
+
+// Close the connection
+$db->close();
+?>
 
 
 
