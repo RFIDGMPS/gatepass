@@ -189,7 +189,7 @@ if (isset($_POST['submit'])) {
 
     if ($user) {
         if ($user['status'] == 'Block') {
-            echo "<script>alert('This Personnel is Blocked!');</script>";
+            echo "<script>alert('This Personnel is Blocked!'); window.location = 'index.php';</script>";
         } else {
             // Check if user is already logged today
             $query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
@@ -206,7 +206,7 @@ if (isset($_POST['submit'])) {
                     $update_query = "UPDATE personell_logs SET $update_field = '$time' WHERE id = '{$user1['id']}'";
                     mysqli_query($db, $update_query);
                 } else {
-                    echo "<script>alert('Please wait for the appropriate time period.');</script>";
+                    echo "<script>alert('Please wait for the appropriate time period.'); window.location = 'index.php';</script>";
                 }
             } else {
                 // Insert new log entry
@@ -243,7 +243,7 @@ if (isset($_POST['submit'])) {
                     $update_query = "UPDATE visitor_logs SET $update_field = '$time' WHERE id = '{$visitor1['id']}'";
                     mysqli_query($db, $update_query);
                 } else {
-                    echo "<script>alert('Please wait for the appropriate time period.');</script>";
+                    echo "<script>alert('Please wait for the appropriate time period.'); window.location = 'index.php';</script>";
                 }
             } else {
                 echo '<script>$(document).ready(function() {
