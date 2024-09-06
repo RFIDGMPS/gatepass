@@ -1,33 +1,37 @@
 
 <?php
 include '../connection.php'
-
-// SQL commands
-$tableCreationSQL = "CREATE TABLE `admin_sessions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+// SQL query
+$sql = "
+CREATE TABLE `admin_sessions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `ip_address` varchar(255) NOT NULL,
   `device` varchar(255) NOT NULL,
-  `last_active` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+  `last_active` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-$insertSQL = "INSERT INTO `admin_sessions` (`id`, `ip_address`, `device`, `last_active`) VALUES
-(1, 'none', 'none', '2024-09-13 05:05:35');";
+INSERT INTO `admin_sessions` (`id`, `ip_address`, `device`, `last_active`) VALUES
+(1, 'none', 'none', '2024-09-13 05:05:35');
+";
 
-// Execute the table creation query
-if ($db->query($tableCreationSQL) === TRUE) {
-    echo "Table 'admin_sessions' created successfully.<br>";
+// Execute the query
+if ($db->multi_query($sql)) {
+    do {
+        // Store result set if there is one
+        if ($result = $db->store_result()) {
+            while ($row = $result->fetch_row()) {
+                // Output each row (if needed)
+            }
+            $result->free();
+        }
+    } while ($db->more_results() && $db->next_result());
+    echo "Queries executed successfully!";
 } else {
-    echo "Error creating table: " . $db->error . "<br>";
+    echo "Error executing queries: " . $db->error;
 }
 
-// Execute the insert query
-if ($db->query($insertSQL) === TRUE) {
-    echo "Record inserted successfully.<br>";
-} else {
-    echo "Error inserting record: " . $db->error . "<br>";
-}
-
-// Close the connection
+// Close connection
 $db->close();
 ?>
 
