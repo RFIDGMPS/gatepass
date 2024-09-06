@@ -147,7 +147,7 @@ mysqli_close($db);
                 <div class="col-md-3">
                     <div class="card">
                     <form id="rfidForm" method="POST">
-                      <div class="card-body">
+                      <div class="card-body" style="padding-top:0;">
                          <p class="card-text">
                           <div id="mgs-add"></div>
                      
@@ -254,7 +254,7 @@ if (isset($_POST['submit'])) {
 
 <div id="rfidDisplay"></div>
 <br/>
-                          <center><img class="w-100 entrant" alt="img"  src="assets/img/section//istockphoto-1184670010-612x612.jpg" id="img"></center>
+                          <center style="margin-top:-10px;"><img class="w-100 entrant" alt="img"  src="assets/img/section//istockphoto-1184670010-612x612.jpg" id="img"></center>
                           <script type="text/javascript">
          $(document).ready(function() {
          
@@ -267,8 +267,18 @@ if (isset($_POST['submit'])) {
          });
 		 
 		 </script>
-                          <div class="card-body">
-                          <center><h5 class="display_name"></h5></center>
+                          
+                        
+                      </p>      
+                      </div>
+                              </form>
+                            
+
+                    </div>
+                </div>
+                <div class="col-md-8">
+                <div class="card-body">
+                        
                     <?php
 
     if($time_in_out == 'TIME IN') {
@@ -285,18 +295,6 @@ if (isset($_POST['submit'])) {
                              ?>
                             
                           </div>
-                        
-                      </p>      
-                      </div>
-                              </form>
-                            
-
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="alert alert-warning" role="alert">
-                        Just tap the rfid card on the RFID Reader for it to time in and time out.
-                     </div>
                        <div class="table-responsive">
                        <table class="table table-bordered">
     <thead>
