@@ -351,9 +351,7 @@ if($time_in_out == 'TIME IN') {
 ];
 
 // Change background color of all .detail divs to white
-document.querySelectorAll('.detail').forEach(div => {
-    div.style.backgroundColor = 'white';
-});
+
 
 // After 3 seconds, fade and revert back to initial values
 setTimeout(() => {
@@ -363,6 +361,16 @@ setTimeout(() => {
         elements.forEach(item => {
             item.el.textContent = item.text; // Change back to initial text
             item.el.style.opacity = '1'; // Restore opacity
+
+            const alertDiv = document.getElementById('alert');
+                if (alertDiv) {
+                    alertDiv.classList.remove('alert-success', 'alert-danger');
+                    alertDiv.classList.add('alert-info');
+                }
+
+                document.querySelectorAll('.detail').forEach(div => {
+    div.style.backgroundColor = 'white';
+});
         });
     }, 500); // Wait for fade-out to complete before changing text
 }, 3000);
