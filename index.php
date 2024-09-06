@@ -111,7 +111,8 @@ mysqli_close($db);
 	background: white;
 	border-radius: .2em .2em 0 0;
 	padding: .4em;
-	color: #ced4da;
+	color: black;
+    opacity: 0.1;
     margin:13px 0px;
     height:70px;
 }
@@ -314,11 +315,11 @@ if (isset($_POST['submit'])) {
            <?php
 
 if($time_in_out == 'TIME IN') {
-    echo '<div class="alert alert-success" role="alert" id="alert" style="margin-bottom:0px;">
+    echo '<div class="alert alert-success" role="alert" id="alert">
                                  <center><h3 id="in_out">TIME IN</h3></center>
                          </div>';
         }else {
-            echo '<div class="alert alert-danger" role="alert" id="alert" style="margin-bottom:0px;">
+            echo '<div class="alert alert-danger" role="alert" id="alert">
                                 <center> <h3 id="in_out">TIME OUT</h3></center>
                          </div>';
         }
@@ -361,7 +362,7 @@ if($time_in_out == 'TIME IN') {
                 item.el.textContent = item.text; // Restore initial text
                 item.el.style.opacity = '0.1'; // Restore opacity
             });
-            document.getElementById('time_out').style.opacity = '1';
+            document.getElementById('in_out').style.opacity = '1';
             // Update the alert class
             const alertDiv = document.getElementById('alert');
             if (alertDiv) {
