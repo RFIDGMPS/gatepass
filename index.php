@@ -288,30 +288,16 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="col-md-9">
           
-               
-                <div class="row">
-         <div class="col-md-12">
-        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;"><h1  style="font-color:gray;"><center><b>Name</b></center></h1></div>
-        </div></div>
-        <div class="row">
-        <div class="col-md-6">
-        <div class="detail deprt"><h1 style="font-color:gray;">Department</h1></div>
-        <div class="detail role"><h1  style="font-color:gray;">Role</h1> </div>
-        </div>
-        <div class="col-md-6">
-        <div class="detail time_in"><h1 style="font-color:gray;">Time in</h1></div>
-        <div class="detail time_out"><h1  style="font-color:gray;">Time out</h1></div>
-        </div>
-        </div>
+                        
              
                 <?php
 
 if($time_in_out == 'TIME IN') {
-    echo '<div class="alert alert-success" role="alert">
+    echo '<div class="alert alert-success" role="alert" id="in_out">
                                  <center><h3>TIME IN</h3></center>
                          </div>';
         }else {
-            echo '<div class="alert alert-danger" role="alert">
+            echo '<div class="alert alert-danger" role="alert" id="in_out">
                                 <center> <h3>TIME OUT</h3></center>
                          </div>';
         }
@@ -336,22 +322,57 @@ if($time_in_out == 'TIME IN') {
     
         // Fetch and display the results
         while ($row = mysqli_fetch_array($results)) { ?>
-         <img class="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" hidden>
+        
+         <img class="pic" id="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" hidden>
                 
          <div class="row">
          <div class="col-md-12">
-        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;"><h1><center><b><?php echo $row['full_name']; ?></b></center></h1></div>
+        <div class="detail entrant_name" id="entrant_name" style="margin-top:0px;margin-bottom:0px;"><h1><center><b><?php echo $row['full_name']; ?></b></center></h1></div>
         </div></div>
         <div class="row">
         <div class="col-md-6">
-        <div class="detail deprt"><h1><?php echo $row['department']; ?> </h1></div>
-        <div class="detail role"><h1><?php echo $row['role']; ?></h1> </div>
+        <div class="detail deprt" id="department"><h1><?php echo $row['department']; ?> </h1></div>
+        <div class="detail role" id="role"><h1><?php echo $row['role']; ?></h1> </div>
         </div>
         <div class="col-md-6">
-        <div class="detail time_in"><h1><?php echo $row['time_in_am']; ?> </h1></div>
-        <div class="detail time_out"><h1><?php echo $row['time_out_pm']; ?> </h1></div>
+        <div class="detail time_in" id="time_in"><h1><?php echo $row['time_in_am']; ?> </h1></div>
+        <div class="detail time_out" id="time_out"><h1><?php echo $row['time_out_pm']; ?> </h1></div>
         </div>
         </div>
+        <script>
+        //const pic = document.getElementById('pic');
+        const entrant_name = document.getElementById('entrant_name');
+        const department = document.getElementById('department');
+        const role = document.getElementById('role');
+        const time_in = document.getElementById('time_in');
+        const time_out = document.getElementById('time_out');
+        const in_out = document.getElementById('in_out');
+       
+            // After 3 seconds, fade and revert back to "Hello world"
+            setTimeout(function() {
+                entrant_name.style.opacity = '0'; // Start fading
+                department.style.opacity = '0'; // Start fading
+                role.style.opacity = '0'; // Start fading
+                time_in.style.opacity = '0'; // Start fading
+                time_out.style.opacity = '0'; // Start fading
+                in_out.style.opacity = '0'; // Start fading
+                setTimeout(function() {
+                    entrant_name.textContent = 'Name'; // Change back to Hello world
+                    entrant_name.style.opacity = '1'; // Restore opacity
+                    department.textContent = 'Department'; // Change back to Hello world
+                    department.style.opacity = '1'; // Restore opacity
+                    role.textContent = 'Role'; // Change back to Hello world
+                    role.style.opacity = '1'; // Restore opacity
+                    time_in.textContent = 'Time in'; // Change back to Hello world
+                    time_in.style.opacity = '1'; // Restore opacity
+                    time_out.textContent = 'Time out'; // Change back to Hello world
+                    time_out.style.opacity = '1'; // Restore opacity
+                    in_out.textContent = 'Tap Your Card'; // Change back to Hello world
+                    in_out.style.opacity = '1'; // Restore opacity
+                }, 500); // Wait for fade-out to complete before changing text
+            }, 3000);
+    
+    </script>
         <?php } ?>
        
                  
