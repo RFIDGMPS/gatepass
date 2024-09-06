@@ -220,6 +220,10 @@ if (isset($_POST['submit'])) {
                 $insert_query = "INSERT INTO personell_logs (photo, role, full_name, rfid_number, $time_field, date_logged, department, status) 
                                  VALUES ('$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
                 mysqli_query($db, $insert_query);
+
+              
+                
+                
             }
         }
     } else {
@@ -255,9 +259,66 @@ if (isset($_POST['submit'])) {
             mysqli_query($db, $insert_query);
         }
     }
+    $results = mysqli_query($db, "
+    SELECT * FROM (
+        SELECT id, department, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
+        FROM personell_logs
+        UNION ALL
+        SELECT id, department, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
+        FROM visitor_logs
+    ) AS combined_results
+    ORDER BY id DESC
+    LIMIT 1
+");
 
+while ($row = mysqli_fetch_array($results)) {
+?>
+    <script>
+ 
+            // Array of elements with their updated values
+            const elements = [
+                { el: document.getElementById('entrant_name'), text: '<?php echo $row['full_name']; ?>' },
+                { el: document.getElementById('department'), text: '<?php echo $row['department']; ?>' },
+                { el: document.getElementById('role'), text: '<?php echo $row['role']; ?>' },
+                { el: document.getElementById('time_in'), text: '<?php echo $row['time_in_pm']; ?>' },
+                { el: document.getElementById('time_out'), text: '<?php echo $row['time_out_pm']; ?>' },
+                { el: document.getElementById('in_out'), text: '<?php echo $time_in_out; ?>' }
+            ];
+
+            // After 3 seconds, fade out and update
+            setTimeout(() => {
+                elements.forEach(item => item.el.style.opacity = '0'); // Start fading
+
+                setTimeout(() => {
+                    elements.forEach(item => {
+                        item.el.textContent = item.text; // Restore new text
+                        item.el.style.opacity = '1'; // Restore opacity
+                    });
+
+                    // Reset alert class
+                    const alertDiv = document.getElementById('alert');
+                    alertDiv.classList.remove('alert-success', 'alert-danger');
+                    alertDiv.classList.add('<?php echo $alertClass; ?>');
+
+                    // Update details div styles and colors
+                    document.querySelectorAll('.detail').forEach(div => {
+                        div.style.backgroundColor = '#fff3cd';
+                        div.style.color = 'black';
+                    });
+
+                    // Update the photo
+                    document.getElementById('pic').src = "admin/uploads/<?php echo $row['photo']; ?>";
+
+                }, 500); // Wait for fade-out before updating
+            }, 3000);
+       
+    </script>
+    
+<?php
+}
     // Close database connection
     mysqli_close($db);
+
 }
 ?>
 
@@ -319,67 +380,8 @@ $alertClass = $time_in_out == 'TIME IN' ? 'alert-success' : 'alert-danger';
 echo "<div class='alert $alertClass' role='alert' id='alert'>
         <center><h3 id='in_out'>$time_in_out</h3></center>
       </div>";
-
-// Fetch and display data
-include 'connection.php';
-
-$results = mysqli_query($db, "
-    SELECT * FROM (
-        SELECT id, department, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
-        FROM personell_logs
-        UNION ALL
-        SELECT id, department, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
-        FROM visitor_logs
-    ) AS combined_results
-    ORDER BY id DESC
-    LIMIT 1
-");
-
-while ($row = mysqli_fetch_array($results)) {
-?>
-    <script>
- 
-            // Array of elements with their updated values
-            const elements = [
-                { el: document.getElementById('entrant_name'), text: '<?php echo $row['full_name']; ?>' },
-                { el: document.getElementById('department'), text: '<?php echo $row['department']; ?>' },
-                { el: document.getElementById('role'), text: '<?php echo $row['role']; ?>' },
-                { el: document.getElementById('time_in'), text: '<?php echo $row['time_in_am']; ?>' },
-                { el: document.getElementById('time_out'), text: '<?php echo $row['time_out_pm']; ?>' },
-                { el: document.getElementById('in_out'), text: '<?php echo $time_in_out; ?>' }
-            ];
-
-            // After 3 seconds, fade out and update
-            setTimeout(() => {
-                elements.forEach(item => item.el.style.opacity = '0'); // Start fading
-
-                setTimeout(() => {
-                    elements.forEach(item => {
-                        item.el.textContent = item.text; // Restore new text
-                        item.el.style.opacity = '1'; // Restore opacity
-                    });
-
-                    // Reset alert class
-                    const alertDiv = document.getElementById('alert');
-                    alertDiv.classList.remove('alert-success', 'alert-danger');
-                    alertDiv.classList.add('<?php echo $alertClass; ?>');
-
-                    // Update details div styles and colors
-                    document.querySelectorAll('.detail').forEach(div => {
-                        div.style.backgroundColor = '#fff3cd';
-                        div.style.color = 'black';
-                    });
-
-                    // Update the photo
-                    document.getElementById('pic').src = "admin/uploads/<?php echo $row['photo']; ?>";
-
-                }, 500); // Wait for fade-out before updating
-            }, 3000);
-       
-    </script>
-<?php
-}
-?>
+      ?>
+    
 
        
                  
