@@ -341,38 +341,32 @@ if($time_in_out == 'TIME IN') {
         </div>
         <script>
         //const pic = document.getElementById('pic');
-        const entrant_name = document.getElementById('entrant_name');
-        const department = document.getElementById('department');
-        const role = document.getElementById('role');
-        const time_in = document.getElementById('time_in');
-        const time_out = document.getElementById('time_out');
-        const in_out = document.getElementById('in_out');
-       
-            // After 3 seconds, fade and revert back to "Hello world"
-            setTimeout(function() {
-                entrant_name.style.opacity = '0'; // Start fading
-                department.style.opacity = '0'; // Start fading
-                role.style.opacity = '0'; // Start fading
-                time_in.style.opacity = '0'; // Start fading
-                time_out.style.opacity = '0'; // Start fading
-                in_out.style.opacity = '0'; // Start fading
-                setTimeout(function() {
-                    entrant_name.textContent = 'Name'; // Change back to Hello world
-                    entrant_name.style.opacity = '1'; // Restore opacity
-                    department.textContent = 'Department'; // Change back to Hello world
-                    department.style.opacity = '1'; // Restore opacity
-                    role.textContent = 'Role'; // Change back to Hello world
-                    role.style.opacity = '1'; // Restore opacity
-                    time_in.textContent = 'Time in'; // Change back to Hello world
-                    time_in.style.opacity = '1'; // Restore opacity
-                    time_out.textContent = 'Time out'; // Change back to Hello world
-                    time_out.style.opacity = '1'; // Restore opacity
-                    in_out.textContent = 'Tap Your Card'; // Change back to Hello world
-                    in_out.style.opacity = '1'; // Restore opacity
-                    
-                }, 500); // Wait for fade-out to complete before changing text
-            }, 3000);
-    
+        const elements = [
+    { el: document.getElementById('entrant_name'), text: 'Name' },
+    { el: document.getElementById('department'), text: 'Department' },
+    { el: document.getElementById('role'), text: 'Role' },
+    { el: document.getElementById('time_in'), text: 'Time in' },
+    { el: document.getElementById('time_out'), text: 'Time out' },
+    { el: document.getElementById('in_out'), text: 'Tap Your Card' }
+];
+
+// Change background color of all .detail divs to white
+document.querySelectorAll('.detail').forEach(div => {
+    div.style.backgroundColor = 'white';
+});
+
+// After 3 seconds, fade and revert back to initial values
+setTimeout(() => {
+    elements.forEach(item => item.el.style.opacity = '0'); // Start fading
+
+    setTimeout(() => {
+        elements.forEach(item => {
+            item.el.textContent = item.text; // Change back to initial text
+            item.el.style.opacity = '1'; // Restore opacity
+        });
+    }, 500); // Wait for fade-out to complete before changing text
+}, 3000);
+
     </script>
         <?php } ?>
        
