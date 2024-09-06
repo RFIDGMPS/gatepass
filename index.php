@@ -309,6 +309,8 @@ if (isset($_POST['submit'])) {
     
         // Fetch and display the results
         while ($row = mysqli_fetch_array($results)) { ?>
+         <img class="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" hidden>
+                
          <div class="row">
          <div class="col-md-12">
         <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;"><h1><center><?php echo $row['full_name']; ?></center></h1></div>
