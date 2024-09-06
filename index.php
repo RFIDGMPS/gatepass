@@ -359,7 +359,7 @@ if($time_in_out == 'TIME IN') {
         setTimeout(() => {
             elements.forEach(item => {
                 item.el.textContent = item.text; // Restore initial text
-                //item.el.style.opacity = '1'; // Restore opacity
+                item.el.style.opacity = '0.2'; // Restore opacity
             });
 
             // Update the alert class
