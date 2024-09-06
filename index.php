@@ -143,7 +143,7 @@ mysqli_close($db);
                         </div>
                     </div>
                 </center><br><Br>
-            <div class="row">
+            <div class="row" style="margin-top:-35px;">
                 <div class="col-md-3">
                     <div class="card">
                     <form id="rfidForm" method="POST">
