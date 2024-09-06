@@ -293,11 +293,11 @@ if (isset($_POST['submit'])) {
                 <?php
 
 if($time_in_out == 'TIME IN') {
-    echo '<div class="alert alert-success" role="alert" >
+    echo '<div class="alert alert-success" role="alert" id="alert">
                                  <center><h3 id="in_out">TIME IN</h3></center>
                          </div>';
         }else {
-            echo '<div class="alert alert-danger" role="alert" >
+            echo '<div class="alert alert-danger" role="alert" id="alert">
                                 <center> <h3 id="in_out">TIME OUT</h3></center>
                          </div>';
         }
@@ -365,7 +365,7 @@ setTimeout(() => {
             const alertDiv = document.getElementById('alert');
                 if (alertDiv) {
                     alertDiv.classList.remove('alert-success', 'alert-danger');
-                    alertDiv.classList.add('alert-info');
+                    alertDiv.classList.add('alert-primary');
                 }
 
                 document.querySelectorAll('.detail').forEach(div => {
