@@ -371,7 +371,7 @@ if($time_in_out == 'TIME IN') {
 
             // Change background color of all .detail divs to white
             document.querySelectorAll('.detail').forEach(div => {
-                div.style.backgroundColor = 'white';
+                div.style.backgroundColor = 'grey';
                 div.style.color = '#ced4da';
             });
 
