@@ -96,7 +96,7 @@ include 'header.php';
                         <div class="bg-light rounded h-100 p-4">
                             <div class="row">
                                 <div class="col-9">
-                                    <h6 class="mb-4">Manage Message</h6>
+                                    <h6 class="mb-4">Messages</h6>
                                 </div>
 
                             </div>
@@ -105,9 +105,8 @@ include 'header.php';
                                 <table class="table table-border" id="myDataTable">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Full Name</th>
-                                            <th scope="col">Email Address</th>
-                                            <th scope="col">Contact Number</th>
+                                            <th scope="col">From</th>
+                                            <th scope="col">Subject</th>
                                             <th scope="col">Message</th>
                                         </tr>
                                     </thead>

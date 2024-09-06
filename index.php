@@ -532,7 +532,10 @@ while ($row = $result->fetch_assoc()) {
                                     </div>
 
                                     <div id="results" style="visibility:hidden;position:absolute;"></div>
-                                       <script>
+                                    <a href="#" class="btn btn-lg btn-warning btn-lg-square back-to-top">
+         <i class="bi bi-arrow-up"></i>
+         </a>
+                                     <script>
             $(document).ready(function() {
             $('.preview-1').click(function() {
                 // Show the modal
