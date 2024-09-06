@@ -310,6 +310,7 @@ if (isset($_POST['submit'])) {
         // Fetch and display the results
         while ($row = mysqli_fetch_array($results)) { ?>
         <div class="detail entrant_name"><h1><?php echo $row['full_name']; ?></h1></div>
+        <div class="row">
         <div class="col-md-5">
         <div class="detail deprt"><h1><?php echo $row['department']; ?></h1></div>
         <div class="detail role"><h1><?php echo $row['role']; ?></h1></div>
@@ -317,6 +318,7 @@ if (isset($_POST['submit'])) {
         <div class="col-md-5">
         <div class="detail time_in"><h1><?php echo $row['time_in_am']; ?></h1></div>
         <div class="detail time_out"><h1><?php echo $row['time_out_pm']; ?></h1></div>
+        </div>
         </div>
         <?php } ?>
        
