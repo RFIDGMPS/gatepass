@@ -16,7 +16,7 @@ $sql = "UPDATE user SET password = ? WHERE id = ?";
 // Create a prepared statement
 if ($stmt = $mysqli->prepare($sql)) {
     // Bind parameters
-    $stmt->bind_param("si", $hashedPassword, $userId);
+    $stmt->bind_param("si", $hashedPassword, $id);
     
     // Execute the statement
     if ($stmt->execute()) {
