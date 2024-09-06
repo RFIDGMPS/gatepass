@@ -329,7 +329,7 @@ if($time_in_out == 'TIME IN') {
                 
          <div class="row">
          <div class="col-md-12">
-        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;background: #fff3cd;"><h1 style="color:black;"><center><b id="entrant_name"><?php echo $row['full_name']; ?></b></center></h1></div>
+        <div class="detail entrant_name1" style="margin-top:0px;margin-bottom:0px;background: #fff3cd;"><h1 style="color:black;"><center><b id="entrant_name"><?php echo $row['full_name']; ?></b></center></h1></div>
         </div></div>
         <div class="row">
         <div class="col-md-6">
@@ -362,6 +362,7 @@ if($time_in_out == 'TIME IN') {
                 item.el.style.opacity = '0.3'; // Restore opacity
             });
             document.getElementById('in_out').style.opacity = '1';
+            document.getElementById('entrant_name1').style.margin = '0';
             // Update the alert class
             const alertDiv = document.getElementById('alert');
             if (alertDiv) {
