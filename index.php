@@ -295,18 +295,17 @@ if (isset($_POST['submit'])) {
 
         // Combine and fetch data from both tables for the current date, ordering by the latest update
         $results = mysqli_query($db, "
-            SELECT id, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm, 'personell_logs' AS source, 
-            GREATEST(STR_TO_DATE(time_in_am, '%H:%i:%s'), STR_TO_DATE(time_out_am, '%H:%i:%s'), STR_TO_DATE(time_in_pm, '%H:%i:%s'), STR_TO_DATE(time_out_pm, '%H:%i:%s')) AS latest_time
+        SELECT * FROM (
+            SELECT id, department, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
             FROM personell_logs
-            WHERE DATE(date_logged) = CURDATE() AND rfid_number = $rfid_number
             UNION ALL
-            SELECT id, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm, 'visitor_logs' AS source, 
-            GREATEST(STR_TO_DATE(time_in_am, '%H:%i:%s'), STR_TO_DATE(time_out_am, '%H:%i:%s'), STR_TO_DATE(time_in_pm, '%H:%i:%s'), STR_TO_DATE(time_out_pm, '%H:%i:%s')) AS latest_time
+            SELECT id, department, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
             FROM visitor_logs
-            WHERE DATE(date_logged) = CURDATE() AND rfid_number = $rfid_number
-            ORDER BY latest_time DESC, source DESC
-        "); 
-
+        ) AS combined_results
+        ORDER BY id ASC
+        LIMIT 1
+    ");
+    
         // Fetch and display the results
         while ($row = mysqli_fetch_array($results)) { ?>
         <div class="detail entrant_name"><h1><?php echo $row['full_name']; ?></h1></div>
