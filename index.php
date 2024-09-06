@@ -367,6 +367,8 @@ if($time_in_out == 'TIME IN') {
                 item.el.style.opacity = '1'; // Restore opacity
             });
             document.getElementById('in_out').style.opacity = '1';
+            document.getElementById('entrant_name').style.margin='0';
+            document.getElementById('entrant_name').style.color='#ced4da';
             // Update the alert class
             const alertDiv = document.getElementById('alert');
             if (alertDiv) {
