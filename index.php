@@ -329,7 +329,7 @@ if($time_in_out == 'TIME IN') {
                 
          <div class="row">
          <div class="col-md-12">
-        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;background: #fff3cd;"><h1 style="color:black;"><center><b id="entrant_name"><?php echo $row['full_name']; ?></b></center></h1></div>
+        <div class="detail entrant_name" style="margin:0px;margin-bottom:0px;background: #fff3cd;"><h1 style="color:black;"><center><b id="entrant_name"><?php echo $row['full_name']; ?></b></center></h1></div>
         </div></div>
         <div class="row">
         <div class="col-md-6">
