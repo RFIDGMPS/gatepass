@@ -338,7 +338,7 @@ $results = mysqli_query($db, "
 while ($row = mysqli_fetch_array($results)) {
 ?>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+ 
             // Array of elements with their updated values
             const elements = [
                 { el: document.getElementById('entrant_name'), text: '<?php echo $row['full_name']; ?>' },
@@ -375,7 +375,7 @@ while ($row = mysqli_fetch_array($results)) {
 
                 }, 500); // Wait for fade-out before updating
             }, 3000);
-        });
+       
     </script>
 <?php
 }
