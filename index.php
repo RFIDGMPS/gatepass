@@ -277,26 +277,12 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
                 <div class="col-md-9">
+            <div class="card">
+                <h1>TExt</h1>
             
                         
-                    
-                            
-                          
-                       <div class="table-responsive">
-                       <table class="table table-bordered">
-    <thead>
-        <tr>
-            <th scope="col">Photo</th>
-            <th scope="col">Role</th>
-            <th scope="col">Full Name</th>
-            <th scope="col">Time In (AM)</th>
-            <th scope="col">Time Out (AM)</th>
-            <th scope="col">Time In (PM)</th>
-            <th scope="col">Time Out (PM)</th>
-          
-        </tr>
-    </thead>
-    <tbody>
+             
+  
         <?php 
         include 'connection.php'; 
 
@@ -321,14 +307,12 @@ if (isset($_POST['submit'])) {
                 <td class="role"><?php echo $row['role']; ?></td>
                 <td class="entrant_name"><?php echo $row['full_name']; ?></td>
                 <td class="time"><?php echo $row['time_in_am']; ?></td>
-                <td><?php echo $row['time_out_am']; ?></td>
-                <td><?php echo $row['time_in_pm']; ?></td>
+           
                 <td><?php echo $row['time_out_pm']; ?></td>
             
             </tr>
         <?php } ?>
-    </tbody>
-</table>
+   
 
                   </div>
                   <?php
