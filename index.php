@@ -302,7 +302,7 @@ if (isset($_POST['submit'])) {
             SELECT id, department, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
             FROM visitor_logs
         ) AS combined_results
-        ORDER BY id ASC
+        ORDER BY id DESC
         LIMIT 1
     ");
     
