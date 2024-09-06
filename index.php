@@ -357,15 +357,7 @@ if($time_in_out == 'TIME IN') {
         elements.forEach(item => item.el.style.opacity = '0'); // Start fading
 
         setTimeout(() => {
-             // Change background color of all .detail divs to white
-             document.querySelectorAll('.detail').forEach(div => {
-                div.setAttribute('style', 'background-color: white; color: #ced4da;');
-            });
-            elements.forEach(item => {
-                item.el.textContent = item.text; // Restore initial text
-                item.el.style.opacity = '1'; // Restore opacity
-            });
-         
+            
             document.getElementByClassName('entrant_name1').style.margin = '0';
             // Update the alert class
             const alertDiv = document.getElementById('alert');
@@ -378,6 +370,15 @@ if($time_in_out == 'TIME IN') {
 
             // Change the source of the image
             document.getElementById('pic').src = "assets/img/section/istockphoto-1184670010-612x612.jpg";
+             // Change background color of all .detail divs to white
+             document.querySelectorAll('.detail').forEach(div => {
+                div.setAttribute('style', 'color: #ced4da;background-color: white; ');
+            });
+            elements.forEach(item => {
+                item.el.textContent = item.text; // Restore initial text
+                item.el.style.opacity = '1'; // Restore opacity
+            });
+         
 
         }, 500); // Wait for fade-out to complete before changing text
     }, 3000);
