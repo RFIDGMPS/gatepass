@@ -259,6 +259,12 @@ if (isset($_POST['submit'])) {
             mysqli_query($db, $insert_query);
         }
     }
+    // Display alert based on time in/out
+$alertClass = $time_in_out == 'TIME IN' ? 'alert-success' : 'alert-danger';
+echo "<div class='alert $alertClass' role='alert' id='alert'>
+        <center><h3 id='in_out'>$time_in_out</h3></center>
+      </div>";
+      
     $results = mysqli_query($db, "
     SELECT * FROM (
         SELECT id, department, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
@@ -374,14 +380,7 @@ while ($row = mysqli_fetch_array($results)) {
     </div>
 </div>
 
-<?php
-// Display alert based on time in/out
-$alertClass = $time_in_out == 'TIME IN' ? 'alert-success' : 'alert-danger';
-echo "<div class='alert $alertClass' role='alert' id='alert'>
-        <center><h3 id='in_out'>$time_in_out</h3></center>
-      </div>";
-      ?>
-    
+
 
        
                  
