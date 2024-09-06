@@ -108,10 +108,10 @@ mysqli_close($db);
 	border: none;
 	outline: none;
 	border-bottom: .2em solid #FCCC73;
-	background: #fff3cd;
+	background: white;
 	border-radius: .2em .2em 0 0;
 	padding: .4em;
-	color: black;
+	color: #ced4da;
     margin:13px 0px;
 }
 
@@ -372,7 +372,7 @@ if (isset($_POST['submit'])) {
         }
         else {
         ?>
-        <div class="alert alert-primary" role="alert" id="alert" style="margin-bottom:0px;">
+        <div class="alert alert-primary" role="alert" id="alert">
                                 <center> <h3 id="in_out">Tap Your Card</h3></center>
                          </div>
  <img class="pic" src="assets/img/section//istockphoto-1184670010-612x612.jpg" width="50px" height="50px" hidden>
