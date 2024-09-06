@@ -393,16 +393,16 @@ if($time_in_out == 'TIME IN') {
                 
          <div class="row">
          <div class="col-md-12">
-        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;"><h1><center><b id="entrant_name" style="color:#ced4da;">Name</b></center></h1></div>
+        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;color:#ced4da;"><h1><center><b id="entrant_name" >Name</b></center></h1></div>
         </div></div>
         <div class="row">
         <div class="col-md-6">
-        <div class="detail deprt" ><h1 id="department" style="color:#ced4da;">Department</h1></div>
-        <div class="detail role" ><h1 id="role" style="color:#ced4da;">Role</h1> </div>
+        <div class="detail deprt" style="color:#ced4da;"><h1 id="department" >Department</h1></div>
+        <div class="detail role" style="color:#ced4da;"><h1 id="role" >Role</h1> </div>
         </div>
         <div class="col-md-6">
-        <div class="detail time_in" ><h1 id="time_in" style="color:#ced4da;">Time in</h1></div>
-        <div class="detail time_out" ><h1 id="time_out" style="color:#ced4da;">Time out</h1></div>
+        <div class="detail time_in" style="color:#ced4da;"><h1 id="time_in" >Time in</h1></div>
+        <div class="detail time_out" style="color:#ced4da;"><h1 id="time_out" >Time out</h1></div>
         </div>
         </div>
         <?php
