@@ -371,8 +371,7 @@ if($time_in_out == 'TIME IN') {
 
             // Change background color of all .detail divs to white
             document.querySelectorAll('.detail').forEach(div => {
-                div.style.backgroundColor = 'grey';
-                div.style.color = '#ced4da';
+                div.setAttribute('style', 'background-color: white; color: #ced4da;');
             });
 
             // Change the source of the image
