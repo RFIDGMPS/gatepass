@@ -290,7 +290,20 @@ if (isset($_POST['submit'])) {
           
                         
              
-  
+                <?php
+
+if($time_in_out == 'TIME IN') {
+    echo '<div class="alert alert-success" role="alert">
+                                 <center><h3>TIME IN</h3></center>
+                         </div>';
+        }else {
+            echo '<div class="alert alert-danger" role="alert">
+                                <center> <h3>TIME OUT</h3></center>
+                         </div>';
+        }
+                                 
+                         
+                         ?>
         <?php 
         include 'connection.php'; 
 
@@ -327,20 +340,7 @@ if (isset($_POST['submit'])) {
         </div>
         <?php } ?>
        
-                  <?php
-
-    if($time_in_out == 'TIME IN') {
-        echo '<div class="alert alert-success" role="alert">
-                                     <center><h3>TIME IN</h3></center>
-                             </div>';
-            }else {
-                echo '<div class="alert alert-danger" role="alert">
-                                    <center> <h3>TIME OUT</h3></center>
-                             </div>';
-            }
-                                     
-                             
-                             ?>
+                 
               </div>
             </div>
         </div>
