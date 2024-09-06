@@ -288,7 +288,40 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="col-md-9">
           
-                        
+               
+    <style>
+        #message {
+            font-size: 24px;
+            font-weight: bold;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+
+
+    <div id="message">Hello world</div>
+    <br>
+    <button id="changeText">Click Me</button>
+
+    <script>
+        const messageDiv = document.getElementById('message');
+        const button = document.getElementById('changeText');
+
+        button.addEventListener('click', function() {
+            // Change text to "Success"
+            messageDiv.textContent = 'Success';
+
+            // After 3 seconds, fade and revert back to "Hello world"
+            setTimeout(function() {
+                messageDiv.style.opacity = '0'; // Start fading
+                setTimeout(function() {
+                    messageDiv.textContent = 'Hello world'; // Change back to Hello world
+                    messageDiv.style.opacity = '1'; // Restore opacity
+                }, 500); // Wait for fade-out to complete before changing text
+            }, 3000);
+        });
+    </script>
+
              
                 <?php
 
