@@ -113,6 +113,7 @@ mysqli_close($db);
 	padding: .4em;
 	color: #ced4da;
     margin:13px 0px;
+    height:70px;
 }
 
     </style>
