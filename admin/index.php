@@ -1,6 +1,6 @@
 <?php
 // Include database connection
-require 'db_connection.php'; // Make sure you have a valid DB connection
+require '../connection.php'; // Make sure you have a valid DB connection
 
 // User input
 $id = 1; // The ID of the user whose password you want to update
