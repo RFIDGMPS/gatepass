@@ -293,12 +293,12 @@ if (isset($_POST['submit'])) {
                 <?php
 
 if($time_in_out == 'TIME IN') {
-    echo '<div class="alert alert-success" role="alert" id="in_out">
-                                 <center><h3>TIME IN</h3></center>
+    echo '<div class="alert alert-success" role="alert" >
+                                 <center><h3 id="in_out">TIME IN</h3></center>
                          </div>';
         }else {
-            echo '<div class="alert alert-danger" role="alert" id="in_out">
-                                <center> <h3>TIME OUT</h3></center>
+            echo '<div class="alert alert-danger" role="alert" >
+                                <center> <h3 id="in_out">TIME OUT</h3></center>
                          </div>';
         }
                                  
@@ -369,6 +369,7 @@ if($time_in_out == 'TIME IN') {
                     time_out.style.opacity = '1'; // Restore opacity
                     in_out.textContent = 'Tap Your Card'; // Change back to Hello world
                     in_out.style.opacity = '1'; // Restore opacity
+                    document.getElementByClass('detail').style.background-color = 'white'; // Restore opacity
                 }, 500); // Wait for fade-out to complete before changing text
             }, 3000);
     
