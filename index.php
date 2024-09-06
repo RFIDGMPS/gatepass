@@ -357,6 +357,10 @@ if($time_in_out == 'TIME IN') {
         elements.forEach(item => item.el.style.opacity = '0'); // Start fading
 
         setTimeout(() => {
+             // Change background color of all .detail divs to white
+             document.querySelectorAll('.detail').forEach(div => {
+                div.setAttribute('style', 'background-color: white; color: #ced4da;');
+            });
             elements.forEach(item => {
                 item.el.textContent = item.text; // Restore initial text
                 item.el.style.opacity = '0.3'; // Restore opacity
@@ -370,10 +374,7 @@ if($time_in_out == 'TIME IN') {
                 alertDiv.classList.add('alert-primary');
             }
 
-            // Change background color of all .detail divs to white
-            document.querySelectorAll('.detail').forEach(div => {
-                div.setAttribute('style', 'background-color: white; color: #ced4da;');
-            });
+           
 
             // Change the source of the image
             document.getElementById('pic').src = "assets/img/section/istockphoto-1184670010-612x612.jpg";
