@@ -277,7 +277,7 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
                 <div class="col-md-8">
-                <div class="card-body">
+            
                         
                     <?php
 
@@ -294,7 +294,7 @@ if (isset($_POST['submit'])) {
                              
                              ?>
                             
-                          </div>
+                          
                        <div class="table-responsive">
                        <table class="table table-bordered">
     <thead>
