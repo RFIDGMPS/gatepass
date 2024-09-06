@@ -108,10 +108,10 @@ mysqli_close($db);
 	border: none;
 	outline: none;
 	border-bottom: .2em solid #FCCC73;
-	background: #fff3cd;
+	background: white;
 	border-radius: .2em .2em 0 0;
 	padding: .4em;
-	color: black;
+	color: #ced4da;
     margin:13px 0px;
 }
 
@@ -287,100 +287,100 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
                 <div class="col-md-9">
-          
-                        
-             
-                <?php
-
-if($time_in_out == 'TIME IN') {
-    echo '<div class="alert alert-success" role="alert" id="alert">
-                                 <center><h3 id="in_out">TIME IN</h3></center>
-                         </div>';
-        }else {
-            echo '<div class="alert alert-danger" role="alert" id="alert">
-                                <center> <h3 id="in_out">TIME OUT</h3></center>
-                         </div>';
-        }
-                                 
-                         
-                         ?>
-        <?php 
-        include 'connection.php'; 
-
-        // Combine and fetch data from both tables for the current date, ordering by the latest update
-        $results = mysqli_query($db, "
-        SELECT * FROM (
-            SELECT id, department, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
-            FROM personell_logs
-            UNION ALL
-            SELECT id, department, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
-            FROM visitor_logs
-        ) AS combined_results
-        ORDER BY id DESC
-        LIMIT 1
-    ");
-    
-        // Fetch and display the results
-        while ($row = mysqli_fetch_array($results)) { ?>
-        
-         <img class="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" hidden>
-                
-         <div class="row">
-         <div class="col-md-12">
-        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;"><h1><center><b id="entrant_name"><?php echo $row['full_name']; ?></b></center></h1></div>
-        </div></div>
-        <div class="row">
-        <div class="col-md-6">
-        <div class="detail deprt" ><h1 id="department"><?php echo $row['department']; ?> </h1></div>
-        <div class="detail role" ><h1 id="role"><?php echo $row['role']; ?></h1> </div>
+                <div class="row">
+    <div class="col-md-12">
+        <div class="detail entrant_name">
+            <h1><center><b id="entrant_name">Name</b></center></h1>
         </div>
-        <div class="col-md-6">
-        <div class="detail time_in" ><h1 id="time_in"><?php echo $row['time_in_am']; ?> </h1></div>
-        <div class="detail time_out" ><h1 id="time_out"><?php echo $row['time_out_pm']; ?> </h1></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="detail deprt">
+            <h1 id="department">Department</h1>
         </div>
+        <div class="detail role">
+            <h1 id="role">Role</h1>
         </div>
-        <script>
-    // Array of elements with their initial texts
-    const elements = [
-        { el: document.getElementById('entrant_name'), text: 'Name' },
-        { el: document.getElementById('department'), text: 'Department' },
-        { el: document.getElementById('role'), text: 'Role' },
-        { el: document.getElementById('time_in'), text: 'Time in' },
-        { el: document.getElementById('time_out'), text: 'Time out' },
-        { el: document.getElementById('in_out'), text: 'Tap Your Card' }
-    ];
+    </div>
+    <div class="col-md-6">
+        <div class="detail time_in">
+            <h1 id="time_in">Time in</h1>
+        </div>
+        <div class="detail time_out">
+            <h1 id="time_out">Time out</h1>
+        </div>
+    </div>
+</div>
 
-    // After 3 seconds, fade and revert back to initial values
-    setTimeout(() => {
-        elements.forEach(item => item.el.style.opacity = '0'); // Start fading
+<?php
+// Display alert based on time in/out
+$alertClass = $time_in_out == 'TIME IN' ? 'alert-success' : 'alert-danger';
+echo "<div class='alert $alertClass' role='alert' id='alert'>
+        <center><h3 id='in_out'>$time_in_out</h3></center>
+      </div>";
 
-        setTimeout(() => {
-            elements.forEach(item => {
-                item.el.textContent = item.text; // Restore initial text
-                item.el.style.opacity = '1'; // Restore opacity
-            });
+// Fetch and display data
+include 'connection.php';
 
-            // Update the alert class
-            const alertDiv = document.getElementById('alert');
-            if (alertDiv) {
-                alertDiv.classList.remove('alert-success', 'alert-danger');
-                alertDiv.classList.add('alert-primary');
-            }
+$results = mysqli_query($db, "
+    SELECT * FROM (
+        SELECT id, department, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
+        FROM personell_logs
+        UNION ALL
+        SELECT id, department, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
+        FROM visitor_logs
+    ) AS combined_results
+    ORDER BY id DESC
+    LIMIT 1
+");
 
-            // Change background color of all .detail divs to white
-            document.querySelectorAll('.detail').forEach(div => {
-                div.style.backgroundColor = 'white';
-                div.style.color = '#ced4da';
-            });
+while ($row = mysqli_fetch_array($results)) {
+?>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Array of elements with their updated values
+            const elements = [
+                { el: document.getElementById('entrant_name'), text: '<?php echo $row['full_name']; ?>' },
+                { el: document.getElementById('department'), text: '<?php echo $row['department']; ?>' },
+                { el: document.getElementById('role'), text: '<?php echo $row['role']; ?>' },
+                { el: document.getElementById('time_in'), text: '<?php echo $row['time_in_am']; ?>' },
+                { el: document.getElementById('time_out'), text: '<?php echo $row['time_out_pm']; ?>' },
+                { el: document.getElementById('in_out'), text: '<?php echo $time_in_out; ?>' }
+            ];
 
-            // Change the source of the image
-            document.getElementById('pic').src = "assets/img/section/istockphoto-1184670010-612x612.jpg";
+            // After 3 seconds, fade out and update
+            setTimeout(() => {
+                elements.forEach(item => item.el.style.opacity = '0'); // Start fading
 
-        }, 500); // Wait for fade-out to complete before changing text
-    }, 3000);
-</script>
+                setTimeout(() => {
+                    elements.forEach(item => {
+                        item.el.textContent = item.text; // Restore new text
+                        item.el.style.opacity = '1'; // Restore opacity
+                    });
 
-        <?php } ?>
+                    // Reset alert class
+                    const alertDiv = document.getElementById('alert');
+                    alertDiv.classList.remove('alert-success', 'alert-danger');
+                    alertDiv.classList.add('<?php echo $alertClass; ?>');
+
+                    // Update details div styles and colors
+                    document.querySelectorAll('.detail').forEach(div => {
+                        div.style.backgroundColor = '#fff3cd';
+                        div.style.color = 'black';
+                    });
+
+                    // Update the photo
+                    document.getElementById('pic').src = "admin/uploads/<?php echo $row['photo']; ?>";
+
+                }, 500); // Wait for fade-out before updating
+            }, 3000);
+        });
+    </script>
+<?php
+}
+?>
+
        
                  
               </div>
