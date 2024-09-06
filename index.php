@@ -325,7 +325,7 @@ echo "<div class='alert $alertClass' role='alert' id='alert'>
 </div>
 
 <?php
-
+include '../connection.php';
 $results = mysqli_query($db, "
 SELECT * FROM (
     SELECT id, department, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
