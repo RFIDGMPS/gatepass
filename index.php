@@ -116,8 +116,8 @@ mysqli_close($db);
     </div>
     <div class="column wide" style="flex-grow: 2; text-align: center;">
         <div class="text">
-            <h2><div class="row"><b><?php echo $name; ?></b></div></h2>
-            <h4><div><i><?php echo $address; ?></i></div></h4>
+            <h1><div class="row"><b><?php echo $name; ?></b></div></h1>
+            <h5><div><i><?php echo $address; ?></i></div></h5>
         </div>
     </div>
     <div style="text-align: right; margin-left: 10px;">
@@ -138,7 +138,7 @@ mysqli_close($db);
                 <center>
                     <div id="clockdate" style="border: 1px solid #f5af5b;background-color: #f5af5b">
                         <div class="clockdate-wrapper">
-                            <div id="clock" style="font-weight: bold; color: #fff;font-size: 60px"></div>
+                            <div id="clock" style="font-weight: bold; color: #fff;font-size: 50px"></div>
                             <div id="date" style="color: #fff"><i class="fas fa-calendar"></i><span id="currentDate"></span></div>
                         </div>
                     </div>
