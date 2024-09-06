@@ -289,105 +289,124 @@ if (isset($_POST['submit'])) {
                 <div class="col-md-9">
           
                         
-             <?php
-include 'connection.php';
+             
+                <?php
 
-// Combine and fetch data from both tables for the current date, ordering by the latest update
-$results = mysqli_query($db, "
-    SELECT * FROM (
-        SELECT id, department, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
-        FROM personell_logs
-        UNION ALL
-        SELECT id, department, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
-        FROM visitor_logs
-    ) AS combined_results
-    ORDER BY id DESC
-    LIMIT 1
-");
+if($time_in_out == 'TIME IN') {
+    echo '<div class="alert alert-success" role="alert" id="alert">
+                                 <center><h3 id="in_out">TIME IN</h3></center>
+                         </div>';
+        }else {
+            echo '<div class="alert alert-danger" role="alert" id="alert">
+                                <center> <h3 id="in_out">TIME OUT</h3></center>
+                         </div>';
+        }
+                                 
+                         
+                         ?>
+        <?php 
+        include 'connection.php'; 
 
-// Handle form submission
-if (isset($_POST['submit'])) {
-    $row = mysqli_fetch_array($results);
-    $time_in_out = ($row['time_in_pm']) ? 'TIME IN' : 'TIME OUT';
-    $alertClass = ($time_in_out == 'TIME IN') ? 'alert-success' : 'alert-danger';
-} else {
-    $time_in_out = 'Tap Your Card';
-    $alertClass = 'alert-primary';
-    $row = [
-        'full_name' => 'Name',
-        'department' => 'Department',
-        'role' => 'Role',
-        'time_in_pm' => 'Time in',
-        'time_out_pm' => 'Time out',
-        'photo' => 'assets/img/section/istockphoto-1184670010-612x612.jpg'
-    ];
-}
+        // Combine and fetch data from both tables for the current date, ordering by the latest update
+        $results = mysqli_query($db, "
+        SELECT * FROM (
+            SELECT id, department, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
+            FROM personell_logs
+            UNION ALL
+            SELECT id, department, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
+            FROM visitor_logs
+        ) AS combined_results
+        ORDER BY id DESC
+        LIMIT 1
+    ");
+    if(isset($_POST['submit'])){
 
-?>
-
-<div class="alert <?php echo $alertClass; ?>" role="alert" id="alert">
-    <center><h3 id="in_out"><?php echo $time_in_out; ?></h3></center>
-</div>
-
-<img class="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" hidden>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="detail entrant_name">
-            <h1><center><b id="entrant_name"><?php echo $row['full_name']; ?></b></center></h1>
+        // Fetch and display the results
+        while ($row = mysqli_fetch_array($results)) { ?>
+        
+         <img class="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" hidden>
+                
+         <div class="row">
+         <div class="col-md-12">
+        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;"><h1><center><b id="entrant_name"><?php echo $row['full_name']; ?></b></center></h1></div>
+        </div></div>
+        <div class="row">
+        <div class="col-md-6">
+        <div class="detail deprt" ><h1 id="department"><?php echo $row['department']; ?> </h1></div>
+        <div class="detail role" ><h1 id="role"><?php echo $row['role']; ?></h1> </div>
         </div>
-    </div>
-</div>
+        <div class="col-md-6">
+        <div class="detail time_in" ><h1 id="time_in"><?php echo $row['time_in_pm']; ?> </h1></div>
+        <div class="detail time_out" ><h1 id="time_out"><?php echo $row['time_out_pm']; ?> </h1></div>
+        </div>
+        </div>
+        <script>
+    // Array of elements with their initial texts
+    const elements = [
+        { el: document.getElementById('entrant_name'), text: 'Name' },
+        { el: document.getElementById('department'), text: 'Department' },
+        { el: document.getElementById('role'), text: 'Role' },
+        { el: document.getElementById('time_in'), text: 'Time in' },
+        { el: document.getElementById('time_out'), text: 'Time out' },
+        { el: document.getElementById('in_out'), text: 'Tap Your Card' }
+    ];
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="detail deprt"><h1 id="department"><?php echo $row['department']; ?></h1></div>
-        <div class="detail role"><h1 id="role"><?php echo $row['role']; ?></h1></div>
-    </div>
-    <div class="col-md-6">
-        <div class="detail time_in"><h1 id="time_in"><?php echo $row['time_in_pm']; ?></h1></div>
-        <div class="detail time_out"><h1 id="time_out"><?php echo $row['time_out_pm']; ?></h1></div>
-    </div>
-</div>
-
-<script>
-// Array of elements with their initial texts
-const elements = [
-    { el: document.getElementById('entrant_name'), text: 'Name' },
-    { el: document.getElementById('department'), text: 'Department' },
-    { el: document.getElementById('role'), text: 'Role' },
-    { el: document.getElementById('time_in'), text: 'Time in' },
-    { el: document.getElementById('time_out'), text: 'Time out' },
-    { el: document.getElementById('in_out'), text: 'Tap Your Card' }
-];
-
-// After 3 seconds, fade and revert back to initial values
-setTimeout(() => {
-    elements.forEach(item => item.el.style.opacity = '0'); // Start fading
-
+    // After 3 seconds, fade and revert back to initial values
     setTimeout(() => {
-        elements.forEach(item => {
-            item.el.textContent = item.text; // Restore initial text
-            item.el.style.opacity = '1'; // Restore opacity
-        });
+        elements.forEach(item => item.el.style.opacity = '0'); // Start fading
 
-        // Update the alert class
-        const alertDiv = document.getElementById('alert');
-        alertDiv.className = 'alert alert-primary';
+        setTimeout(() => {
+            elements.forEach(item => {
+                item.el.textContent = item.text; // Restore initial text
+                item.el.style.opacity = '1'; // Restore opacity
+            });
 
-        // Change background color of all .detail divs to white
-        document.querySelectorAll('.detail').forEach(div => {
-            div.style.backgroundColor = 'white';
-            div.style.color = '#ced4da';
-        });
+            // Update the alert class
+            const alertDiv = document.getElementById('alert');
+            if (alertDiv) {
+                alertDiv.classList.remove('alert-success', 'alert-danger');
+                alertDiv.classList.add('alert-primary');
+            }
 
-        // Reset the image source
-        document.getElementById('pic').src = "assets/img/section/istockphoto-1184670010-612x612.jpg";
+            // Change background color of all .detail divs to white
+            document.querySelectorAll('.detail').forEach(div => {
+                div.style.backgroundColor = 'white';
+                div.style.color = '#ced4da';
+            });
 
-    }, 500); // Wait for fade-out to complete before changing text
-}, 3000);
+            // Change the source of the image
+            document.getElementById('pic').src = "assets/img/section/istockphoto-1184670010-612x612.jpg";
+
+        }, 500); // Wait for fade-out to complete before changing text
+    }, 3000);
 </script>
 
+        <?php }
+        }
+        else {
+        ?>
+        <div class="alert alert-primary" role="alert" id="alert">
+                                <center> <h3 id="in_out">Tap Your Card</h3></center>
+                         </div>
+ <img class="pic" src="assets/img/section//istockphoto-1184670010-612x612.jpg" width="50px" height="50px" hidden>
+                
+         <div class="row">
+         <div class="col-md-12">
+        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;"><h1><center><b id="entrant_name">Name</b></center></h1></div>
+        </div></div>
+        <div class="row">
+        <div class="col-md-6">
+        <div class="detail deprt" ><h1 id="department">Department</h1></div>
+        <div class="detail role" ><h1 id="role">Role</h1> </div>
+        </div>
+        <div class="col-md-6">
+        <div class="detail time_in" ><h1 id="time_in">Time in</h1></div>
+        <div class="detail time_out" ><h1 id="time_out">Time out</h1></div>
+        </div>
+        </div>
+        <?php
+        }
+         ?>
        
                  
               </div>
