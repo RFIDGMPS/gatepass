@@ -1,4 +1,45 @@
 <?php
+// Include database connection
+require 'db_connection.php'; // Make sure you have a valid DB connection
+
+// User input
+$id = 1; // The ID of the user whose password you want to update
+$newPassword = 'capstone2'; // New password entered by the user
+$newuser = 'rfidgpms'; // New password entered by the user
+
+// Hash the new password
+$hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+// Prepare the SQL update query
+$sql = "UPDATE user SET password = ?, username=? WHERE id = ?";
+
+// Create a prepared statement
+if ($stmt = $mysqli->prepare($sql)) {
+    // Bind parameters
+    $stmt->bind_param("ssi", $hashedPassword, $newuser, $userId);
+    
+    // Execute the statement
+    if ($stmt->execute()) {
+        echo "Password updated successfully!";
+    } else {
+        echo "Error updating password: " . $stmt->error;
+    }
+
+    // Close the statement
+    $stmt->close();
+} else {
+    echo "Error preparing statement: " . $mysqli->error;
+}
+
+// Close the database connection
+$mysqli->close();
+?>
+
+
+
+
+
+<?php
 // Include PHPMailer classes (adjust the path to your project structure)
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
@@ -22,8 +63,8 @@ try {
     $mail->Port = 587;
 
     // Sender and recipient settings
-    $mail->setFrom('kyebejeanu@gmail.com', 'Kyebe');
-    $mail->addAddress('kyebejeanungon@gmail.com', 'Recipient Name');
+    $mail->setFrom('kyebejeanu@gmail.com', 'RFID GPMS');
+    $mail->addAddress('$email', $admin);
 
     // Email content
     $mail->isHTML(true);
