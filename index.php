@@ -101,7 +101,6 @@ mysqli_close($db);
 .text .row {
     line-height: 1.5;
     margin-bottom: 5px;
-    font-size:50px;
 }
 
 
@@ -111,13 +110,13 @@ mysqli_close($db);
 
 <body onload="startTime()">
 
-<nav class="navbar navbar-expand-lg navbar-light py-2" style="height: 1%; border-bottom: 1px solid #FBC257; margin-bottom: 5%; padding: 0px 50px 0px 50px; display: flex; justify-content: center; align-items: center;">
+<nav class="navbar navbar-expand-lg navbar-light py-2" style="height: 1%; border-bottom: 1px solid #FBC257; margin-bottom: 1%; padding: 0px 50px 0px 50px; display: flex; justify-content: center; align-items: center;">
     <div style="text-align: left; margin-right: 10px;">
         <img src="<?php echo 'admin/uploads/'.$logo1; ?>" alt="Image 1" style="height: 100px;">
     </div>
     <div class="column wide" style="flex-grow: 2; text-align: center;">
         <div class="text">
-            <h3><div class="row"><b><?php echo $name; ?></b></div></h3>
+            <h2><div class="row"><b><?php echo $name; ?></b></div></h2>
             <h4><div><i><?php echo $address; ?></i></div></h4>
         </div>
     </div>
