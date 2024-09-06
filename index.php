@@ -311,8 +311,8 @@ if (isset($_POST['submit'])) {
         
 
        
-            echo '<div class="alert alert-primary" role="alert" id="alert">
-                                         <center><h3 id="in_out">Tap Your Card</h3></center>
+            echo '<div class="alert alert-success" role="alert" id="alert">
+                                         <center><h3 id="in_out">TIME IN</h3></center>
                                  </div>';
                                 
                                  
