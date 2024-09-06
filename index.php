@@ -369,10 +369,7 @@ if($time_in_out == 'TIME IN') {
                     time_out.style.opacity = '1'; // Restore opacity
                     in_out.textContent = 'Tap Your Card'; // Change back to Hello world
                     in_out.style.opacity = '1'; // Restore opacity
-                    const details = document.getElementsByClassName('detail');
-for (let i = 0; i < details.length; i++) {
-    details[i].style.backgroundColor = 'white';
-}
+                    
                 }, 500); // Wait for fade-out to complete before changing text
             }, 3000);
     
