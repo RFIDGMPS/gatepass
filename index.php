@@ -310,9 +310,20 @@ if (isset($_POST['submit'])) {
 
         // Fetch and display the results
         while ($row = mysqli_fetch_array($results)) { ?>
-         <div class="alert alert-primary" role="alert" id="alert">
-                                <center> <h3 id="in_out">Tap Your Card</h3></center>
-                         </div>
+           <?php
+
+if($time_in_out == 'TIME IN') {
+    echo '<div class="alert alert-success" role="alert" id="alert">
+                                 <center><h3 id="in_out">TIME IN</h3></center>
+                         </div>';
+        }else {
+            echo '<div class="alert alert-danger" role="alert" id="alert">
+                                <center> <h3 id="in_out">TIME OUT</h3></center>
+                         </div>';
+        }
+                                 
+                         
+                         ?>
          <img class="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" hidden>
                 
          <div class="row">
