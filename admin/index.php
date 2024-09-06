@@ -1,3 +1,46 @@
+<?php
+// Include PHPMailer classes (adjust the path to your project structure)
+require 'phpmailer/src/Exception.php';
+require 'phpmailer/src/PHPMailer.php';
+require 'phpmailer/src/SMTP.php';
+
+// Import PHPMailer classes into the global namespace
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+// Create a new PHPMailer instance
+$mail = new PHPMailer(true);
+
+// Set up PHPMailer (similar to the code I provided earlier)
+try {
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'kyebejeanu@gmail.com';
+    $mail->Password = '123';
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port = 587;
+
+    // Sender and recipient settings
+    $mail->setFrom('kyebejeanu@gmail.com', 'Kyebe');
+    $mail->addAddress('kyebejeanungon@gmail.com', 'Recipient Name');
+
+    // Email content
+    $mail->isHTML(true);
+    $mail->Subject = 'Test email';
+    $mail->Body    = 'This is a test email sent using PHPMailer!';
+    $mail->AltBody = 'This is a plain text body for non-HTML clients';
+
+    // Send email
+    $mail->send();
+    echo 'Email sent successfully!';
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
