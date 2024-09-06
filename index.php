@@ -118,7 +118,7 @@ mysqli_close($db);
 </head>
 
 <body onload="startTime()">
-<div class="detail"><h1>Tedt</h1></div>
+
 <nav class="navbar navbar-expand-lg navbar-light py-2" style="height: 1%; border-bottom: 1px solid #FBC257; margin-bottom: 1%; padding: 0px 50px 0px 50px; display: flex; justify-content: center; align-items: center;">
     <div style="text-align: left; margin-right: 10px;">
         <img src="<?php echo 'admin/uploads/'.$logo1; ?>" alt="Image 1" style="height: 100px;">
@@ -288,7 +288,7 @@ if (isset($_POST['submit'])) {
                 <div class="col-md-9">
             <div class="card" style="margin-bottom:10px;">
                 <div class="card-body">
-                <h1>TExt</h1>
+                
             
                         
              
@@ -312,10 +312,11 @@ if (isset($_POST['submit'])) {
 
         // Fetch and display the results
         while ($row = mysqli_fetch_array($results)) { ?>
+        <div class="detail entrant_name"><h1><?php echo $row['full_name']; ?></h1></div>
             <tr>
                 <td><center><img class="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" ></center></td>
                 <td class="role"><?php echo $row['role']; ?></td>
-                <td class="entrant_name"><?php echo $row['full_name']; ?></td>
+                <td class="entrant_name"></td>
                 <td class="time"><?php echo $row['time_in_am']; ?></td>
            
                 <td><?php echo $row['time_out_pm']; ?></td>
