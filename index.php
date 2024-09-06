@@ -103,13 +103,22 @@ mysqli_close($db);
     margin-bottom: 5px;
 }
 
-
+.detail {
+    appearance: none;
+	border: none;
+	outline: none;
+	border-bottom: .2em solid #E91E63;
+	background: rgba(#E91E63, .2);
+	border-radius: .2em .2em 0 0;
+	padding: .4em;
+	color: #E91E63;
+}
 
     </style>
 </head>
 
 <body onload="startTime()">
-
+<div class="detail"></div>
 <nav class="navbar navbar-expand-lg navbar-light py-2" style="height: 1%; border-bottom: 1px solid #FBC257; margin-bottom: 1%; padding: 0px 50px 0px 50px; display: flex; justify-content: center; align-items: center;">
     <div style="text-align: left; margin-right: 10px;">
         <img src="<?php echo 'admin/uploads/'.$logo1; ?>" alt="Image 1" style="height: 100px;">
