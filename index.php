@@ -147,7 +147,7 @@ mysqli_close($db);
         <div class="container">
                 <center>
                     <div id="clockdate" style="border: 1px solid #f5af5b;background-color: #f5af5b">
-                        <div class="clockdate-wrapper">
+                        <div class="clockdate-wrapper" style="height:100px;">
                             <div id="clock" style="font-weight: bold; color: #fff;font-size: 50px"></div>
                             <div id="date" style="color: #fff"><i class="fas fa-calendar"></i><span id="currentDate"></span></div>
                         </div>
@@ -328,16 +328,16 @@ if($time_in_out == 'TIME IN') {
                 
          <div class="row">
          <div class="col-md-12">
-        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;"><h1><center><b id="entrant_name"><?php echo $row['full_name']; ?></b></center></h1></div>
+        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;"><h1 style="color:black;"><center><b id="entrant_name"><?php echo $row['full_name']; ?></b></center></h1></div>
         </div></div>
         <div class="row">
         <div class="col-md-6">
-        <div class="detail deprt" ><h1 id="department"><?php echo $row['department']; ?> </h1></div>
-        <div class="detail role" ><h1 id="role"><?php echo $row['role']; ?></h1> </div>
+        <div class="detail deprt" ><h1 style="color:black;" id="department"><?php echo $row['department']; ?> </h1></div>
+        <div class="detail role" ><h1 style="color:black;" id="role"><?php echo $row['role']; ?></h1> </div>
         </div>
         <div class="col-md-6">
-        <div class="detail time_in" ><h1 id="time_in"><?php echo $row['time_in_pm']; ?> </h1></div>
-        <div class="detail time_out" ><h1 id="time_out"><?php echo $row['time_out_pm']; ?> </h1></div>
+        <div class="detail time_in" ><h1 style="color:black;" id="time_in"><?php echo $row['time_in_pm']; ?> </h1></div>
+        <div class="detail time_out" ><h1 style="color:black;" id="time_out"><?php echo $row['time_out_pm']; ?> </h1></div>
         </div>
         </div>
         <script>
@@ -371,7 +371,7 @@ if($time_in_out == 'TIME IN') {
             // Change background color of all .detail divs to white
             document.querySelectorAll('.detail').forEach(div => {
                 div.style.backgroundColor = 'white';
-                div.style.color = 'black';
+                div.style.color = '#ced4da';
             });
 
             // Change the source of the image
