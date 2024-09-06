@@ -205,6 +205,7 @@ if (isset($_POST['submit'])) {
                     $update_query = "UPDATE personell_logs SET $update_field = '$time' WHERE id = '{$user1['id']}'";
                     mysqli_query($db, $update_query);
                 } else {
+                    echo 'test';
                     //echo "<script>alert('Please wait for the appropriate time period.');</script>";
                 }
             } else {
