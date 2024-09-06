@@ -289,39 +289,20 @@ if (isset($_POST['submit'])) {
                 <div class="col-md-9">
           
                
-    <style>
-        #message {
-            font-size: 24px;
-            font-weight: bold;
-            opacity: 1;
-            transition: opacity 0.5s ease;
-        }
-    </style>
-
-
-    <div id="message">Hello world</div>
-    <br>
-    <button id="changeText">Click Me</button>
-
-    <script>
-        const messageDiv = document.getElementById('message');
-        const button = document.getElementById('changeText');
-
-        button.addEventListener('click', function() {
-            // Change text to "Success"
-            messageDiv.textContent = 'Success';
-
-            // After 3 seconds, fade and revert back to "Hello world"
-            setTimeout(function() {
-                messageDiv.style.opacity = '0'; // Start fading
-                setTimeout(function() {
-                    messageDiv.textContent = 'Hello world'; // Change back to Hello world
-                    messageDiv.style.opacity = '1'; // Restore opacity
-                }, 500); // Wait for fade-out to complete before changing text
-            }, 3000);
-        });
-    </script>
-
+                <div class="row">
+         <div class="col-md-12">
+        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;"><h1  style="font-color:gray;"><center><b>Name</b></center></h1></div>
+        </div></div>
+        <div class="row">
+        <div class="col-md-6">
+        <div class="detail deprt"><h1 style="font-color:gray;">Department</h1></div>
+        <div class="detail role"><h1  style="font-color:gray;">Role</h1> </div>
+        </div>
+        <div class="col-md-6">
+        <div class="detail time_in"><h1 style="font-color:gray;">Time in</h1></div>
+        <div class="detail time_out"><h1  style="font-color:gray;">Time out</h1></div>
+        </div>
+        </div>
              
                 <?php
 
