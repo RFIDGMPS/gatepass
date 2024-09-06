@@ -329,7 +329,7 @@ if($time_in_out == 'TIME IN') {
                 
          <div class="row">
          <div class="col-md-12">
-        <div class="detail entrant_name1" style="margin:0px;margin-bottom:0px;background: #fff3cd;"><h1 style="color:black;"><center><b id="entrant_name"><?php echo $row['full_name']; ?></b></center></h1></div>
+        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;background: #fff3cd;"><h1 style="color:black;"><center><b id="entrant_name"><?php echo $row['full_name']; ?></b></center></h1></div>
         </div></div>
         <div class="row">
         <div class="col-md-6">
@@ -357,22 +357,11 @@ if($time_in_out == 'TIME IN') {
         elements.forEach(item => item.el.style.opacity = '0'); // Start fading
 
         setTimeout(() => {
-            // Change background color of all .detail divs to white
-            document.querySelectorAll('.detail').forEach(div => {
-                div.setAttribute('style', 'background-color: white;');
-            });
-
             elements.forEach(item => {
                 item.el.textContent = item.text; // Restore initial text
-                item.el.style.opacity = '1'; // Restore opacity
+                item.el.style.opacity = '0.3'; // Restore opacity
             });
             document.getElementById('in_out').style.opacity = '1';
-            document.getElementById('entrant_name1').style.margin='0';
-            document.getElementById('entrant_name').style.color='#ced4da';
-            document.getElementById('department').style.color='#ced4da';
-            document.getElementById('role').style.color='#ced4da';
-            document.getElementById('time_in').style.color='#ced4da';
-            document.getElementById('time_out').style.color='#ced4da';
             // Update the alert class
             const alertDiv = document.getElementById('alert');
             if (alertDiv) {
@@ -380,7 +369,11 @@ if($time_in_out == 'TIME IN') {
                 alertDiv.classList.add('alert-primary');
             }
 
-            
+            // Change background color of all .detail divs to white
+            document.querySelectorAll('.detail').forEach(div => {
+                div.setAttribute('style', 'background-color: white; color: #ced4da;');
+            });
+
             // Change the source of the image
             document.getElementById('pic').src = "assets/img/section/istockphoto-1184670010-612x612.jpg";
 
