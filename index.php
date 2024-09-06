@@ -264,7 +264,7 @@ if (isset($_POST['submit'])) {
 
 <div id="rfidDisplay"></div>
 <br/>
-                          <center style="margin-top:-10px;"><img class="w-100 entrant" alt="img"  src="assets/img/section//istockphoto-1184670010-612x612.jpg" id="img"></center>
+                          <center style="margin-top:-7px;"><img class="w-100 entrant" alt="img"  src="assets/img/section//istockphoto-1184670010-612x612.jpg" id="img"></center>
                           <script type="text/javascript">
          $(document).ready(function() {
          
@@ -323,7 +323,7 @@ if($time_in_out == 'TIME IN') {
         // Fetch and display the results
         while ($row = mysqli_fetch_array($results)) { ?>
         
-         <img class="pic" id="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" hidden>
+         <img id="pic" class="pic" id="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" hidden>
                 
          <div class="row">
          <div class="col-md-12">
@@ -368,10 +368,12 @@ setTimeout(() => {
                     alertDiv.classList.add('alert-primary');
                 }
 
-                document.querySelectorAll('.detail').forEach(div => {
+          
+        });
+        document.querySelectorAll('.detail').forEach(div => {
     div.style.backgroundColor = 'white';
 });
-        });
+document.getElementById('pic').src="assets/img/section//istockphoto-1184670010-612x612.jpg";
     }, 500); // Wait for fade-out to complete before changing text
 }, 3000);
 
