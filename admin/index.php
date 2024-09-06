@@ -1,39 +1,4 @@
-<?php
-// Include database connection
-require '../connection.php'; // Make sure you have a valid DB connection
 
-// User input
-$id = 1; // The ID of the user whose password you want to update
-$newPassword = 'capstone2'; // New password entered by the user
-$newuser = 'rfidgpms'; // New password entered by the user
-
-// Hash the new password
-$hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-
-// Prepare the SQL update query
-$sql = "UPDATE user SET password = ?, username=? WHERE id = ?";
-
-// Create a prepared statement
-if ($stmt = $db->prepare($sql)) {
-    // Bind parameters
-    $stmt->bind_param("ssi", $hashedPassword, $newuser, $id);
-    
-    // Execute the statement
-    if ($stmt->execute()) {
-        echo "Password updated successfully!";
-    } else {
-        echo "Error updating password: " . $stmt->error;
-    }
-
-    // Close the statement
-    $stmt->close();
-} else {
-    echo "Error preparing statement: " . $db->error;
-}
-
-// Close the database connection
-$db->close();
-?>
 
 
 
@@ -117,7 +82,10 @@ if (isset($_POST['login'])) {
 $password1 = stripcslashes($password1); 
 $username1 = mysqli_real_escape_string($db, $username1);
 $password1 = mysqli_real_escape_string($db, $password1);
-    if ($username1 == $username && $password1 == $password) {
+
+
+
+    if ($username1 == $username && password_verify($password1, $password)) {
         // Store the username in session to indicate successful login
         $_SESSION['username'] = $username;
 
