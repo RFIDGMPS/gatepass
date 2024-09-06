@@ -167,67 +167,6 @@ mysqli_close($db);
 
 
     
- 
-
-<div id="rfidDisplay"></div>
-<br/>
-                          <center style="margin-top:-7px;"><img id="pic"  class="w-100 entrant" alt="img"  src="assets/img/section//istockphoto-1184670010-612x612.jpg" id="img"></center>
-                          <script type="text/javascript">
-         $(document).ready(function() {
-         
-    	$getphoto =  $('.pic').attr('src');
-					$('.entrant').attr('src',$getphoto);
-                    $getname =  $('.entrant_name').html();
-                    $('.display_name').html($getname);  
-                    $getrole =  $('.role').html();
-                    $('.d_role').html($getrole);  
-         });
-		 
-		 </script>
-                          
-                        
-                      </p>      
-                      </div>
-                              </form>
-                            
-
-                    </div>
-                </div>
-                <div class="col-md-9">
-                <div class="row">
-    <div class="col-md-12">
-        <div class="detail entrant_name">
-            <h1><center><b id="entrant_name">Name</b></center></h1>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <div class="detail deprt">
-            <h1 id="department">Department</h1>
-        </div>
-        <div class="detail role">
-            <h1 id="role">Role</h1>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="detail time_in">
-            <h1 id="time_in">Time in</h1>
-        </div>
-        <div class="detail time_out">
-            <h1 id="time_out">Time out</h1>
-        </div>
-    </div>
-</div>
-
-<?php
-// Display alert based on time in/out
-$alertClass = $time_in_out == 'TIME IN' ? 'alert-success' : 'alert-danger';
-echo "<div class='alert $alertClass' role='alert' id='alert'>
-        <center><h3 id='in_out'>$time_in_out</h3></center>
-      </div>";
-      ?>
-    
     <?php
 $rfid_number = '';
 $time_in_out = 'TIME IN';
@@ -382,6 +321,68 @@ while ($row = mysqli_fetch_array($results)) {
 
 }
 ?>
+
+
+<div id="rfidDisplay"></div>
+<br/>
+                          <center style="margin-top:-7px;"><img id="pic"  class="w-100 entrant" alt="img"  src="assets/img/section//istockphoto-1184670010-612x612.jpg" id="img"></center>
+                          <script type="text/javascript">
+         $(document).ready(function() {
+         
+    	$getphoto =  $('.pic').attr('src');
+					$('.entrant').attr('src',$getphoto);
+                    $getname =  $('.entrant_name').html();
+                    $('.display_name').html($getname);  
+                    $getrole =  $('.role').html();
+                    $('.d_role').html($getrole);  
+         });
+		 
+		 </script>
+                          
+                        
+                      </p>      
+                      </div>
+                              </form>
+                            
+
+                    </div>
+                </div>
+                <div class="col-md-9">
+                <?php
+// Display alert based on time in/out
+$alertClass = $time_in_out == 'TIME IN' ? 'alert-success' : 'alert-danger';
+echo "<div class='alert $alertClass' role='alert' id='alert'>
+        <center><h3 id='in_out'>$time_in_out</h3></center>
+      </div>";
+      ?>
+                <div class="row">
+    <div class="col-md-12">
+        <div class="detail entrant_name">
+            <h1><center><b id="entrant_name">Name</b></center></h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="detail deprt">
+            <h1 id="department">Department</h1>
+        </div>
+        <div class="detail role">
+            <h1 id="role">Role</h1>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="detail time_in">
+            <h1 id="time_in">Time in</h1>
+        </div>
+        <div class="detail time_out">
+            <h1 id="time_out">Time out</h1>
+        </div>
+    </div>
+</div>
+
+
+    
 
        
                  
