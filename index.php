@@ -293,11 +293,11 @@ if (isset($_POST['submit'])) {
                 <?php
 
 if($time_in_out == 'TIME IN') {
-    echo '<div class="alert alert-success fade" role="alert" id="alert">
+    echo '<div class="alert alert-success" role="alert" id="alert">
                                  <center><h3 id="in_out">TIME IN</h3></center>
                          </div>';
         }else {
-            echo '<div class="alert alert-danger fade" role="alert" id="alert">
+            echo '<div class="alert alert-danger" role="alert" id="alert">
                                 <center> <h3 id="in_out">TIME OUT</h3></center>
                          </div>';
         }
@@ -327,7 +327,7 @@ if($time_in_out == 'TIME IN') {
         transition: opacity 0.5s ease-in-out; /* Adjust the timing as needed */
     }
 </style>
-         <img class="pic fade" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" hidden>
+         <img class="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" hidden>
                 
          <div class="row">
          <div class="col-md-12">
