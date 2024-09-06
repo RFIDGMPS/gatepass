@@ -264,7 +264,7 @@ if (isset($_POST['submit'])) {
 
 <div id="rfidDisplay"></div>
 <br/>
-                          <center style="margin-top:-7px;"><img id="pic" height="200px" class="w-100 entrant" alt="img"  src="assets/img/section//istockphoto-1184670010-612x612.jpg" id="img"></center>
+                          <center style="margin-top:-7px;"><img id="pic" height="220px" class="w-100 entrant" alt="img"  src="assets/img/section//istockphoto-1184670010-612x612.jpg" id="img"></center>
                           <script type="text/javascript">
          $(document).ready(function() {
          
