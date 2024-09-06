@@ -169,7 +169,7 @@ mysqli_close($db);
     
     <?php
 $rfid_number = '';
-$time_in_out = 'TIME IN';
+$time_in_out = 'Tap Your Card';
 
 // Check if form is submitted
 if (isset($_POST['submit'])) {
@@ -194,8 +194,9 @@ if (isset($_POST['submit'])) {
             $query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
             $result1 = mysqli_query($db, $query1);
             $user1 = mysqli_fetch_assoc($result1);
-
+            $time_in_out = 'TIME IN';
             if ($user1) {
+              
                 // Update existing log entry
                 if (($current_period === "AM" && $user1['time_out_am'] === '') ||
                     ($current_period === "PM" && $user1['time_out_pm'] === '')) {
@@ -206,6 +207,7 @@ if (isset($_POST['submit'])) {
                     mysqli_query($db, $update_query);
                 } else {
                     echo "<script>alert('Please wait for the appropriate time period.');</script>";
+                    
                 }
             } else {
                 // Insert new log entry
