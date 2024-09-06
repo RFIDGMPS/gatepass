@@ -337,8 +337,8 @@ if($time_in_out == 'TIME IN') {
         <div class="detail role" style="background: #FCCC73;"><h1 style="color:black;" id="role"><?php echo $row['role']; ?></h1> </div>
         </div>
         <div class="col-md-6">
-        <div class="detail time_in" style="background: #FCCC73;"><h1 style="color:black;" id="time_in"><?php echo $row['time_in_pm']; ?> </h1></div>
-        <div class="detail time_out" style="background: #FCCC73;"><h1 style="color:black;" id="time_out"><?php echo $row['time_out_pm']; ?> </h1></div>
+        <div class="detail time_in" style="background: #FCCC73;"><h1 style="color:black;" id="time_in"><?php echo $row['time_in_am']; ?> </h1></div>
+        <div class="detail time_out" style="background: #FCCC73;"><h1 style="color:black;" id="time_out"><?php echo $row['time_out_am']; ?> </h1></div>
         </div>
         </div>
         <script>
