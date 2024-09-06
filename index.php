@@ -277,7 +277,8 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
                 <div class="col-md-9">
-            <div class="card">
+            <div class="card" style="margin-bottom:10px;">
+                <div class="card-body">
                 <h1>TExt</h1>
             
                         
@@ -312,7 +313,7 @@ if (isset($_POST['submit'])) {
             
             </tr>
         <?php } ?>
-   
+        </div>
 
                   </div>
                   <?php
