@@ -286,10 +286,7 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
                 <div class="col-md-9">
-            <div class="card" style="margin-bottom:10px;">
-                <div class="card-body">
-                
-            
+          
                         
              
   
@@ -301,12 +298,12 @@ if (isset($_POST['submit'])) {
             SELECT id, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm, 'personell_logs' AS source, 
             GREATEST(STR_TO_DATE(time_in_am, '%H:%i:%s'), STR_TO_DATE(time_out_am, '%H:%i:%s'), STR_TO_DATE(time_in_pm, '%H:%i:%s'), STR_TO_DATE(time_out_pm, '%H:%i:%s')) AS latest_time
             FROM personell_logs
-            WHERE DATE(date_logged) = CURDATE()
+            WHERE DATE(date_logged) = CURDATE() AND rfid_number = $rfid_number
             UNION ALL
             SELECT id, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm, 'visitor_logs' AS source, 
             GREATEST(STR_TO_DATE(time_in_am, '%H:%i:%s'), STR_TO_DATE(time_out_am, '%H:%i:%s'), STR_TO_DATE(time_in_pm, '%H:%i:%s'), STR_TO_DATE(time_out_pm, '%H:%i:%s')) AS latest_time
             FROM visitor_logs
-            WHERE DATE(date_logged) = CURDATE()
+            WHERE DATE(date_logged) = CURDATE() AND rfid_number = $rfid_number
             ORDER BY latest_time DESC, source DESC
         "); 
 
@@ -316,16 +313,14 @@ if (isset($_POST['submit'])) {
             <tr>
                 <td><center><img class="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" ></center></td>
                 <td class="role"><?php echo $row['role']; ?></td>
-                <td class="entrant_name"></td>
+            
                 <td class="time"><?php echo $row['time_in_am']; ?></td>
            
                 <td><?php echo $row['time_out_pm']; ?></td>
             
             </tr>
         <?php } ?>
-        </div>
-
-                  </div>
+       
                   <?php
 
     if($time_in_out == 'TIME IN') {
