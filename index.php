@@ -276,18 +276,18 @@ if (isset($_POST['submit'])) {
 
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-9">
             
                         
                     <?php
 
     if($time_in_out == 'TIME IN') {
         echo '<div class="alert alert-success" role="alert">
-                                     <center><h4>TIME IN</h4></center>
+                                     <center><h3>TIME IN</h3></center>
                              </div>';
             }else {
                 echo '<div class="alert alert-danger" role="alert">
-                                    <center> <h4>TIME OUT</h4></center>
+                                    <center> <h3>TIME OUT</h3></center>
                              </div>';
             }
                                      
