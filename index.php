@@ -393,7 +393,7 @@ if($time_in_out == 'TIME IN') {
                 
          <div class="row">
          <div class="col-md-12">
-        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;"><h1><center><b id="entrant_name">Name</b></center></h1></div>
+        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;"><h1><center><b id="entrant_name" style="opacity:1;">Name</b></center></h1></div>
         </div></div>
         <div class="row">
         <div class="col-md-6">
