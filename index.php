@@ -117,7 +117,7 @@ mysqli_close($db);
     </div>
     <div class="column wide" style="flex-grow: 2; text-align: center;">
         <div class="text">
-            <h1><div class="row"><b><?php echo $name; ?></b></div></h1>
+            <h3><div class="row"><b><?php echo $name; ?></b></div></h3>
             <h4><div><i><?php echo $address; ?></i></div></h4>
         </div>
     </div>
