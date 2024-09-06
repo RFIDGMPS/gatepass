@@ -290,20 +290,7 @@ if (isset($_POST['submit'])) {
           
                         
              
-                <?php
-
-if($time_in_out == 'TIME IN') {
-    echo '<div class="alert alert-success" role="alert" id="alert">
-                                 <center><h3 id="in_out">TIME IN</h3></center>
-                         </div>';
-        }else {
-            echo '<div class="alert alert-danger" role="alert" id="alert">
-                                <center> <h3 id="in_out">TIME OUT</h3></center>
-                         </div>';
-        }
-                                 
-                         
-                         ?>
+             
         <?php 
         include 'connection.php'; 
 
@@ -385,7 +372,7 @@ if($time_in_out == 'TIME IN') {
         }
         else {
         ?>
-        <div class="alert alert-primary" role="alert" id="alert">
+        <div class="alert alert-primary" role="alert" id="alert" style="margin-bottom:0px;">
                                 <center> <h3 id="in_out">Tap Your Card</h3></center>
                          </div>
  <img class="pic" src="assets/img/section//istockphoto-1184670010-612x612.jpg" width="50px" height="50px" hidden>
