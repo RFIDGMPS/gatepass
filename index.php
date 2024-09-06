@@ -170,7 +170,7 @@ mysqli_close($db);
     <?php
 $rfid_number = '';
 $time_in_out = 'Tap Your Card';
-$alertClass ='alert-primary';
+
 
 // Check if form is submitted
 if (isset($_POST['submit'])) {
@@ -263,9 +263,68 @@ if (isset($_POST['submit'])) {
         }
     }
     // Close database connection
-    mysqli_close($db);
+   
+  
+    $results = mysqli_query($db, "
+    SELECT * FROM (
+        SELECT id, department, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
+        FROM personell_logs
+        UNION ALL
+        SELECT id, department, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
+        FROM visitor_logs
+    ) AS combined_results
+    ORDER BY id DESC
+    LIMIT 1
+    ");
 
+    while ($row = mysqli_fetch_array($results)) {
+        $time_in_out = ($row['time_in_pm'] != '') ? 'TIME IN' : 'TIME OUT';
+        $alertClass = $time_in_out == 'TIME IN' ? 'alert-success' : 'alert-danger';
+    ?>
+        <script>
+            // Array of elements with their updated values
+            const elements = [
+                { el: document.getElementById('entrant_name'), text: '<?php echo $row['full_name']; ?>' },
+                { el: document.getElementById('department'), text: '<?php echo $row['department']; ?>' },
+                { el: document.getElementById('role'), text: '<?php echo $row['role']; ?>' },
+                { el: document.getElementById('time_in'), text: '<?php echo $row['time_in_pm']; ?>' },
+                { el: document.getElementById('time_out'), text: '<?php echo $row['time_out_pm']; ?>' },
+                { el: document.getElementById('in_out'), text: '<?php echo $time_in_out; ?>' }
+            ];
+
+            // Fade out and update data
+            setTimeout(() => {
+                elements.forEach(item => item.el.style.opacity = '0'); // Start fading
+
+                setTimeout(() => {
+                    elements.forEach(item => {
+                        item.el.textContent = item.text; // Update text
+                        item.el.style.opacity = '1'; // Restore opacity
+                    });
+
+                    // Update alert class
+                    const alertDiv = document.getElementById('alert');
+                    alertDiv.classList.remove('alert-success', 'alert-danger');
+                    alertDiv.classList.add('<?php echo $alertClass; ?>');
+
+                    // Update detail div background and text color
+                    document.querySelectorAll('.detail').forEach(div => {
+                        div.style.backgroundColor = '#fff3cd';
+                        div.style.color = 'black';
+                    });
+
+                    // Update the photo
+                    document.getElementById('pic').src = "admin/uploads/<?php echo $row['photo']; ?>";
+
+                }, 500); // Wait for fade-out to complete before updating
+            }, 3000);
+        </script>
+    <?php
+    }
+    mysqli_close($db);
 }
+
+
 ?>
 
 
@@ -294,13 +353,10 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
                 <div class="col-md-9">
-                    <?php
-// Display alert based on time in/out
-$alertClass = $time_in_out == 'TIME IN' ? 'alert-success' : 'alert-danger';
-echo "<div class='alert $alertClass' role='alert' id='alert'>
-        <center><h3 id='in_out'>$time_in_out</h3></center>
-      </div>";
-      ?>
+                <div class="alert alert-primary" role="alert" id="alert">
+                                <center> <h3 id="in_out">Tap Your Card</h3></center>
+                         </div>
+               
                 <div class="row">
     <div class="col-md-12">
         <div class="detail entrant_name">
@@ -327,67 +383,6 @@ echo "<div class='alert $alertClass' role='alert' id='alert'>
     </div>
 </div>
 
-<?php
-include '../connection.php';
-$results = mysqli_query($db, "
-SELECT * FROM (
-    SELECT id, department, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
-    FROM personell_logs
-    UNION ALL
-    SELECT id, department, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
-    FROM visitor_logs
-) AS combined_results
-ORDER BY id DESC
-LIMIT 1
-");
-
-while ($row = mysqli_fetch_array($results)) {
-?>
-<script>
-
-        // Array of elements with their updated values
-        const elements = [
-            { el: document.getElementById('entrant_name'), text: '<?php echo $row['full_name']; ?>' },
-            { el: document.getElementById('department'), text: '<?php echo $row['department']; ?>' },
-            { el: document.getElementById('role'), text: '<?php echo $row['role']; ?>' },
-            { el: document.getElementById('time_in'), text: '<?php echo $row['time_in_pm']; ?>' },
-            { el: document.getElementById('time_out'), text: '<?php echo $row['time_out_pm']; ?>' },
-            { el: document.getElementById('in_out'), text: '<?php echo $time_in_out; ?>' }
-        ];
-
-        // After 3 seconds, fade out and update
-        setTimeout(() => {
-            elements.forEach(item => item.el.style.opacity = '0'); // Start fading
-
-            setTimeout(() => {
-                elements.forEach(item => {
-                    item.el.textContent = item.text; // Restore new text
-                    item.el.style.opacity = '1'; // Restore opacity
-                });
-
-                // Reset alert class
-                const alertDiv = document.getElementById('alert');
-                alertDiv.classList.remove('alert-success', 'alert-danger');
-                alertDiv.classList.add('<?php echo $alertClass; ?>');
-
-                // Update details div styles and colors
-                document.querySelectorAll('.detail').forEach(div => {
-                    div.style.backgroundColor = '#fff3cd';
-                    div.style.color = 'black';
-                });
-
-                // Update the photo
-                document.getElementById('pic').src = "admin/uploads/<?php echo $row['photo']; ?>";
-
-            }, 500); // Wait for fade-out before updating
-        }, 3000);
-   
-</script>
-
-<?php
-}
-
-?>
     
 
        
