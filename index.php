@@ -383,7 +383,7 @@ else {
             document.getElementById('time_out').style.color = 'black';
             document.getElementById('alert').classList.remove('alert-primary');
             document.getElementById('alert').classList.add('<?php echo $alert;?>');
-            document.getElementById('pic').src = "<?php echo $row['photo']; ?>";
+            document.getElementById('pic').src = 'admin/uploads/<?php echo $row['photo']; ?>';
         // Revert text back to original after 3 seconds
         setTimeout(function() {
             document.getElementById('in_out').innerHTML = originalTexts.in_out;
