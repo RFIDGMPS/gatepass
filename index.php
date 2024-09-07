@@ -319,8 +319,6 @@ if (isset($_POST['submit'])) {
     <center><h3 id="in_out">Tap Your Card</h3></center>
 </div>
 
-<img class="pic" src="assets/img/section//istockphoto-1184670010-612x612.jpg" width="50px" height="50px" hidden>
-
 <div class="row">
     <div class="col-md-12">
         <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;color:#ced4da;">
