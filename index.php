@@ -348,7 +348,7 @@ if (isset($_POST['submit'])) {
 </div>
 <?php 
 
- if(isset($_POST['submit'])){
+ if(isset($_POST['submit']) || isset($_POST['vsave'])){
     
     $alert='alert-primary';
 if($time_in_out=='TIME IN'){
@@ -602,7 +602,7 @@ while ($row = $result->fetch_assoc()) {
                         </div>
                         <div class="modal-footer">
                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                           <button type="submit" id="btn-emp" class="btn btn-outline-warning">Save</button>
+                           <button type="submit" id="btn-emp" class="btn btn-outline-warning" name="vsave">Save</button>
                         </div>
                      </div>
                   </div>
