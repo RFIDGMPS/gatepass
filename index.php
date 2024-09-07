@@ -19,15 +19,6 @@ if ($result->num_rows > 0) {
     $logo2 = $row['logo2'];
 } 
 
-// SQL query to truncate table
-$sql1 = "TRUNCATE TABLE visitor_logs";
-
-// Execute query
-if ($db->query($sql1) === TRUE) {
-    echo "Table truncated successfully";
-} else {
-    echo "Error truncating table: " . $db->error;
-}
 
 // Get yesterday's date
 $yesterday = date('Y-m-d', strtotime('-1 day'));
