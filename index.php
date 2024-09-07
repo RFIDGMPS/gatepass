@@ -683,16 +683,16 @@ else {
 
 
      if($time_in_out=="TIME IN" && date('A') =="AM"){
-        $voice='Good morning '.$row['full_name'].'!';
+        $voice='Good morning '.$name.'!';
     } 
     if($time_in_out=="TIME OUT" && date('A') =="AM"){
-        $voice='Take care '.$row['full_name'].'!';
+        $voice='Take care '.$name.'!';
     } 
     if($time_in_out=="TIME IN" && date('A') =="PM"){
-        $voice='Good afternoon '.$row['full_name'].'!';
+        $voice='Good afternoon '.$name.'!';
     } 
     if($time_in_out=="TIME OUT" && date('A') =="PM"){
-        $voice='Take care '.$row['full_name'].'!';
+        $voice='Take care '.$name.'!';
     } 
 ?>
    <script>
