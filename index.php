@@ -348,7 +348,18 @@ if (isset($_POST['submit'])) {
     </div>
 </div>
 <?php 
- if(isset($_POST['submit'])){?>
+
+ if(isset($_POST['submit'])){
+    
+    $alert='alert-primary';
+if($time_in_out='TIME IN'){
+$alert='alert-success';
+}
+else {
+    $alert='alert-danger'; 
+}
+?>
+ 
            <script>
              // Store original values
         let originalTexts = {
@@ -372,6 +383,8 @@ if (isset($_POST['submit'])) {
             document.getElementById('role').style.color = 'black';
             document.getElementById('time_in').style.color = 'black';
             document.getElementById('time_out').style.color = 'black';
+            document.getElementById('alert').classList.remove('alert-primary');
+            document.getElementById('alert').classList.add('<?php echo $alert;?>');
         // Revert text back to original after 3 seconds
         setTimeout(function() {
             document.getElementById('in_out').innerHTML = originalTexts.in_out;
@@ -385,7 +398,8 @@ if (isset($_POST['submit'])) {
             document.getElementById('role').style.color = '#ced4da';
             document.getElementById('time_in').style.color = '#ced4da';
             document.getElementById('time_out').style.color = '#ced4da';
-            
+            document.getElementById('alert').classList.remove('<?php echo $alert;?>');
+            document.getElementById('alert').classList.add('alert-primary');
         }, 3000); // 3000 milliseconds = 3 seconds
     </script>
 <?php 
