@@ -170,7 +170,7 @@ mysqli_close($db);
     
     <?php
 $rfid_number = '';
-$time_in_out = 'TIME IN';
+$time_in_out = 'Tap Your Card';
 
 // Check if form is submitted
 if (isset($_POST['submit'])) {
@@ -215,7 +215,7 @@ if (isset($_POST['submit'])) {
                 $role = $user['role'];
                 $department = $user['department'];
                 $status = $user['status'];
-
+                $time_in_out = 'TIME IN';
                 $time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
 
                 $insert_query = "INSERT INTO personell_logs (photo, role, full_name, rfid_number, $time_field, date_logged, department, status) 
@@ -251,6 +251,7 @@ if (isset($_POST['submit'])) {
                 });</script>';
             }
         } else {
+            $time_in_out = 'TIME IN';
             $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in_$current_period, date_logged, photo) 
                              VALUES ('Stranger', '$rfid_number', '$time', '$date_logged', 'stranger.jpg')";
             mysqli_query($db, $insert_query);
@@ -310,11 +311,16 @@ if (isset($_POST['submit'])) {
     if(isset($_POST['submit'])){
         
 
-       
+       if($time_in_out=='TIME IN'){
             echo '<div class="alert alert-success" role="alert" id="alert">
                                          <center><h3 id="in_out">TIME IN</h3></center>
                                  </div>';
-                                
+       }else {
+        echo '<div class="alert alert-danger" role="alert" id="alert">
+                                         <center><h3 id="in_out">TIME OUT</h3></center>
+                                 </div>';
+       }
+
                                  
                                  
         // Fetch and display the results
@@ -379,7 +385,9 @@ if (isset($_POST['submit'])) {
     }, 3000);
 </script>
 
-        <?php }
+        <?php 
+        $time_in_out='Tap Your Card';
+    }
         }
         else {
         ?>
