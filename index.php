@@ -119,7 +119,7 @@ mysqli_close($db);
 </head>
 
 <body onload="startTime()">
-
+<div id="message"></div>
 <nav class="navbar navbar-expand-lg navbar-light py-2" style="height: 1%; border-bottom: 1px solid #FBC257; margin-bottom: 1%; padding: 0px 50px 0px 50px; display: flex; justify-content: center; align-items: center;">
     <div style="text-align: left; margin-right: 10px;">
         <img src="<?php echo 'admin/uploads/'.$logo1; ?>" alt="Image 1" style="height: 100px;">
@@ -295,22 +295,22 @@ if (isset($_POST['submit'])) {
         include 'connection.php'; 
 
         // Combine and fetch data from both tables for the current date, ordering by the latest update
-        $results = mysqli_query($db, "
-        SELECT id, photo, department, role, full_name, time_in, time_out, 'personell_logs' AS source, 
-        IFNULL(STR_TO_DATE(time_out, '%H:%i:%s'), STR_TO_DATE(time_in, '%H:%i:%s')) AS latest_time
-        FROM personell_logs
-        WHERE DATE(date_logged) = CURDATE()
-    
-        UNION ALL
-    
-        SELECT id, photo, department, role, name AS full_name, time_in, time_out, 'visitor_logs' AS source, 
-        IFNULL(STR_TO_DATE(time_out, '%H:%i:%s'), STR_TO_DATE(time_in, '%H:%i:%s')) AS latest_time
-        FROM visitor_logs
-        WHERE DATE(date_logged) = CURDATE()
-    
-        ORDER BY latest_time DESC, source DESC
-    ");
-    
+      $results = mysqli_query($db, "
+    SELECT id, photo, department, role, full_name, time_in, time_out, 'personell_logs' AS source, 
+    IFNULL(STR_TO_DATE(time_out, '%H:%i:%s'), STR_TO_DATE(time_in, '%H:%i:%s')) AS latest_time
+    FROM personell_logs
+    WHERE DATE(date_logged) = CURDATE()
+
+    UNION ALL
+
+    SELECT id, photo, department, role, name AS full_name, time_in, time_out, 'visitor_logs' AS source, 
+    IFNULL(STR_TO_DATE(time_out, '%H:%i:%s'), STR_TO_DATE(time_in, '%H:%i:%s')) AS latest_time
+    FROM visitor_logs
+    WHERE DATE(date_logged) = CURDATE()
+
+    ORDER BY latest_time DESC, source DESC
+");
+
     
    
     
@@ -459,7 +459,7 @@ else {
 
 
  <!-- Modal -->
- <form role="form" method="post" action="admin/transac.php?action=add_visitor_log" enctype="multipart/form-data">
+ <form id="myForm" role="form" method="post" action="admin/transac.php?action=add_visitor_log" enctype="multipart/form-data">
                <div class="modal fade" id="visitorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg">
                      <div class="modal-content">
@@ -611,7 +611,27 @@ while ($row = $result->fetch_assoc()) {
                   </div>
                </div>
             </form>
+            <script>
+        $(document).ready(function() {
+            $('#myForm').on('submit', function(e) {
+                e.preventDefault(); // Prevent the form from submitting normally
 
+                $.ajax({
+                    url: "admin/transac.php?action=add_visitor_log", // The PHP script that processes the data
+                    type: "POST",
+                    data: $(this).serialize(), // Serialize form data
+                    success: function(response) {
+                        // Handle successful response
+                        $('#message').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle errors
+                        $('#message').html("An error occurred: " + error);
+                    }
+                });
+            });
+        });
+    </script>
 
             <div class="modal fade" id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="cameraModalLabel" aria-hidden="true">
                                                    <div class="modal-dialog" role="document">

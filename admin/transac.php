@@ -98,21 +98,20 @@ switch ($_GET['action'])
                 
                         $current_period=date('A');
 
- $time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
+ //$time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
 
 
 
 
                         if (file_put_contents($filePath, $decodedData)) {
                             // Insert query for entrance table
-                            $insert_query = "INSERT INTO visitor_logs (photo, v_code, name, rfid_number,  $time_field, date_logged, department, sex,civil_status,contact_number,address,purpose,role) 
+                            $insert_query = "INSERT INTO visitor_logs (photo, v_code, name, rfid_number,  time_in, date_logged, department, sex,civil_status,contact_number,address,purpose,role) 
                             VALUES ('$imageName','$v_code', '$name', '$rfid_number', '$time', '$date_logged', '$department', '$sex','$civil_status','$contact_number','$address','$purpose','Visitor')";
                   
                             // Execute query
                             if (mysqli_query($db, $insert_query)) {
                                 echo '<script type="text/javascript">
-                                alert("Successfully added.");
-                                window.location = "../index.php";
+                       
                               </script>';
                             } else {
                                 echo "Error updating record: " . mysqli_error($db);
