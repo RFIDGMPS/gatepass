@@ -385,6 +385,7 @@ else {
             document.getElementById('time_out').style.color = 'black';
             document.getElementById('alert').classList.remove('alert-primary');
             document.getElementById('alert').classList.add('<?php echo $alert;?>');
+            document.getElementById('pic').src = "<?php echo $row['photo']; ?>";
         // Revert text back to original after 3 seconds
         setTimeout(function() {
             document.getElementById('in_out').innerHTML = originalTexts.in_out;
@@ -400,6 +401,7 @@ else {
             document.getElementById('time_out').style.color = '#ced4da';
             document.getElementById('alert').classList.remove('<?php echo $alert;?>');
             document.getElementById('alert').classList.add('alert-primary');
+            document.getElementById('pic').src = "assets/img/section/istockphoto-1184670010-612x612.jpg";
         }, 3000); // 3000 milliseconds = 3 seconds
     </script>
 <?php 
