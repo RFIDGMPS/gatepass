@@ -198,7 +198,7 @@ if (isset($_POST['submit'])) {
 
             if ($user1) {
                 // Update existing log entry
-                if (($user1['time_out'] === '')) {
+                if (($user1['time_out'] == '')) {
                     //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
                     $time_in_out = 'TIME OUT';
 
@@ -234,7 +234,7 @@ if (isset($_POST['submit'])) {
             $visitor1 = mysqli_fetch_assoc($result1);
 
             if ($visitor1) {
-                if (($visitor1['time_out'] === '')) {
+                if (($visitor1['time_out'] == '')) {
                     //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
                     $time_in_out = 'TIME OUT';
 
