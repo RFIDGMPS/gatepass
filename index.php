@@ -604,8 +604,8 @@ while ($row = $result->fetch_assoc()) {
                         </div>
                         <div class="modal-footer">
                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                           <button name="vsave" type="submit" id="btn-emp" class="btn btn-outline-warning">Save</button>
-                           
+                           <!--<button name="vsave" type="submit" id="btn-emp" class="btn btn-outline-warning">Save</button>-->
+                           <input name="vsave" type="submit" id="btn-emp" class="btn btn-outline-warning" value="Save">
                         </div>
                      </div>
                   </div>
