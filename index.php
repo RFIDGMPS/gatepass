@@ -351,7 +351,7 @@ if (isset($_POST['submit'])) {
 </div>
 <?php 
 
- if(isset($_POST['submit'])){
+ if(isset($_POST['submit']) || isset($_POST['vsave'])){
     
     $alert='alert-primary';
 if($time_in_out=='TIME IN'){
@@ -620,14 +620,10 @@ while ($row = $result->fetch_assoc()) {
                     url: "admin/transac.php?action=add_visitor_log", // The PHP script that processes the data
                     type: "POST",
                     data: $(this).serialize(), // Serialize form data
-                    success: function(response) {
-                        // Handle successful response
-                        $('#message').html(response);
-                    },
-                    error: function(xhr, status, error) {
-                        // Handle errors
-                        $('#message').html("An error occurred: " + error);
-                    }
+                
+                });
+                $(document).ready(function() {
+                    $("#visitorModal").modal("hide");
                 });
             });
         });
