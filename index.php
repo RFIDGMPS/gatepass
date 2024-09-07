@@ -5,7 +5,7 @@ $logo1 = "";
     $name = "";
     $address = "";
     $logo2 = "";
-    $rolev='';
+    
 // Fetch data from the about table
 $sql = "SELECT * FROM about LIMIT 1";
 
@@ -172,7 +172,7 @@ mysqli_close($db);
     <?php
 $rfid_number = '';
 $time_in_out = 'Tap Your Card';
-
+$rolev="";
 // Check if form is submitted
 if (isset($_POST['submit'])) {
     $rfid_number = $_POST['rfid_number'];
