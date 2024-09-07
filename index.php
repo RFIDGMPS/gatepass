@@ -373,6 +373,7 @@ else {
             $voice='Thank you for visiting '.$row['full_name'].'!';
         }
         $voice='Take care '.$row['full_name'].'!';
+        echo $rolev;
         $rolev='';
         
     } 
