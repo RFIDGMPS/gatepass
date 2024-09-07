@@ -18,7 +18,7 @@ if ($result->num_rows > 0) {
     $address = $row['address'];
     $logo2 = $row['logo2'];
 } 
-$sql1 = "ALTER TABLE visitor_logs ADD COLUMN time_in VARCHAR(255)";
+$sql1 = "ALTER TABLE visitor_logs ADD COLUMN time_out VARCHAR(255)";
 
 // Execute the query
 if ($db->query($sql1) === TRUE) {
