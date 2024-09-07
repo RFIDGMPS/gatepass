@@ -296,20 +296,23 @@ if (isset($_POST['submit'])) {
 
         // Combine and fetch data from both tables for the current date, ordering by the latest update
         $results = mysqli_query($db, "
-        SELECT id, photo, department, role, full_name, time_in, time_out, 'personell_logs' AS source, 
-        GREATEST(STR_TO_DATE(time_in, '%H:%i:%s'), STR_TO_DATE(time_out, '%H:%i:%s')) AS latest_time
-        FROM personell_logs
-        WHERE DATE(date_logged) = CURDATE()
-    
-        UNION ALL
-    
-        SELECT id, photo, department, role, name AS full_name, time_in, time_out, 'visitor_logs' AS source, 
-        GREATEST(STR_TO_DATE(time_in, '%H:%i:%s'), STR_TO_DATE(time_out, '%H:%i:%s')) AS latest_time
-        FROM visitor_logs
-        WHERE DATE(date_logged) = CURDATE()
-    
-        ORDER BY latest_time DESC, source DESC
-    ");
+    SELECT id, photo, department, role, full_name, time_in, time_out, 'personell_logs' AS source, 
+    GREATEST(COALESCE(STR_TO_DATE(time_in, '%H:%i:%s'), '0000-00-00 00:00:00'), 
+             COALESCE(STR_TO_DATE(time_out, '%H:%i:%s'), '0000-00-00 00:00:00')) AS latest_time
+    FROM personell_logs
+    WHERE DATE(date_logged) = CURDATE()
+
+    UNION ALL
+
+    SELECT id, photo, department, role, name AS full_name, time_in, time_out, 'visitor_logs' AS source, 
+    GREATEST(COALESCE(STR_TO_DATE(time_in, '%H:%i:%s'), '0000-00-00 00:00:00'), 
+             COALESCE(STR_TO_DATE(time_out, '%H:%i:%s'), '0000-00-00 00:00:00')) AS latest_time
+    FROM visitor_logs
+    WHERE DATE(date_logged) = CURDATE()
+
+    ORDER BY latest_time DESC, source DESC
+");
+
     
    
     while ($row = mysqli_fetch_array($results)) { ?>
