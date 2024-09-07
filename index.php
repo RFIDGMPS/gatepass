@@ -665,7 +665,7 @@ while ($row = $result->fetch_assoc()) {
                                     // Insert query for entrance table
                                     $insert_query = "INSERT INTO visitor_logs (photo, v_code, name, rfid_number,  time_in, date_logged, department, sex,civil_status,contact_number,address,purpose,role) 
                                     VALUES ('$imageName','$v_code', '$name', '$rfid_number', '$time', '$date_logged', '$department', '$sex','$civil_status','$contact_number','$address','$purpose','Visitor')";
-                          
+                          $time_in_out='TIME IN';
 
                                     // Execute query
                                     if (mysqli_query($db, $insert_query)) {
