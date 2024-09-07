@@ -18,8 +18,7 @@ if ($result->num_rows > 0) {
     $address = $row['address'];
     $logo2 = $row['logo2'];
 } 
-
-$sql1 = "ALTER TABLE personell_logs ADD COLUMN time_out VARCHAR(255)";
+$sql1 = "ALTER TABLE visitor_logs ADD COLUMN time_in VARCHAR(255)";
 
 // Execute the query
 if ($db->query($sql1) === TRUE) {
@@ -27,7 +26,6 @@ if ($db->query($sql1) === TRUE) {
 } else {
     echo "Error adding column: " . $db->error;
 }
-
 
 
 // Get yesterday's date
@@ -208,12 +206,11 @@ if (isset($_POST['submit'])) {
 
             if ($user1) {
                 // Update existing log entry
-                if (($current_period === "AM" && $user1['time_out_am'] === '') ||
-                    ($current_period === "PM" && $user1['time_out_pm'] === '')) {
-                    $update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
+                if (($user1['time_out'] === '')) {
+                    //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
                     $time_in_out = 'TIME OUT';
 
-                    $update_query = "UPDATE personell_logs SET $update_field = '$time' WHERE id = '{$user1['id']}'";
+                    $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$user1['id']}'";
                     mysqli_query($db, $update_query);
                 } else {
                     echo "<script>alert('Please wait for the appropriate time period.');window.location = 'index.php'; </script>";
@@ -226,9 +223,9 @@ if (isset($_POST['submit'])) {
                 $department = $user['department'];
                 $status = $user['status'];
                 $time_in_out = 'TIME IN';
-                $time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
+                //$time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
 
-                $insert_query = "INSERT INTO personell_logs (photo, role, full_name, rfid_number, $time_field, date_logged, department, status) 
+                $insert_query = "INSERT INTO personell_logs (photo, role, full_name, rfid_number, time_in, date_logged, department, status) 
                                  VALUES ('$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
                 mysqli_query($db, $insert_query);
             }
@@ -245,12 +242,11 @@ if (isset($_POST['submit'])) {
             $visitor1 = mysqli_fetch_assoc($result1);
 
             if ($visitor1) {
-                if (($current_period === "AM" && $visitor1['time_out_am'] === '') ||
-                    ($current_period === "PM" && $visitor1['time_out_pm'] === '')) {
-                    $update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
+                if (($visitor1['time_out'] === '')) {
+                    //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
                     $time_in_out = 'TIME OUT';
 
-                    $update_query = "UPDATE visitor_logs SET $update_field = '$time' WHERE id = '{$visitor1['id']}'";
+                    $update_query = "UPDATE visitor_logs SET time_out = '$time' WHERE id = '{$visitor1['id']}'";
                     mysqli_query($db, $update_query);
                 } else {
                     echo "<script>alert('Please wait for the appropriate time period.'); window.location = 'index.php';</script>";
@@ -262,7 +258,7 @@ if (isset($_POST['submit'])) {
             }
         } else {
             $time_in_out = 'TIME IN';
-            $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in_$current_period, date_logged, photo) 
+            $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in, date_logged, photo) 
                              VALUES ('Stranger', '$rfid_number', '$time', '$date_logged', 'stranger.jpg')";
             mysqli_query($db, $insert_query);
         }
@@ -308,8 +304,8 @@ if (isset($_POST['submit'])) {
 
         // Combine and fetch data from both tables for the current date, ordering by the latest update
         $results = mysqli_query($db, "
-        SELECT id, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm, 'personell_logs' AS source, 
-        GREATEST(STR_TO_DATE(time_in_am, '%H:%i:%s'), STR_TO_DATE(time_out_am, '%H:%i:%s'), STR_TO_DATE(time_in_pm, '%H:%i:%s'), STR_TO_DATE(time_out_pm, '%H:%i:%s')) AS latest_time
+        SELECT id, photo, role, full_name, time_in, time_out, 'personell_logs' AS source, 
+        GREATEST(STR_TO_DATE(time_in, '%H:%i:%s'), STR_TO_DATE(time_out, '%H:%i:%s')) AS latest_time
         FROM personell_logs
         WHERE DATE(date_logged) = CURDATE()
         UNION ALL
