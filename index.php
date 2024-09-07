@@ -311,16 +311,6 @@ if (isset($_POST['submit'])) {
    
         
 
-       if($time_in_out=='TIME IN'){
-            echo '<div class="alert alert-success" role="alert" id="alert">
-                                         <center><h3 id="in_out">TIME IN</h3></center>
-                                 </div>';
-       }else {
-        echo '<div class="alert alert-danger" role="alert" id="alert">
-                                         <center><h3 id="in_out">TIME OUT</h3></center>
-                                 </div>';
-       }
-
                                  
                                  
         // Fetch and display the results
