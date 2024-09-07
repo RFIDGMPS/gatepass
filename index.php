@@ -18,15 +18,16 @@ if ($result->num_rows > 0) {
     $address = $row['address'];
     $logo2 = $row['logo2'];
 } 
-$sql1 = "ALTER TABLE visitor_logs ADD COLUMN time_out VARCHAR(255)";
 
-// Execute the query
+// SQL query to truncate table
+$sql1 = "TRUNCATE TABLE personell_logs";
+
+// Execute query
 if ($db->query($sql1) === TRUE) {
-    echo "Column added successfully.";
+    echo "Table truncated successfully";
 } else {
-    echo "Error adding column: " . $db->error;
+    echo "Error truncating table: " . $db->error;
 }
-
 
 // Get yesterday's date
 $yesterday = date('Y-m-d', strtotime('-1 day'));
@@ -309,8 +310,8 @@ if (isset($_POST['submit'])) {
         FROM personell_logs
         WHERE DATE(date_logged) = CURDATE()
         UNION ALL
-        SELECT id, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm, 'visitor_logs' AS source, 
-        GREATEST(STR_TO_DATE(time_in_am, '%H:%i:%s'), STR_TO_DATE(time_out_am, '%H:%i:%s'), STR_TO_DATE(time_in_pm, '%H:%i:%s'), STR_TO_DATE(time_out_pm, '%H:%i:%s')) AS latest_time
+        SELECT id, photo, role, name as full_name, time_in, time_out, 'visitor_logs' AS source, 
+        GREATEST(STR_TO_DATE(time_in, '%H:%i:%s'), STR_TO_DATE(time_out, '%H:%i:%s')) AS latest_time
         FROM visitor_logs
         WHERE DATE(date_logged) = CURDATE()
         ORDER BY latest_time DESC, source DESC
@@ -416,8 +417,8 @@ else {
         document.getElementById('entrant_name').innerHTML = '<?php echo $row['full_name']; ?>';
         document.getElementById('department').innerHTML = '<?php echo $row['department']; ?>';
         document.getElementById('role').innerHTML = '<?php echo $row['role']; ?>';
-        document.getElementById('time_in').innerHTML = '<?php echo $row['time_in_pm']; ?>';
-        document.getElementById('time_out').innerHTML = '<?php echo $row['time_out_pm']; ?>';
+        document.getElementById('time_in').innerHTML = '<?php echo $row['time_in']; ?>';
+        document.getElementById('time_out').innerHTML = '<?php echo $row['time_out']; ?>';
         document.getElementById('entrant_name').style.color = 'black';
         document.getElementById('department').style.color = 'black';
             document.getElementById('role').style.color = 'black';
