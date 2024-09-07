@@ -307,7 +307,7 @@ if (isset($_POST['submit'])) {
             FROM visitor_logs
         ) AS combined_results
         ORDER BY id DESC
-        LIMIT 1
+        
     ");
    
         
@@ -348,7 +348,7 @@ if (isset($_POST['submit'])) {
 </div>
 <?php 
 
- if(isset($_POST['submit']) || isset($_POST['vsave'])){
+ if(isset($_POST['submit'])){
     
     $alert='alert-primary';
 if($time_in_out=='TIME IN'){
