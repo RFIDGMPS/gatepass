@@ -376,12 +376,13 @@ if (isset($_POST['submit'])) {
             document.getElementById('role').innerHTML = originalTexts.role;
             document.getElementById('time_in').innerHTML = originalTexts.time_in;
             document.getElementById('time_out').innerHTML = originalTexts.time_out;
+
+            document.getElementById('entrant_name').style.color = 'black';
         }, 3000); // 3000 milliseconds = 3 seconds
     </script>
 <?php 
 
     
-        $time_in_out='Tap Your Card';
     }
         }
         ?>
