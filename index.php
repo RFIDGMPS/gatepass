@@ -163,6 +163,7 @@ mysqli_close($db);
                           <div id="mgs-add"></div>
                      
     <input type="text" id="rfidcard" name="rfid_number" class="form-control" placeholder="Scan RFID card" autofocus>
+    
     <input type="submit" name="submit" value="Submit" hidden>
  
 
@@ -356,8 +357,35 @@ $alert='alert-success';
 else {
     $alert='alert-danger'; 
 }
+
+
+
+     if($time_in_out=="TIME IN" && date('A') =="AM"){
+        $voice='Good morning '.$row['full_name'].'!';
+    } 
 ?>
- 
+   <script>
+        // Wait for page to load completely
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get the PHP-generated text
+            const text = "<?php echo $voice; ?>";
+
+            // Function to convert text to speech
+            const textToSpeech = (text) => {
+                const synth = window.speechSynthesis;
+
+                if (!synth.speaking && text) {
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    synth.speak(utterance);
+                }
+            };
+
+            // Trigger text-to-speech if there's submitted text
+            if (text) {
+                textToSpeech(text);
+            }
+        });
+    </script>
            <script>
              // Store original values
         let originalTexts = {
