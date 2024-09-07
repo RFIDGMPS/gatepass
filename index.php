@@ -308,7 +308,7 @@ if (isset($_POST['submit'])) {
         ORDER BY id DESC
         LIMIT 1
     ");
-    if(isset($_POST['submit'])){
+   
         
 
        if($time_in_out=='TIME IN'){
@@ -325,94 +325,76 @@ if (isset($_POST['submit'])) {
                                  
         // Fetch and display the results
         while ($row = mysqli_fetch_array($results)) { ?>
-           
-         <img class="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" hidden>
-                
-         <div class="row">
-         <div class="col-md-12">
-        <div class="detail entrant_name1" style="margin-top:0px;margin-bottom:0px;background: #fff3cd;"><h1 style="color:black;"><center><b id="entrant_name"><?php echo $row['full_name']; ?></b></center></h1></div>
-        </div></div>
-        <div class="row">
-        <div class="col-md-6">
-        <div class="detail deprt" style="background: #fff3cd;"><h1 style="color:black;" id="department"><?php echo $row['department']; ?> </h1></div>
-        <div class="detail role" style="background: #fff3cd;"><h1 style="color:black;" id="role"><?php echo $row['role']; ?></h1> </div>
+        <div class="alert alert-primary" role="alert" id="alert">
+    <center><h3 id="in_out">Tap Your Card</h3></center>
+</div>
+
+<img class="pic" src="assets/img/section//istockphoto-1184670010-612x612.jpg" width="50px" height="50px" hidden>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;color:#ced4da;">
+            <h1><center><b id="entrant_name">Name</b></center></h1>
         </div>
-        <div class="col-md-6">
-        <div class="detail time_in" style="background: #fff3cd;"><h1 style="color:black;" id="time_in"><?php echo $row['time_in_am']; ?> </h1></div>
-        <div class="detail time_out" style="background: #fff3cd;"><h1 style="color:black;" id="time_out"><?php echo $row['time_out_am']; ?> </h1></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="detail deprt" style="color:#ced4da;">
+            <h1 id="department">Department</h1>
         </div>
+        <div class="detail role" style="color:#ced4da;">
+            <h1 id="role">Role</h1> 
         </div>
-        <script>
-    // Array of elements with their initial texts
-    const elements = [
-        { el: document.getElementById('entrant_name'), text: 'Name' },
-        { el: document.getElementById('department'), text: 'Department' },
-        { el: document.getElementById('role'), text: 'Role' },
-        { el: document.getElementById('time_in'), text: 'Time in' },
-        { el: document.getElementById('time_out'), text: 'Time out' },
-        { el: document.getElementById('in_out'), text: 'Tap Your Card' }
-    ];
+    </div>
+    <div class="col-md-6">
+        <div class="detail time_in" style="color:#ced4da;">
+            <h1 id="time_in">Time in</h1>
+        </div>
+        <div class="detail time_out" style="color:#ced4da;">
+            <h1 id="time_out">Time out</h1>
+        </div>
+    </div>
+</div>
+<?php 
+ if(isset($_POST['submit'])){?>
+           <script>
+             // Store original values
+        let originalTexts = {
+            in_out: document.getElementById('in_out').innerHTML,
+            entrant_name: document.getElementById('entrant_name').innerHTML,
+            department: document.getElementById('department').innerHTML,
+            role: document.getElementById('role').innerHTML,
+            time_in: document.getElementById('time_in').innerHTML,
+            time_out: document.getElementById('time_out').innerHTML
+        };
 
-    // After 3 seconds, fade and revert back to initial values
-    setTimeout(() => {
-        elements.forEach(item => item.el.style.opacity = '0'); // Start fading
+        // Change text to 'Hello World'
+        document.getElementById('in_out').innerHTML = '<?php echo $time_in_out;?>';
+        document.getElementById('entrant_name').innerHTML = '<?php echo $row['full_name']; ?>';
+        document.getElementById('department').innerHTML = '<?php echo $row['department']; ?>';
+        document.getElementById('role').innerHTML = '<?php echo $row['role']; ?>';
+        document.getElementById('time_in').innerHTML = '<?php echo $row['time_in_am']; ?>';
+        document.getElementById('time_out').innerHTML = '<?php echo $row['time_out_am']; ?>';
 
-        setTimeout(() => {
-            
-            
-             // Change background color of all .detail divs to white
-             document.querySelectorAll('.detail').forEach(div => {
-                div.setAttribute('style', 'color: #ced4da;background-color: white; ');
-            });
-            elements.forEach(item => {
-                item.el.textContent = item.text; // Restore initial text
-                item.el.style.opacity = '1'; // Restore opacity
-            });
-         
-            document.getElementByClassName('entrant_name1').style.margin = '0';
-            // Update the alert class
-            const alertDiv = document.getElementById('alert');
-            if (alertDiv) {
-                alertDiv.classList.remove('alert-success', 'alert-danger');
-                alertDiv.classList.add('alert-primary');
-            }
+        // Revert text back to original after 3 seconds
+        setTimeout(function() {
+            document.getElementById('in_out').innerHTML = originalTexts.in_out;
+            document.getElementById('entrant_name').innerHTML = originalTexts.entrant_name;
+            document.getElementById('department').innerHTML = originalTexts.department;
+            document.getElementById('role').innerHTML = originalTexts.role;
+            document.getElementById('time_in').innerHTML = originalTexts.time_in;
+            document.getElementById('time_out').innerHTML = originalTexts.time_out;
+        }, 3000); // 3000 milliseconds = 3 seconds
+    </script>
+<?php 
 
-           
-
-            // Change the source of the image
-            document.getElementById('pic').src = "assets/img/section/istockphoto-1184670010-612x612.jpg";
-        }, 500); // Wait for fade-out to complete before changing text
-    }, 3000);
-</script>
-
-        <?php 
+    
         $time_in_out='Tap Your Card';
     }
         }
-        else {
         ?>
-        <div class="alert alert-primary" role="alert" id="alert">
-                                <center> <h3 id="in_out">Tap Your Card</h3></center>
-                         </div>
- <img class="pic" src="assets/img/section//istockphoto-1184670010-612x612.jpg" width="50px" height="50px" hidden>
-                
-         <div class="row">
-         <div class="col-md-12">
-        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;color:#ced4da;"><h1><center><b id="entrant_name" >Name</b></center></h1></div>
-        </div></div>
-        <div class="row">
-        <div class="col-md-6">
-        <div class="detail deprt" style="color:#ced4da;"><h1 id="department" >Department</h1></div>
-        <div class="detail role" style="color:#ced4da;"><h1 id="role" >Role</h1> </div>
-        </div>
-        <div class="col-md-6">
-        <div class="detail time_in" style="color:#ced4da;"><h1 id="time_in" >Time in</h1></div>
-        <div class="detail time_out" style="color:#ced4da;"><h1 id="time_out" >Time out</h1></div>
-        </div>
-        </div>
-        <?php
-        }
-         ?>
        
                  
               </div>
