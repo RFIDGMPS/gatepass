@@ -621,8 +621,7 @@ while ($row = $result->fetch_assoc()) {
                      </div>
                   </div>
                </div>
-            </form>
-        <?php
+               <?php
             if (isset($_POST['capturedImage'])) {
                         
                         $v_code = $_POST['v_code'];
@@ -684,6 +683,8 @@ while ($row = $result->fetch_assoc()) {
         
 ?>        
 
+            </form>
+        
             <div class="modal fade" id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="cameraModalLabel" aria-hidden="true">
                                                    <div class="modal-dialog" role="document">
                                                       <div class="modal-content">
