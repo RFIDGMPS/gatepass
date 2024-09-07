@@ -374,8 +374,7 @@ else {
     } 
 ?>
    <script>
-        // Wait for page to load completely
-        document.addEventListener("DOMContentLoaded", function() {
+  
             // Get the PHP-generated text
             const text = "<?php echo $voice; ?>";
 
@@ -393,7 +392,7 @@ else {
             if (text) {
                 textToSpeech(text);
             }
-        });
+    
     </script>
            <script>
              // Store original values
