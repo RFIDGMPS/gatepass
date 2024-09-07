@@ -299,16 +299,17 @@ if (isset($_POST['submit'])) {
 
         // Combine and fetch data from both tables for the current date, ordering by the latest update
         $results = mysqli_query($db, "
-        SELECT * FROM (
-            SELECT id, department, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
-            FROM personell_logs
-            UNION ALL
-            SELECT id, department, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm 
-            FROM visitor_logs
-        ) AS combined_results
-        ORDER BY id DESC
-        
-    ");
+        SELECT id, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm, 'personell_logs' AS source, 
+        GREATEST(STR_TO_DATE(time_in_am, '%H:%i:%s'), STR_TO_DATE(time_out_am, '%H:%i:%s'), STR_TO_DATE(time_in_pm, '%H:%i:%s'), STR_TO_DATE(time_out_pm, '%H:%i:%s')) AS latest_time
+        FROM personell_logs
+        WHERE DATE(date_logged) = CURDATE()
+        UNION ALL
+        SELECT id, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm, 'visitor_logs' AS source, 
+        GREATEST(STR_TO_DATE(time_in_am, '%H:%i:%s'), STR_TO_DATE(time_out_am, '%H:%i:%s'), STR_TO_DATE(time_in_pm, '%H:%i:%s'), STR_TO_DATE(time_out_pm, '%H:%i:%s')) AS latest_time
+        FROM visitor_logs
+        WHERE DATE(date_logged) = CURDATE()
+        ORDER BY latest_time DESC, source DESC
+    "); 
    
         
 
