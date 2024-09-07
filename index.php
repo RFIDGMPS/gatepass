@@ -350,7 +350,7 @@ if (isset($_POST['submit'])) {
  if(isset($_POST['submit'])){
     
     $alert='alert-primary';
-if($time_in_out='TIME IN'){
+if($time_in_out=='TIME IN'){
 $alert='alert-success';
 }
 else {
