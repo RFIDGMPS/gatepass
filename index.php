@@ -296,36 +296,24 @@ if (isset($_POST['submit'])) {
 
         // Combine and fetch data from both tables for the current date, ordering by the latest update
         $results = mysqli_query($db, "
-    SELECT id, photo, department, role, full_name, time_in, time_out, 'personell_logs' AS source, 
-    GREATEST(COALESCE(STR_TO_DATE(time_in, '%H:%i:%s'), '0000-00-00 00:00:00'), 
-             COALESCE(STR_TO_DATE(time_out, '%H:%i:%s'), '0000-00-00 00:00:00')) AS latest_time
-    FROM personell_logs
-    WHERE DATE(date_logged) = CURDATE()
-
-    UNION ALL
-
-    SELECT id, photo, department, role, name AS full_name, time_in, time_out, 'visitor_logs' AS source, 
-    GREATEST(COALESCE(STR_TO_DATE(time_in, '%H:%i:%s'), '0000-00-00 00:00:00'), 
-             COALESCE(STR_TO_DATE(time_out, '%H:%i:%s'), '0000-00-00 00:00:00')) AS latest_time
-    FROM visitor_logs
-    WHERE DATE(date_logged) = CURDATE()
-
-    ORDER BY latest_time DESC, source DESC
-");
-
+        SELECT id, photo, department, role, full_name, time_in, time_out, 'personell_logs' AS source, 
+        IFNULL(STR_TO_DATE(time_out, '%H:%i:%s'), STR_TO_DATE(time_in, '%H:%i:%s')) AS latest_time
+        FROM personell_logs
+        WHERE DATE(date_logged) = CURDATE()
+    
+        UNION ALL
+    
+        SELECT id, photo, department, role, name AS full_name, time_in, time_out, 'visitor_logs' AS source, 
+        IFNULL(STR_TO_DATE(time_out, '%H:%i:%s'), STR_TO_DATE(time_in, '%H:%i:%s')) AS latest_time
+        FROM visitor_logs
+        WHERE DATE(date_logged) = CURDATE()
+    
+        ORDER BY latest_time DESC, source DESC
+    ");
+    
     
    
-    while ($row = mysqli_fetch_array($results)) { ?>
-        <tr>
-            <td><center><img class="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" ></center></td>
-            <td class="role"><?php echo $row['role']; ?></td>
-            <td class="entrant_name"><?php echo $row['full_name']; ?></td>
-            <td class="time"><?php echo $row['time_in']; ?></td>
-            <td><?php echo $row['time_out']; ?></td>
-           
-        
-        </tr>
-    <?php }
+    
                                  
         // Fetch and display the results
         while ($row = mysqli_fetch_array($results)) { ?>
