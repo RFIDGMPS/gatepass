@@ -312,10 +312,23 @@ if (isset($_POST['submit'])) {
    
         
 
-                                 
+    while ($row = mysqli_fetch_array($results)) { ?>
+        <tr>
+            <td><center><img class="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" ></center></td>
+            <td class="role"><?php echo $row['role']; ?></td>
+            <td class="entrant_name"><?php echo $row['full_name']; ?></td>
+            <td class="time"><?php echo $row['time_in_am']; ?></td>
+            <td><?php echo $row['time_out_am']; ?></td>
+            <td><?php echo $row['time_in_pm']; ?></td>
+            <td><?php echo $row['time_out_pm']; ?></td>
+        
+        </tr>
+    <?php }            
                                  
         // Fetch and display the results
         while ($row = mysqli_fetch_array($results)) { ?>
+        
+        
         <div class="alert alert-primary" role="alert" id="alert">
     <center><h3 id="in_out">Tap Your Card</h3></center>
 </div>
