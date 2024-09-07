@@ -20,7 +20,7 @@ if ($result->num_rows > 0) {
 } 
 
 // SQL query to truncate table
-$sql1 = "TRUNCATE TABLE personell_logs";
+$sql1 = "TRUNCATE TABLE visitor_logs";
 
 // Execute query
 if ($db->query($sql1) === TRUE) {
