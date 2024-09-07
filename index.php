@@ -179,7 +179,7 @@ if (isset($_POST['submit'])) {
     $time = date('H:i:s');
     $date_logged = date('Y-m-d');
     $current_period = date('A'); // Get AM/PM period
-
+    $rolev='';
     include 'connection.php';
 
     // Check if RFID number exists in personell table
@@ -240,6 +240,8 @@ if (isset($_POST['submit'])) {
 
                     $update_query = "UPDATE visitor_logs SET time_out = '$time' WHERE id = '{$visitor1['id']}'";
                     mysqli_query($db, $update_query);
+                   
+                    $rolev="visitor";
                 } else {
                     echo "<script>alert('Please wait for the appropriate time period.'); window.location = 'index.php';</script>";
                 }
@@ -365,15 +367,18 @@ else {
      if($time_in_out=="TIME IN" && date('A') =="AM"){
         $voice='Good morning '.$row['full_name'].'!';
     } 
-    if($time_in_out=="TIME OUT" && date('A') =="AM"){
+    if($time_in_out=="TIME OUT" && date('A') =="AM" || date('A') =="PM"){
+        if($rolev="visitor"){
+            $voice='Thank you for visiting '.$row['full_name'].'!';
+        }
         $voice='Take care '.$row['full_name'].'!';
+        $rolev='';
+        
     } 
     if($time_in_out=="TIME IN" && date('A') =="PM"){
         $voice='Good afternoon '.$row['full_name'].'!';
     } 
-    if($time_in_out=="TIME OUT" && date('A') =="PM"){
-        $voice='Take care '.$row['full_name'].'!';
-    } 
+ 
 ?>
    <script>
   
@@ -684,9 +689,6 @@ else {
 
      if($time_in_out=="TIME IN" && date('A') =="AM" || date('A') =="PM"){
         $voice='Welcome '.$name.'!';
-    } 
-    if($time_in_out=="TIME OUT" && date('A') =="AM" || date('A') =="PM"){
-        $voice='Thank you for visiting, '.$name.'!';
     } 
   
 ?>
