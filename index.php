@@ -368,7 +368,7 @@ else {
         $voice='Good morning '.$row['full_name'].'!';
     } 
     if($time_in_out=="TIME OUT" && date('A') =="AM" || date('A') =="PM"){
-        if($rolev="visitor"){
+        if($rolev=="visitor"){
             $voice='Thank you for visiting '.$row['full_name'].'!';
         }
         $voice='Take care '.$row['full_name'].'!';
