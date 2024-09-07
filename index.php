@@ -459,7 +459,7 @@ else {
 
 
  <!-- Modal -->
- <form id="myForm" role="form" method="post" action="admin/transac.php?action=add_visitor_log" enctype="multipart/form-data">
+ <form id="myForm" role="form" method="post" enctype="multipart/form-data">
                <div class="modal fade" id="visitorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg">
                      <div class="modal-content">
