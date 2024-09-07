@@ -616,12 +616,17 @@ while ($row = $result->fetch_assoc()) {
                         </div>
                         <div class="modal-footer">
                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                           <button type="submit" id="btn-emp" class="btn btn-outline-warning" name="vsave">Save</button>
+                           <button name="savev" type="submit" id="btn-emp" class="btn btn-outline-warning">Save</button>
+                           
+    <input id="refresh" type="submit" name="submit" value="Submit" name="vsave" hidden>
                         </div>
                      </div>
                   </div>
                </div>
                <?php
+               if(isset($_POST['savev'])){
+                $_POST['vsave'] = true;
+               
             if (isset($_POST['capturedImage'])) {
                         
                         $v_code = $_POST['v_code'];
@@ -679,7 +684,7 @@ while ($row = $result->fetch_assoc()) {
                             } else {
                                 echo 'No image data received.';
                             }
-        
+                        }
         
 ?>        
 
