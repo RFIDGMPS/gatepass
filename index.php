@@ -641,7 +641,7 @@ while ($row = $result->fetch_assoc()) {
                                 $decodedData = base64_decode($encodedData);
                         
                                 $imageName = $_POST['fullName'] . '.jpeg';
-                                $filePath = 'uploads/' . $imageName;
+                                $filePath = 'admin/uploads/' . $imageName;
                         
                                 $current_period=date('A');
         
