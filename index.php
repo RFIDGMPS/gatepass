@@ -206,7 +206,7 @@ if (isset($_POST['submit'])) {
                     $update_query = "UPDATE personell_logs SET $update_field = '$time' WHERE id = '{$user1['id']}'";
                     mysqli_query($db, $update_query);
                 } else {
-                    echo "<script>alert('Please wait for the appropriate time period.'); </script>";
+                    echo "<script>alert('Please wait for the appropriate time period.');window.location = 'index.php'; </script>";
                 }
             } else {
                 // Insert new log entry
@@ -400,7 +400,7 @@ else {
             document.getElementById('alert').classList.remove('<?php echo $alert;?>');
             document.getElementById('alert').classList.add('alert-primary');
             document.getElementById('pic').src = "assets/img/section/istockphoto-1184670010-612x612.jpg";
-        }, 3000); // 3000 milliseconds = 3 seconds
+        }, 5000); // 3000 milliseconds = 3 seconds
     </script>
 <?php 
 
