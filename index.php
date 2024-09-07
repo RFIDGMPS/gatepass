@@ -163,7 +163,7 @@ mysqli_close($db);
                      
     <input type="text" id="rfidcard" name="rfid_number" class="form-control" placeholder="Scan RFID card" autofocus>
     
-    <input type="submit" name="submit" value="Submit" hidden>
+    <input id="refresh" type="submit" name="submit" value="Submit" hidden>
  
 
 
@@ -625,6 +625,7 @@ while ($row = $result->fetch_assoc()) {
                 $(document).ready(function() {
                     $("#visitorModal").modal("hide");
                 });
+                $('#refresh').click(); 
             });
         });
     </script>
