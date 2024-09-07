@@ -411,8 +411,8 @@ else {
         document.getElementById('entrant_name').innerHTML = '<?php echo $row['full_name']; ?>';
         document.getElementById('department').innerHTML = '<?php echo $row['department']; ?>';
         document.getElementById('role').innerHTML = '<?php echo $row['role']; ?>';
-        document.getElementById('time_in').innerHTML = '<?php echo $row['time_in_am']; ?>';
-        document.getElementById('time_out').innerHTML = '<?php echo $row['time_out_am']; ?>';
+        document.getElementById('time_in').innerHTML = '<?php echo $row['time_in_pm']; ?>';
+        document.getElementById('time_out').innerHTML = '<?php echo $row['time_out_pm']; ?>';
         document.getElementById('entrant_name').style.color = 'black';
         document.getElementById('department').style.color = 'black';
             document.getElementById('role').style.color = 'black';
