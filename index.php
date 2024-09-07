@@ -313,18 +313,6 @@ if (isset($_POST['submit'])) {
 
     
    
-        // Fetch and display the results
-        while ($row = mysqli_fetch_array($results)) { ?>
-            <tr>
-                <td><center><img class="pic" src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" ></center></td>
-                <td><?php echo $row['role']; ?></td>
-                <td class="entrant_name"><?php echo $row['full_name']; ?></td>
-                <td class="time"><?php echo $row['time_in']; ?></td>
-                <td><?php echo $row['time_out']; ?></td>
-            
-            </tr>
-        <?php } 
-    
                                  
         // Fetch and display the results
         while ($row = mysqli_fetch_array($results)) { ?>
