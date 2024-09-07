@@ -5,6 +5,7 @@ $logo1 = "";
     $name = "";
     $address = "";
     $logo2 = "";
+    $rolev='';
 // Fetch data from the about table
 $sql = "SELECT * FROM about LIMIT 1";
 
@@ -179,7 +180,7 @@ if (isset($_POST['submit'])) {
     $time = date('H:i:s');
     $date_logged = date('Y-m-d');
     $current_period = date('A'); // Get AM/PM period
-    $rolev='';
+    
     include 'connection.php';
 
     // Check if RFID number exists in personell table
