@@ -116,10 +116,8 @@ mysqli_close($db);
                                         <th>Full Name</th>
                                         <th>Department</th>
                                         <th>Role</th>
-                                        <th>Time In (AM)</th>
-                                        <th>Time Out (AM)</th>
-                                        <th>Time In (PM)</th>
-                                        <th>Time Out (PM)</th>
+                                        <th>Time In</th>
+                                        <th>Time Out</th>
                                         <th>Log Date</th>
                                     </tr>
                                 </thead>
@@ -149,10 +147,8 @@ mysqli_close($db);
                 $output .= '<td>' . $row['full_name'] . '</td>';
                 $output .= '<td>' . $row['department'] . '</td>';
                 $output .= '<td>' . $row['role'] . '</td>';
-                $output .= '<td>' . $row['time_in_am'] . '</td>';
-                $output .= '<td>' . $row['time_out_am'] . '</td>';
-                $output .= '<td>' . $row['time_in_pm'] . '</td>';
-                $output .= '<td>' . $row['time_out_pm'] . '</td>';
+                $output .= '<td>' . $row['time_in'] . '</td>';
+                $output .= '<td>' . $row['time_out'] . '</td>';
                 $output .= '<td>' . $row['date_logged'] . '</td>';
                 $output .= '</tr>';
             }
@@ -177,10 +173,8 @@ mysqli_close($db);
             echo '<td>' . $row['full_name'] . '</td>';
             echo '<td>' . $row['department'] . '</td>';
             echo '<td>' . $row['role'] . '</td>';
-            echo '<td>' . $row['time_in_am'] . '</td>';
-            echo '<td>' . $row['time_out_am'] . '</td>';
-            echo '<td>' . $row['time_in_pm'] . '</td>';
-            echo '<td>' . $row['time_out_pm'] . '</td>';
+            echo '<td>' . $row['time_in'] . '</td>';
+            echo '<td>' . $row['time_out'] . '</td>';
             echo '<td>' . $row['date_logged'] . '</td>';
             echo '</tr>';
         }
