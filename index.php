@@ -362,7 +362,7 @@ if (isset($_POST['submit'])) {
 </div>
 <?php 
 
- if(isset($_POST['submit']) || isset($_POST['vsave'])){
+ if(isset($_POST['submit'])){
     
     $alert='alert-primary';
 if($time_in_out=='TIME IN'){
@@ -616,19 +616,27 @@ while ($row = $result->fetch_assoc()) {
                         </div>
                         <div class="modal-footer">
                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                           <button name="savev" type="submit" id="btn-emp" class="btn btn-outline-warning">Save</button>
+                           <button name="vsave" type="submit" id="btn-emp" class="btn btn-outline-warning">Save</button>
                            
-    <input id="refresh" type="submit" name="submit" value="Submit" name="vsave" hidden>
                         </div>
                      </div>
                   </div>
                </div>
                <?php
-               if(isset($_POST['savev'])){
-                $_POST['vsave'] = true;
-               
+          
             if (isset($_POST['capturedImage'])) {
                         
+
+
+
+
+
+
+
+
+
+
+
                         $v_code = $_POST['v_code'];
                         $rfid_number = $_POST['rfid_number'];
                         date_default_timezone_set('Asia/Manila'); // Set your timezone
@@ -670,11 +678,104 @@ while ($row = $result->fetch_assoc()) {
                                     $insert_query = "INSERT INTO visitor_logs (photo, v_code, name, rfid_number,  time_in, date_logged, department, sex,civil_status,contact_number,address,purpose,role) 
                                     VALUES ('$imageName','$v_code', '$name', '$rfid_number', '$time', '$date_logged', '$department', '$sex','$civil_status','$contact_number','$address','$purpose','Visitor')";
                           
+
                                     // Execute query
                                     if (mysqli_query($db, $insert_query)) {
-                                        echo '<script type="text/javascript">
-                               
-                                      </script>';
+                                        
+ if(isset($_POST['vsave'])){
+    
+    $alert='alert-primary';
+if($time_in_out=='TIME IN'){
+$alert='alert-success';
+}
+else {
+    $alert='alert-danger'; 
+}
+
+
+
+     if($time_in_out=="TIME IN" && date('A') =="AM"){
+        $voice='Good morning '.$row['full_name'].'!';
+    } 
+    if($time_in_out=="TIME OUT" && date('A') =="AM"){
+        $voice='Take care '.$row['full_name'].'!';
+    } 
+    if($time_in_out=="TIME IN" && date('A') =="PM"){
+        $voice='Good afternoon '.$row['full_name'].'!';
+    } 
+    if($time_in_out=="TIME OUT" && date('A') =="PM"){
+        $voice='Take care '.$row['full_name'].'!';
+    } 
+?>
+   <script>
+  
+            // Get the PHP-generated text
+            const text = "<?php echo $voice; ?>";
+
+            // Function to convert text to speech
+            const textToSpeech = (text) => {
+                const synth = window.speechSynthesis;
+
+                if (!synth.speaking && text) {
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    synth.speak(utterance);
+                }
+            };
+
+            // Trigger text-to-speech if there's submitted text
+            if (text) {
+                textToSpeech(text);
+            }
+    
+    </script>
+           <script>
+             // Store original values
+        let originalTexts = {
+            in_out: document.getElementById('in_out').innerHTML,
+            entrant_name: document.getElementById('entrant_name').innerHTML,
+            department: document.getElementById('department').innerHTML,
+            role: document.getElementById('role').innerHTML,
+            time_in: document.getElementById('time_in').innerHTML,
+            time_out: document.getElementById('time_out').innerHTML
+        };
+
+        // Change text to 'Hello World'
+        document.getElementById('in_out').innerHTML = '<?php echo $time_in_out;?>';
+        document.getElementById('entrant_name').innerHTML = '<?php echo $name; ?>';
+        document.getElementById('department').innerHTML = '<?php echo $department; ?>';
+        document.getElementById('role').innerHTML = 'Visitor';
+        document.getElementById('time_in').innerHTML = '<?php echo $time; ?>';
+        document.getElementById('time_out').innerHTML = '';
+        document.getElementById('entrant_name').style.color = 'black';
+        document.getElementById('department').style.color = 'black';
+            document.getElementById('role').style.color = 'black';
+            document.getElementById('time_in').style.color = 'black';
+            document.getElementById('time_out').style.color = 'black';
+            document.getElementById('alert').classList.remove('alert-primary');
+            document.getElementById('alert').classList.add('<?php echo $alert;?>');
+            document.getElementById('pic').src = 'admin/uploads/<?php echo $imageName; ?>';
+        // Revert text back to original after 3 seconds
+        setTimeout(function() {
+            document.getElementById('in_out').innerHTML = originalTexts.in_out;
+            document.getElementById('entrant_name').innerHTML = originalTexts.entrant_name;
+            document.getElementById('department').innerHTML = originalTexts.department;
+            document.getElementById('role').innerHTML = originalTexts.role;
+            document.getElementById('time_in').innerHTML = originalTexts.time_in;
+            document.getElementById('time_out').innerHTML = originalTexts.time_out;
+            document.getElementById('entrant_name').style.color = '#ced4da';
+            document.getElementById('department').style.color = '#ced4da';
+            document.getElementById('role').style.color = '#ced4da';
+            document.getElementById('time_in').style.color = '#ced4da';
+            document.getElementById('time_out').style.color = '#ced4da';
+            document.getElementById('alert').classList.remove('<?php echo $alert;?>');
+            document.getElementById('alert').classList.add('alert-primary');
+            document.getElementById('pic').src = "assets/img/section/istockphoto-1184670010-612x612.jpg";
+        }, 5000); // 3000 milliseconds = 3 seconds
+    </script>
+<?php 
+
+    
+    }
                                     } else {
                                         echo "Error updating record: " . mysqli_error($db);
                                     }
@@ -684,7 +785,7 @@ while ($row = $result->fetch_assoc()) {
                             } else {
                                 echo 'No image data received.';
                             }
-                        }
+                        
         
 ?>        
 
