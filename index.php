@@ -367,7 +367,11 @@ if (isset($_POST['submit'])) {
         document.getElementById('role').innerHTML = '<?php echo $row['role']; ?>';
         document.getElementById('time_in').innerHTML = '<?php echo $row['time_in_am']; ?>';
         document.getElementById('time_out').innerHTML = '<?php echo $row['time_out_am']; ?>';
-
+        document.getElementById('entrant_name').style.color = 'black';
+        document.getElementById('department').style.color = 'black';
+            document.getElementById('role').style.color = 'black';
+            document.getElementById('time_in').style.color = 'black';
+            document.getElementById('time_out').style.color = 'black';
         // Revert text back to original after 3 seconds
         setTimeout(function() {
             document.getElementById('in_out').innerHTML = originalTexts.in_out;
@@ -376,8 +380,12 @@ if (isset($_POST['submit'])) {
             document.getElementById('role').innerHTML = originalTexts.role;
             document.getElementById('time_in').innerHTML = originalTexts.time_in;
             document.getElementById('time_out').innerHTML = originalTexts.time_out;
-
-            document.getElementById('entrant_name').style.color = 'black';
+            document.getElementById('entrant_name').style.color = '#ced4da';
+            document.getElementById('department').style.color = '#ced4da';
+            document.getElementById('role').style.color = '#ced4da';
+            document.getElementById('time_in').style.color = '#ced4da';
+            document.getElementById('time_out').style.color = '#ced4da';
+            
         }, 3000); // 3000 milliseconds = 3 seconds
     </script>
 <?php 
