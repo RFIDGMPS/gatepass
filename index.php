@@ -308,7 +308,7 @@ if (isset($_POST['submit'])) {
     FROM visitor_logs
     WHERE DATE(date_logged) = CURDATE()
 
-    ORDER BY latest_time DESC, source DESC
+    ORDER BY latest_time DESC, source DESC LIMIT 1
 ");
 
     
