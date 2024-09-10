@@ -216,9 +216,7 @@ $password1 = mysqli_real_escape_string($db, $password1);
                         </div>
                         <input type="text" name="Prfid_number" class="form-control" placeholder="Tap RFID card" autofocus>
     
-                     
-                        <button type="submit" name="login" id="login-button" class="btn btn-warning py-3 w-100 mb-4">Sign In</button>
-                    </form>
+                   </form>
                     </div>
                 </div>
             </div>
@@ -274,15 +272,7 @@ $password1 = mysqli_real_escape_string($db, $password1);
         }
     });
 !function() {
-        function detectDevTool(allow) {
-            if(isNaN(+allow)) allow = 100;
-            var start = +new Date();
-            debugger;
-            var end = +new Date();
-            if(isNaN(start) || isNaN(end) || end - start > allow) {
-                console.log('DEVTOOLS detected '+allow);
-            }
-        }
+       
         if(window.attachEvent) {
             if (document.readyState === "complete" || document.readyState === "interactive") {
                 detectDevTool();
