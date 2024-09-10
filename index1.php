@@ -110,7 +110,7 @@ mysqli_close($db);
     appearance: none;
 	border: none;
 	outline: none;
-	border-bottom: .2em solid #FCCC73;
+	border-bottom: .2em solid #b6d4fe;
 	background: white;
 	border-radius: .2em .2em 0 0;
 	padding: .4em;
