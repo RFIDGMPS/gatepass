@@ -62,10 +62,10 @@ try {
       <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
       <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
       <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-      <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-      <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-      <link href="css/bootstrap.min.css" rel="stylesheet">
-      <link href="css/style.css" rel="stylesheet">
+      <link href="admin/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+      <link href="admin/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+      <link href="admin/css/bootstrap.min.css" rel="stylesheet">
+      <link href="admin/css/style.css" rel="stylesheet">
       <link href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css" rel="stylesheet" />
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
       <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
