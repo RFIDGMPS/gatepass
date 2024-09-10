@@ -54,7 +54,7 @@ session_start();
 include 'admin/header.php';
 ?>
 <?php
-include '../connection.php';
+include 'connection.php';
 $username = "";
 $password = "";
 
