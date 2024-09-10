@@ -880,12 +880,12 @@ Webcam.snap(function(data_uri){
             	readURL(this);
             });
          </script>
-           <button class="chatbot-toggler">
+           <button class="chatbot-toggler" style="background:#FBC257;">
     <span class="material-symbols-rounded"><i class="fa fa-question" aria-hidden="true"></i></span>
     <span class="material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
   </button>
   <div class="chatbot">
-    <header>
+    <header style="background:#FBC257;">
       <h2>Lost and Found</h2>
       <span class="close-btn material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
     </header>
