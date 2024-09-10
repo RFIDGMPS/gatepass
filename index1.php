@@ -914,9 +914,9 @@ Webcam.snap(function(data_uri){
                                 </div>
                             </div>
                     
-                        <div class="form-control mb-4">
+                        <div class="mb-4">
                    
-<select  name="subjects" id="subjects">
+<select class="form-control" name="subjects" id="subjects">
 <option value="subject">Subject</option>
   <option value="lost">Lost</option>
   <option value="found">Found</option>
@@ -931,7 +931,7 @@ Webcam.snap(function(data_uri){
                             <label for="floatingPassword">Department</label>
                         </div>
                        
-                        <button type="submit" name="send" id="login-button" class="btn btn-primary py-3 w-100 mb-4">Send</button>
+                        <button type="submit" name="send" id="login-button" class="alert alert-primary py-3 w-100 mb-4">Send</button>
                     </form>
                     </div>
                 </div>
