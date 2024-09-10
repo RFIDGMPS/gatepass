@@ -914,9 +914,9 @@ Webcam.snap(function(data_uri){
                                 </div>
                             </div>
                     
-                        <div class="mb-4">
+                        <div class="form-control mb-4">
                    
-<select class="form-control"  name="subjects" id="subjects">
+<select  name="subjects" id="subjects">
 <option value="subject">Subject</option>
   <option value="lost">Lost</option>
   <option value="found">Found</option>
