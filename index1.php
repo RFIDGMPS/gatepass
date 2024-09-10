@@ -63,7 +63,8 @@ mysqli_close($db);
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="script.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-      
+    <link rel="stylesheet" href="lostfound.css">
+    <script src="lostfound.js" defer></script>
     <title>RFID GPMS</title>
     <style>
         .preview-1 {
@@ -941,8 +942,7 @@ Webcam.snap(function(data_uri){
       <span id="send-btn" class="material-symbols-rounded" hidden>send</span>
     </div>
   </div>
-  <link rel="stylesheet" href="lostfound.css">
-  <script src="lostfound.js" defer></script>
+
 </body>
 
 </html>
