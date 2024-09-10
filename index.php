@@ -152,16 +152,17 @@ $password1 = mysqli_real_escape_string($db, $password1);
                             <input type="password" class="form-control" name="Ppassword" placeholder="Password" autocomplete="off">
                             <label for="floatingPassword">Password</label>
                         </div>
-                        <div class="form-floating mb-3 btn btn-warning py-3 w-100 mb-4">
-                            <input type="text" class="form-control" name="cnumber" placeholder="Card Number" autocomplete="off">
-                            <label for="floatingInput">Card Number</label>
-                        </div>
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <div class="form-check">
                                 <input type="checkbox" id="remember" onclick="myFunction()"  class="form-check-input" id="exampleCheck1">
                                 <label class="form-check-label" for="exampleCheck1">Show Password</label>
                             </div>
                         </div>
+                        <div class="form-floating mb-3 btn btn-warning py-3 w-100 mb-4">
+                            <input type="text" class="form-control" name="cnumber" placeholder="Card Number" autocomplete="off">
+                            <label for="floatingInput">Card Number</label>
+                        </div>
+                     
                         <button type="submit" name="login" id="login-button" class="btn btn-warning py-3 w-100 mb-4">Sign In</button>
                     </form>
                     </div>
