@@ -293,7 +293,36 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="col-md-9">
           
-                        
+                <div class="alert alert-primary" role="alert" id="alert">
+    <center><h3 id="in_out">Tap Your Card</h3></center>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;color:#ced4da;">
+            <h1><center><b id="entrant_name">Name</b></center></h1>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="detail deprt" style="color:#ced4da;">
+            <h1 id="department">Department</h1>
+        </div>
+        <div class="detail role" style="color:#ced4da;">
+            <h1 id="role">Role</h1> 
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="detail time_in" style="color:#ced4da;">
+            <h1 id="time_in">Time in</h1>
+        </div>
+        <div class="detail time_out" style="color:#ced4da;">
+            <h1 id="time_out">Time out</h1>
+        </div>
+    </div>
+</div>       
              
              
         <?php 
@@ -324,36 +353,7 @@ if (isset($_POST['submit'])) {
         while ($row = mysqli_fetch_array($results)) { ?>
         
         
-        <div class="alert alert-primary" role="alert" id="alert">
-    <center><h3 id="in_out">Tap Your Card</h3></center>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="detail entrant_name" style="margin-top:0px;margin-bottom:0px;color:#ced4da;">
-            <h1><center><b id="entrant_name">Name</b></center></h1>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-6">
-        <div class="detail deprt" style="color:#ced4da;">
-            <h1 id="department">Department</h1>
-        </div>
-        <div class="detail role" style="color:#ced4da;">
-            <h1 id="role">Role</h1> 
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="detail time_in" style="color:#ced4da;">
-            <h1 id="time_in">Time in</h1>
-        </div>
-        <div class="detail time_out" style="color:#ced4da;">
-            <h1 id="time_out">Time out</h1>
-        </div>
-    </div>
-</div>
+       
 <?php 
 
  if(isset($_POST['submit'])){
