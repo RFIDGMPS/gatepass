@@ -937,7 +937,7 @@ Webcam.snap(function(data_uri){
                 </div>
             </div>
         </div>
-    <div class="chat-input">
+    <div class="chat-input" hidden>
       <textarea placeholder="Enter a message..." spellcheck="false" hidden></textarea>
       <span id="send-btn" class="material-symbols-rounded" hidden>send</span>
     </div>
