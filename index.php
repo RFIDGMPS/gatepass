@@ -771,8 +771,6 @@ else {
                                 } else {
                                     echo 'Error saving image.';
                                 }
-                            } else {
-                                echo 'No image data received.';
                             }
                         
         
@@ -887,8 +885,8 @@ Webcam.snap(function(data_uri){
   </button>
   <div class="chatbot">
     <header>
-      <h2>Chatbot</h2>
-      <span class="close-btn material-symbols-outlined">close</span>
+      <h2>Lost and Found</h2>
+      <span class="close-btn material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
     </header>
     <div class="container-fluid">
             <div class="row h-100 align-items-center justify-content-center">
@@ -914,36 +912,27 @@ Webcam.snap(function(data_uri){
 
                                 </div>
                             </div>
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <a href="index.html" class="">
-                                <h3 class="text-warning">ADMIN</h3>
-                            </a>
-                            <h3>Sign In</h3>
-                        </div>
+                    
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" name="username" id="username" placeholder="Username" autocomplete="off">
-                            <label for="floatingInput">Email address</label>
+                            <label for="floatingInput">Subject</label>
                         </div>
                         <div class="form-floating mb-4">
                             <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off">
-                            <label for="floatingPassword">Password</label>
+                            <label for="floatingPassword">Name</label>
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="form-check">
-                                <input type="checkbox" id="remember" onclick="myFunction()"  class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Show Password</label>
-                            </div>
+                        <div class="form-floating mb-4">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off">
+                            <label for="floatingPassword">Department</label>
                         </div>
-                        <button type="submit" name="login" id="login-button" class="btn btn-warning py-3 w-100 mb-4">Sign In</button>
+                       
+                        <button type="submit" name="send" id="login-button" class="btn btn-warning py-3 w-100 mb-4">Send</button>
                     </form>
                     </div>
                 </div>
             </div>
         </div>
-    <div class="chat-input">
-      <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
-      <span id="send-btn" class="material-symbols-rounded">send</span>
-    </div>
+
   </div>
   <link rel="stylesheet" href="lostfound.css">
   <script src="lostfound.js" defer></script>
