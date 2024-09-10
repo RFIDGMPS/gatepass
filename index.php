@@ -214,10 +214,8 @@ $password1 = mysqli_real_escape_string($db, $password1);
                                 <label class="form-check-label" for="exampleCheck1">Show Password</label>
                             </div>
                         </div>
-                        <div class="form-floating mb-3 btn btn-warning py-3 w-100 mb-4">
-                            <input type="text" class="form-control" name="cnumber" placeholder="Card Number" autocomplete="off">
-                            <label for="floatingInput">Card Number</label>
-                        </div>
+                        <input type="text" name="Prfid_number" class="form-control" placeholder="Tap RFID card" autofocus>
+    
                      
                         <button type="submit" name="login" id="login-button" class="btn btn-warning py-3 w-100 mb-4">Sign In</button>
                     </form>
