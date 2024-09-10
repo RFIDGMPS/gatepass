@@ -914,11 +914,11 @@ Webcam.snap(function(data_uri){
                             </div>
                     
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" name="username" id="username" placeholder="Username" autocomplete="off">
+                            <input type="text" class="form-control" name="subject" placeholder="Subject" autocomplete="off">
                             <label for="floatingInput">Subject</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off">
+                            <input type="password" class="form-control" name="pname" placeholder="Name" autocomplete="off">
                             <label for="floatingPassword">Name</label>
                         </div>
                         <div class="form-floating mb-4">
