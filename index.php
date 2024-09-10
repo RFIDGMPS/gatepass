@@ -2,7 +2,7 @@
 <?php
 include 'connection.php';
 $logo1 = "";
-    $name = "";
+    $nameo = "";
     $address = "";
     $logo2 = "";
     
@@ -15,7 +15,7 @@ if ($result->num_rows > 0) {
     // Output data of each row
     $row = $result->fetch_assoc();
     $logo1 = $row['logo1'];
-    $name = $row['name'];
+    $nameo = $row['name'];
     $address = $row['address'];
     $logo2 = $row['logo2'];
 } 
@@ -62,6 +62,8 @@ mysqli_close($db);
     <link rel="shortcut icon" href="assets/img/brand/favicon-bar.svg" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="script.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+      
     <title>RFID GPMS</title>
     <style>
         .preview-1 {
@@ -127,7 +129,7 @@ mysqli_close($db);
     </div>
     <div class="column wide" style="flex-grow: 2; text-align: center;">
         <div class="text">
-            <h1><div class="row"><b><?php echo $name; ?></b></div></h1>
+            <h1><div class="row"><b><?php echo $nameo; ?></b></div></h1>
             <h5><div><i><?php echo $address; ?></i></div></h5>
         </div>
     </div>
@@ -172,7 +174,7 @@ mysqli_close($db);
     <?php
 $rfid_number = '';
 $time_in_out = 'Tap Your Card';
-$rolev="";
+
 // Check if form is submitted
 if (isset($_POST['submit'])) {
     $rfid_number = $_POST['rfid_number'];
@@ -233,16 +235,16 @@ if (isset($_POST['submit'])) {
             $query1 = "SELECT * FROM visitor_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
             $result1 = mysqli_query($db, $query1);
             $visitor1 = mysqli_fetch_assoc($result1);
-
+          
             if ($visitor1) {
                 if (($visitor1['time_out'] == '')) {
                     //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
                     $time_in_out = 'TIME OUT';
-
+                   
                     $update_query = "UPDATE visitor_logs SET time_out = '$time' WHERE id = '{$visitor1['id']}'";
                     mysqli_query($db, $update_query);
                    
-                    $rolev="visitor";
+                    
                 } else {
                     echo "<script>alert('Please wait for the appropriate time period.'); window.location = 'index.php';</script>";
                 }
@@ -298,24 +300,25 @@ if (isset($_POST['submit'])) {
         include 'connection.php'; 
 
         // Combine and fetch data from both tables for the current date, ordering by the latest update
-      $results = mysqli_query($db, "
-    SELECT id, photo, department, role, full_name, time_in, time_out, 'personell_logs' AS source, 
-    IFNULL(STR_TO_DATE(time_out, '%H:%i:%s'), STR_TO_DATE(time_in, '%H:%i:%s')) AS latest_time
-    FROM personell_logs
-    WHERE DATE(date_logged) = CURDATE()
-
-    UNION ALL
-
-    SELECT id, photo, department, role, name AS full_name, time_in, time_out, 'visitor_logs' AS source, 
-    IFNULL(STR_TO_DATE(time_out, '%H:%i:%s'), STR_TO_DATE(time_in, '%H:%i:%s')) AS latest_time
-    FROM visitor_logs
-    WHERE DATE(date_logged) = CURDATE()
-
-    ORDER BY latest_time DESC, source DESC LIMIT 1
-");
+        $results = mysqli_query($db, "
+        SELECT id, photo, department, role, full_name, time_in, time_out, 'personell_logs' AS source, 
+        GREATEST(IFNULL(STR_TO_DATE(time_out, '%H:%i:%s'), '00:00:00'), IFNULL(STR_TO_DATE(time_in, '%H:%i:%s'), '00:00:00')) AS latest_time
+        FROM personell_logs
+        WHERE DATE(date_logged) = CURDATE()
+    
+        UNION ALL
+    
+        SELECT id, photo, department, role, name AS full_name, time_in, time_out, 'visitor_logs' AS source, 
+        GREATEST(IFNULL(STR_TO_DATE(time_out, '%H:%i:%s'), '00:00:00'), IFNULL(STR_TO_DATE(time_in, '%H:%i:%s'), '00:00:00')) AS latest_time
+        FROM visitor_logs
+        WHERE DATE(date_logged) = CURDATE()
+    
+        ORDER BY latest_time DESC, source DESC LIMIT 1
+    ");
+    
 
     
-   
+     
                                  
         // Fetch and display the results
         while ($row = mysqli_fetch_array($results)) { ?>
@@ -363,18 +366,15 @@ else {
     $alert='alert-danger'; 
 }
 
-
-
      if($time_in_out=="TIME IN" && date('A') =="AM"){
         $voice='Good morning '.$row['full_name'].'!';
     } 
     if($time_in_out=="TIME OUT" && date('A') =="AM" || date('A') =="PM"){
-        if($rolev=="visitor"){
+        if($row['role']=='Visitor'){
             $voice='Thank you for visiting '.$row['full_name'].'!';
-        }
+        }else {
         $voice='Take care '.$row['full_name'].'!';
-        echo '<script> alert('.$rolev'.);</script>';
-        $rolev='';
+        }
         
     } 
     if($time_in_out=="TIME IN" && date('A') =="PM"){
@@ -405,7 +405,7 @@ else {
     </script>
            <script>
              // Store original values
-        let originalTexts = {
+        const originalTexts = {
             in_out: document.getElementById('in_out').innerHTML,
             entrant_name: document.getElementById('entrant_name').innerHTML,
             department: document.getElementById('department').innerHTML,
@@ -458,7 +458,7 @@ else {
               </div>
             </div>
         </div>
-        <a href="#" class="btn btn-lg btn-warning btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
          
     </section>
 
@@ -478,7 +478,7 @@ else {
                         <div class="col-lg-11 mb-2 mt-1" id="mgs-emp" style="margin-left: 4%"></div>
                         <div class="modal-body">
                            <div class="row justify-content-md-center">
-                              <div id="msg-emp" style=""></div>
+                              <div id="msg-emp"></div>
                               <div class="col-sm-12 col-md-12 col-lg-10">
                                  <div class="" style="border: 1PX solid #b3f0fc;padding: 1%;background-color: #f7cfa1;color: black;font-size: 1.2rem">PERSONAL INFORMATION</div>
                                  <?php 
@@ -691,6 +691,7 @@ else {
 
      if($time_in_out=="TIME IN" && date('A') =="AM" || date('A') =="PM"){
         $voice='Welcome '.$name.'!';
+        $rolev="visitor";
     } 
   
 ?>
@@ -700,7 +701,7 @@ else {
             const text = "<?php echo $voice; ?>";
 
             // Function to convert text to speech
-            const textToSpeech = (text) => {
+            const textToSpeech1 = (text) => {
                 const synth = window.speechSynthesis;
 
                 if (!synth.speaking && text) {
@@ -711,13 +712,13 @@ else {
 
             // Trigger text-to-speech if there's submitted text
             if (text) {
-                textToSpeech(text);
+                textToSpeech1(text);
             }
     
     </script>
            <script>
              // Store original values
-        let originalTexts = {
+        let originalTexts1 = {
             in_out: document.getElementById('in_out').innerHTML,
             entrant_name: document.getElementById('entrant_name').innerHTML,
             department: document.getElementById('department').innerHTML,
@@ -743,12 +744,12 @@ else {
             document.getElementById('pic').src = 'admin/uploads/<?php echo $imageName; ?>';
         // Revert text back to original after 3 seconds
         setTimeout(function() {
-            document.getElementById('in_out').innerHTML = originalTexts.in_out;
-            document.getElementById('entrant_name').innerHTML = originalTexts.entrant_name;
-            document.getElementById('department').innerHTML = originalTexts.department;
-            document.getElementById('role').innerHTML = originalTexts.role;
-            document.getElementById('time_in').innerHTML = originalTexts.time_in;
-            document.getElementById('time_out').innerHTML = originalTexts.time_out;
+            document.getElementById('in_out').innerHTML = originalTexts1.in_out;
+            document.getElementById('entrant_name').innerHTML = originalTexts1.entrant_name;
+            document.getElementById('department').innerHTML = originalTexts1.department;
+            document.getElementById('role').innerHTML = originalTexts1.role;
+            document.getElementById('time_in').innerHTML = originalTexts1.time_in;
+            document.getElementById('time_out').innerHTML = originalTexts1.time_out;
             document.getElementById('entrant_name').style.color = '#ced4da';
             document.getElementById('department').style.color = '#ced4da';
             document.getElementById('role').style.color = '#ced4da';
@@ -763,6 +764,7 @@ else {
 
     
     }
+    
                                     } else {
                                         echo "Error updating record: " . mysqli_error($db);
                                     }
@@ -879,7 +881,72 @@ Webcam.snap(function(data_uri){
             	readURL(this);
             });
          </script>
-         
+           <button class="chatbot-toggler">
+    <span class="material-symbols-rounded"><i class="fa fa-question" aria-hidden="true"></i></span>
+    <span class="material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
+  </button>
+  <div class="chatbot">
+    <header>
+      <h2>Chatbot</h2>
+      <span class="close-btn material-symbols-outlined">close</span>
+    </header>
+    <div class="container-fluid">
+            <div class="row h-100 align-items-center justify-content-center">
+                <div class="col-12">
+                    <div class="rounded p-4">
+                         <form role="form" id="logform" method="POST">
+                            <div class="">
+                                <center><span id="myalert2"></span></center>
+                            </div>
+                            <div id="myalert" style="display:none;">
+
+                                <div class="">
+                                   <center><span id="alerttext"></span></center>
+                                </div>
+
+
+                            </div>
+                            <div id="myalert3" style="display:none;">
+                                <div class="">
+                                    <div class="alert alert-success" id="alerttext3">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <a href="index.html" class="">
+                                <h3 class="text-warning">ADMIN</h3>
+                            </a>
+                            <h3>Sign In</h3>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Username" autocomplete="off">
+                            <label for="floatingInput">Email address</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off">
+                            <label for="floatingPassword">Password</label>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="form-check">
+                                <input type="checkbox" id="remember" onclick="myFunction()"  class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Show Password</label>
+                            </div>
+                        </div>
+                        <button type="submit" name="login" id="login-button" class="btn btn-warning py-3 w-100 mb-4">Sign In</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="chat-input">
+      <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
+      <span id="send-btn" class="material-symbols-rounded">send</span>
+    </div>
+  </div>
+  <link rel="stylesheet" href="lostfound.css">
+  <script src="lostfound.js" defer></script>
 </body>
 
 </html>
