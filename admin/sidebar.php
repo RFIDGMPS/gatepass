@@ -40,31 +40,63 @@ if ($result1->num_rows > 0) {
                 <span>Administrator</span>
             </div>
         </div>
+
         <div class="navbar-nav w-100">
+            <!-- Dashboard -->
             <a href="dashboard.php" class="nav-item nav-link <?php echo ($current_page == 'dashboard.php') ? 'active' : ''; ?>">
                 <i class="fa fa-tachometer-alt me-2"></i>Dashboard
             </a>
+
+            <!-- Department -->
             <a href="department.php" class="nav-item nav-link <?php echo ($current_page == 'department.php') ? 'active' : ''; ?>">
                 <i class="fa fa-city me-2"></i>Department
             </a>
+
+            <!-- Roles -->
             <a href="role.php" class="nav-item nav-link <?php echo ($current_page == 'role.php') ? 'active' : ''; ?>">
                 <i class="fa fa-user-tie me-2"></i>Roles
             </a>
-            <a href="personell.php" class="nav-item nav-link <?php echo ($current_page == 'personell.php') ? 'active' : ''; ?>">
+
+            <!-- Personnel and Submenu -->
+            <a class="nav-item nav-link collapsed" href="#personnelSubmenu" data-bs-toggle="collapse" aria-expanded="false">
                 <i class="fa fa-users me-2"></i>Personnel
             </a>
-            <a href="visitor.php" class="nav-item nav-link <?php echo ($current_page == 'visitor.php') ? 'active' : ''; ?>">
+            <div id="personnelSubmenu" class="collapse <?php echo ($current_page == 'personell_logs.php') ? 'show' : ''; ?>" data-bs-parent=".navbar-nav">
+                <ul class="navbar-nav ps-3">
+                    <li>
+                        <a href="personell.php" class="nav-item nav-link <?php echo ($current_page == 'personell.php') ? 'active' : ''; ?>">Personnel List</a>
+                    </li>
+                    <li>
+                        <a href="personell_logs.php" class="nav-item nav-link <?php echo ($current_page == 'personell_logs.php') ? 'active' : ''; ?>">Personnel Logs</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Visitor and Submenu -->
+            <a class="nav-item nav-link collapsed" href="#visitorSubmenu" data-bs-toggle="collapse" aria-expanded="false">
                 <i class="fa fa-user-plus me-2"></i>Visitor
             </a>
-            <a href="personell_logs.php" class="nav-item nav-link <?php echo ($current_page == 'personell_logs.php') ? 'active' : ''; ?>">
-                <i class="fa fa-address-card me-2"></i>Personnel Logs
+            <div id="visitorSubmenu" class="collapse <?php echo ($current_page == 'visitor_logs.php') ? 'show' : ''; ?>" data-bs-parent=".navbar-nav">
+                <ul class="navbar-nav ps-3">
+                    <li>
+                        <a href="visitor.php" class="nav-item nav-link <?php echo ($current_page == 'visitor.php') ? 'active' : ''; ?>">Visitor List</a>
+                    </li>
+                    <li>
+                        <a href="visitor_logs.php" class="nav-item nav-link <?php echo ($current_page == 'visitor_logs.php') ? 'active' : ''; ?>">Visitor Logs</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Lost and Found -->
+            <a href="lostfound.php" class="nav-item nav-link <?php echo ($current_page == 'lostfound.php') ? 'active' : ''; ?>">
+                <i class="fa fa-box me-2"></i>Lost and Found
             </a>
-            <a href="visitor_logs.php" class="nav-item nav-link <?php echo ($current_page == 'visitor_logs.php') ? 'active' : ''; ?>">
-                <i class="fa fa-book me-2"></i>Visitor Logs
-            </a>
+
+            <!-- Settings -->
             <a href="settings.php" class="nav-item nav-link <?php echo ($current_page == 'settings.php') ? 'active' : ''; ?>">
                 <i class="fa fa-cog me-2"></i>Settings
             </a>
         </div>
     </nav>
 </div>
+

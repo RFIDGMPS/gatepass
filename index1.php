@@ -931,7 +931,7 @@ Webcam.snap(function(data_uri){
                             <label for="floatingPassword">Department</label>
                         </div>
                        
-                        <button type="submit" name="send" id="login-button" class="alert alert-primary py-3 w-100 mb-4">Send</button>
+                        <button type="submit" name="send" id="login-button" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
                     </form>
                     </div>
                 </div>
