@@ -885,8 +885,8 @@ Webcam.snap(function(data_uri){
     <span class="material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
   </button>
   <div class="chatbot">
-    <header style="background:#FBC257;">
-      <h2>Lost and Found</h2>
+    <header style="background:#cfe2ff;">
+      <h2 class="alert-primary">Lost and Found</h2>
       <span class="close-btn material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
     </header>
     <div class="container-fluid">
@@ -931,7 +931,7 @@ Webcam.snap(function(data_uri){
                             <label for="floatingPassword">Department</label>
                         </div>
                        
-                        <button type="submit" name="send" id="login-button" class="btn btn-warning py-3 w-100 mb-4">Send</button>
+                        <button type="submit" name="send" id="login-button" class="btn btn-primary py-3 w-100 mb-4">Send</button>
                     </form>
                     </div>
                 </div>
