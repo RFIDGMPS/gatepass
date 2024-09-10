@@ -51,7 +51,7 @@ try {
 // Start the session
 session_start();
 
-include 'header.php';
+include 'admin/header.php';
 ?>
 <?php
 include '../connection.php';
