@@ -932,7 +932,10 @@ Webcam.snap(function(data_uri){
                 </div>
             </div>
         </div>
-
+    <div class="chat-input">
+      <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
+      <span id="send-btn" class="material-symbols-rounded">send</span>
+    </div>
   </div>
   <link rel="stylesheet" href="lostfound.css">
   <script src="lostfound.js" defer></script>
