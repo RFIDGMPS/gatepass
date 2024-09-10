@@ -152,7 +152,7 @@ mysqli_close($db);
                     <div id="clockdate" style="border: 1px solid #f5af5b;background-color: #f5af5b">
                         <div class="clockdate-wrapper" style="height:100px;">
                             <div id="clock" style="font-weight: bold; color: #fff;font-size: 50px"></div>
-                            <div id="date" style="color: #fff"><i class="fas fa-calendar"></i><span id="currentDate"></span></div>
+                            <div id="date" style="color: #fff"><span id="currentDate"></span></div>
                         </div>
                     </div>
                 </center><br><Br>
@@ -915,14 +915,19 @@ Webcam.snap(function(data_uri){
                     
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" name="subject" placeholder="Subject" autocomplete="off">
-                            <label for="floatingInput">Subject</label>
+                            <label for="subjects">Subject</label>
+
+<select name="subjects" id="subjects">
+  <option value="lost">Lost</option>
+  <option value="found">Found</option>
+</select>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" name="pname" placeholder="Name" autocomplete="off">
+                            <input type="text" class="form-control" name="pname" placeholder="Name" autocomplete="off">
                             <label for="floatingPassword">Name</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off">
+                            <input type="text" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off">
                             <label for="floatingPassword">Department</label>
                         </div>
                        
