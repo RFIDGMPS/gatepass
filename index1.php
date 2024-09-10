@@ -914,10 +914,9 @@ Webcam.snap(function(data_uri){
                             </div>
                     
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" name="subject" placeholder="Subject" autocomplete="off">
-                            <label for="subjects">Subject</label>
-
-<select name="subjects" id="subjects">
+                   
+<select class="form-control"  name="subjects" id="subjects">
+<option value="subject">Subject</option>
   <option value="lost">Lost</option>
   <option value="found">Found</option>
 </select>
