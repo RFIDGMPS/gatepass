@@ -1,3 +1,30 @@
+<?php
+$current_page = basename($_SERVER['PHP_SELF']);
+?>
+<?php
+include '../connection.php';
+$logo1 = "";
+// Fetch data from the about table
+$sql = "SELECT * FROM about LIMIT 1";
+$result = $db->query($sql);
+
+if ($result->num_rows > 0) {
+    // Output data of each row
+    $row = $result->fetch_assoc();
+    $logo1 = $row['logo1'];
+} 
+
+$username = "";
+// Fetch data from the about table
+$sql1 = "SELECT * FROM user LIMIT 1";
+$result1 = $db->query($sql1);
+
+if ($result1->num_rows > 0) {
+    // Output data of each row
+    $row = $result1->fetch_assoc();
+    $username = $row['username'];
+} 
+?>
 <div class="sidebar pe-4 pb-3" style="background-color: #fcaf42">
     <nav class="navbar navbar-light">
         <a href="dashboard.php" class="navbar-brand mx-4 mb-3">
