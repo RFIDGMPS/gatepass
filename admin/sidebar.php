@@ -1,30 +1,3 @@
-<?php
-$current_page = basename($_SERVER['PHP_SELF']);
-?>
-<?php
-include '../connection.php';
-$logo1 = "";
-// Fetch data from the about table
-$sql = "SELECT * FROM about LIMIT 1";
-$result = $db->query($sql);
-
-if ($result->num_rows > 0) {
-    // Output data of each row
-    $row = $result->fetch_assoc();
-    $logo1 = $row['logo1'];
-} 
-
-$username = "";
-// Fetch data from the about table
-$sql1 = "SELECT * FROM user LIMIT 1";
-$result1 = $db->query($sql1);
-
-if ($result1->num_rows > 0) {
-    // Output data of each row
-    $row = $result1->fetch_assoc();
-    $username = $row['username'];
-} 
-?>
 <div class="sidebar pe-4 pb-3" style="background-color: #fcaf42">
     <nav class="navbar navbar-light">
         <a href="dashboard.php" class="navbar-brand mx-4 mb-3">
@@ -57,11 +30,11 @@ if ($result1->num_rows > 0) {
                 <i class="fa fa-user-tie me-2"></i>Roles
             </a>
 
-            <!-- Personnel and Submenu -->
-            <a class="nav-item nav-link collapsed" href="#personnelSubmenu" data-bs-toggle="collapse" aria-expanded="false">
+            <!-- Personnel with Submenu -->
+            <a class="nav-item nav-link collapsed <?php echo in_array($current_page, ['personell.php', 'personell_logs.php']) ? 'active' : ''; ?>" href="#personnelSubmenu" data-bs-toggle="collapse" aria-expanded="<?php echo in_array($current_page, ['personell.php', 'personell_logs.php']) ? 'true' : 'false'; ?>">
                 <i class="fa fa-users me-2"></i>Personnel
             </a>
-            <div id="personnelSubmenu" class="collapse <?php echo ($current_page == 'personell_logs.php') ? 'show' : ''; ?>" data-bs-parent=".navbar-nav">
+            <div id="personnelSubmenu" class="collapse <?php echo in_array($current_page, ['personell.php', 'personell_logs.php']) ? 'show' : ''; ?>" data-bs-parent=".navbar-nav">
                 <ul class="navbar-nav ps-3">
                     <li>
                         <a href="personell.php" class="nav-item nav-link <?php echo ($current_page == 'personell.php') ? 'active' : ''; ?>">Personnel List</a>
@@ -72,11 +45,11 @@ if ($result1->num_rows > 0) {
                 </ul>
             </div>
 
-            <!-- Visitor and Submenu -->
-            <a class="nav-item nav-link collapsed" href="#visitorSubmenu" data-bs-toggle="collapse" aria-expanded="false">
+            <!-- Visitor with Submenu -->
+            <a class="nav-item nav-link collapsed <?php echo in_array($current_page, ['visitor.php', 'visitor_logs.php']) ? 'active' : ''; ?>" href="#visitorSubmenu" data-bs-toggle="collapse" aria-expanded="<?php echo in_array($current_page, ['visitor.php', 'visitor_logs.php']) ? 'true' : 'false'; ?>">
                 <i class="fa fa-user-plus me-2"></i>Visitor
             </a>
-            <div id="visitorSubmenu" class="collapse <?php echo ($current_page == 'visitor_logs.php') ? 'show' : ''; ?>" data-bs-parent=".navbar-nav">
+            <div id="visitorSubmenu" class="collapse <?php echo in_array($current_page, ['visitor.php', 'visitor_logs.php']) ? 'show' : ''; ?>" data-bs-parent=".navbar-nav">
                 <ul class="navbar-nav ps-3">
                     <li>
                         <a href="visitor.php" class="nav-item nav-link <?php echo ($current_page == 'visitor.php') ? 'active' : ''; ?>">Visitor List</a>
@@ -99,4 +72,3 @@ if ($result1->num_rows > 0) {
         </div>
     </nav>
 </div>
-

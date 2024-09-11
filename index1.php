@@ -881,7 +881,7 @@ Webcam.snap(function(data_uri){
             });
          </script>
            <button class="chatbot-toggler" style="background:#FBC257;">
-    <span class="material-symbols-rounded"><i class="fa fa-question" aria-hidden="true"></i></span>
+    <span class="material-symbols-rounded"><i class="fa fa-box" aria-hidden="true"></i></span>
     <span class="material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
   </button>
   <div class="chatbot">
