@@ -179,7 +179,7 @@ if($found==0) {
                         </div>
                         <div >
                         <select  class="form-control mb-4" name="location" id="location" autocomplete="off">
-                        <option value='gate'>Gate</option>
+                        <option value='Gate'>Gate</option>
 				
                   <?php
                                                             $sql = "SELECT * FROM rooms";
