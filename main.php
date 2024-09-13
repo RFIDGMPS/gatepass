@@ -220,7 +220,7 @@ if (isset($_POST['submit'])) {
                     $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$user1['id']}'";
                     mysqli_query($db, $update_query);
                 } else {
-                    echo "<script>alert('Please wait for the appropriate time period.');window.location = 'index.php'; </script>";
+                    echo "<script>alert('Please wait for the appropriate time period.');window.location = 'main.php'; </script>";
                 }
             } else {
                 // Insert new log entry
@@ -258,7 +258,7 @@ if (isset($_POST['submit'])) {
                    
                     
                 } else {
-                    echo "<script>alert('Please wait for the appropriate time period.'); window.location = 'index.php';</script>";
+                    echo "<script>alert('Please wait for the appropriate time period.'); window.location = 'main.php';</script>";
                 }
             } else {
                 echo '<script>$(document).ready(function() {
