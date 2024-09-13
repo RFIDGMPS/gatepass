@@ -74,7 +74,7 @@ $password = "";
 
 
 // Check if login form is submitted
-if (isset($_POST['Prfid_number'])) {
+if (isset($_POST['pass_page'])) {
     // Validate the username and password
     $location = $_POST['location'];
     $password1 = $_POST['Ppassword'];
@@ -205,7 +205,7 @@ if ($result->num_rows > 0) {
                             </div>
                         </div>
                         <input style="border-color:#084298" type="text" name="Prfid_number" class="form-control" placeholder="Tap RFID card" autofocus>
-    
+                        <input id="pass_page" type="submit" name="pass_page" value="Submit" hidden>
                    </form>
                     </div>
                 </div>
