@@ -84,7 +84,7 @@ $password1 = stripcslashes($password1);
 
 $password1 = mysqli_real_escape_string($db, $password1);
 
-$sql = "SELECT * FROM room"; // Remove LIMIT 1 to select all rooms
+$sql = "SELECT * FROM room"; 
 $result = $db->query($sql);
 
 echo '<script type="text/javascript">
@@ -218,7 +218,7 @@ alert("pass4");
                             </div>
                         </div>
                         <input style="border-color:#084298" type="text" name="Prfid_number" class="form-control" placeholder="Tap RFID card" autofocus>
-                        <input id="pass_page" type="submit" name="pass_page" value="Submit" hidden>
+                        <input id="pass_page" type="submit" name="pass_page" value="Submit">
                    </form>
                     </div>
                 </div>
