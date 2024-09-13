@@ -87,35 +87,26 @@ $password1 = mysqli_real_escape_string($db, $password1);
 $sql = "SELECT * FROM rooms"; 
 $result = $db->query($sql);
 
-echo '<script type="text/javascript">
-alert("pass1");
-</script>';
+
 
 if ($result->num_rows > 0) {
-    echo '<script type="text/javascript">
-alert("pass2");
-</script>';
+    if ($location == 'Gate' && $password1 = 'gate123') {
+        // Store the username in session to indicate successful login
+        //$_SESSION['username'] = $username;
+    
+        // Redirect to the dashboard
+        echo '<script type="text/javascript">
+            window.location = "index1.php";
+        </script>';
+        exit();
+    } 
     // Iterate over all rows
     while ($row = $result->fetch_assoc()) {
-        echo '<script type="text/javascript">
-alert("pass3");
-</script>';
+        
         $room = $row['room'];
         $password = $row['password'];
 
-        if ($location == 'Gate' && $password1 = 'gate123') {
-            echo '<script type="text/javascript">
-alert("pass4");
-</script>';
-            // Store the username in session to indicate successful login
-            //$_SESSION['username'] = $username;
-        
-            // Redirect to the dashboard
-            echo '<script type="text/javascript">
-                window.location = "index1.php";
-            </script>';
-            exit();
-        } 
+       
             if ($location == $room && password_verify($password1, $password)) {
                 // Store the username in session to indicate successful login
                 //$_SESSION['username'] = $username;
