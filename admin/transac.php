@@ -93,6 +93,17 @@ switch ($_GET['action'])
     </script>';
           
             break;
+            case 'add_room':
+                $room = $_POST['room'];
+                $department = $_POST['department'];
+                $query = "INSERT INTO rooms (room, department)
+                VALUES ('$room', '$department')";
+                mysqli_query($db, $query) or die('Error in updating Database');
+                echo '<script type="text/javascript">
+                alert("Successfully added.");
+                window.location = "room.php";
+        </script>';
+                break;
 }
 ?>
         

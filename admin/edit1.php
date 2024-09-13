@@ -147,6 +147,21 @@ switch ($_GET['edit'])
 																						window.location = "role.php";
 																					</script>';
 																					break;
+																					case 'room':
+																						$id = $_GET['id'];
+																						$room = $_POST['room'];
+																						$department = $_POST['department'];
+																						$query = "UPDATE rooms SET 
+																										room = '$room',
+																										 department = '$department' 
+																									 WHERE id = '$id'";
+																											$result = mysqli_query($db, $query) or die(mysqli_error($db));
+																											echo '<script type="text/javascript">
+																											alert("Update Successfull.");
+																											window.location = "room.php";
+																										</script>';
+																										break;
+																					
 																
 }
 ?>	
