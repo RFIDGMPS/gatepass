@@ -191,14 +191,14 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Room:</b></label>
-                                        <input name="department_name" type="text" id="edit_departmentname" class="form-control edit-name" autocomplete="off">
+                                        <input name="room" type="text" id="edit_departmentname" class="form-control edit-name" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department: </b></label>
-                                        <select  class="form-control edit-desc" name="e_department" id="e_department" autocomplete="off">
+                                        <select  class="form-control edit-desc" name="department" id="department" autocomplete="off">
                   
 				
 <?php
