@@ -1,3 +1,20 @@
+<?php
+// Include your database connection
+include '../connection.php';
+
+// SQL to add 'password' column
+$sql = "ALTER TABLE rooms ADD password VARCHAR(255)";
+
+// Execute the query
+if (mysqli_query($db, $sql)) {
+    echo "Column 'password' added successfully to 'rooms' table!";
+} else {
+    echo "Error adding column: " . mysqli_error($db);
+}
+
+// Close the database connection
+mysqli_close($db);
+?>
 
 
 <!DOCTYPE html>
@@ -53,8 +70,9 @@ include 'header.php';
                                 <table class="table table-border" id="myDataTable">
                                     <thead>
                                         <tr>
-                                            <th scope="col" >Room</th>
-                                            <th scope="col">Department</th>
+                                            <th scope="col" >Department</th>
+                                            <th scope="col">Room</th>
+                                            <th scope="col">Password</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -64,8 +82,9 @@ include 'header.php';
                                  <?php $results = mysqli_query($db, "SELECT * FROM rooms"); ?>
                                  <?php while ($row = mysqli_fetch_array($results)) { ?>
                                     <tr  class="table-<?php echo $row['id'];?>">
+                                    <td class="department"><?php echo $row['department']; ?></td>
                                             <td><?php echo $row['room']; ?></td>
-                                            <td class="department"><?php echo $row['department']; ?></td>
+                                            <td><?php echo $row['password']; ?></td>
                                             <td width="14%">
                                             <center>
                                           <button room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>" data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_room_id" >
@@ -96,13 +115,6 @@ include 'header.php';
                         <form method="POST" action="transac.php?action=add_room">
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-dept"></div>
-                                <div class="col-lg-12 mb-1">
-                                    <div class="form-group">
-                                        <label for="inputTime"><b>Room:</b></label>
-                                        <input name="room" type="text" id="room" class="form-control" autocomplete="off">
-                                        <span class="deptname-error"></span>
-                                    </div>
-                                </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department: </b></label>
@@ -132,6 +144,21 @@ while ($row = $result->fetch_assoc()) {
                </select>
                                     </div>
                                 </div>
+                                <div class="col-lg-12 mb-1">
+                                    <div class="form-group">
+                                        <label for="inputTime"><b>Room:</b></label>
+                                        <input name="room" type="text" id="room" class="form-control" autocomplete="off">
+                                        <span class="deptname-error"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mb-1">
+                                    <div class="form-group">
+                                        <label for="inputTime"><b>Password:</b></label>
+                                        <input name="password" type="text" id="password" class="form-control" autocomplete="off">
+                                        <span class="deptname-error"></span>
+                                    </div>
+                                </div>
+                                
 
                             </div>
                             <div class="modal-footer">
@@ -164,11 +191,12 @@ while ($row = $result->fetch_assoc()) {
                       
                        $dptname =  $(this).attr('room');
                        $dptdesc =  $(this).attr('department');
-       
+                       $password =  $(this).attr('password');
 
 
 					$('.edit-name').val($dptname);
 					$('.edit-desc').val($dptdesc);
+                    $('.edit-pass').val($password);
 					$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=room');
                  
 					
@@ -188,13 +216,6 @@ while ($row = $result->fetch_assoc()) {
                         <form method="POST"  class="edit-form" role="form" action="">
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-editdept"></div>
-                                <div class="col-lg-12 mb-1">
-                                    <div class="form-group">
-                                        <label for="inputTime"><b>Room:</b></label>
-                                        <input name="room" type="text" id="edit_departmentname" class="form-control edit-name" autocomplete="off">
-                                        <span class="deptname-error"></span>
-                                    </div>
-                                </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department: </b></label>
@@ -222,6 +243,20 @@ while ($row = $result->fetch_assoc()) {
     }
     ?>            
                </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mb-1">
+                                    <div class="form-group">
+                                        <label for="inputTime"><b>Room:</b></label>
+                                        <input name="room" type="text" id="edit_departmentname" class="form-control edit-name" autocomplete="off">
+                                        <span class="deptname-error"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mb-1">
+                                    <div class="form-group">
+                                        <label for="inputTime"><b>Password:</b></label>
+                                        <input name="password" type="text" id="edit_departmentname" class="form-control edit-pass" autocomplete="off">
+                                        <span class="deptname-error"></span>
                                     </div>
                                 </div>
 
