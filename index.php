@@ -156,7 +156,7 @@ $password1 = mysqli_real_escape_string($db, $password1);
                             <h3>Sign In</h3>
                         </div>
                         <div >
-                        <select  class="form-control" name="location" id="location" autocomplete="off">
+                        <select  class="form-control mb-4" name="location" id="location" autocomplete="off">
                         <option value='gate'>Gate</option>
 				
                   <?php
