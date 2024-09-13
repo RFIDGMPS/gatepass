@@ -1,48 +1,4 @@
 
-<?php
-// Include PHPMailer classes (adjust the path to your project structure)
-require 'admin/PHPMailer/src/Exception.php';
-require 'admin/PHPMailer/src/PHPMailer.php';
-require 'admin/PHPMailer/src/SMTP.php';
-
-//echo $_SERVER['REMOTE_ADDR'];
-//echo $_SERVER['HTTP_USER_AGENT'];
-// Import PHPMailer classes into the global namespace
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-// Create a new PHPMailer instance
-$mail = new PHPMailer(true);
-
-// Set up PHPMailer (similar to the code I provided earlier)
-try {
-    $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
-    $mail->SMTPAuth = true;
-    $mail->Username = 'kyebejeanu@gmail.com';
-    $mail->Password = 'krwr vqdj vzmq fiby';
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port = 587;
-
-    // Sender and recipient settings
-    $mail->setFrom('kyebejeanu@gmail.com', 'RFID GPMS');
-    $mail->addAddress('$email', $admin);
-
-    // Email content
-    $mail->isHTML(true);
-    $mail->Subject = 'Test email';
-    $mail->Body    = 'This is a test email sent using PHPMailer!';
-    $mail->AltBody = 'This is a plain text body for non-HTML clients';
-
-    // Send email
-    $mail->send();
-    echo 'Email sent successfully!';
-} catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-}
-?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -199,10 +155,13 @@ $password1 = mysqli_real_escape_string($db, $password1);
                             </a>
                             <h3>Sign In</h3>
                         </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" name="location" placeholder="Location" autocomplete="off">
-                            <label for="floatingInput">Location</label>
-                        </div>
+                        <label for="location">Location:</label>
+
+<select name="location" id="location">
+  <option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+  
+</select>
                        
                         <div class="form-floating mb-4">
                             <input type="password" class="form-control" name="Ppassword" placeholder="Password" autocomplete="off">
@@ -214,7 +173,7 @@ $password1 = mysqli_real_escape_string($db, $password1);
                                 <label class="form-check-label" for="exampleCheck1">Show Password</label>
                             </div>
                         </div>
-                        <input style="border:1px solid #FCCC73" type="text" name="Prfid_number" class="form-control" placeholder="Tap RFID card" autofocus>
+                        <input type="text" name="Prfid_number" class="form-control" placeholder="Tap RFID card" autofocus>
     
                    </form>
                     </div>
