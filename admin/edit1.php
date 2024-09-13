@@ -151,12 +151,12 @@ switch ($_GET['edit'])
 																						$id = $_GET['id'];
 																						$room = $_POST['room'];
 																						$department = $_POST['department'];
-																						$desc = $_POST['desc'];
+																						//$desc = $_POST['desc'];
 																						$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 																						$query = "UPDATE rooms SET 
 																										room = '$room',
 																										 department = '$department',
-																										 description = '$desc',
+																										 
 																										 password = '$password'
 																									 WHERE id = '$id'";
 																											$result = mysqli_query($db, $query) or die(mysqli_error($db));
