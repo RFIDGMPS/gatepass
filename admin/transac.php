@@ -97,9 +97,7 @@ switch ($_GET['action'])
                 $room = $_POST['room'];
                 $department = $_POST['department'];
                 //$desc = $_POST['desc'];
-               =
-               
-        </script>';
+        
                 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
                 $query = "INSERT INTO rooms (room, department, password)
                 VALUES ('$room', '$department','$password')";
