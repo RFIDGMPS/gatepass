@@ -32,7 +32,7 @@
 						window.location = "role.php";
 					</script>	';
 				break;
-				case 'department':
+				case 'room':
 					$db->query("DELETE FROM `rooms` WHERE `id` = '$_REQUEST[id]'") or die(mysqli_error($db));
 					echo'<script type="text/javascript">
 							alert("Successfully Deleted.");
