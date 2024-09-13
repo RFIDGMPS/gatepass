@@ -113,7 +113,7 @@ if ($result->num_rows > 0) {
         
         $room = $row['room'];
         $password = $row['password'];
-        $desc = $row['desc'];
+        //$desc = $row['description'];
        
             if ($location == $room && password_verify($password1, $password)) {
                 // Store the username in session to indicate successful login
@@ -123,7 +123,7 @@ if ($result->num_rows > 0) {
                 echo '<script type="text/javascript">
                     window.location = "main.php";
                 </script>';
-                $_SESSION['location'] = $desc;
+                $_SESSION['location'] = $room;
                 $found=1;
                 exit();
             } 
