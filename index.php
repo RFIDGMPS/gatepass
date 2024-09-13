@@ -155,7 +155,7 @@ $password1 = mysqli_real_escape_string($db, $password1);
                             </a>
                             <h3>Sign In</h3>
                         </div>
-                        <div class="form-floating mb-3">
+                        <div class="form-floating mb-3 form-control">
                         <select name="location" id="location">
   <option value="volvo">Volvo</option>
   <option value="saab">Saab</option>
@@ -173,7 +173,7 @@ $password1 = mysqli_real_escape_string($db, $password1);
                                 <label class="form-check-label" for="exampleCheck1">Show Password</label>
                             </div>
                         </div>
-                        <input type="text" name="Prfid_number" class="form-control" placeholder="Tap RFID card" autofocus>
+                        <input style="border-color:#b6d4fe" type="text" name="Prfid_number" class="form-control" placeholder="Tap RFID card" autofocus>
     
                    </form>
                     </div>
