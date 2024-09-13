@@ -87,13 +87,26 @@ $password1 = mysqli_real_escape_string($db, $password1);
 $sql = "SELECT * FROM room"; // Remove LIMIT 1 to select all rooms
 $result = $db->query($sql);
 
+echo '<script type="text/javascript">
+alert("pass1");
+</script>';
+
 if ($result->num_rows > 0) {
+    echo '<script type="text/javascript">
+alert("pass2");
+</script>';
     // Iterate over all rows
     while ($row = $result->fetch_assoc()) {
+        echo '<script type="text/javascript">
+alert("pass3");
+</script>';
         $room = $row['room'];
         $password = $row['password'];
 
         if ($location == 'Gate' && $password1 = 'gate123') {
+            echo '<script type="text/javascript">
+alert("pass4");
+</script>';
             // Store the username in session to indicate successful login
             //$_SESSION['username'] = $username;
         
