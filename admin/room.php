@@ -43,7 +43,7 @@ include 'header.php';
                                     <h6 class="mb-4">Manage Rooms</h6>
                                 </div>
                                 <div class="col-3">
-                                    <button type="button" class="btn btn-outline-warning m-2" class="addroom">Add Room</button>
+                                    <button class="btn btn-outline-warning m-2 addroom">Add Room</button>
                                 </div>
                             </div>
                             <hr></hr>
@@ -119,44 +119,40 @@ include 'header.php';
                 </div>
             </div>
             <script type="text/javascript">
-         $(document).ready(function() {
-         	$("#myDataTable").DataTable();
-			 $('.d_id').click(function(){
-                $('#del-modal').modal('show');
-						
-               		$id = $(this).attr('data-id');
-                       $room =  $(this).attr('room');
-       
-       $('.d-dpt').val($room);
-               		$('.remove_id').click(function(){
-               			window.location = 'del.php?type=room&id=' + $id;
-						 
-               		});
-               	});
-               	$('.e_id').click(function(){
-               		$id = $(this).attr('data-id');
-                       $('#editdepartment-modal').modal('show');
-               		// $('#editModal').load('edit.php?id=' + $id);
-                      
-                       $room =  $(this).attr('room');
-                       $dpt =  $(this).attr('department');
-       
+ $(document).ready(function() {
+     // Initialize DataTable
+     $("#myDataTable").DataTable();
+     
+     // Show delete confirmation modal
+     $('.d_id').click(function(){
+         $('#del-modal').modal('show');
+         let id = $(this).attr('data-id');
+         let room = $(this).attr('room');
+         $('.d-dpt').val(room);
 
-
-					$('.edit-name').val($dptname);
-					$('.edit-desc').val($dptdesc);
-					$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=room');
-					
-               	});
-
-                   $('.addroom').click(function(){
-                $('#roomModal').modal('show');
-						
-               		
-               	});
+         $('.remove_id').click(function(){
+             window.location = 'del.php?type=room&id=' + id;
          });
-		 
-		 </script>
+     });
+
+     // Show edit modal and populate fields
+     $('.e_id').click(function(){
+         let id = $(this).attr('data-id');
+         $('#editdepartment-modal').modal('show');
+         let room = $(this).attr('room');
+         let dpt = $(this).attr('department');
+         $('.edit-name').val(room);
+         $('.edit-desc').val(dpt);
+         $('.edit-form').attr('action', 'edit1.php?id='+id+'&edit=room');
+     });
+
+     // Show Add Room modal
+     $('.addroom').click(function(){
+         $('#roomModal').modal('show');
+     });
+ });
+</script>
+
 
             
             <div class="modal fade" id="editdepartment-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
