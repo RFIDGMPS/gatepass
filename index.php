@@ -157,8 +157,8 @@ $password1 = mysqli_real_escape_string($db, $password1);
                         </div>
                         <div >
                         <select class="form-floating mb-3 form-control" name="location" id="location">
-  <option value="volvo">Location:</option>
-  <option value="saab">Saab</option>
+  <option value="location">Location:</option>
+  <option value="gate">Gate</option>
   
 </select>
                         </div>
