@@ -62,29 +62,7 @@ include 'header.php';
                                     </thead>
                                     <tbody>
                                         
-                                        <?php include '../connection.php'; 
-                                       
-                                        // Check connection
-                                        if ($db->connect_error) {
-                                            die("Connection failed: " . $db->connect_error);
-                                        }
-                                        
-                                        // SQL to add a new column
-                                        $sql = "ALTER TABLE rooms ADD COLUMN `desc` VARCHAR(255)";
-                                        
-                                        // Execute the query
-                                        if ($db->query($sql) === TRUE) {
-                                            echo "Column added successfully.";
-                                        } else {
-                                            echo "Error adding column: " . $db->error;
-                                        }
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        ?>
+                                        <?php include '../connection.php';   ?>
 
 
 
