@@ -62,12 +62,12 @@
    </head>
 <?php
 // Start the session
-session_start();
+//session_start();
 
 ?>
 <?php
 include 'connection.php';
-$username = "";
+$location = "";
 $password = "";
 
 // Fetch data from the 'user' table (you can limit this query based on specific user login)
