@@ -51,24 +51,24 @@ include 'header.php';
                                 <table class="table table-border" id="myDataTable">
                                     <thead>
                                         <tr>
-                                            <th scope="col" >Department Name</th>
-                                            <th scope="col">Department Description</th>
+                                            <th scope="col" >Room</th>
+                                            <th scope="col">Department</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         
                                         <?php include '../connection.php'; ?>
-                                 <?php $results = mysqli_query($db, "SELECT * FROM department"); ?>
+                                 <?php $results = mysqli_query($db, "SELECT * FROM rooms"); ?>
                                  <?php while ($row = mysqli_fetch_array($results)) { ?>
-                                    <tr  class="table-<?php echo $row['department_id'];?>">
-                                            <td><?php echo $row['department_name']; ?></td>
-                                            <td><?php echo $row['department_desc']; ?></td>
+                                    <tr  class="table-<?php echo $row['id'];?>">
+                                            <td><?php echo $row['room']; ?></td>
+                                            <td><?php echo $row['department']; ?></td>
                                             <td width="14%">
                                             <center>
-                                          <button department_name="<?php echo $row['department_name'];?>" department_desc="<?php echo $row['department_desc'];?>" data-id="<?php echo $row['department_id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_department_id" >
+                                          <button room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>" data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_room_id" >
                                           <i class="bi bi-plus-edit"></i> Edit </button>
-                                          <button department_name="<?php echo $row['department_name'];?>" department_desc="<?php echo $row['department_desc'];?>"  data-id="<?php echo $row['department_id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_department_id">
+                                          <button room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>"  data-id="<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_room_id">
                                           <i class="bi bi-plus-trash"></i> Delete </button>
                                        </center> </td>
                                         </tr>
@@ -121,31 +121,31 @@ include 'header.php';
             <script type="text/javascript">
          $(document).ready(function() {
          	$("#myDataTable").DataTable();
-			 $('.d_department_id').click(function(){
+			 $('.d_room_id').click(function(){
                 $('#deldepartment-modal').modal('show');
 						
                		$id = $(this).attr('data-id');
-                       $dptname =  $(this).attr('department_name');
+                       $dptname =  $(this).attr('room');
        
        $('.d-dpt').val($dptname);
                		$('.remove_id').click(function(){
-               			window.location = 'del.php?type=department&id=' + $id;
+               			window.location = 'del.php?type=room&id=' + $id;
 						 
                		});
                	});
-               	$('.e_department_id').click(function(){
+               	$('.e_room_id').click(function(){
                		$id = $(this).attr('data-id');
                        $('#editdepartment-modal').modal('show');
                		// $('#editModal').load('edit.php?id=' + $id);
                       
-                       $dptname =  $(this).attr('department_name');
-                       $dptdesc =  $(this).attr('department_desc');
+                       $dptname =  $(this).attr('room');
+                       $dptdesc =  $(this).attr('department');
        
 
 
 					$('.edit-name').val($dptname);
 					$('.edit-desc').val($dptdesc);
-					$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=department');
+					$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=room');
 					
                	});
          });
