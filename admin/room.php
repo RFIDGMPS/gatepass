@@ -43,7 +43,7 @@ include 'header.php';
                                     <h6 class="mb-4">Manage Rooms</h6>
                                 </div>
                                 <div class="col-3">
-                                    <button type="button" class="btn btn-outline-warning m-2" data-bs-toggle="modal" data-bs-target="#roomModal">Add Room</button>
+                                    <button type="button" class="btn btn-outline-warning m-2" class="addroom" data-bs-toggle="modal" data-bs-target="#roomModal">Add Room</button>
                                 </div>
                             </div>
                             <hr></hr>
@@ -148,6 +148,12 @@ include 'header.php';
 					$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=room');
 					
                	});
+
+                   $('.addroom').click(function(){
+                $('#roomModal').modal('show');
+						
+               		
+               	});
          });
 		 
 		 </script>
@@ -227,7 +233,7 @@ include 'footer.php';
 
         <a href="#" class="btn btn-lg btn-warning btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="lib/chart/chart.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
     <script src="lib/waypoints/waypoints.min.js"></script>
