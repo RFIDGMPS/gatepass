@@ -71,18 +71,19 @@ $username = "";
 $password = "";
 
 // Fetch data from the 'user' table (you can limit this query based on specific user login)
-$sql = "SELECT * FROM user LIMIT 1"; // Make sure to adjust this query for actual user login implementation
+$sql = "SELECT * FROM room"; // Remove LIMIT 1 to select all rooms
 $result = $db->query($sql);
 
 if ($result->num_rows > 0) {
-    // Output data of each row
-    $row = $result->fetch_assoc();
-    $room = $row['room'];
-    $password = $row['password'];
+    // Iterate over all rows
+    while ($row = $result->fetch_assoc()) {
+        $room = $row['room'];
+        $password = $row['password'];
+    }
 } 
 
 // Check if login form is submitted
-if (isset($_POST['login'])) {
+if (isset($_POST['Prfid_number'])) {
     // Validate the username and password
     $location = $_POST['location'];
     $password1 = $_POST['Ppassword'];
