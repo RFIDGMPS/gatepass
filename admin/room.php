@@ -55,24 +55,53 @@ include 'header.php';
                                         <tr>
                                             <th scope="col" >Department</th>
                                             <th scope="col">Room</th>
+                                            <th scope="col">Description</th>
                                             <th scope="col">Password</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         
-                                        <?php include '../connection.php'; ?>
+                                        <?php include '../connection.php'; 
+                                       
+                                        // Check connection
+                                        if ($db->connect_error) {
+                                            die("Connection failed: " . $db->connect_error);
+                                        }
+                                        
+                                        // SQL to add a new column
+                                        $sql = "ALTER TABLE rooms ADD COLUMN `desc` VARCHAR(255)";
+                                        
+                                        // Execute the query
+                                        if ($db->query($sql) === TRUE) {
+                                            echo "Column added successfully.";
+                                        } else {
+                                            echo "Error adding column: " . $db->error;
+                                        }
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        ?>
+
+
+
+
+
                                  <?php $results = mysqli_query($db, "SELECT * FROM rooms"); ?>
                                  <?php while ($row = mysqli_fetch_array($results)) { ?>
                                     <tr  class="table-<?php echo $row['id'];?>">
                                     <td class="department"><?php echo $row['department']; ?></td>
                                             <td><?php echo $row['room']; ?></td>
+                                            <td><?php echo $row['desc']; ?></td>
                                             <td><?php echo $row['password']; ?></td>
                                             <td width="14%">
                                             <center>
-                                          <button room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>" data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_room_id" >
+                                          <button desc="<?php echo $row['desc'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>" data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_room_id" >
                                           <i class="bi bi-plus-edit"></i> Edit </button>
-                                          <button room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>"  data-id="<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_room_id">
+                                          <button desc="<?php echo $row['desc'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>"  data-id="<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_room_id">
                                           <i class="bi bi-plus-trash"></i> Delete </button>
                                        </center> </td>
                                         </tr>
@@ -136,6 +165,13 @@ while ($row = $result->fetch_assoc()) {
                                 </div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
+                                        <label for="inputTime"><b>Description:</b></label>
+                                        <input name="desc" type="text" id="desc" class="form-control" autocomplete="off">
+                                        <span class="deptname-error"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mb-1">
+                                    <div class="form-group">
                                         <label for="inputTime"><b>Password:</b></label>
                                         <input name="password" type="text" id="password" class="form-control" autocomplete="off">
                                         <span class="deptname-error"></span>
@@ -175,11 +211,12 @@ while ($row = $result->fetch_assoc()) {
                        $dptname =  $(this).attr('room');
                        $dptdesc =  $(this).attr('department');
                        $password =  $(this).attr('password');
-
+                       $desc =  $(this).attr('desc');
 
 					$('.edit-name').val($dptname);
 					$('.edit-desc').val($dptdesc);
                     $('.edit-pass').val($password);
+                    $('.edit-desc').val($desc);
 					$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=room');
                  
 					
@@ -232,6 +269,13 @@ while ($row = $result->fetch_assoc()) {
                                     <div class="form-group">
                                         <label for="inputTime"><b>Room:</b></label>
                                         <input name="room" type="text" id="edit_departmentname" class="form-control edit-name" autocomplete="off">
+                                        <span class="deptname-error"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mb-1">
+                                    <div class="form-group">
+                                        <label for="inputTime"><b>Description:</b></label>
+                                        <input name="desc" type="text" id="edit_departmentname" class="form-control edit-desc" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
