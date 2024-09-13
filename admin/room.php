@@ -199,7 +199,7 @@ while ($row = $result->fetch_assoc()) {
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department: </b></label>
                                         <select  class="form-control edit-desc" name="e_department" id="e_department" autocomplete="off">
-                  <option class="edit-department"></option>
+                  
 				
 <?php
 										  $sql = "SELECT * FROM department";
