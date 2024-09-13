@@ -1,20 +1,3 @@
-<?php
-// Include your database connection
-include '../connection.php';
-
-// SQL to add 'password' column
-$sql = "ALTER TABLE rooms ADD password VARCHAR(255)";
-
-// Execute the query
-if (mysqli_query($db, $sql)) {
-    echo "Column 'password' added successfully to 'rooms' table!";
-} else {
-    echo "Error adding column: " . mysqli_error($db);
-}
-
-// Close the database connection
-mysqli_close($db);
-?>
 
 
 <!DOCTYPE html>
