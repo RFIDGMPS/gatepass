@@ -43,7 +43,7 @@ include 'header.php';
                                     <h6 class="mb-4">Manage Rooms</h6>
                                 </div>
                                 <div class="col-3">
-                                    <button type="button" class="btn btn-outline-warning m-2" data-bs-toggle="modal" data-bs-target="#departmentModal">Add Room</button>
+                                    <button type="button" class="btn btn-outline-warning m-2" data-bs-toggle="modal" data-bs-target="#roomModal">Add Room</button>
                                 </div>
                             </div>
                             <hr></hr>
@@ -84,27 +84,27 @@ include 'header.php';
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="departmentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="roomModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-plus-circle"></i> New Room</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="POST" action="transac.php?action=add_department">
+                        <form method="POST" action="transac.php?action=add_room">
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-dept"></div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
-                                        <label for="inputTime"><b>Department Name:</b></label>
-                                        <input name="department_name" type="text" id="department_name" class="form-control" autocomplete="off">
+                                        <label for="inputTime"><b>Room:</b></label>
+                                        <input name="room" type="text" id="room" class="form-control" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label for="inputTime"><b>Department Description: </b></label>
-                                        <textarea name="department_desc" type="text" id="department_description" class="form-control" autocomplete="off"></textarea>
+                                        <label for="inputTime"><b>Department: </b></label>
+                                        <textarea name="department" type="text" id="department" class="form-control" autocomplete="off"></textarea>
                                         <span class="deptdesc-error"></span>
                                     </div>
                                 </div>
