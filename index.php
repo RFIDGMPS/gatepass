@@ -77,30 +77,39 @@ $result = $db->query($sql);
 if ($result->num_rows > 0) {
     // Output data of each row
     $row = $result->fetch_assoc();
-    $username = $row['username'];
+    $room = $row['room'];
     $password = $row['password'];
 } 
 
 // Check if login form is submitted
 if (isset($_POST['login'])) {
     // Validate the username and password
-    $username1 = $_POST['username'];
-    $password1 = $_POST['password'];
+    $location = $_POST['location'];
+    $password1 = $_POST['Ppassword'];
 
-    $username1 = stripcslashes($username1);
+    $location = stripcslashes($location);
 $password1 = stripcslashes($password1); 
-$username1 = mysqli_real_escape_string($db, $username1);
+$location = mysqli_real_escape_string($db, $location);
 $password1 = mysqli_real_escape_string($db, $password1);
 
 
+if ($location == 'Gate' && $password1 = 'gate123') {
+    // Store the username in session to indicate successful login
+    //$_SESSION['username'] = $username;
 
-    if ($username1 == $username && password_verify($password1, $password)) {
+    // Redirect to the dashboard
+    echo '<script type="text/javascript">
+        window.location = "index1.php";
+    </script>';
+    exit();
+} 
+    if ($location == $room && password_verify($password1, $password)) {
         // Store the username in session to indicate successful login
-        $_SESSION['username'] = $username;
+        //$_SESSION['username'] = $username;
 
         // Redirect to the dashboard
         echo '<script type="text/javascript">
-            window.location = "dashboard.php";
+            window.location = "index1.php";
         </script>';
         exit();
     } else {
