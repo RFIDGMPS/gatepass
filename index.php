@@ -83,7 +83,7 @@ if (isset($_POST['submit'])) {
 $password1 = stripcslashes($password1); 
 
 $password1 = mysqli_real_escape_string($db, $password1);
-
+$found=0;
 $sql = "SELECT * FROM rooms"; 
 $result = $db->query($sql);
 
@@ -98,6 +98,7 @@ if ($result->num_rows > 0) {
         echo '<script type="text/javascript">
             window.location = "index1.php";
         </script>';
+        $found=1;
         exit();
     } 
     // Iterate over all rows
@@ -115,13 +116,16 @@ if ($result->num_rows > 0) {
                 echo '<script type="text/javascript">
                     window.location = "index1.php";
                 </script>';
+                $found=1;
                 exit();
-            } else {
-                // Show invalid login message
-                echo '<script type="text/javascript">
-                    alert("Invalid username and password.");
-                </script>';
-            }
+            } 
+    }
+
+    if($found==0) {
+        // Show invalid login message
+        echo '<script type="text/javascript">
+            alert("Invalid username and password.");
+        </script>';
     }
 } 
 
