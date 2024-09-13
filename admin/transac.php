@@ -102,7 +102,7 @@ switch ($_GET['action'])
                
         </script>';
                 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $query = "INSERT INTO rooms (room, department, password, description)
+                $query = "INSERT INTO rooms (room, department, password, room_description)
                 VALUES ('$room', '$department','$password','$desc')";
                 mysqli_query($db, $query) or die('Error in updating Database');
                 echo '<script type="text/javascript">

@@ -63,6 +63,15 @@ include 'header.php';
                                     <tbody>
                                         
                                         <?php include '../connection.php';  
+                                        // SQL query to rename the column
+$sql = "ALTER TABLE rooms CHANGE `description` `room_description` VARCHAR(255)";
+
+// Execute the query
+if ($db->query($sql) === TRUE) {
+    echo "Column renamed successfully.";
+} else {
+    echo "Error renaming column: " . $db->error;
+}
                                             ?>
 
 
