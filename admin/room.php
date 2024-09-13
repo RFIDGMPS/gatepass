@@ -40,10 +40,10 @@ include 'header.php';
                         <div class="bg-light rounded h-100 p-4">
                             <div class="row">
                                 <div class="col-9">
-                                    <h6 class="mb-4">Manage Rooms</h6>
+                                    <h6 class="mb-4">Manage Department</h6>
                                 </div>
                                 <div class="col-3">
-                                    <button class="btn btn-outline-warning m-2 addroom">Add Room</button>
+                                    <button type="button" class="btn btn-outline-warning m-2" data-bs-toggle="modal" data-bs-target="#departmentModal">Add Department</button>
                                 </div>
                             </div>
                             <hr></hr>
@@ -51,24 +51,24 @@ include 'header.php';
                                 <table class="table table-border" id="myDataTable">
                                     <thead>
                                         <tr>
-                                            <th scope="col" >Room</th>
-                                            <th scope="col">Department</th>
+                                            <th scope="col" >Department Name</th>
+                                            <th scope="col">Department Description</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         
                                         <?php include '../connection.php'; ?>
-                                 <?php $results = mysqli_query($db, "SELECT * FROM rooms"); ?>
+                                 <?php $results = mysqli_query($db, "SELECT * FROM department"); ?>
                                  <?php while ($row = mysqli_fetch_array($results)) { ?>
-                                    <tr  class="table-<?php echo $row['id'];?>">
-                                            <td><?php echo $row['room']; ?></td>
-                                            <td><?php echo $row['department']; ?></td>
+                                    <tr  class="table-<?php echo $row['department_id'];?>">
+                                            <td><?php echo $row['department_name']; ?></td>
+                                            <td><?php echo $row['department_desc']; ?></td>
                                             <td width="14%">
                                             <center>
-                                          <button room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>" data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_id" >
+                                          <button department_name="<?php echo $row['department_name'];?>" department_desc="<?php echo $row['department_desc'];?>" data-id="<?php echo $row['department_id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_department_id" >
                                           <i class="bi bi-plus-edit"></i> Edit </button>
-                                          <button room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>"  data-id="<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_id">
+                                          <button department_name="<?php echo $row['department_name'];?>" department_desc="<?php echo $row['department_desc'];?>"  data-id="<?php echo $row['department_id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_department_id">
                                           <i class="bi bi-plus-trash"></i> Delete </button>
                                        </center> </td>
                                         </tr>
@@ -84,27 +84,27 @@ include 'header.php';
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="roomModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="departmentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-plus-circle"></i> New Room</h5>
+                            <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-plus-circle"></i> New Department</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="POST" action="transac.php?action=add_room">
+                        <form method="POST" action="transac.php?action=add_department">
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-dept"></div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
-                                        <label for="inputTime"><b>Room:</b></label>
-                                        <input name="room" type="text" id="room" class="form-control" autocomplete="off">
+                                        <label for="inputTime"><b>Department Name:</b></label>
+                                        <input name="department_name" type="text" id="department_name" class="form-control" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label for="inputTime"><b>Department: </b></label>
-                                        <textarea name="department" type="text" id="department" class="form-control" autocomplete="off"></textarea>
+                                        <label for="inputTime"><b>Department Description: </b></label>
+                                        <textarea name="department_desc" type="text" id="department_description" class="form-control" autocomplete="off"></textarea>
                                         <span class="deptdesc-error"></span>
                                     </div>
                                 </div>
@@ -119,47 +119,45 @@ include 'header.php';
                 </div>
             </div>
             <script type="text/javascript">
- $(document).ready(function() {
-     // Initialize DataTable
-     $("#myDataTable").DataTable();
-     
-     // Show delete confirmation modal
-     $('.d_id').click(function(){
-         $('#del-modal').modal('show');
-         let id = $(this).attr('data-id');
-         let room = $(this).attr('room');
-         $('.d-dpt').val(room);
+         $(document).ready(function() {
+         	$("#myDataTable").DataTable();
+			 $('.d_department_id').click(function(){
+                $('#deldepartment-modal').modal('show');
+						
+               		$id = $(this).attr('data-id');
+                       $dptname =  $(this).attr('department_name');
+       
+       $('.d-dpt').val($dptname);
+               		$('.remove_id').click(function(){
+               			window.location = 'del.php?type=department&id=' + $id;
+						 
+               		});
+               	});
+               	$('.e_department_id').click(function(){
+               		$id = $(this).attr('data-id');
+                       $('#editdepartment-modal').modal('show');
+               		// $('#editModal').load('edit.php?id=' + $id);
+                      
+                       $dptname =  $(this).attr('department_name');
+                       $dptdesc =  $(this).attr('department_desc');
+       
 
-         $('.remove_id').click(function(){
-             window.location = 'del.php?type=room&id=' + id;
+
+					$('.edit-name').val($dptname);
+					$('.edit-desc').val($dptdesc);
+					$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=department');
+					
+               	});
          });
-     });
-
-     // Show edit modal and populate fields
-     $('.e_id').click(function(){
-         let id = $(this).attr('data-id');
-         $('#editdepartment-modal').modal('show');
-         let room = $(this).attr('room');
-         let dpt = $(this).attr('department');
-         $('.edit-name').val(room);
-         $('.edit-desc').val(dpt);
-         $('.edit-form').attr('action', 'edit1.php?id='+id+'&edit=room');
-     });
-
-     // Show Add Room modal
-     $('.addroom').click(function(){
-         $('#roomModal').modal('show');
-     });
- });
-</script>
-
+		 
+		 </script>
 
             
             <div class="modal fade" id="editdepartment-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title"><i class="bi bi-pencil"></i> Edit Room</h5>
+                            <h5 class="modal-title"><i class="bi bi-pencil"></i> Edit Department</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form method="POST"  class="edit-form" role="form" action="">
@@ -167,15 +165,15 @@ include 'header.php';
                                 <div class="col-lg-12 mt-1" id="mgs-editdept"></div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
-                                        <label for="inputTime"><b>Room:</b></label>
-                                        <input name="room" type="text" id="edit_departmentname" class="form-control edit-name" autocomplete="off">
+                                        <label for="inputTime"><b>Department Name:</b></label>
+                                        <input name="department_name" type="text" id="edit_departmentname" class="form-control edit-name" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label for="inputTime"><b>Department: </b></label>
-                                        <textarea name="department" type="text" id="edit_departmentdescription" class="form-control edit-desc" autocomplete="off"></textarea>
+                                        <label for="inputTime"><b>Department Description: </b></label>
+                                        <textarea name="department_desc" type="text" id="edit_departmentdescription" class="form-control edit-desc" autocomplete="off"></textarea>
                                         <span class="deptdesc-error"></span>
                                     </div>
                                 </div>
@@ -191,11 +189,11 @@ include 'header.php';
                 </div>
             </div>
 
-            <div class="modal fade" id="del-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="deldepartment-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title"><i class="bi bi-trash"></i> Delete Room</h5>
+                            <h5 class="modal-title"><i class="bi bi-trash"></i> Delete Department</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form method="POST">
@@ -203,7 +201,7 @@ include 'header.php';
                                 <div class="col-lg-12 mt-1" id="mgs-deldept"></div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
-                                        <label for="inputTime"><b>Room:</b></label>
+                                        <label for="inputTime"><b>Department Name:</b></label>
                                         <input  type="text" id="delete_departmentname" class="form-control d-dpt" autocomplete="off" readonly="">
                                         <span class="deptname-error"></span>
                                     </div>
@@ -239,8 +237,7 @@ include 'footer.php';
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-<!-- Bootstrap JS (add this before the closing </body> tag) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
