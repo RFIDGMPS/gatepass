@@ -79,9 +79,9 @@ if (isset($_POST['pass_page'])) {
     $location = $_POST['location'];
     $password1 = $_POST['Ppassword'];
 
-    $location = stripcslashes($location);
+
 $password1 = stripcslashes($password1); 
-$location = mysqli_real_escape_string($db, $location);
+
 $password1 = mysqli_real_escape_string($db, $password1);
 
 $sql = "SELECT * FROM room"; // Remove LIMIT 1 to select all rooms
