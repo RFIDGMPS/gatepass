@@ -43,7 +43,7 @@ include 'header.php';
                                     <h6 class="mb-4">Manage Rooms</h6>
                                 </div>
                                 <div class="col-3">
-                                    <button type="button" class="btn btn-outline-warning m-2" class="addroom" data-bs-toggle="modal" data-bs-target="#roomModal">Add Room</button>
+                                    <button type="button" class="btn btn-outline-warning m-2" class="addroom">Add Room</button>
                                 </div>
                             </div>
                             <hr></hr>
