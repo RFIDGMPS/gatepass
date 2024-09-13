@@ -3,6 +3,9 @@
 session_start();
 if (isset($_SESSION['location'])) {
     $location = $_SESSION['location'];
+  
+}
+else {
     header("Location: index.php");
     exit();
 }
