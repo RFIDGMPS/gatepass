@@ -142,7 +142,7 @@ mysqli_close($db);
     <div class="column wide" style="flex-grow: 2; text-align: center;">
         <div class="text">
             <h1><div class="row"><b><?php echo $nameo; ?></b></div></h1>
-            <h5>(<?php echo $location; ?>)</span></h5>
+            <h5><span style="color:red;">(<?php echo $location; ?>)</span></h5>
         </div>
     </div>
     <div style="text-align: right; margin-left: 10px;">
