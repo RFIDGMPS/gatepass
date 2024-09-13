@@ -86,8 +86,7 @@ $password1 = mysqli_real_escape_string($db, $password1);
 $found=0;
 $sql = "SELECT * FROM rooms"; 
 $result = $db->query($sql);
-echo $location;
-echo $password1;
+
 if ($location == "Gate" && $password1 == "gate123") {
     // Store the username in session to indicate successful login
     //$_SESSION['username'] = $username;
