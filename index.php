@@ -84,7 +84,7 @@ $password1 = stripcslashes($password1);
 
 $password1 = mysqli_real_escape_string($db, $password1);
 
-$sql = "SELECT * FROM room"; 
+$sql = "SELECT * FROM rooms"; 
 $result = $db->query($sql);
 
 echo '<script type="text/javascript">
