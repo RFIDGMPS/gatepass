@@ -2,37 +2,18 @@
 // Include your database connection
 include '../connection.php';
 
-// Query to fetch data from 'rooms' table
-$query = "SELECT * FROM rooms";
-$result = mysqli_query($db, $query);
+// SQL to create 'rooms' table
+$sql = "CREATE TABLE rooms (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    room VARCHAR(255) NOT NULL,
+    department VARCHAR(255) NOT NULL
+)";
 
-if ($result && mysqli_num_rows($result) > 0) {
-    echo "<table class='table table-border' id='myDataTable'>";
-    echo "<thead>";
-    echo "<tr>";
-    echo "<th>Room</th>";
-    echo "<th>Department</th>";
-    echo "<th>Action</th>";
-    echo "</tr>";
-    echo "</thead>";
-    echo "<tbody>";
-
-    // Loop through the data and display it in the table
-    while ($row = mysqli_fetch_assoc($result)) {
-        echo "<tr>";
-        echo "<td>" . $row['room'] . "</td>";
-        echo "<td>" . $row['department'] . "</td>";
-        echo "<td>";
-        echo "<button class='btn btn-outline-primary btn-sm'>Edit</button> ";
-        echo "<button class='btn btn-outline-danger btn-sm'>Delete</button>";
-        echo "</td>";
-        echo "</tr>";
-    }
-
-    echo "</tbody>";
-    echo "</table>";
+// Execute the query
+if (mysqli_query($db, $sql)) {
+    echo "Table 'rooms' created successfully!";
 } else {
-    echo "No rooms found.";
+    echo "Error creating table: " . mysqli_error($db);
 }
 
 // Close the database connection
