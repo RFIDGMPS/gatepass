@@ -71,16 +71,7 @@ $username = "";
 $password = "";
 
 // Fetch data from the 'user' table (you can limit this query based on specific user login)
-$sql = "SELECT * FROM room"; // Remove LIMIT 1 to select all rooms
-$result = $db->query($sql);
 
-if ($result->num_rows > 0) {
-    // Iterate over all rows
-    while ($row = $result->fetch_assoc()) {
-        $room = $row['room'];
-        $password = $row['password'];
-    }
-} 
 
 // Check if login form is submitted
 if (isset($_POST['Prfid_number'])) {
@@ -93,32 +84,43 @@ $password1 = stripcslashes($password1);
 $location = mysqli_real_escape_string($db, $location);
 $password1 = mysqli_real_escape_string($db, $password1);
 
+$sql = "SELECT * FROM room"; // Remove LIMIT 1 to select all rooms
+$result = $db->query($sql);
 
-if ($location == 'Gate' && $password1 = 'gate123') {
-    // Store the username in session to indicate successful login
-    //$_SESSION['username'] = $username;
+if ($result->num_rows > 0) {
+    // Iterate over all rows
+    while ($row = $result->fetch_assoc()) {
+        $room = $row['room'];
+        $password = $row['password'];
 
-    // Redirect to the dashboard
-    echo '<script type="text/javascript">
-        window.location = "index1.php";
-    </script>';
-    exit();
-} 
-    if ($location == $room && password_verify($password1, $password)) {
-        // Store the username in session to indicate successful login
-        //$_SESSION['username'] = $username;
-
-        // Redirect to the dashboard
-        echo '<script type="text/javascript">
-            window.location = "index1.php";
-        </script>';
-        exit();
-    } else {
-        // Show invalid login message
-        echo '<script type="text/javascript">
-            alert("Invalid username and password.");
-        </script>';
+        if ($location == 'Gate' && $password1 = 'gate123') {
+            // Store the username in session to indicate successful login
+            //$_SESSION['username'] = $username;
+        
+            // Redirect to the dashboard
+            echo '<script type="text/javascript">
+                window.location = "index1.php";
+            </script>';
+            exit();
+        } 
+            if ($location == $room && password_verify($password1, $password)) {
+                // Store the username in session to indicate successful login
+                //$_SESSION['username'] = $username;
+        
+                // Redirect to the dashboard
+                echo '<script type="text/javascript">
+                    window.location = "index1.php";
+                </script>';
+                exit();
+            } else {
+                // Show invalid login message
+                echo '<script type="text/javascript">
+                    alert("Invalid username and password.");
+                </script>';
+            }
     }
+} 
+
 }
 ?>
 
