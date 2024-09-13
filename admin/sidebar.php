@@ -51,7 +51,9 @@ if ($result1->num_rows > 0) {
             <a href="department.php" class="nav-item nav-link <?php echo ($current_page == 'department.php') ? 'active' : ''; ?>">
                 <i class="fa fa-city me-2"></i>Department
             </a>
-
+            <a href="room.php" class="nav-item nav-link <?php echo ($current_page == 'room.php') ? 'active' : ''; ?>">
+                <i class="fa fa-door-open me-2"></i>Room
+            </a>
             <!-- Roles -->
             <a href="role.php" class="nav-item nav-link <?php echo ($current_page == 'role.php') ? 'active' : ''; ?>">
                 <i class="fa fa-user-tie me-2"></i>Roles
