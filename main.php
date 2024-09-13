@@ -1,5 +1,11 @@
 
 <?php
+session_start();
+if (isset($_SESSION['location'])) {
+    $location = $_SESSION['location'];
+}
+?>
+<?php
 include 'connection.php';
 $logo1 = "";
     $nameo = "";
@@ -131,7 +137,7 @@ mysqli_close($db);
     <div class="column wide" style="flex-grow: 2; text-align: center;">
         <div class="text">
             <h1><div class="row"><b><?php echo $nameo; ?></b></div></h1>
-            <h5><div><i><?php echo $address; ?></i></div></h5>
+            <h5><div><i>RFID Gate Pass Management System (<?php echo $location; ?>)</i></div></h5>
         </div>
     </div>
     <div style="text-align: right; margin-left: 10px;">

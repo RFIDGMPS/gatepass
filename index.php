@@ -1,4 +1,8 @@
 
+<?php
+session_start();
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -95,6 +99,8 @@ if ($location == "Gate" && $password1 == "gate123") {
     echo '<script type="text/javascript">
         window.location = "main.php";
     </script>';
+    $_SESSION['location'] = $location;
+
     $found=1;
     exit();
 } 
@@ -117,6 +123,7 @@ if ($result->num_rows > 0) {
                 echo '<script type="text/javascript">
                     window.location = "main.php";
                 </script>';
+                $_SESSION['location'] = $location;
                 $found=1;
                 exit();
             } 
