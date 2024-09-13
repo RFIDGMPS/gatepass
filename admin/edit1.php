@@ -151,7 +151,7 @@ switch ($_GET['edit'])
 																						$id = $_GET['id'];
 																						$room = $_POST['room'];
 																						$department = $_POST['department'];
-																						$password = password_hash($_POST['password']);
+																						$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 																						$query = "UPDATE rooms SET 
 																										room = '$room',
 																										 department = '$department',
