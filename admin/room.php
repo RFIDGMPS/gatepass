@@ -1,24 +1,4 @@
-<?php
-// Include your database connection
-include '../connection.php';
 
-// SQL to create 'rooms' table
-$sql = "CREATE TABLE rooms (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    room VARCHAR(255) NOT NULL,
-    department VARCHAR(255) NOT NULL
-)";
-
-// Execute the query
-if (mysqli_query($db, $sql)) {
-    echo "Table 'rooms' created successfully!";
-} else {
-    echo "Error creating table: " . mysqli_error($db);
-}
-
-// Close the database connection
-mysqli_close($db);
-?>
 
 <!DOCTYPE html>
 
@@ -126,8 +106,30 @@ include 'header.php';
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department: </b></label>
-                                        <textarea name="department" type="text" id="department" class="form-control" autocomplete="off"></textarea>
-                                        <span class="deptdesc-error"></span>
+                                        <select  class="form-control" name="department" id="department" autocomplete="off">
+              
+				
+<?php
+										  $sql = "SELECT * FROM department";
+$result = $db->query($sql);
+
+// Initialize an array to store department options
+$department_options = [];
+
+// Fetch and store department options
+while ($row = $result->fetch_assoc()) {
+    $department_id = $row['department_id'];
+    $department_name = $row['department_name'];
+    $department_options[] = "<option value='$department_name'>$department_name</option>";
+}?>
+                          <?php
+    // Output department options
+    foreach ($department_options as $option) {
+        echo $option;
+       
+    }
+    ?>            
+               </select>
                                     </div>
                                 </div>
 
