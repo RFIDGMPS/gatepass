@@ -43,7 +43,7 @@ include 'header.php';
                                     <h6 class="mb-4">Manage Rooms</h6>
                                 </div>
                                 <div class="col-3">
-                                    <button type="button" class="btn btn-outline-warning m-2" data-bs-toggle="modal" data-bs-target="#departmentModal">Add Room</button>
+                                    <button type="button" class="btn btn-outline-warning m-2" data-bs-toggle="modal" data-bs-target="#roomModal">Add Room</button>
                                 </div>
                             </div>
                             <hr></hr>
@@ -84,7 +84,7 @@ include 'header.php';
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="departmentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="roomModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
