@@ -121,14 +121,14 @@ if ($result->num_rows > 0) {
             } 
     }
 
-    if($found==0) {
-        // Show invalid login message
-        echo '<script type="text/javascript">
-            alert("Invalid username and password.");
-        </script>';
-    }
+    
 } 
-
+if($found==0) {
+    // Show invalid login message
+    echo '<script type="text/javascript">
+        alert("Invalid username and password.");
+    </script>';
+}
 }
 ?>
 
