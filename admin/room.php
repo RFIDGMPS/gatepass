@@ -65,7 +65,7 @@ include 'header.php';
                                  <?php while ($row = mysqli_fetch_array($results)) { ?>
                                     <tr  class="table-<?php echo $row['id'];?>">
                                             <td><?php echo $row['room']; ?></td>
-                                            <td><?php echo $row['department']; ?></td>
+                                            <td class="department"><?php echo $row['department']; ?></td>
                                             <td width="14%">
                                             <center>
                                           <button room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>" data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_room_id" >
@@ -170,13 +170,14 @@ while ($row = $result->fetch_assoc()) {
 					$('.edit-name').val($dptname);
 					$('.edit-desc').val($dptdesc);
 					$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=room');
+                 
 					
                	});
          });
 		 
 		 </script>
 
-            
+
             <div class="modal fade" id="editdepartment-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -197,7 +198,7 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department: </b></label>
-                                        <select  class="form-control" name="e_department" id="e_department" autocomplete="off">
+                                        <select  class="form-control edit-desc" name="e_department" id="e_department" autocomplete="off">
                   <option class="edit-department"></option>
 				
 <?php
