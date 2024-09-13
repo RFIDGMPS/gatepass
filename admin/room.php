@@ -63,16 +63,7 @@ include 'header.php';
                                     <tbody>
                                         
                                         <?php include '../connection.php';  
-                                        // SQL query to rename the column
-$sql = "ALTER TABLE rooms CHANGE `desc` `description` VARCHAR(255)";
-
-// Execute the query
-if ($db->query($sql) === TRUE) {
-    echo "Column renamed successfully.";
-} else {
-    echo "Error renaming column: " . $db->error;
-}
-                                        ?>
+                                            ?>
 
 
 
@@ -83,13 +74,13 @@ if ($db->query($sql) === TRUE) {
                                     <tr  class="table-<?php echo $row['id'];?>">
                                     <td class="department"><?php echo $row['department']; ?></td>
                                             <td><?php echo $row['room']; ?></td>
-                                            <td><?php echo $row['desc']; ?></td>
+                                            <td><?php echo $row['description']; ?></td>
                                             <td><?php echo $row['password']; ?></td>
                                             <td width="14%">
                                             <center>
-                                          <button desc="<?php echo $row['desc'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>" data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_room_id" >
+                                          <button desc="<?php echo $row['description'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>" data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_room_id" >
                                           <i class="bi bi-plus-edit"></i> Edit </button>
-                                          <button desc="<?php echo $row['desc'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>"  data-id="<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_room_id">
+                                          <button desc="<?php echo $row['description'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>"  data-id="<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_room_id">
                                           <i class="bi bi-plus-trash"></i> Delete </button>
                                        </center> </td>
                                         </tr>
