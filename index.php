@@ -156,11 +156,30 @@ $password1 = mysqli_real_escape_string($db, $password1);
                             <h3>Sign In</h3>
                         </div>
                         <div >
-                        <select class="form-floating mb-3 form-control" name="location" id="location">
-  <option value="location">Location:</option>
-  <option value="gate">Gate</option>
-  
-</select>
+                        <select  class="form-control" name="location" id="location" autocomplete="off">
+                        <option value='gate'>Gate</option>
+				
+                  <?php
+                                                            $sql = "SELECT * FROM rooms";
+                  $result = $db->query($sql);
+                  
+                  // Initialize an array to store department options
+                  $rooms = [];
+                  
+                  // Fetch and store department options
+                  while ($row = $result->fetch_assoc()) {
+                      $id = $row['department_id'];
+                      $room = $row['room'];
+                      $rooms[] = "<option value='$room'>$room</option>";
+                  }?>
+                                            <?php
+                      // Output department options
+                      foreach ($rooms as $option) {
+                          echo $option;
+                         
+                      }
+                      ?>            
+                                 </select>
                         </div>
                        
                         <div class="form-floating mb-4">
