@@ -155,13 +155,13 @@ $password1 = mysqli_real_escape_string($db, $password1);
                             </a>
                             <h3>Sign In</h3>
                         </div>
-                        <label for="location">Location:</label>
-
-<select name="location" id="location">
+                        <div class="form-floating mb-3">
+                        <select name="location" id="location">
   <option value="volvo">Volvo</option>
   <option value="saab">Saab</option>
   
 </select>
+                        </div>
                        
                         <div class="form-floating mb-4">
                             <input type="password" class="form-control" name="Ppassword" placeholder="Password" autocomplete="off">
