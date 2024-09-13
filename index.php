@@ -65,7 +65,77 @@
 session_start();
 
 ?>
+<?php
+include 'connection.php';
+$username = "";
+$password = "";
 
+// Fetch data from the 'user' table (you can limit this query based on specific user login)
+
+
+// Check if login form is submitted
+if (isset($_POST['pass_page'])) {
+    // Validate the username and password
+    $location = $_POST['location'];
+    $password1 = $_POST['Ppassword'];
+
+
+$password1 = stripcslashes($password1); 
+
+$password1 = mysqli_real_escape_string($db, $password1);
+
+$sql = "SELECT * FROM room"; 
+$result = $db->query($sql);
+
+echo '<script type="text/javascript">
+alert("pass1");
+</script>';
+
+if ($result->num_rows > 0) {
+    echo '<script type="text/javascript">
+alert("pass2");
+</script>';
+    // Iterate over all rows
+    while ($row = $result->fetch_assoc()) {
+        echo '<script type="text/javascript">
+alert("pass3");
+</script>';
+        $room = $row['room'];
+        $password = $row['password'];
+
+        if ($location == 'Gate' && $password1 = 'gate123') {
+            echo '<script type="text/javascript">
+alert("pass4");
+</script>';
+            // Store the username in session to indicate successful login
+            //$_SESSION['username'] = $username;
+        
+            // Redirect to the dashboard
+            echo '<script type="text/javascript">
+                window.location = "index1.php";
+            </script>';
+            exit();
+        } 
+            if ($location == $room && password_verify($password1, $password)) {
+                // Store the username in session to indicate successful login
+                //$_SESSION['username'] = $username;
+        
+                // Redirect to the dashboard
+                echo '<script type="text/javascript">
+                    window.location = "index1.php";
+                </script>';
+                exit();
+            } else {
+                // Show invalid login message
+                echo '<script type="text/javascript">
+                    alert("Invalid username and password.");
+                </script>';
+            }
+    }
+} 
+
+}
+?>
 
 
 <body>
@@ -148,78 +218,7 @@ session_start();
                             </div>
                         </div>
                         <input style="border-color:#084298" type="text" name="Prfid_number" class="form-control" placeholder="Tap RFID card" autofocus>
-                        <input id="pass_page" type="submit" name="pass_page" value="Submit">
-                        <?php
-include 'connection.php';
-$username = "";
-$password = "";
-
-// Fetch data from the 'user' table (you can limit this query based on specific user login)
-
-
-// Check if login form is submitted
-if (isset($_POST['pass_page'])) {
-    // Validate the username and password
-    $location = $_POST['location'];
-    $password1 = $_POST['Ppassword'];
-
-
-$password1 = stripcslashes($password1); 
-
-$password1 = mysqli_real_escape_string($db, $password1);
-
-$sql = "SELECT * FROM room"; 
-$result = $db->query($sql);
-
-echo '<script type="text/javascript">
-alert("pass1");
-</script>';
-
-if ($result->num_rows > 0) {
-    echo '<script type="text/javascript">
-alert("pass2");
-</script>';
-    // Iterate over all rows
-    while ($row = $result->fetch_assoc()) {
-        echo '<script type="text/javascript">
-alert("pass3");
-</script>';
-        $room = $row['room'];
-        $password = $row['password'];
-
-        if ($location == 'Gate' && $password1 = 'gate123') {
-            echo '<script type="text/javascript">
-alert("pass4");
-</script>';
-            // Store the username in session to indicate successful login
-            //$_SESSION['username'] = $username;
-        
-            // Redirect to the dashboard
-            echo '<script type="text/javascript">
-                window.location = "index1.php";
-            </script>';
-            exit();
-        } 
-            if ($location == $room && password_verify($password1, $password)) {
-                // Store the username in session to indicate successful login
-                //$_SESSION['username'] = $username;
-        
-                // Redirect to the dashboard
-                echo '<script type="text/javascript">
-                    window.location = "index1.php";
-                </script>';
-                exit();
-            } else {
-                // Show invalid login message
-                echo '<script type="text/javascript">
-                    alert("Invalid username and password.");
-                </script>';
-            }
-    }
-} 
-
-}
-?>
+                        <input id="pass_page" type="submit" name="pass_page" value="Submit"/>
                    </form>
                     </div>
                 </div>
