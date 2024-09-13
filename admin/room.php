@@ -181,7 +181,7 @@ while ($row = $result->fetch_assoc()) {
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title"><i class="bi bi-pencil"></i> Edit Department</h5>
+                            <h5 class="modal-title"><i class="bi bi-pencil"></i> Edit Room</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form method="POST"  class="edit-form" role="form" action="">
@@ -189,16 +189,38 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12 mt-1" id="mgs-editdept"></div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
-                                        <label for="inputTime"><b>Department Name:</b></label>
+                                        <label for="inputTime"><b>Room:</b></label>
                                         <input name="department_name" type="text" id="edit_departmentname" class="form-control edit-name" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label for="inputTime"><b>Department Description: </b></label>
-                                        <textarea name="department_desc" type="text" id="edit_departmentdescription" class="form-control edit-desc" autocomplete="off"></textarea>
-                                        <span class="deptdesc-error"></span>
+                                        <label for="inputTime"><b>Department: </b></label>
+                                        <select  class="form-control" name="e_department" id="e_department" autocomplete="off">
+                  <option class="edit-department"></option>
+				
+<?php
+										  $sql = "SELECT * FROM department";
+$result = $db->query($sql);
+
+// Initialize an array to store department options
+$department_options = [];
+
+// Fetch and store department options
+while ($row = $result->fetch_assoc()) {
+    $department_id = $row['department_id'];
+    $department_name = $row['department_name'];
+    $department_options[] = "<option value='$department_name'>$department_name</option>";
+}?>
+                          <?php
+    // Output department options
+    foreach ($department_options as $option) {
+        echo $option;
+       
+    }
+    ?>            
+               </select>
                                     </div>
                                 </div>
 
