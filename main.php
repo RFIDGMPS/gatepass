@@ -357,14 +357,15 @@ if (isset($_POST['submit'])) {
         ORDER BY latest_time DESC, source DESC
     ");
     
+$results1= mysqli_query($db, "SELECT * FROM personell_logs");
 
-    while ($row = mysqli_fetch_array($results)) { ?>
+    while ($row1 = mysqli_fetch_array($results1)) { ?>
         <tr>
-            <td><center><img src="admin/uploads/<?php echo $row['photo']; ?>" width="50px" height="50px" ></center></td>
-            <td><?php echo $row['role']; ?></td>
-            <td><?php echo $row['full_name']; ?></td>
-            <td><?php echo $row['time_in']; ?></td>
-            <td><?php echo $row['time_out']; ?></td>
+            <td><center><img src="admin/uploads/<?php echo $row1['photo']; ?>" width="50px" height="50px" ></center></td>
+            <td><?php echo $row1['role']; ?></td>
+            <td><?php echo $row1['full_name']; ?></td>
+            <td><?php echo $row1['time_in']; ?></td>
+            <td><?php echo $row1['time_out']; ?></td>
     
         
         </tr>
