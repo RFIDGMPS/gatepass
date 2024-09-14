@@ -267,7 +267,7 @@ while ($row = mysqli_fetch_array($result1)) {
             $time_in_out = 'TIME OUT';
             $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$row['id']}'";
             mysqli_query($db, $update_query);
-            break;
+        
         } else {
             // Insert new log entry for the user
             $full_name = $user['first_name'] . ' ' . $user['last_name'];
@@ -280,7 +280,6 @@ while ($row = mysqli_fetch_array($result1)) {
             $insert_query = "INSERT INTO personell_logs (location, photo, role, full_name, rfid_number, time_in, date_logged, department, status) 
                              VALUES ('$location', '$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
             mysqli_query($db, $insert_query);
-            break;
         }
         
     } else {
@@ -290,11 +289,6 @@ while ($row = mysqli_fetch_array($result1)) {
         return; // Exit if condition fails
     }
 }
-
-// Default case for handling logs not found
-$voice = 'You\'re not allowed to enter this room2.';
-echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
-
         }
     }
     } else {
