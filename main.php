@@ -12,23 +12,6 @@ else {
 ?>
 <?php
 include 'connection.php';
-$sql = "ALTER TABLE personell_logs ADD location VARCHAR(255)";
-
-// Execute the query
-if (mysqli_query($db, $sql)) {
-    echo "Column 'location' added successfully.";
-} else {
-    echo "Error adding column: " . mysqli_error($db);
-}
-
-
-
-
-
-
-
-
-
 
 $logo1 = "";
     $nameo = "";
