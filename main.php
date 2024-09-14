@@ -249,7 +249,7 @@ if (isset($_POST['submit'])) {
                 $insert_query = "INSERT INTO personell_logs (photo, role, full_name, rfid_number, time_in, date_logged, department, status, location) 
                                  VALUES ('$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status', '$location')";
                 mysqli_query($db, $insert_query);
-                echo $location;
+                
             }
         } else {
         // Check if user is already logged today
@@ -273,7 +273,7 @@ while ($row = mysqli_fetch_array($result1)) {
             $photo_name = $user['photo'];
             $role = $user['role'];
             $status = $user['status'];
-            $location = $department;  // Assuming department as location
+            
             $time_in_out = 'TIME IN';
 
             $insert_query = "INSERT INTO personell_logs (location, photo, role, full_name, rfid_number, time_in, date_logged, department, status) 
