@@ -12,7 +12,14 @@ else {
 ?>
 <?php
 include 'connection.php';
+$sql = "ALTER TABLE personell_logs ADD personnel_id INT";
 
+// Execute the query
+if (mysqli_query($db, $sql)) {
+    echo "Column 'personnel_id' added successfully.";
+} else {
+    echo "Error adding column: " . mysqli_error($db);
+}
 
 $logo1 = "";
     $nameo = "";
@@ -220,7 +227,7 @@ if (isset($_POST['submit'])) {
       
             if($department == 'main'){
             // Check if user is already logged today
-            $query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
+            $query1 = "SELECT * FROM personell_logs WHERE personnel_id = '$user['id']' AND date_logged = '$date_logged'";
             $result1 = mysqli_query($db, $query1);
             $user1 = mysqli_fetch_assoc($result1);
 
@@ -249,7 +256,7 @@ if (isset($_POST['submit'])) {
             }
         } else {
         // Check if user is already logged today
-$query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged' AND location = '$location'";
+$query1 = "SELECT * FROM personell_logs WHERE personnel_id = '$user['id']' AND date_logged = '$date_logged' AND location = '$location'";
 $result1 = mysqli_query($db, $query1);
 echo 'pass1';
 // Loop through the result set
