@@ -339,7 +339,7 @@ if (isset($_POST['submit'])) {
     </div>
 </div>      
 <audio id="myAudio" hidden>
-    <source src="audio/alert.mp3" type="audio/mpeg">
+    <source src="admin/audio/alert.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio> 
              
