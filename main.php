@@ -267,11 +267,6 @@ while ($row = mysqli_fetch_array($result1)) {
         } else {
             // Insert new log entry for the user
            
-            $full_name = $user['first_name'] . ' ' . $user['last_name'];
-            $photo_name = $user['photo'];
-            $role = $user['role'];
-            $status = $user['status'];
-            
             $time_in_out = 'TIME IN';
 
             $insert_query = "INSERT INTO personell_logs (location, time_in, date_logged) 
