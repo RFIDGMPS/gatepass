@@ -238,16 +238,12 @@ if (isset($_POST['submit'])) {
             } else {
               
                 // Insert new log entry
-                $full_name = $user['first_name'] . ' ' . $user['last_name'];
-                $photo_name = $user['photo'];
-                $role = $user['role'];
-                $department = $user['department'];
-                $status = $user['status'];
+           
                 $time_in_out = 'TIME IN';
                 //$time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
 
-                $insert_query = "INSERT INTO personell_logs (photo, role, full_name, rfid_number, time_in, date_logged, department, status, location) 
-                                 VALUES ('$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status', '$location')";
+                $insert_query = "INSERT INTO personell_logs (time_in, date_logged, location) 
+                                 VALUES ('$time', '$date_logged', '$location')";
                 mysqli_query($db, $insert_query);
                 
             }
@@ -260,7 +256,7 @@ $result1 = mysqli_query($db, $query1);
 while ($row = mysqli_fetch_array($result1)) {
    
     // Check if user's department matches the log department
-    if ($row['department'] == $department) {
+    if ($user['department'] == $department) {
       
         // Update log if no 'time_out' and location matches
         if ($row['time_out']=='') {
@@ -270,6 +266,7 @@ while ($row = mysqli_fetch_array($result1)) {
         
         } else {
             // Insert new log entry for the user
+           
             $full_name = $user['first_name'] . ' ' . $user['last_name'];
             $photo_name = $user['photo'];
             $role = $user['role'];
@@ -277,8 +274,8 @@ while ($row = mysqli_fetch_array($result1)) {
             
             $time_in_out = 'TIME IN';
 
-            $insert_query = "INSERT INTO personell_logs (location, photo, role, full_name, rfid_number, time_in, date_logged, department, status) 
-                             VALUES ('$location', '$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
+            $insert_query = "INSERT INTO personell_logs (location, time_in, date_logged) 
+                             VALUES ('$location', '$time', '$date_logged')";
             mysqli_query($db, $insert_query);
         }
         
