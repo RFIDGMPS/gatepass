@@ -236,7 +236,7 @@ if (isset($_POST['submit'])) {
                     echo "<script>alert('Please wait for the appropriate time period.');</script>";
                 }
             } else {
-                echo $location;
+              
                 // Insert new log entry
                 $full_name = $user['first_name'] . ' ' . $user['last_name'];
                 $photo_name = $user['photo'];
@@ -247,7 +247,7 @@ if (isset($_POST['submit'])) {
                 //$time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
 
                 $insert_query = "INSERT INTO personell_logs (photo, role, full_name, rfid_number, time_in, date_logged, department, status, location) 
-                                 VALUES ($photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status', '$location')";
+                                 VALUES ('$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status', '$location')";
                 mysqli_query($db, $insert_query);
                 echo $location;
             }
