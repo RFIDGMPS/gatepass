@@ -251,20 +251,20 @@ if (isset($_POST['submit'])) {
              // Check if user is already logged today
              $query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
              $result1 = mysqli_query($db, $query1);
-             $user1 = mysqli_fetch_assoc($result1);
+          
+             while ($row = mysqli_fetch_array($result1)) {
+
  if($user['department'] == $department){
-             if ($user1) {
+             if ($row) {
                 
                  // Update existing log entry
-                 if (($user1['time_out'] == '')) {
+                 if (($row['time_out'] == '')) {
                      //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
                      $time_in_out = 'TIME OUT';
  
-                     $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$user1['id']}'";
+                     $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$row['id']}'";
                      mysqli_query($db, $update_query);
-                 } else {
-                     echo "<script>alert('Please wait for the appropriate time period.');</script>";
-                 }
+                 } 
              } else {
                  // Insert new log entry
                  $full_name = $user['first_name'] . ' ' . $user['last_name'];
@@ -286,6 +286,7 @@ if (isset($_POST['submit'])) {
             }
         }
         }
+    }
     } else {
         // Check if RFID number exists in visitor table
         $query = "SELECT * FROM visitor WHERE rfid_number = '$rfid_number'";
