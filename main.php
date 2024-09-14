@@ -256,11 +256,11 @@ if (isset($_POST['submit'])) {
              $result1 = mysqli_query($db, $query1);
           
              while ($row = mysqli_fetch_array($result1)) {
-
+                
  if($user['department'] == $department){
    
              if ($row) {
-                echo 'pass3';
+                
                  // Update existing log entry
                  if (($row['time_out'] == '' && $row['location'] == $department)) {
                     
@@ -287,9 +287,10 @@ if (isset($_POST['submit'])) {
              } 
              
             }
+            else{
             $voice='You\'re not allowed to enter this room.';
             echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
-            
+            }
         }
         }
     }
