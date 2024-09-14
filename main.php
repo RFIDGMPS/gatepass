@@ -208,7 +208,11 @@ if (isset($_POST['submit'])) {
            // echo "<script>alert('This Personnel is Blocked!'); window.location = 'index.php';</script>";
            $time_in_out='BLOCKED';
            $voice='Blocked Card!';
-           echo "<script>document.getElementById('myAudio').play();</script>";
+           echo "<script>const audio = document.getElementById('myAudio');
+        audio.currentTime = 0; // Reset the audio to the start
+        audio.play().catch(function(error) {
+            console.log('Audio playback failed:', error);
+        });</script>";
            
         } else {
       
@@ -313,7 +317,11 @@ if (isset($_POST['submit'])) {
         } else {
          $time_in_out='STRANGER';
             $voice='Unknown Card!';
-            echo "<script>document.getElementById('myAudio').play();</script>";
+            echo "<script>const audio = document.getElementById('myAudio');
+        audio.currentTime = 0; // Reset the audio to the start
+        audio.play().catch(function(error) {
+            console.log('Audio playback failed:', error);
+        });</script>";
             
             $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in, date_logged, photo) 
                              VALUES ('Stranger', '$rfid_number', '$time', '$date_logged', 'stranger.jpg')";
