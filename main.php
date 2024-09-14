@@ -292,7 +292,7 @@ while ($row = mysqli_fetch_array($result1)) {
 }
 
 // Default case for handling logs not found
-$voice = 'You\'re not allowed to enter this room.';
+$voice = 'You\'re not allowed to enter this room2.';
 echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
 
         }
