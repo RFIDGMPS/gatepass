@@ -100,7 +100,7 @@ if ($location == "Gate" && $password1 == "gate123") {
         window.location = "main.php";
     </script>';
     $_SESSION['location'] = 'Main Gate';
-
+    $_SESSION['department'] = 'main';
     $found=1;
     exit();
 } 
@@ -113,6 +113,7 @@ if ($result->num_rows > 0) {
         
         $room = $row['room'];
         $password = $row['password'];
+        $department = $row['department'];
         //$desc = $row['description'];
        
             if ($location == $room && password_verify($password1, $password)) {
@@ -124,6 +125,7 @@ if ($result->num_rows > 0) {
                     window.location = "main.php";
                 </script>';
                 $_SESSION['location'] = $room;
+                $_SESSION['department'] = $department;
                 $found=1;
                 exit();
             } 

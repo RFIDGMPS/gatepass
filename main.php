@@ -3,7 +3,7 @@
 session_start();
 if (isset($_SESSION['location'])) {
     $location = $_SESSION['location'];
-  
+  $department = $_SESSION['department'];
 }
 else {
     header("Location: index.php");
@@ -206,8 +206,11 @@ if (isset($_POST['submit'])) {
     if ($user) {
         if ($user['status'] == 'Block') {
            // echo "<script>alert('This Personnel is Blocked!'); window.location = 'index.php';</script>";
-        $status='Blocked';
+           $voice='Blocked Card!';
+           echo "<script>document.getElementById('myAudio').play();</script>";
+           
         } else {
+            if($user['department'] == 'main'){
             // Check if user is already logged today
             $query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
             $result1 = mysqli_query($db, $query1);
@@ -238,6 +241,44 @@ if (isset($_POST['submit'])) {
                                  VALUES ('$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
                 mysqli_query($db, $insert_query);
             }
+        } else {
+             // Check if user is already logged today
+             $query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
+             $result1 = mysqli_query($db, $query1);
+             $user1 = mysqli_fetch_assoc($result1);
+ if($user['department'] == $department){
+             if ($user1) {
+                
+                 // Update existing log entry
+                 if (($user1['time_out'] == '')) {
+                     //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
+                     $time_in_out = 'TIME OUT';
+ 
+                     $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$user1['id']}'";
+                     mysqli_query($db, $update_query);
+                 } else {
+                     echo "<script>alert('Please wait for the appropriate time period.');</script>";
+                 }
+             } else {
+                 // Insert new log entry
+                 $full_name = $user['first_name'] . ' ' . $user['last_name'];
+                 $photo_name = $user['photo'];
+                 $role = $user['role'];
+                 $department = $user['department'];
+                 $status = $user['status'];
+                 $time_in_out = 'TIME IN';
+                 //$time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
+ 
+                 $insert_query = "INSERT INTO personell_logs (photo, role, full_name, rfid_number, time_in, date_logged, department, status) 
+                                  VALUES ('$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
+                 mysqli_query($db, $insert_query);
+             }
+            }else {
+                $voice='You\'re not allowed to enter this room.';
+        echo "<script>document.getElementById('myAudio').play();</script>";
+        
+            }
+        }
         }
     } else {
         // Check if RFID number exists in visitor table
@@ -269,7 +310,9 @@ if (isset($_POST['submit'])) {
             }
         } else {
          
-            $status='Stranger';
+            $voice='Unknown Card!';
+            echo "<script>document.getElementById('myAudio').play();</script>";
+            
             $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in, date_logged, photo) 
                              VALUES ('Stranger', '$rfid_number', '$time', '$date_logged', 'stranger.jpg')";
             mysqli_query($db, $insert_query);
@@ -386,6 +429,7 @@ else {
 
      if($time_in_out=="TIME IN" && date('A') =="AM"){
         $voice='Good morning '.$row['full_name'].'!';
+        $time_in_out='';
     } 
     if($time_in_out=="TIME OUT" && date('A') =="AM" || date('A') =="PM"){
         if($row['role']=='Visitor'){
@@ -393,21 +437,13 @@ else {
         }else {
         $voice='Take care '.$row['full_name'].'!';
         }
-        
+        $time_in_out='';
     } 
     if($time_in_out=="TIME IN" && date('A') =="PM"){
         $voice='Good afternoon '.$row['full_name'].'!';
+        $time_in_out='';
     } 
-    if($status=='Stranger'){
-        $voice='Unknown Card!';
-        echo "<script>document.getElementById('myAudio').play();</script>";
-        $status='';
-    }
-    if($status=='Blocked'){
-        $voice='Blocked Card!';
-        echo "<script>document.getElementById('myAudio').play();</script>";
-        $status='';
-    }
+   
     
  
 ?>
