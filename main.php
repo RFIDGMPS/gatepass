@@ -249,8 +249,8 @@ if (isset($_POST['submit'])) {
                 $time_in_out = 'TIME IN';
                 //$time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
 
-                $insert_query = "INSERT INTO personell_logs (time_in, date_logged, location) 
-                                 VALUES ('$time', '$date_logged', '$location')";
+                $insert_query = "INSERT INTO personell_logs (personnel_id,time_in, date_logged, location) 
+                                 VALUES ('$user['id']','$time', '$date_logged', '$location')";
                 mysqli_query($db, $insert_query);
                 
             }
