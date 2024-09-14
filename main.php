@@ -253,7 +253,7 @@ if (isset($_POST['submit'])) {
             }
         } else {
         // Check if user is already logged today
-$query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
+$query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged' AND location = '$location'";
 $result1 = mysqli_query($db, $query1);
 
 // Loop through the result set
@@ -262,7 +262,7 @@ while ($row = mysqli_fetch_array($result1)) {
     echo  $row['location'];
     echo $location;
     // Check if user's department matches the log department
-    if ($user['department'] == $department  && $row['location'] == $location) {
+    if ($user['department'] == $department) {
       
         // Update log if no 'time_out' and location matches
         if ($row['time_out']=='') {
