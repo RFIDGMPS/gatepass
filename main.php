@@ -250,16 +250,17 @@ if (isset($_POST['submit'])) {
                 mysqli_query($db, $insert_query);
             }
         } else {
-            echo 'pass1';
+        
              // Check if user is already logged today
              $query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
              $result1 = mysqli_query($db, $query1);
           
+             if($result1){
              while ($row = mysqli_fetch_array($result1)) {
                 
  if($user['department'] == $department){
    
-             if ($row) {
+             
                 
                  // Update existing log entry
                  if (($row['time_out'] == '' && $row['location'] == $department)) {
@@ -284,13 +285,17 @@ if (isset($_POST['submit'])) {
                                      VALUES ('$location',$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
                     mysqli_query($db, $insert_query);
                 }
-             } 
+             
              
             }
-            else{
             $voice='You\'re not allowed to enter this room.';
             echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
-            }
+            
+          
+        }
+        else{
+        $voice='You\'re not allowed to enter this room.';
+        echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
         }
         }
     }
