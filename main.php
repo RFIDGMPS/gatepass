@@ -276,7 +276,7 @@ if (isset($_POST['submit'])) {
              }
             }else {
                 $voice='You\'re not allowed to enter this room.';
-        echo "<script>document.getElementById('myAudio').play();</script>";
+        echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
         
             }
         }
