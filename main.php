@@ -279,6 +279,7 @@ while ($row = mysqli_fetch_array($result1)) {
             $insert_query = "INSERT INTO personell_logs (location, photo, role, full_name, rfid_number, time_in, date_logged, department, status) 
                              VALUES ('$location', '$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
             mysqli_query($db, $insert_query);
+            break;
         }
         
     } else {
