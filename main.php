@@ -260,6 +260,7 @@ if (isset($_POST['submit'])) {
                 echo 'pass2';
                  // Update existing log entry
                  if (($row['time_out'] == '')) {
+                    echo 'pass3';
                      //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
                      $time_in_out = 'TIME OUT';
  
