@@ -250,6 +250,7 @@ if (isset($_POST['submit'])) {
                 mysqli_query($db, $insert_query);
             }
         } else {
+            echo 'pass1';
              // Check if user is already logged today
              $query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
              $result1 = mysqli_query($db, $query1);
@@ -257,9 +258,9 @@ if (isset($_POST['submit'])) {
              while ($row = mysqli_fetch_array($result1)) {
 
  if($user['department'] == $department){
-    
+    echo 'pass2';
              if ($row) {
-                
+                echo 'pass3';
                  // Update existing log entry
                  if (($row['time_out'] == '' && $row['location'] == $department)) {
                     
