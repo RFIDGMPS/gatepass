@@ -142,7 +142,7 @@ mysqli_close($db);
     <div class="column wide" style="flex-grow: 2; text-align: center;">
         <div class="text">
             <h1><div class="row"><b><?php echo $nameo; ?></b></div></h1>
-            <h5><span style="color:red;">(<?php echo $location; ?>)</span></h5>
+            <h5><i><span style="color:red;">(<?php echo $location; ?>)</span></i></h5>
         </div>
     </div>
     <div style="text-align: right; margin-left: 10px;">
@@ -186,6 +186,7 @@ mysqli_close($db);
     <?php
 $rfid_number = '';
 $time_in_out = 'Tap Your Card';
+$status='';
 
 // Check if form is submitted
 if (isset($_POST['submit'])) {
@@ -204,7 +205,8 @@ if (isset($_POST['submit'])) {
 
     if ($user) {
         if ($user['status'] == 'Block') {
-            echo "<script>alert('This Personnel is Blocked!'); window.location = 'index.php';</script>";
+           // echo "<script>alert('This Personnel is Blocked!'); window.location = 'index.php';</script>";
+        $status='Blocked';
         } else {
             // Check if user is already logged today
             $query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
@@ -266,7 +268,8 @@ if (isset($_POST['submit'])) {
                 });</script>';
             }
         } else {
-            $time_in_out = 'TIME IN';
+         
+            $status='Stranger';
             $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in, date_logged, photo) 
                              VALUES ('Stranger', '$rfid_number', '$time', '$date_logged', 'stranger.jpg')";
             mysqli_query($db, $insert_query);
@@ -334,7 +337,11 @@ if (isset($_POST['submit'])) {
             <h1 id="time_out">Time out</h1>
         </div>
     </div>
-</div>       
+</div>      
+<audio id="myAudio" hidden>
+    <source src="audio/alert.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio> 
              
              
         <?php 
@@ -391,6 +398,14 @@ else {
     if($time_in_out=="TIME IN" && date('A') =="PM"){
         $voice='Good afternoon '.$row['full_name'].'!';
     } 
+    if($status=='Stranger'){
+        $voice='Unknown Card!';
+        echo "<script>document.getElementById('myAudio').play();</script>";
+    }
+    else {
+        $voice='Blocked Card!';
+        echo "<script>document.getElementById('myAudio').play();</script>";
+    }
  
 ?>
    <script>

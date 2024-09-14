@@ -115,13 +115,9 @@ mysqli_close($db);
                                     <tr>
                                         <th>Photo</th>
                                         <th>Full Name</th>
-                              
                                         <th>Address</th>
-                         
-                                        <th>Time In (AM)</th>
-                                        <th>Time Out (AM)</th>
-                                        <th>Time In (PM)</th>
-                                        <th>Time Out (PM)</th>
+                                        <th>Time In</th>
+                                        <th>Time Out</th>
                                         <th>Log Date</th>
                                         <th>Purpose</th>
                                     </tr>
@@ -154,10 +150,8 @@ mysqli_close($db);
                 $output .= '<td>' . $row['address'] . '</td>';
                
               
-                $output .= '<td>' . $row['time_in_am'] . '</td>';
-                $output .= '<td>' . $row['time_out_am'] . '</td>';
-                $output .= '<td>' . $row['time_in_pm'] . '</td>';
-                $output .= '<td>' . $row['time_out_pm'] . '</td>';
+                $output .= '<td>' . $row['time_in'] . '</td>';
+                $output .= '<td>' . $row['time_out'] . '</td>';
                 $output .= '<td>' . $row['date_logged'] . '</td>';
                 $output .= '<td>' . $row['purpose'] . '</td>';
                 $output .= '</tr>';
@@ -185,10 +179,8 @@ mysqli_close($db);
             echo '<td>' . $row['address'] . '</td>';
         
          
-            echo '<td>' . $row['time_in_am'] . '</td>';
-            echo '<td>' . $row['time_out_am'] . '</td>';
-            echo '<td>' . $row['time_in_pm'] . '</td>';
-            echo '<td>' . $row['time_out_pm'] . '</td>';
+            echo '<td>' . $row['time_in'] . '</td>';
+            echo '<td>' . $row['time_out'] . '</td>';
             echo '<td>' . $row['date_logged'] . '</td>';
             echo '<td>' . $row['purpose'] . '</td>';
             echo '</tr>';
