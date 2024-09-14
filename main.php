@@ -254,12 +254,13 @@ $result1 = mysqli_query($db, $query1);
 
 // Loop through the result set
 while ($row = mysqli_fetch_array($result1)) {
-   
+   echo 'pass1';
     // Check if user's department matches the log department
     if ($user['department'] == $department) {
-      
+        echo 'pass2';
         // Update log if no 'time_out' and location matches
         if ($row['time_out']=='') {
+
             $time_in_out = 'TIME OUT';
             $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$row['id']}'";
             mysqli_query($db, $update_query);
