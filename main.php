@@ -250,53 +250,47 @@ if (isset($_POST['submit'])) {
                 mysqli_query($db, $insert_query);
             }
         } else {
-        
-             // Check if user is already logged today
-             $query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
-             $result1 = mysqli_query($db, $query1);
-          
-             if(mysqli_fetch_assoc($result1)){
-             while ($row = mysqli_fetch_array($result1)) {
-                
- if($user['department'] == $department){
-   
-             
-                
-                 // Update existing log entry
-                 if (($row['time_out'] == '' && $row['location'] == $department)) {
-                    
-                     //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
-                     $time_in_out = 'TIME OUT';
- 
-                     $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$row['id']}'";
-                     mysqli_query($db, $update_query);
-                 } 
-                 else {
-                    // Insert new log entry
-                    $full_name = $user['first_name'] . ' ' . $user['last_name'];
-                    $photo_name = $user['photo'];
-                    $role = $user['role'];
-                    $department = $user['department'];
-                    $status = $user['status'];
-                    $time_in_out = 'TIME IN';
-                    //$time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
+        // Check if user is already logged today
+$query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
+$result1 = mysqli_query($db, $query1);
+
+// Loop through the result set
+while ($row = mysqli_fetch_array($result1)) {
     
-                    $insert_query = "INSERT INTO personell_logs (location,photo, role, full_name, rfid_number, time_in, date_logged, department, status) 
-                                     VALUES ('$location',$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
-                    mysqli_query($db, $insert_query);
-                }
-             
-             
-            }
-            $voice='You\'re not allowed to enter this room.';
-            echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
-            
-          
+    // Check if user's department matches the log department
+    if ($user['department'] == $department) {
+        
+        // Update log if no 'time_out' and location matches
+        if (empty($row['time_out']) && $row['location'] == $department) {
+            $time_in_out = 'TIME OUT';
+            $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$row['id']}'";
+            mysqli_query($db, $update_query);
+        } else {
+            // Insert new log entry for the user
+            $full_name = $user['first_name'] . ' ' . $user['last_name'];
+            $photo_name = $user['photo'];
+            $role = $user['role'];
+            $status = $user['status'];
+            $location = $department;  // Assuming department as location
+            $time_in_out = 'TIME IN';
+
+            $insert_query = "INSERT INTO personell_logs (location, photo, role, full_name, rfid_number, time_in, date_logged, department, status) 
+                             VALUES ('$location', '$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
+            mysqli_query($db, $insert_query);
         }
-        else{
-        $voice='You\'re not allowed to enter this room.';
+        
+    } else {
+        // Handle if user tries to log into a different department
+        $voice = 'You\'re not allowed to enter this room.';
         echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
-        }
+        return; // Exit if condition fails
+    }
+}
+
+// Default case for handling logs not found
+$voice = 'You\'re not allowed to enter this room.';
+echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
+
         }
     }
     } else {
