@@ -258,7 +258,7 @@ if (isset($_POST['submit'])) {
              while ($row = mysqli_fetch_array($result1)) {
 
  if($user['department'] == $department){
-    echo 'pass2';
+   
              if ($row) {
                 echo 'pass3';
                  // Update existing log entry
@@ -285,10 +285,11 @@ if (isset($_POST['submit'])) {
                     mysqli_query($db, $insert_query);
                 }
              } 
-                $voice='You\'re not allowed to enter this room.';
-        echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
-        
+             
             }
+            $voice='You\'re not allowed to enter this room.';
+            echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
+            
         }
         }
     }
