@@ -444,7 +444,7 @@ else {
         $voice='Good afternoon '.$row['full_name'].'!';
         
     } 
-    //$time_in_out='';
+  
     
  
 ?>
@@ -515,7 +515,7 @@ else {
     </script>
 <?php 
 
-    
+    $time_in_out='';
     }
         }
         ?>
