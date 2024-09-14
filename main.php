@@ -210,6 +210,7 @@ if (isset($_POST['submit'])) {
            echo "<script>document.getElementById('myAudio').play();</script>";
            
         } else {
+            echo $user['department'];
             if($user['department'] == 'main'){
             // Check if user is already logged today
             $query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
