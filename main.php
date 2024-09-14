@@ -206,6 +206,7 @@ if (isset($_POST['submit'])) {
     if ($user) {
         if ($user['status'] == 'Block') {
            // echo "<script>alert('This Personnel is Blocked!'); window.location = 'index.php';</script>";
+           $time_in_out='BLOCKED';
            $voice='Blocked Card!';
            echo "<script>document.getElementById('myAudio').play();</script>";
            
@@ -310,7 +311,7 @@ if (isset($_POST['submit'])) {
                 });</script>';
             }
         } else {
-         
+         $time_in_out='STRANGER';
             $voice='Unknown Card!';
             echo "<script>document.getElementById('myAudio').play();</script>";
             
