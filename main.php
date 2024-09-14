@@ -401,11 +401,14 @@ else {
     if($status=='Stranger'){
         $voice='Unknown Card!';
         echo "<script>document.getElementById('myAudio').play();</script>";
+        $status='';
     }
-    else {
+    if($status=='Blocked'){
         $voice='Blocked Card!';
         echo "<script>document.getElementById('myAudio').play();</script>";
+        $status='';
     }
+    
  
 ?>
    <script>
