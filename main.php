@@ -422,19 +422,19 @@ else {
 }
 
      if($time_in_out=="TIME IN" && date('A') =="AM"){
-        $voice='Good morning '.$row['full_name'].'!';
+        $voice='Good morning '.$row['first_name'].'!';
        
     } 
     if($time_in_out=="TIME OUT" && date('A') =="AM" || date('A') =="PM"){
         if($row['role']=='Visitor'){
-            $voice='Thank you for visiting '.$row['full_name'].'!';
+            $voice='Thank you for visiting '.$row['first_name'].'!';
         }else {
-        $voice='Take care '.$row['full_name'].'!';
+        $voice='Take care '.$row['first_name'].'!';
         }
         
     } 
     if($time_in_out=="TIME IN" && date('A') =="PM"){
-        $voice='Good afternoon '.$row['full_name'].'!';
+        $voice='Good afternoon '.$row['first_name'].'!';
         
     } 
   
@@ -475,7 +475,7 @@ else {
 
         // Change text to 'Hello World'
         document.getElementById('in_out').innerHTML = '<?php echo $time_in_out;?>';
-        document.getElementById('entrant_name').innerHTML = '<?php echo $row['full_name']; ?>';
+        document.getElementById('entrant_name').innerHTML = '<?php echo $row['first_name']; ?>';
         document.getElementById('department').innerHTML = '<?php echo $row['department']; ?>';
         document.getElementById('role').innerHTML = '<?php echo $row['role']; ?>';
         document.getElementById('time_in').innerHTML = '<?php echo $row['time_in']; ?>';
