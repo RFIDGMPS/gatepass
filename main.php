@@ -258,9 +258,7 @@ $result1 = mysqli_query($db, $query1);
 
 // Loop through the result set
 while ($row = mysqli_fetch_array($result1)) {
-    echo $row['time_out'];
-    echo  $row['location'];
-    echo $location;
+   
     // Check if user's department matches the log department
     if ($user['department'] == $department) {
       
