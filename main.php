@@ -255,8 +255,9 @@ if (isset($_POST['submit'])) {
              while ($row = mysqli_fetch_array($result1)) {
 
  if($user['department'] == $department){
+    echo 'pass1';
              if ($row) {
-                
+                echo 'pass2';
                  // Update existing log entry
                  if (($row['time_out'] == '')) {
                      //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
