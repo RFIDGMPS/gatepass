@@ -430,7 +430,7 @@ else {
 
      if($time_in_out=="TIME IN" && date('A') =="AM"){
         $voice='Good morning '.$row['full_name'].'!';
-        $time_in_out='';
+       
     } 
     if($time_in_out=="TIME OUT" && date('A') =="AM" || date('A') =="PM"){
         if($row['role']=='Visitor'){
@@ -438,13 +438,13 @@ else {
         }else {
         $voice='Take care '.$row['full_name'].'!';
         }
-        $time_in_out='';
+        
     } 
     if($time_in_out=="TIME IN" && date('A') =="PM"){
         $voice='Good afternoon '.$row['full_name'].'!';
-        $time_in_out='';
+        
     } 
-   
+    $time_in_out='';
     
  
 ?>
