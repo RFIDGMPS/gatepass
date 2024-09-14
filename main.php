@@ -245,8 +245,8 @@ if (isset($_POST['submit'])) {
                 $time_in_out = 'TIME IN';
                 //$time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
 
-                $insert_query = "INSERT INTO personell_logs (location,photo, role, full_name, rfid_number, time_in, date_logged, department, status) 
-                                 VALUES ('$location',$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
+                $insert_query = "INSERT INTO personell_logs (photo, role, full_name, rfid_number, time_in, date_logged, department, status, location) 
+                                 VALUES ($photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status', '$location')";
                 mysqli_query($db, $insert_query);
             }
         } else {
