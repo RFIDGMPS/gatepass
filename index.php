@@ -71,6 +71,15 @@ session_start();
 ?>
 <?php
 include 'connection.php';
+$sql = "ALTER TABLE personell_logs ADD personnel_id INT";
+
+// Execute the query
+if (mysqli_query($db, $sql)) {
+    echo "Column 'personnel_id' added successfully.";
+} else {
+    echo "Error adding column: " . mysqli_error($db);
+}
+
 $location = "";
 $password = "";
 
