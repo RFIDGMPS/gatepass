@@ -12,6 +12,24 @@ else {
 ?>
 <?php
 include 'connection.php';
+$sql = "ALTER TABLE personell_logs ADD location VARCHAR(255)";
+
+// Execute the query
+if (mysqli_query($db, $sql)) {
+    echo "Column 'location' added successfully.";
+} else {
+    echo "Error adding column: " . mysqli_error($db);
+}
+
+
+
+
+
+
+
+
+
+
 $logo1 = "";
     $nameo = "";
     $address = "";
@@ -255,32 +273,33 @@ if (isset($_POST['submit'])) {
              while ($row = mysqli_fetch_array($result1)) {
 
  if($user['department'] == $department){
-    echo 'pass1';
+    
              if ($row) {
-                echo 'pass2';
+                
                  // Update existing log entry
-                 if (($row['time_out'] == '')) {
-                    echo 'pass3';
+                 if (($row['time_out'] == '' && $row['location'] == $department)) {
+                    
                      //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
                      $time_in_out = 'TIME OUT';
  
                      $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$row['id']}'";
                      mysqli_query($db, $update_query);
                  } 
-             } else {
-                 // Insert new log entry
-                 $full_name = $user['first_name'] . ' ' . $user['last_name'];
-                 $photo_name = $user['photo'];
-                 $role = $user['role'];
-                 $department = $user['department'];
-                 $status = $user['status'];
-                 $time_in_out = 'TIME IN';
-                 //$time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
- 
-                 $insert_query = "INSERT INTO personell_logs (photo, role, full_name, rfid_number, time_in, date_logged, department, status) 
-                                  VALUES ('$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
-                 mysqli_query($db, $insert_query);
-             }
+                 else {
+                    // Insert new log entry
+                    $full_name = $user['first_name'] . ' ' . $user['last_name'];
+                    $photo_name = $user['photo'];
+                    $role = $user['role'];
+                    $department = $user['department'];
+                    $status = $user['status'];
+                    $time_in_out = 'TIME IN';
+                    //$time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
+    
+                    $insert_query = "INSERT INTO personell_logs (location,photo, role, full_name, rfid_number, time_in, date_logged, department, status) 
+                                     VALUES ('$location',$photo_name', '$role', '$full_name', '$rfid_number', '$time', '$date_logged', '$department', '$status')";
+                    mysqli_query($db, $insert_query);
+                }
+             } 
             }else {
                 $voice='You\'re not allowed to enter this room.';
         echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";

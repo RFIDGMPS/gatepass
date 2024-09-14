@@ -115,6 +115,7 @@ mysqli_close($db);
                                         <th>Photo</th>
                                         <th>Full Name</th>
                                         <th>Department</th>
+                                        <th>Location</th>
                                         <th>Role</th>
                                         <th>Time In</th>
                                         <th>Time Out</th>
@@ -146,6 +147,7 @@ mysqli_close($db);
                 $output .= '<td><center><img src="uploads/' . $row['photo'] . '" width="50px" height="50px"></center></td>';
                 $output .= '<td>' . $row['full_name'] . '</td>';
                 $output .= '<td>' . $row['department'] . '</td>';
+                $output .= '<td>' . $row['location'] . '</td>';
                 $output .= '<td>' . $row['role'] . '</td>';
                 $output .= '<td>' . $row['time_in'] . '</td>';
                 $output .= '<td>' . $row['time_out'] . '</td>';
@@ -172,6 +174,7 @@ mysqli_close($db);
             echo '<td><center><img src="uploads/' . $row['photo'] . '" width="50px" height="50px"></center></td>';
             echo '<td>' . $row['full_name'] . '</td>';
             echo '<td>' . $row['department'] . '</td>';
+            echo '<td>' . $row['location'] . '</td>';
             echo '<td>' . $row['role'] . '</td>';
             echo '<td>' . $row['time_in'] . '</td>';
             echo '<td>' . $row['time_out'] . '</td>';
