@@ -32,29 +32,9 @@ if ($result->num_rows > 0) {
     $logo2 = $row['logo2'];
 } 
 
-
-// Get yesterday's date
-$yesterday = date('Y-m-d', strtotime('-1 day'));
-
 // Get current period
 $current_period = date('A');
 
-// Update status for missing time-ins and time-outs
-$queries = [];
-
-if ($current_period === 'PM') {
-    // For the current period being PM
-    $queries[] = "UPDATE personell_logs SET time_in_pm = 'No time in' WHERE time_in_pm IS NULL AND date_logged = '$yesterday'";
-    $queries[] = "UPDATE personell_logs SET time_out_pm = 'No time out' WHERE time_out_pm IS NULL AND date_logged = '$yesterday'";
-} else {
-    // For the current period being AM
-    $queries[] = "UPDATE personell_logs SET time_in_am = 'No time in' WHERE time_in_am IS NULL AND date_logged = '$yesterday'";
-    $queries[] = "UPDATE personell_logs SET time_out_am = 'No time out' WHERE time_out_am IS NULL AND date_logged = '$yesterday'";
-}
-
-foreach ($queries as $query) {
-    mysqli_query($db, $query);
-}
 
 mysqli_close($db);
 ?>
@@ -219,7 +199,7 @@ if (isset($_POST['submit'])) {
       
             if($department == 'main'){
             // Check if user is already logged today
-            $query1 = "SELECT * FROM personell_logs WHERE personnel_id = '$user['id']' AND date_logged = '$date_logged'";
+            $query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged'";
             $result1 = mysqli_query($db, $query1);
             $user1 = mysqli_fetch_assoc($result1);
 
@@ -242,13 +222,13 @@ if (isset($_POST['submit'])) {
                 //$time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
 
                 $insert_query = "INSERT INTO personell_logs (personnel_id,time_in, date_logged, location) 
-                                 VALUES ('$user['id']','$time', '$date_logged', '$location')";
+                                 VALUES ('{$user['id']}','$time', '$date_logged', '$location')";
                 mysqli_query($db, $insert_query);
                 
             }
         } else {
         // Check if user is already logged today
-$query1 = "SELECT * FROM personell_logs WHERE personnel_id = '$user['id']' AND date_logged = '$date_logged' AND location = '$location'";
+$query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged' AND location = '$location'";
 $result1 = mysqli_query($db, $query1);
 echo 'pass1';
 // Loop through the result set
@@ -269,8 +249,8 @@ while ($row = mysqli_fetch_array($result1)) {
            
             $time_in_out = 'TIME IN';
 
-            $insert_query = "INSERT INTO personell_logs (location, time_in, date_logged) 
-                             VALUES ('$location', '$time', '$date_logged')";
+            $insert_query = "INSERT INTO personell_logs (personnel_id,location, time_in, date_logged) 
+                             VALUES ('{$user['id']}','$location', '$time', '$date_logged')";
             mysqli_query($db, $insert_query);
         }
         
