@@ -284,7 +284,6 @@ if (isset($_POST['submit'])) {
                     mysqli_query($db, $insert_query);
                 }
              } 
-            }else {
                 $voice='You\'re not allowed to enter this room.';
         echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
         
