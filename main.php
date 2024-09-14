@@ -379,8 +379,20 @@ while ($row = mysqli_fetch_array($result1)) {
 
         // Combine and fetch data from both tables for the current date, ordering by the latest update
         $results = mysqli_query($db, "
-       SELECT * FROM personell_logs
-
+        
+        SELECT id, photo, department, role, full_name, time_in, time_out, 'personell_logs' AS source, 
+        GREATEST(IFNULL(STR_TO_DATE(time_out, '%H:%i:%s'), '00:00:00'), IFNULL(STR_TO_DATE(time_in, '%H:%i:%s'), '00:00:00')) AS latest_time
+        FROM personell_logs
+        WHERE DATE(date_logged) = CURDATE()
+    
+        UNION ALL
+    
+        SELECT id, photo, department, role, name AS full_name, time_in, time_out, 'visitor_logs' AS source, 
+        GREATEST(IFNULL(STR_TO_DATE(time_out, '%H:%i:%s'), '00:00:00'), IFNULL(STR_TO_DATE(time_in, '%H:%i:%s'), '00:00:00')) AS latest_time
+        FROM visitor_logs
+        WHERE DATE(date_logged) = CURDATE()
+    
+        ORDER BY latest_time DESC, source DESC LIMIT 1
     ");
     
 
@@ -404,19 +416,19 @@ else {
 }
 
      if($time_in_out=="TIME IN" && date('A') =="AM"){
-        $voice='Good morning '.$row['first_name'].'!';
+        $voice='Good morning '.$row['full_name'].'!';
        
     } 
     if($time_in_out=="TIME OUT" && date('A') =="AM" || date('A') =="PM"){
         if($row['role']=='Visitor'){
-            $voice='Thank you for visiting '.$row['first_name'].'!';
+            $voice='Thank you for visiting '.$row['full_name'].'!';
         }else {
-        $voice='Take care '.$row['first_name'].'!';
+        $voice='Take care '.$row['full_name'].'!';
         }
         
     } 
     if($time_in_out=="TIME IN" && date('A') =="PM"){
-        $voice='Good afternoon '.$row['first_name'].'!';
+        $voice='Good afternoon '.$row['full_name'].'!';
         
     } 
   
@@ -457,7 +469,7 @@ else {
 
         // Change text to 'Hello World'
         document.getElementById('in_out').innerHTML = '<?php echo $time_in_out;?>';
-        document.getElementById('entrant_name').innerHTML = '<?php echo $row['first_name']; ?>';
+        document.getElementById('entrant_name').innerHTML = '<?php echo $row['full_name']; ?>';
         document.getElementById('department').innerHTML = '<?php echo $row['department']; ?>';
         document.getElementById('role').innerHTML = '<?php echo $row['role']; ?>';
         document.getElementById('time_in').innerHTML = '<?php echo $row['time_in']; ?>';
