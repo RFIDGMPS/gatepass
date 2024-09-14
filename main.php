@@ -236,6 +236,7 @@ if (isset($_POST['submit'])) {
                     echo "<script>alert('Please wait for the appropriate time period.');</script>";
                 }
             } else {
+                echo 'pass1';
                 // Insert new log entry
                 $full_name = $user['first_name'] . ' ' . $user['last_name'];
                 $photo_name = $user['photo'];
