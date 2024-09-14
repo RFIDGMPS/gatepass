@@ -255,7 +255,7 @@ if (isset($_POST['submit'])) {
              $query1 = "SELECT * FROM personell_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
              $result1 = mysqli_query($db, $query1);
           
-             if($result1){
+             if(mysqli_fetch_array($result1)){
              while ($row = mysqli_fetch_array($result1)) {
                 
  if($user['department'] == $department){
