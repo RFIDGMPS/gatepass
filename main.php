@@ -260,7 +260,7 @@ $result1 = mysqli_query($db, $query1);
 while ($row = mysqli_fetch_array($result1)) {
    
     // Check if user's department matches the log department
-    if ($user['department'] == $department) {
+    if ($row['department'] == $department) {
       
         // Update log if no 'time_out' and location matches
         if ($row['time_out']=='') {
