@@ -2,17 +2,7 @@
 include 'connection.php';
 
 $sql = "
-    SELECT 
-    p.*,  -- Selects all columns from the personell table
-    pl.*  -- Selects all columns from the personell_logs table
-FROM 
-    personell_logs pl
-JOIN 
-    personell p 
-ON 
-    pl.personell_id = p.id
-WHERE 
-    pl.personell_id = 1;
+    SELECT * FROM personell_logs
 ";
 
 // Execute the query and check for errors
