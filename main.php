@@ -16,7 +16,7 @@ else {
 <?php
 include 'connection.php';
 
-$sql = "
+$sql2 = "
     SELECT 
         p.photo,
         p.department,
@@ -43,9 +43,9 @@ $sql = "
 ";
 
 // Execute the query and check for errors
-$result = $db->query($sql);
+$result2 = $db->query($sql2);
 
-if ($result && $result->num_rows > 0) {
+if ($result2 && $result2->num_rows > 0) {
     // Display results in an HTML table
     echo "<table border='1'>
         <tr>
@@ -59,7 +59,7 @@ if ($result && $result->num_rows > 0) {
         </tr>";
 
     // Fetch each row from the result set
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result2->fetch_assoc()) {
         echo "<tr>
             <td><img src='" . htmlspecialchars($row['photo']) . "' width='50' height='50'></td>
             <td>" . htmlspecialchars($row['department']) . "</td>
