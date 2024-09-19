@@ -82,8 +82,8 @@ $password = "";
 // Check if login form is submitted
 if (isset($_POST['submit'])) {
     // Validate the username and password
-    $location = $_POST['location'];
-    $password1 = $_POST['Ppassword'];
+    $location = htmlspecialchars($_POST['location'], ENT_QUOTES, 'UTF-8');
+    $password1 = htmlspecialchars($_POST['Ppassword'], ENT_QUOTES, 'UTF-8');
 
 
 $password1 = stripcslashes($password1); 

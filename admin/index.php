@@ -72,8 +72,8 @@ if ($result->num_rows > 0) {
 // Check if login form is submitted
 if (isset($_POST['login'])) {
     // Validate the username and password
-    $username1 = $_POST['username'];
-    $password1 = $_POST['password'];
+    $username1 = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
+    $password1 = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
 
     $username1 = stripcslashes($username1);
 $password1 = stripcslashes($password1); 
