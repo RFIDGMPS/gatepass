@@ -2,7 +2,17 @@
 include 'connection.php';
 
 $sql = "
-    SELECT * FROM personell_logs
+   SELECT 
+        p.photo,
+        p.department,
+        p.role,
+        CONCAT(p.first_name,' ', p.last_name) AS full_name,
+        pl.time_in,
+        pl.time_out,
+        pl.date_logged
+    FROM personell_logs pl
+    JOIN personell p ON pl.personell_id = p.id
+    WHERE pl.date_logged = CURRENT_DATE()
 ";
 
 // Execute the query and check for errors
