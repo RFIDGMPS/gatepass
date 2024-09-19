@@ -30,7 +30,7 @@ if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo "<tr>
             <td><img src='" . htmlspecialchars($row['personnel_id']) . "' width='50' height='50'></td>
-            <td>" . htmlspecialchars($row['department']) . "</td>
+            <td>" . htmlspecialchars($row['personnel_id']) . "</td>
             <td>" . htmlspecialchars($row['role']) . "</td>
             <td>" . htmlspecialchars($row['full_name']) . "</td>
             <td>" . htmlspecialchars($row['time_in']) . "</td>
