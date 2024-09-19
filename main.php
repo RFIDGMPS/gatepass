@@ -387,19 +387,37 @@ while ($row = mysqli_fetch_array($result1)) {
         // Combine and fetch data from both tables for the current date, ordering by the latest update
         $results = mysqli_query($db, "
         
-        SELECT id, photo, department, role, full_name, time_in, time_out, 'personell_logs' AS source, 
-        GREATEST(IFNULL(STR_TO_DATE(time_out, '%H:%i:%s'), '00:00:00'), IFNULL(STR_TO_DATE(time_in, '%H:%i:%s'), '00:00:00')) AS latest_time
-        FROM personell_logs
-        WHERE DATE(date_logged) = CURDATE()
-    
-        UNION ALL
-    
-        SELECT id, photo, department, role, name AS full_name, time_in, time_out, 'visitor_logs' AS source, 
-        GREATEST(IFNULL(STR_TO_DATE(time_out, '%H:%i:%s'), '00:00:00'), IFNULL(STR_TO_DATE(time_in, '%H:%i:%s'), '00:00:00')) AS latest_time
-        FROM visitor_logs
-        WHERE DATE(date_logged) = CURDATE()
-    
-        ORDER BY latest_time DESC, source DESC LIMIT 1
+       SELECT 
+        p.photo,
+        p.department,
+        p.role,
+        CONCAT(p.first_name,' ', p.last_name) AS full_name,
+        pl.time_in,
+        pl.time_out,
+        pl.date_logged
+    FROM personell_logs pl
+    JOIN personell p ON pl.personell_id = p.id
+    WHERE pl.date_logged = CURRENT_DATE()
+
+    UNION
+
+    SELECT 
+        vl.photo,
+        vl.department,
+        NULL AS role,
+        vl.name AS full_name,
+        vl.time_in,
+        vl.time_out,
+        vl.date_logged
+    FROM visitor_logs vl
+    WHERE vl.date_logged = CURRENT_DATE()
+
+    ORDER BY 
+        -- Use time_out if available, otherwise use time_in
+        CASE 
+            WHEN time_out IS NOT NULL THEN time_out 
+            ELSE time_in 
+        END DESC LIMIT 1
     ");
     
 

@@ -3,20 +3,16 @@ include 'connection.php';
 
 $sql = "
     SELECT 
-    p.id_no,
-    p.last_name,
-    p.first_name,
-    p.middle_name,
-    pl.date_logged,
-    pl.time_in,
-    pl.time_out,
-    pl.location
+    p.*,  -- Selects all columns from the personell table
+    pl.*  -- Selects all columns from the personell_logs table
 FROM 
     personell_logs pl
 JOIN 
     personell p 
 ON 
     pl.personell_id = p.id
+WHERE 
+    pl.personell_id = 1;
 ";
 
 // Execute the query and check for errors
