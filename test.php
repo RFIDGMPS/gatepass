@@ -6,7 +6,7 @@ $sql = "
         p.photo,
         p.department,
         p.role,
-        CONCAT(p.first_name,' ', p.last_name) AS full_name,
+      
         pl.time_in,
         pl.time_out,
         pl.date_logged
