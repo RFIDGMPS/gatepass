@@ -12,7 +12,7 @@ $sql = "
         pl.date_logged
     FROM personell_logs pl
     JOIN personell p ON pl.personell_id = p.id
-    WHERE pl.date_logged = CURRENT_DATE()
+    
 
     UNION
 
@@ -25,7 +25,7 @@ $sql = "
         vl.time_out,
         vl.date_logged
     FROM visitor_logs vl
-    WHERE vl.date_logged = CURRENT_DATE()
+   
 
     ORDER BY 
         -- Use time_out if available, otherwise use time_in
