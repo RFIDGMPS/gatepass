@@ -11,7 +11,28 @@ $sql = "
         pl.time_out,
         pl.date_logged
     FROM personell_logs pl
-    JOIN personell p ON pl.personnel_id = 1
+    JOIN personell p ON pl.personnel_id = p.id
+    WHERE pl.date_logged = CURRENT_DATE()
+
+    UNION
+
+    SELECT 
+        vl.photo,
+        vl.department,
+        NULL AS role,
+        vl.name AS full_name,
+        vl.time_in,
+        vl.time_out,
+        vl.date_logged
+    FROM visitor_logs vl
+    WHERE vl.date_logged = CURRENT_DATE()
+
+    ORDER BY 
+        -- Use time_out if available, otherwise use time_in
+        CASE 
+            WHEN time_out IS NOT NULL THEN time_out 
+            ELSE time_in 
+        END DESC LIMIT 1
 ";
 
 // Execute the query and check for errors
