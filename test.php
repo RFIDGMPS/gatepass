@@ -2,29 +2,7 @@
 include 'connection.php';
 
 $sql = "
-    SELECT 
-        p.photo,
-        p.department,
-        p.role,
-        CONCAT(p.first_name, ' ', IFNULL(p.middle_name, ''), ' ', p.last_name) AS full_name,
-        pl.time_in,
-        pl.time_out,
-        pl.date_logged
-    FROM personell_logs pl
-    JOIN personell p ON pl.personell_id = p.id
-
-    UNION
-
-    SELECT 
-        v.photo,
-        vl.department,
-        NULL AS role,
-        v.name AS full_name,
-        vl.time_in,
-        vl.time_out,
-        vl.date_logged
-    FROM visitor_logs vl
-    JOIN visitor v ON vl.visitor_id = v.id
+    SELECT * FROM personell_logs
 ";
 
 // Execute the query and check for errors
