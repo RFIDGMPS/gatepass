@@ -195,7 +195,7 @@ if (isset($_POST['submit'])) {
         if ($user['status'] == 'Block') {
            // echo "<script>alert('This Personnel is Blocked!'); window.location = 'index.php';</script>";
            $time_in_out='BLOCKED';
-           $voice='Blocked Card!';
+           //$voice='Blocked Card!';
            echo "<script>const audio = document.getElementById('myAudio');
         audio.currentTime = 0; // Reset the audio to the start
         audio.play().catch(function(error) {
@@ -300,7 +300,7 @@ while ($row = mysqli_fetch_array($result1)) {
             }
         } else {
          $time_in_out='STRANGER';
-            $voice='Unknown Card!';
+            //$voice='Unknown Card!';
             echo "<script>const audio = document.getElementById('myAudio');
         audio.currentTime = 0; // Reset the audio to the start
         audio.play().catch(function(error) {
@@ -454,6 +454,14 @@ else {
     } 
     if($time_in_out=="TIME IN" && date('A') =="PM"){
         $voice='Good afternoon '.$row['full_name'].'!';
+        
+    } 
+    if($time_in_out=="BLOCKED"){
+        $voice='Blocked Card!';
+        
+    } 
+    if($time_in_out=="STRANGER"){
+        $voice='Unknown Card!';
         
     } 
   
