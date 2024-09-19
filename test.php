@@ -6,12 +6,12 @@ $sql = "
         p.photo,
         p.department,
         p.role,
-      
+        CONCAT(p.first_name,' ', p.last_name) AS full_name,
         pl.time_in,
         pl.time_out,
         pl.date_logged
     FROM personell_logs pl
-    JOIN personell p ON pl.personell_id = 1
+    JOIN personell p ON pl.personnel_id = 1
 ";
 
 // Execute the query and check for errors
