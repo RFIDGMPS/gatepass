@@ -396,7 +396,7 @@ while ($row = mysqli_fetch_array($result1)) {
         pl.time_out,
         pl.date_logged
     FROM personell_logs pl
-    JOIN personell p ON pl.personell_id = p.id
+    JOIN personell p ON pl.personnel_id = p.id
     WHERE pl.date_logged = CURRENT_DATE()
 
     UNION
