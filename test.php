@@ -1,7 +1,7 @@
 <?php
 include 'connection.php';
 
-$sql2 = "
+$sql = "
     SELECT 
         p.photo,
         p.department,
@@ -28,9 +28,14 @@ $sql2 = "
 ";
 
 // Execute the query and check for errors
-$result2 = $db->query($sql2);
+$result = $db->query($sql);
 
-if ($result2 && $result2->num_rows > 0) {
+if (!$result) {
+    // Display the error message from the query
+    die("Query failed: " . $db->error);
+}
+
+if ($result && $result->num_rows > 0) {
     // Display results in an HTML table
     echo "<table border='1'>
         <tr>
@@ -44,7 +49,7 @@ if ($result2 && $result2->num_rows > 0) {
         </tr>";
 
     // Fetch each row from the result set
-    while ($row = $result2->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         echo "<tr>
             <td><img src='" . htmlspecialchars($row['photo']) . "' width='50' height='50'></td>
             <td>" . htmlspecialchars($row['department']) . "</td>
@@ -60,5 +65,4 @@ if ($result2 && $result2->num_rows > 0) {
 } else {
     echo "No records found.";
 }
-
 ?>
