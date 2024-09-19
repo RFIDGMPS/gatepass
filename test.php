@@ -2,7 +2,21 @@
 include 'connection.php';
 
 $sql = "
-    SELECT * FROM personell_logs
+    SELECT 
+    p.id_no,
+    p.last_name,
+    p.first_name,
+    p.middle_name,
+    pl.date_logged,
+    pl.time_in,
+    pl.time_out,
+    pl.location
+FROM 
+    personell_logs pl
+JOIN 
+    personell p 
+ON 
+    pl.personell_id = p.id
 ";
 
 // Execute the query and check for errors
