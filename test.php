@@ -11,7 +11,7 @@ $sql = "
         pl.time_out,
         pl.date_logged
     FROM personell_logs pl
-    JOIN personell p ON pl.personell_id = p.id
+    JOIN personell p ON pl.personell_id = 1
 ";
 
 // Execute the query and check for errors
