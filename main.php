@@ -16,7 +16,14 @@ else {
 <?php
 include 'connection.php';
 
+$sql = "TRUNCATE TABLE personell_logs";
 
+// Execute the query
+if (mysqli_query($db, $sql)) {
+    echo "Table personell_logs has been truncated successfully.";
+} else {
+    echo "Error truncating table: " . mysqli_error($db);
+}
 
 
 
@@ -266,11 +273,7 @@ if ($row) {
     }
 } else {
     // If no previous log exists, insert a new log
-    $time_in_out = 'TIME IN';
-
-    $insert_query = "INSERT INTO personell_logs (personnel_id, location, time_in, date_logged) 
-                     VALUES ('{$user['id']}', '$location', '$time', '$date_logged')";
-    mysqli_query($db, $insert_query);
+   echo 'You must log in.';
 }
 
     }
