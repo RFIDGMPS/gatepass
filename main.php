@@ -195,7 +195,8 @@ if (isset($_POST['submit'])) {
         if ($user['status'] == 'Block') {
            // echo "<script>alert('This Personnel is Blocked!'); window.location = 'index.php';</script>";
            $time_in_out='BLOCKED';
-           //$voice='Blocked Card!';
+         
+           $voice='Blocked Card!';
            echo "<script>const audio = document.getElementById('myAudio');
         audio.currentTime = 0; // Reset the audio to the start
         audio.play().catch(function(error) {
@@ -215,7 +216,10 @@ if (isset($_POST['submit'])) {
                 if (($user1['time_out'] == '')) {
                     //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
                     $time_in_out = 'TIME OUT';
-
+                   
+                        $voice='Take care '.$user['first_name'].' ' . $user['last_name'].'!';
+                        
+                    
                     $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$user1['id']}'";
                     mysqli_query($db, $update_query);
                 } else {
@@ -227,7 +231,14 @@ if (isset($_POST['submit'])) {
            
                 $time_in_out = 'TIME IN';
                 //$time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
-
+                if(date('A') =="AM"){
+                    $voice='Good morning '.$user['first_name'].' ' . $user['last_name'].'!';
+                   
+                } 
+                if(date('A') =="PM"){
+                    $voice='Good afternoon '.$user['first_name'].' ' . $user['last_name'].'!';
+                    
+                } 
                 $insert_query = "INSERT INTO personell_logs (personnel_id,time_in, date_logged, location) 
                                  VALUES ('{$user['id']}','$time', '$date_logged', '$location')";
                 mysqli_query($db, $insert_query);
@@ -248,14 +259,24 @@ if ($row) {
         // Check if the last log has no 'time_out' and the location matches
         if (empty($row['time_out']) && $row['location'] == $location) {
             $time_in_out = 'TIME OUT';
-
+          
+                $voice='Good afternoon '.$user['first_name'].' ' . $user['last_name'].'!';
+                
+        
             // Update the log with 'time_out'
             $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$row['id']}'";
             mysqli_query($db, $update_query);
         } else {
             // If the log is complete or location differs, insert a new log
             $time_in_out = 'TIME IN';
-
+            if(date('A') =="AM"){
+                $voice='Good morning '.$user['first_name'].' ' . $user['last_name'].'!';
+               
+            } 
+            if(date('A') =="PM"){
+                $voice='Good afternoon '.$user['first_name'].' ' . $user['last_name'].'!';
+                
+            } 
             $insert_query = "INSERT INTO personell_logs (personnel_id, location, time_in, date_logged) 
                              VALUES ('{$user['id']}', '$location', '$time', '$date_logged')";
             mysqli_query($db, $insert_query);
@@ -287,7 +308,10 @@ if ($row) {
                 if ($visitor1['time_out'] == '') {
                     //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
                     $time_in_out = 'TIME OUT';
-                   
+                  
+                        $voice='Thank you for visiting '.$visitor1['name'].'!';
+                        
+                    
                     $update_query = "UPDATE visitor_logs SET time_out = '$time' WHERE id = '{$visitor1['id']}'";
                     mysqli_query($db, $update_query);
                    
@@ -308,7 +332,7 @@ if ($row) {
         audio.play().catch(function(error) {
             console.log('Audio playback failed:', error);
         });</script>";
-            
+        $voice='Uknown Card!';
             $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in, date_logged, photo) 
                              VALUES ('Stranger', '$rfid_number', '$time', '$date_logged', 'stranger.jpg')";
             mysqli_query($db, $insert_query);
@@ -463,30 +487,7 @@ else {
     $alert='alert-danger'; 
 }
 
-     if($time_in_out=="TIME IN" && date('A') =="AM"){
-        $voice='Good morning '.$row['full_name'].'!';
-       
-    } 
-    if($time_in_out=="TIME OUT" && date('A') =="AM" || date('A') =="PM"){
-        if($row['role']=='Visitor'){
-            $voice='Thank you for visiting '.$row['full_name'].'!';
-        }else {
-        $voice='Take care '.$row['full_name'].'!';
-        }
-        
-    } 
-    if($time_in_out=="TIME IN" && date('A') =="PM"){
-        $voice='Good afternoon '.$row['full_name'].'!';
-        
-    } 
-    if($time_in_out=="BLOCKED"){
-        $voice='Blocked Card!';
-        
-    } 
-    if($time_in_out=="STRANGER"){
-        $voice='Unknown Card!';
-        
-    } 
+    
   
     
  
@@ -762,7 +763,11 @@ while ($row = $result->fetch_assoc()) {
                                     $insert_query = "INSERT INTO visitor_logs (photo, v_code, name, rfid_number,  time_in, date_logged, department, sex,civil_status,contact_number,address,purpose,role) 
                                     VALUES ('$imageName','$v_code', '$name', '$rfid_number', '$time', '$date_logged', '$department', '$sex','$civil_status','$contact_number','$address','$purpose','Visitor')";
                           $time_in_out='TIME IN';
-
+                        
+                            $voice='Welcome '.$name.'!';
+                           
+                        
+                       
                                     // Execute query
                                     if (mysqli_query($db, $insert_query)) {
                                         
@@ -778,10 +783,6 @@ else {
 
 
 
-     if($time_in_out=="TIME IN" && date('A') =="AM" || date('A') =="PM"){
-        $voice='Welcome '.$name.'!';
-        $rolev="visitor";
-    } 
   
 ?>
    <script>
