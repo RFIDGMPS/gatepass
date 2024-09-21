@@ -241,7 +241,7 @@ if (isset($_POST['submit'])) {
 // Prepare and execute the query to get personnel logs
 $query1 = "SELECT * FROM personell_logs WHERE personnel_id = ? AND date_logged = ? AND location = ?";
 $stmt1 = $db->prepare($query1);
-$stmt1->bind_param("iss", $user['id'], $date_logged, 'Main Gate'); // Parameterized query to prevent SQL injection
+$stmt1->bind_param("iss", $user['id'], $date_logged, $location); // Parameterized query to prevent SQL injection
 $stmt1->execute();
 $result1 = $stmt1->get_result();
 
