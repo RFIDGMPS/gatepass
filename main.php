@@ -175,7 +175,7 @@ mysqli_close($db);
 $rfid_number = '';
 $time_in_out = 'Tap Your Card';
 $status='';
-
+ $new=0;
 // Check if form is submitted
 if (isset($_POST['submit'])) {
     $rfid_number = $_POST['rfid_number'];
@@ -203,7 +203,7 @@ if (isset($_POST['submit'])) {
         });</script>";
            
         } else {
-      
+     
             if($department == 'main'){
             // Check if user is already logged today
             $query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged'";
@@ -237,8 +237,18 @@ if (isset($_POST['submit'])) {
         // Check if user is already logged today
 $query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged'";
 $result1 = mysqli_query($db, $query1);
+
 echo 'pass1';
 // Loop through the result set
+if($new==0) {
+
+ $time_in_out = 'TIME IN';
+
+            $insert_query = "INSERT INTO personell_logs (personnel_id,location, time_in, date_logged) 
+                             VALUES ('{$user['id']}','$location', '$time', '$date_logged')";
+            mysqli_query($db, $insert_query);
+            $new=1;
+}
 while ($row = mysqli_fetch_array($result1)) {
    
     // Check if user's department matches the log department
@@ -250,17 +260,10 @@ while ($row = mysqli_fetch_array($result1)) {
             $time_in_out = 'TIME OUT';
             $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$row['id']}'";
             mysqli_query($db, $update_query);
-        
-        } else {
-            // Insert new log entry for the user
-           
-            $time_in_out = 'TIME IN';
-
-            $insert_query = "INSERT INTO personell_logs (personnel_id,location, time_in, date_logged) 
-                             VALUES ('{$user['id']}','$location', '$time', '$date_logged')";
-            mysqli_query($db, $insert_query);
-        }
+            $new=0;
         break;
+        } 
+        
     } else {
         // Handle if user tries to log into a different department
         $voice = 'You\'re not allowed to enter this room.';
