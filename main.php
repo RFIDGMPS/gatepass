@@ -336,7 +336,27 @@ if ($result1->num_rows > 0) {
     mysqli_close($db);
 }
 ?>
+<script>
+  
+  // Get the PHP-generated text
+  const text = "<?php echo $voice; ?>";
 
+  // Function to convert text to speech
+  const textToSpeech = (text) => {
+      const synth = window.speechSynthesis;
+
+      if (!synth.speaking && text) {
+          const utterance = new SpeechSynthesisUtterance(text);
+          synth.speak(utterance);
+      }
+  };
+
+  // Trigger text-to-speech if there's submitted text
+  if (text) {
+      textToSpeech(text);
+  }
+
+</script>
 
 <div id="rfidDisplay"></div>
 <br/>
