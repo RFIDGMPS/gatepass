@@ -174,7 +174,7 @@ mysqli_close($db);
     <?php
 $rfid_number = '';
 $time_in_out = 'Tap Your Card';
-$status='';
+$stat='';
 
 // Check if form is submitted
 if (isset($_POST['submit'])) {
@@ -264,6 +264,7 @@ while ($row = mysqli_fetch_array($result1)) {
     } else {
         // Handle if user tries to log into a different department
         $voice = 'You\'re not allowed to enter this room.';
+        $stat='Unauthorize';
         echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
         return; // Exit if condition fails
     }
@@ -464,7 +465,11 @@ else {
         $voice='Unknown Card!';
         
     } 
-  
+  if($stat=='Unauthorize'){
+    $voice = 'You\'re not allowed to enter this room.';
+    echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
+        
+  }
     
  
 ?>
