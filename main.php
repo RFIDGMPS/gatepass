@@ -283,8 +283,7 @@ if ($result1->num_rows > 0) {
     // No existing logs, so insert a new entry
     $voice = 'You must log in main gate first.';
             $stat = 'Unauthorize';
-            echo "<script>document.getElementById('myAudio').play(); window.location='main.php';</script>";
-           
+        
 }
 
 
