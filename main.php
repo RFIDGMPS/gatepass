@@ -246,9 +246,7 @@ $stmt1->bind_param("is", $user['id'], $date_logged); // Parameterized query to p
 $stmt1->execute();
 $result1 = $stmt1->get_result();
 
-// Loop through the result set
-if ($result1->num_rows > 0) {
-    echo 'pass2';
+
     while ($row = $result1->fetch_assoc()) {
         echo $user['location'];
         echo $user['department'];
@@ -285,7 +283,7 @@ if ($result1->num_rows > 0) {
           
         }
     }
-} else {
+ else {
     $voice = 'You must log in to the main gate first.';
     $stat = 'Unauthorize';
     echo "<script>document.getElementById('myAudio').play(); window.location='main.php';</script>";
