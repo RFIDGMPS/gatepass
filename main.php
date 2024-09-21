@@ -262,11 +262,11 @@ if ($row) {
         }
     } else {
         // If department doesn't match
-        echo 'You\'re not allowed to enter this room.';
+        $voice = 'You\'re not allowed to enter this room.';
     }
 } else {
     // If no previous log exists, insert a new log
-   echo 'You must log in.';
+   $voice = 'You must log in.';
 }
 
     }
