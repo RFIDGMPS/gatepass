@@ -283,12 +283,7 @@ $result1 = $stmt1->get_result();
           
         }
     }
- else {
-    $voice = 'You must log in to the main gate first.';
-    $stat = 'Unauthorize';
-    echo "<script>document.getElementById('myAudio').play(); window.location='main.php';</script>";
-  
-}
+
 
         }
     }
