@@ -445,17 +445,20 @@ else {
     $alert='alert-danger'; 
 }
 
-echo $time_in_out;
-echo $voice;
+
 
      if($time_in_out=="TIME IN" && date('A') =="AM"){
         $voice='Good morning '.$row['full_name'].'!';
        
     } 
     if($time_in_out=="TIME OUT" && date('A') =="AM" || date('A') =="PM"){
+        echo $time_in_out;
+echo $voice;
         if($row['role']=='Visitor'){
             $voice='Thank you for visiting '.$row['full_name'].'!';
         }else {
+            echo $time_in_out;
+echo $voice;
         $voice='Take care '.$row['full_name'].'!';
         }
         
