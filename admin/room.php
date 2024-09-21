@@ -79,9 +79,9 @@ include 'header.php';
                                             <td><?php echo $row['password']; ?></td>
                                             <td width="14%">
                                             <center>
-                                          <button desc="<?php echo $row['description'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>" data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_room_id" >
+                                          <button descr="<?php echo $row['description'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>" data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_room_id" >
                                           <i class="bi bi-plus-edit"></i> Edit </button>
-                                          <button desc="<?php echo $row['description'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>"  data-id="<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_room_id">
+                                          <button descr="<?php echo $row['description'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>"  data-id="<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_room_id">
                                           <i class="bi bi-plus-trash"></i> Delete </button>
                                        </center> </td>
                                         </tr>
@@ -146,7 +146,7 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Description:</b></label>
-                                        <input name="desc" type="text" id="desc" class="form-control" autocomplete="off">
+                                        <input name="descr" type="text" id="desc" class="form-control" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
@@ -191,7 +191,7 @@ while ($row = $result->fetch_assoc()) {
                        $dptname =  $(this).attr('room');
                        $dptdesc =  $(this).attr('department');
                        $password =  $(this).attr('password');
-                       $desc =  $(this).attr('desc');
+                       $desc =  $(this).attr('descr');
 
 					$('.edit-name').val($dptname);
 					$('.edit-desc').val($dptdesc);
@@ -255,7 +255,7 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Description:</b></label>
-                                        <input name="desc" type="text" id="edit_departmentname" class="form-control edit-desc" autocomplete="off">
+                                        <input name="descr" type="text" id="edit_departmentname" class="form-control edit-desc" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>

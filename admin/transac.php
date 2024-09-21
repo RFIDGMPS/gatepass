@@ -96,11 +96,12 @@ switch ($_GET['action'])
             case 'add_room':
                 $room = $_POST['room'];
                 $department = $_POST['department'];
+                $descr = $_POST['descr'];
                 //$desc = $_POST['desc'];
         
                 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $query = "INSERT INTO rooms (room, department, password)
-                VALUES ('$room', '$department','$password')";
+                $query = "INSERT INTO rooms (room, department, password, description)
+                VALUES ('$room', '$department','$password', '$descr')";
                 mysqli_query($db, $query) or die('Error in updating Database');
                 echo '<script type="text/javascript">
                 alert("Successfully added.");
