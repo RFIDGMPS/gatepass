@@ -260,7 +260,7 @@ if ($row) {
         if (empty($row['time_out']) && $row['location'] == $location) {
             $time_in_out = 'TIME OUT';
           
-                $voice='Good afternoon '.$user['first_name'].' ' . $user['last_name'].'!';
+                $voice='Have a great day '.$user['first_name'].' ' . $user['last_name'].'!';
                 
         
             // Update the log with 'time_out'
