@@ -402,8 +402,7 @@ if ($result1->num_rows > 0) {
              
         <?php 
         include 'connection.php'; 
-        echo $time_in_out;
-        echo $voice;
+       
         // Combine and fetch data from both tables for the current date, ordering by the latest update
         $results = mysqli_query($db, "
         
@@ -444,7 +443,10 @@ LIMIT 1;
 
                                  
         // Fetch and display the results
-        while ($row = mysqli_fetch_array($results)) { ?>
+        while ($row = mysqli_fetch_array($results)) { 
+            echo $time_in_out;
+            echo $voice;
+            ?>
         
         
        
