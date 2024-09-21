@@ -235,32 +235,40 @@ if (isset($_POST['submit'])) {
             }
         } else {
         // Check if user is already logged today
-$query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged' ORDER BY id DESC";
+// Query to get the latest log for the user
+$query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged' ORDER BY id DESC LIMIT 1";
 $result1 = mysqli_query($db, $query1);
+$row = mysqli_fetch_assoc($result1);
 
-if($result1){
-if ($user['department'] == $department) {
-if ($row['time_out']=='' && $row['location']==$location) {
-
+if ($row) {
+    // Check if user's department matches the department
+    if ($user['department'] == $department) {
+        // Check if the last log has no 'time_out' and the location matches
+        if (empty($row['time_out']) && $row['location'] == $location) {
             $time_in_out = 'TIME OUT';
+
+            // Update the log with 'time_out'
             $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$row['id']}'";
             mysqli_query($db, $update_query);
-           
-        } 
-        else {
-$time_in_out = 'TIME IN';
+        } else {
+            // If the log is complete or location differs, insert a new log
+            $time_in_out = 'TIME IN';
 
-            $insert_query = "INSERT INTO personell_logs (personnel_id,location, time_in, date_logged) 
-                             VALUES ('{$user['id']}','$location', '$time', '$date_logged')";
+            $insert_query = "INSERT INTO personell_logs (personnel_id, location, time_in, date_logged) 
+                             VALUES ('{$user['id']}', '$location', '$time', '$date_logged')";
             mysqli_query($db, $insert_query);
-            }
-}
-else {
-echo 'You\'re not allowed';
-}
-}
-else{
-echo 'You must log in';
+        }
+    } else {
+        // If department doesn't match
+        echo 'You\'re not allowed to enter this room.';
+    }
+} else {
+    // If no previous log exists, insert a new log
+    $time_in_out = 'TIME IN';
+
+    $insert_query = "INSERT INTO personell_logs (personnel_id, location, time_in, date_logged) 
+                     VALUES ('{$user['id']}', '$location', '$time', '$date_logged')";
+    mysqli_query($db, $insert_query);
 }
 
     }
