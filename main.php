@@ -239,6 +239,7 @@ if (isset($_POST['submit'])) {
 // Assume $user, $date_logged, $location, and $time are already defined
 
 // Prepare and execute the query to get personnel logs
+echo 'pass1';
 $query1 = "SELECT * FROM personell_logs WHERE personnel_id = ? AND date_logged = ? AND location = ?";
 $stmt1 = $db->prepare($query1);
 $stmt1->bind_param("iss", $user['id'], $date_logged, $location); // Parameterized query to prevent SQL injection
@@ -247,6 +248,7 @@ $result1 = $stmt1->get_result();
 
 // Loop through the result set
 if ($result1->num_rows > 0) {
+    echo 'pass2';
     while ($row = $result1->fetch_assoc()) {
         echo $user['department'];
         echo $department;
