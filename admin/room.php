@@ -75,7 +75,7 @@ include 'header.php';
                                     <tr  class="table-<?php echo $row['id'];?>">
                                     <td class="department"><?php echo $row['department']; ?></td>
                                             <td><?php echo $row['room']; ?></td>
-                                            <td><?php echo $row['description']; ?></td>
+                                            <td><?php echo $row['descr']; ?></td>
                                             <td><?php echo $row['password']; ?></td>
                                             <td width="14%">
                                             <center>
