@@ -494,7 +494,7 @@ else {
     $alert='alert-danger'; 
 }
 
-    
+    echo $time_in_out;
 if($time_in_out != 'BLOCKED' || $time_in_out != 'STRANGER'){      
     
  
@@ -546,7 +546,6 @@ if($time_in_out != 'BLOCKED' || $time_in_out != 'STRANGER'){
     </script>
 <?php 
 
-    $time_in_out='';
  }
     }
         }
