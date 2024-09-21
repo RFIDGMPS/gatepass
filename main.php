@@ -235,43 +235,32 @@ if (isset($_POST['submit'])) {
             }
         } else {
         // Check if user is already logged today
-// Query to check if there is an existing log for this user on the specified date
-$query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged'";
+$query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged' ORDER BY id DESC";
 $result1 = mysqli_query($db, $query1);
 
-// Check if user's department matches the log department
+if($result1){
 if ($user['department'] == $department) {
-    $new = 0; // Flag to determine whether a new log should be inserted
+if ($row['time_out']=='' && $row['location']==$location) {
 
-    // Loop through the result set to find an existing log with an empty 'time_out'
-    while ($row = mysqli_fetch_array($result1)) {
-        // If an existing log has an empty 'time_out' and the location matches
-        if ($row['time_out'] == '' && $row['location'] == $location) {
             $time_in_out = 'TIME OUT';
-            
-            // Update the log by setting 'time_out'
             $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$row['id']}'";
             mysqli_query($db, $update_query);
-            
-            $new = 1; // Set flag indicating that the time_out was updated
-            break; // Exit the loop after updating the log
-        }
-    }
+           
+        } 
+        else {
+$time_in_out = 'TIME IN';
 
-    // If no log was updated, insert a new log entry for the user
-    if ($new == 0) {
-        $time_in_out = 'TIME IN';
-        
-        // Insert a new log with 'time_in'
-        $insert_query = "INSERT INTO personell_logs (personnel_id, location, time_in, date_logged) 
-                         VALUES ('{$user['id']}', '$location', '$time', '$date_logged')";
-        mysqli_query($db, $insert_query);
-    }
-    
-} else {
-    // Handle if the user tries to log into a different department
-    $voice = 'You\'re not allowed to enter this room.';
-    echo "<script>document.getElementById('myAudio').play(); window.location='main.php';</script>";
+            $insert_query = "INSERT INTO personell_logs (personnel_id,location, time_in, date_logged) 
+                             VALUES ('{$user['id']}','$location', '$time', '$date_logged')";
+            mysqli_query($db, $insert_query);
+            }
+}
+else {
+echo 'You\'re not allowed';
+}
+}
+else{
+echo 'You must log in';
 }
 
     }
