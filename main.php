@@ -245,7 +245,7 @@ while ($row = mysqli_fetch_array($result1)) {
     if ($user['department'] == $department) {
     
         // Update log if no 'time_out' and location matches
-        if ($row['time_out']=='') {
+        if ($row['time_out']=='' && $row['location']==$location) {
 
             $time_in_out = 'TIME OUT';
             $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$row['id']}'";
