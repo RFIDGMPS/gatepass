@@ -252,6 +252,7 @@ if (isset($_POST['submit'])) {
                         $time_in_out = 'TIME OUT';
                         $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$row['id']}'";
                         mysqli_query($db, $update_query);
+                        
                     
                     } else {
                         // Insert new log entry for the user
@@ -261,8 +262,9 @@ if (isset($_POST['submit'])) {
                         $insert_query = "INSERT INTO personell_logs (personnel_id,location, time_in, date_logged) 
                                          VALUES ('{$user['id']}','$location', '$time', '$date_logged')";
                         mysqli_query($db, $insert_query);
+                        
                     }
-                    
+                    break;
                 } else {
                     // Handle if user tries to log into a different department
                     $time_in_out = 'UNAUTHORIZE';
@@ -452,13 +454,11 @@ else {
        
     } 
     if($time_in_out=="TIME OUT" && date('A') =="AM" || date('A') =="PM"){
-        echo $time_in_out;
-echo $voice;
+       
         if($row['role']=='Visitor'){
             $voice='Thank you for visiting '.$row['full_name'].'!';
         }else {
-            echo $time_in_out;
-echo $voice;
+          
         $voice='Take care '.$row['full_name'].'!';
         }
         
