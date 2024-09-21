@@ -239,9 +239,9 @@ if (isset($_POST['submit'])) {
 // Assume $user, $date_logged, $location, and $time are already defined
 
 // Prepare and execute the query to get personnel logs
-$query1 = "SELECT * FROM personell_logs WHERE personnel_id = ? AND date_logged = ? AND location = ?";
+$query1 = "SELECT * FROM personell_logs WHERE personnel_id = ? AND date_logged = ?";
 $stmt1 = $db->prepare($query1);
-$stmt1->bind_param("iss", $user['id'], $date_logged, $location); // Parameterized query to prevent SQL injection
+$stmt1->bind_param("is", $user['id'], $date_logged); // Parameterized query to prevent SQL injection
 $stmt1->execute();
 $result1 = $stmt1->get_result();
 
@@ -282,7 +282,13 @@ if ($result1->num_rows > 0) {
           
         }
     }
-} 
+} else {
+     // If the user is trying to log into a different department, prevent access
+     $voice = 'You haven\'t logged in the main gate yet.';
+     $stat = 'Unauthorize';
+     echo "<script>document.getElementById('myAudio').play(); window.location='main.php';</script>";
+   
+}
 
         }
     }
