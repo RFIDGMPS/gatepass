@@ -133,7 +133,10 @@ mysqli_close($db);
         $date2 = date('Y-m-d', strtotime($_POST['date2']));
 
         // SQL query to fetch filtered data
-        $sql = "SELECT * FROM personell_logs WHERE date_logged BETWEEN '$date1' AND '$date2'";
+        $sql = "SELECT p.first_name, p.last_name, p.department, p.role, p.photo, pl.location, pl.time_in, pl.time_out, pl.date_logged 
+        FROM personell AS p
+        JOIN personell_logs AS pl ON p.id = pl.personell_id
+        WHERE pl.date_logged BETWEEN '$date1' AND '$date2'";
         $result = mysqli_query($db, $sql);
 
         // Check if query was successful
