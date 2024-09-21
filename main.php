@@ -205,6 +205,7 @@ if (isset($_POST['submit'])) {
         } else {
       
             if($department == 'main'){
+                echo 'main';
             // Check if user is already logged today
             $query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged'";
             $result1 = mysqli_query($db, $query1);
