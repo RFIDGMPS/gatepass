@@ -448,8 +448,9 @@ LIMIT 1;
         
        
 <?php 
-
-
+ echo $time_in_out;
+ echo $voice;
+ if(isset($_POST['submit'])){
     
     $alert='alert-primary';
 if($time_in_out=='TIME IN'){
@@ -488,8 +489,7 @@ else {
         
     } 
 
-    echo $time_in_out;
-    echo $voice;
+   
  
 ?>
    <script>
@@ -560,7 +560,7 @@ else {
 <?php 
 
     $time_in_out='';
-    
+    }
         }
         ?>
        
