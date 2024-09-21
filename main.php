@@ -282,12 +282,10 @@ if ($result1->num_rows > 0) {
     }
 } else {
     // No existing logs, so insert a new entry
-    $time_in_out = 'TIME IN';
-    $insert_query = "INSERT INTO personell_logs (personnel_id, location, time_in, date_logged) 
-                     VALUES (?, ?, ?, ?)";
-    $stmt4 = $db->prepare($insert_query);
-    $stmt4->bind_param("isss", $user['id'], $location, $time, $date_logged);
-    $stmt4->execute();
+    $voice = 'You must log in main gate first.';
+            $stat = 'Unauthorize';
+            echo "<script>document.getElementById('myAudio').play(); window.location='main.php';</script>";
+           
 }
 
 
