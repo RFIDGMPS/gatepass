@@ -488,7 +488,8 @@ else {
         
     } 
 
-    
+    echo $time_in_out;
+    echo $voice;
  
 ?>
    <script>
