@@ -243,6 +243,7 @@ $result1 = $stmt1->get_result();
 echo 'rrom';
 // Loop through the result set
 if ($result1->num_rows > 0) {
+
     while ($row = $result1->fetch_assoc()) {
         
         // Check if user's department matches the log department
@@ -278,6 +279,7 @@ if ($result1->num_rows > 0) {
         }
     }
 } else {
+   echo 'no logs';
     // No existing logs, so insert a new entry
     $voice = 'You must log in main gate first.';
             $stat = 'Unauthorize';
