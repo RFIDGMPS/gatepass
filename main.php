@@ -265,6 +265,7 @@ if (isset($_POST['submit'])) {
                     
                 } else {
                     // Handle if user tries to log into a different department
+                    $time_in_out = 'UNAUTHORIZE';
                     $voice = 'You\'re not allowed to enter this room.';
                     $stat='Unauthorize';
                     echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
@@ -443,6 +444,9 @@ $alert='alert-success';
 else {
     $alert='alert-danger'; 
 }
+
+echo $time_in_out;
+echo $voice;
 
      if($time_in_out=="TIME IN" && date('A') =="AM"){
         $voice='Good morning '.$row['full_name'].'!';
