@@ -276,7 +276,7 @@ while ($row = mysqli_fetch_array($result1)) {
         
     }
     }
-    } else {
+    else {
         // Check if RFID number exists in visitor table
         $query = "SELECT * FROM visitor WHERE rfid_number = '$rfid_number'";
         $result = mysqli_query($db, $query);
