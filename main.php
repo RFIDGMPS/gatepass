@@ -254,7 +254,7 @@ if ($result1->num_rows > 0) {
             break;
         }
     }
-    if($fnd=0;){
+    if($fnd==0){
    // If the user has not logged in at the Main Gate, prevent entry to other rooms
    $voice = 'You must log in at the Main Gate first.';
    $stat = 'Unauthorize';
