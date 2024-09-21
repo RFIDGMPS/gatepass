@@ -205,7 +205,7 @@ if (isset($_POST['submit'])) {
         } else {
       
             if($department == 'main'){
-                echo 'main';
+             
             // Check if user is already logged today
             $query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged'";
             $result1 = mysqli_query($db, $query1);
@@ -283,13 +283,11 @@ if ($result1->num_rows > 0) {
         }
     }
 } else {
-    // No existing logs, so insert a new entry
-    $time_in_out = 'TIME IN';
-    $insert_query = "INSERT INTO personell_logs (personnel_id, location, time_in, date_logged) 
-                     VALUES (?, ?, ?, ?)";
-    $stmt4 = $db->prepare($insert_query);
-    $stmt4->bind_param("isss", $user['id'], $location, $time, $date_logged);
-    $stmt4->execute();
+     // If the user is trying to log into a different department, prevent access
+     $voice = 'You have\'nt logged in the main gate yet.';
+     $stat = 'Unauthorize';
+     echo "<script>document.getElementById('myAudio').play(); window.location='main.php';</script>";
+   
 }
 
         }
