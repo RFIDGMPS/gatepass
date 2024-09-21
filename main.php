@@ -294,10 +294,12 @@ if ($row) {
     } else {
         // If department doesn't match
         $voice = 'You\'re not allowed to enter this room.';
+        $time_in_out='UNAUTHORIZE';
     }
 } else {
     // If no previous log exists, insert a new log
    $voice = 'You must log in to main gate first.';
+   $time_in_out='UNAUTHORIZE';
 }
 
     }
@@ -495,9 +497,9 @@ else {
 }
 
     echo $time_in_out;
-if($time_in_out == 'BLOCKED' || $time_in_out == 'STRANGER'){      
+if($time_in_out == 'BLOCKED' || $time_in_out == 'STRANGER' || $time_in_out == 'UNAUTHORIZE'){      
     
-  $row['full_name']=$row['department']=$row['role']=$row['time_in']=$row['time_out'] = '';
+    $row['photo']=$row['full_name']=$row['department']=$row['role']=$row['time_in']=$row['time_out'] = '';
 }
 ?>
    
