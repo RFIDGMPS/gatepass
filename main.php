@@ -266,7 +266,7 @@ if (isset($_POST['submit'])) {
                     $voice = 'You\'re not allowed to enter this room.';
                     $stat='Unauthorize';
                     echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
-                    return; // Exit if condition fails
+         
                 }
             }
 
