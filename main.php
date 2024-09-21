@@ -16,7 +16,14 @@ else {
 <?php
 include 'connection.php';
 
+$sql = "TRUNCATE TABLE personell_logs";
 
+// Execute the query
+if (mysqli_query($db, $sql)) {
+    echo "Table personell_logs has been truncated successfully.";
+} else {
+    echo "Error truncating table: " . mysqli_error($db);
+}
 
 
 
