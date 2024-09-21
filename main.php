@@ -282,13 +282,7 @@ if ($result1->num_rows > 0) {
           
         }
     }
-} else {
-     // If the user is trying to log into a different department, prevent access
-     $voice = 'You haven\'t logged in the main gate yet.';
-     $stat = 'Unauthorize';
-     echo "<script>document.getElementById('myAudio').play(); window.location='main.php';</script>";
-   
-}
+} 
 
         }
     }
