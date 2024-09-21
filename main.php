@@ -449,7 +449,7 @@ LIMIT 1;
        
 <?php 
 
- if(isset($_POST['submit'])){
+
     
     $alert='alert-primary';
 if($time_in_out=='TIME IN'){
@@ -560,7 +560,7 @@ else {
 <?php 
 
     $time_in_out='';
-    }
+    
         }
         ?>
        
