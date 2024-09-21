@@ -278,7 +278,7 @@ if ($result1->num_rows > 0) {
             $voice = 'You\'re not allowed to enter this room.';
             $stat = 'Unauthorize';
             echo "<script>document.getElementById('myAudio').play(); window.location='main.php';</script>";
-           echo 'Unauthorize';
+          
         }
     }
 } else {
@@ -487,11 +487,7 @@ else {
         $voice='Unknown Card!';
         
     } 
-  if($stat=='Unauthorize'){
-    $voice = 'You\'re not allowed to enter this room.';
-    echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
-        
-  }
+
     
  
 ?>
