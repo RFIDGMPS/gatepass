@@ -17,6 +17,9 @@ else {
 include 'connection.php';
 
 
+
+
+
 $logo1 = "";
     $nameo = "";
     $address = "";
@@ -171,7 +174,7 @@ mysqli_close($db);
     <?php
 $rfid_number = '';
 $time_in_out = 'Tap Your Card';
-$stat='';
+$status='';
 
 // Check if form is submitted
 if (isset($_POST['submit'])) {
@@ -202,7 +205,6 @@ if (isset($_POST['submit'])) {
         } else {
       
             if($department == 'main'){
-             
             // Check if user is already logged today
             $query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged'";
             $result1 = mysqli_query($db, $query1);
@@ -232,61 +234,40 @@ if (isset($_POST['submit'])) {
                 
             }
         } else {
-            // Assume $user, $date_logged, $location, and $time are already defined
-
-// Prepare and execute the query to get personnel logs
-$query1 = "SELECT * FROM personell_logs WHERE personnel_id = ? AND date_logged = ?";
-$stmt1 = $db->prepare($query1);
-$stmt1->bind_param("is", $user['id'], $date_logged); // Parameterized query to prevent SQL injection
-$stmt1->execute();
-$result1 = $stmt1->get_result();
-echo 'rrom';
+        // Check if user is already logged today
+$query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged' AND location = '$location'";
+$result1 = mysqli_query($db, $query1);
+echo 'pass1';
 // Loop through the result set
-if ($result1->num_rows > 0) {
+while ($row = mysqli_fetch_array($result1)) {
+   
+    // Check if user's department matches the log department
+    if ($user['department'] == $department) {
+    
+        // Update log if no 'time_out' and location matches
+        if ($row['time_out']=='') {
 
-    while ($row = $result1->fetch_assoc()) {
+            $time_in_out = 'TIME OUT';
+            $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$row['id']}'";
+            mysqli_query($db, $update_query);
         
-        // Check if user's department matches the log department
-        if ($user['department'] === $department) {
-
-            // Update log if 'time_out' is empty and location matches
-            if (empty($row['time_out'])) {
-                $time_in_out = 'TIME OUT';
-                
-                // Update the log with the current time for 'time_out'
-                $update_query = "UPDATE personell_logs SET time_out = ? WHERE id = ?";
-                $stmt2 = $db->prepare($update_query);
-                $stmt2->bind_param("si", $time, $row['id']);
-                $stmt2->execute();
-                
-            } else {
-                // Insert new log entry for the user if already clocked out
-                $time_in_out = 'TIME IN';
-
-                $insert_query = "INSERT INTO personell_logs (personnel_id, location, time_in, date_logged) 
-                                 VALUES (?, ?, ?, ?)";
-                $stmt3 = $db->prepare($insert_query);
-                $stmt3->bind_param("isss", $user['id'], $location, $time, $date_logged);
-                $stmt3->execute();
-            }
-            
         } else {
-            // If the user is trying to log into a different department, prevent access
-            $voice = 'You\'re not allowed to enter this room.';
-            $stat = 'Unauthorize';
-            echo "<script>document.getElementById('myAudio').play(); window.location='main.php';</script>";
-            return; // Exit to prevent further execution
+            // Insert new log entry for the user
+           
+            $time_in_out = 'TIME IN';
+
+            $insert_query = "INSERT INTO personell_logs (personnel_id,location, time_in, date_logged) 
+                             VALUES ('{$user['id']}','$location', '$time', '$date_logged')";
+            mysqli_query($db, $insert_query);
         }
-    }
-} else {
-   echo 'no logs';
-    // No existing logs, so insert a new entry
-    $voice = 'You must log in main gate first.';
-            $stat = 'Unauthorize';
         
+    } else {
+        // Handle if user tries to log into a different department
+        $voice = 'You\'re not allowed to enter this room.';
+        echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
+        return; // Exit if condition fails
+    }
 }
-
-
         }
     }
     } else {
@@ -336,27 +317,7 @@ if ($result1->num_rows > 0) {
     mysqli_close($db);
 }
 ?>
-<script>
-  
-  // Get the PHP-generated text
-  const text = "<?php echo $voice; ?>";
 
-  // Function to convert text to speech
-  const textToSpeech = (text) => {
-      const synth = window.speechSynthesis;
-
-      if (!synth.speaking && text) {
-          const utterance = new SpeechSynthesisUtterance(text);
-          synth.speak(utterance);
-      }
-  };
-
-  // Trigger text-to-speech if there's submitted text
-  if (text) {
-      textToSpeech(text);
-  }
-
-</script>
 
 <div id="rfidDisplay"></div>
 <br/>
@@ -422,7 +383,7 @@ if ($result1->num_rows > 0) {
              
         <?php 
         include 'connection.php'; 
-       
+
         // Combine and fetch data from both tables for the current date, ordering by the latest update
         $results = mysqli_query($db, "
         
@@ -463,10 +424,7 @@ LIMIT 1;
 
                                  
         // Fetch and display the results
-        while ($row = mysqli_fetch_array($results)) { 
-            echo $time_in_out;
-            echo $voice;
-            ?>
+        while ($row = mysqli_fetch_array($results)) { ?>
         
         
        
@@ -482,18 +440,14 @@ else {
     $alert='alert-danger'; 
 }
 
-
-
      if($time_in_out=="TIME IN" && date('A') =="AM"){
         $voice='Good morning '.$row['full_name'].'!';
        
     } 
     if($time_in_out=="TIME OUT" && date('A') =="AM" || date('A') =="PM"){
-       
         if($row['role']=='Visitor'){
             $voice='Thank you for visiting '.$row['full_name'].'!';
         }else {
-          
         $voice='Take care '.$row['full_name'].'!';
         }
         
@@ -510,8 +464,8 @@ else {
         $voice='Unknown Card!';
         
     } 
-
-   
+  
+    
  
 ?>
    <script>
