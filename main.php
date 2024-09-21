@@ -253,7 +253,7 @@ $result1 = $stmt1->get_result();
         echo $department;
         // Check if user's department matches the log department
         if ($user['department'] === $department) {
-echo 'passss';
+
             // Update log if 'time_out' is empty and location matches
             if (empty($row['time_out'])) {
                 $time_in_out = 'TIME OUT';
@@ -277,6 +277,7 @@ echo 'passss';
             
         } else {
             echo 'lesepassss';
+            $time_in_out = 'UNAUTHORIZED';
             // If the user is trying to log into a different department, prevent access
             $voice = 'You\'re not allowed to enter this room.';
             $stat = 'Unauthorize';
