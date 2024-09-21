@@ -136,7 +136,7 @@ mysqli_close($db);
         $sql = "SELECT p.first_name, p.last_name, p.department, p.role, p.photo, pl.location, pl.time_in, pl.time_out, pl.date_logged 
         FROM personell AS p
         JOIN personell_logs AS pl ON p.id = pl.personnel_id
-        WHERE pl.date_logged BETWEEN '$date1' AND '$date2'";
+        WHERE pl.date_logged BETWEEN '$date1' AND '$date2' ORDER BY DESC";
         $result = mysqli_query($db, $sql);
 
         // Check if query was successful
@@ -171,7 +171,7 @@ mysqli_close($db);
         // If date1 and date2 are not set, fetch all records
         $results = mysqli_query($db, "SELECT p.first_name, p.last_name, p.department, p.role, p.photo, pl.location, pl.time_in, pl.time_out, pl.date_logged 
         FROM personell AS p
-        JOIN personell_logs AS pl ON p.id = pl.personnel_id");
+        JOIN personell_logs AS pl ON p.id = pl.personnel_id ORDER BY DESC");
 
         // Loop through all records and generate HTML output
         while ($row = mysqli_fetch_array($results)) {
