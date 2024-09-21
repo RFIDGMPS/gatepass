@@ -266,7 +266,7 @@ if ($row) {
     }
 } else {
     // If no previous log exists, insert a new log
-   $voice = 'You must log in.';
+   $voice = 'You must log in to main gate first.';
 }
 
     }
