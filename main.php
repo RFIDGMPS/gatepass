@@ -273,7 +273,7 @@ while ($row = mysqli_fetch_array($result1)) {
         // Handle if user tries to log into a different department
         $voice = 'You\'re not allowed to enter this room.';
         echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
-        return; // Exit if condition fails
+        
     }
     }
     } else {
