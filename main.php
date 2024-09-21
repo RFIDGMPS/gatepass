@@ -252,7 +252,7 @@ if (isset($_POST['submit'])) {
                         $time_in_out = 'TIME OUT';
                         $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$row['id']}'";
                         mysqli_query($db, $update_query);
-                        break;
+                        
                     
                     } else {
                         // Insert new log entry for the user
