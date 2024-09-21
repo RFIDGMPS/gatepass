@@ -235,15 +235,17 @@ if (isset($_POST['submit'])) {
                 
             }
         } else {
+            echo 'room';
             $query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged' AND location = '$location'";
             $result1 = mysqli_query($db, $query1);
             
             // Loop through the result set
             while ($row = mysqli_fetch_array($result1)) {
-                
+                echo $user['department'];
+                echo $department;
                 // Check if user's department matches the log department
                 if ($user['department'] == $department) {
-            
+                    echo 'enter';
                     // Update log if no 'time_out' and location matches
                     if ($row['time_out']=='') {
             
