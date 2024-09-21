@@ -240,6 +240,7 @@ $result1 = mysqli_query($db, $query1);
 
 echo 'pass1';
 // Loop through the result set
+ if ($user['department'] == $department) {
 if($new==0) {
 
  $time_in_out = 'TIME IN';
@@ -252,7 +253,7 @@ if($new==0) {
 while ($row = mysqli_fetch_array($result1)) {
    
     // Check if user's department matches the log department
-    if ($user['department'] == $department) {
+   
     
         // Update log if no 'time_out' and location matches
         if ($row['time_out']=='' && $row['location']==$location) {
@@ -264,14 +265,16 @@ while ($row = mysqli_fetch_array($result1)) {
         break;
         } 
         
-    } else {
+   
+}
+
+        }
+         else {
         // Handle if user tries to log into a different department
         $voice = 'You\'re not allowed to enter this room.';
         echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
         return; // Exit if condition fails
     }
-}
-        }
     }
     } else {
         // Check if RFID number exists in visitor table
