@@ -66,7 +66,7 @@ include 'header.php';
  $sql = "ALTER TABLE rooms ADD descr VARCHAR(255)";
 
  // Execute the query
- if (mysqli_query($conn, $sql)) {
+ if (mysqli_query($db, $sql)) {
      echo "Column 'descr' added successfully!";
  } else {
      echo "Error adding column: " . mysqli_error($conn);
