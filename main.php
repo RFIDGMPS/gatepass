@@ -122,6 +122,10 @@ mysqli_close($db);
 </head>
 
 <body onload="startTime()">
+<audio id="myAudio" hidden>
+    <source src="admin/audio/alert.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio> 
 <div id="message"></div>
 <nav class="navbar navbar-expand-lg navbar-light py-2" style="height: 1%; border-bottom: 1px solid #FBC257; margin-bottom: 1%; padding: 0px 50px 0px 50px; display: flex; justify-content: center; align-items: center;">
     <div style="text-align: left; margin-right: 10px;">
@@ -175,7 +179,7 @@ mysqli_close($db);
 $rfid_number = '';
 $time_in_out = 'Tap Your Card';
 $status='';
- $new=0;
+ 
 // Check if form is submitted
 if (isset($_POST['submit'])) {
     $rfid_number = $_POST['rfid_number'];
@@ -193,6 +197,11 @@ if (isset($_POST['submit'])) {
 
     if ($user) {
         if ($user['status'] == 'Block') {
+
+
+
+
+
            // echo "<script>alert('This Personnel is Blocked!'); window.location = 'index.php';</script>";
            $time_in_out='BLOCKED';
          
@@ -201,7 +210,14 @@ if (isset($_POST['submit'])) {
         audio.currentTime = 0; // Reset the audio to the start
         audio.play().catch(function(error) {
             console.log('Audio playback failed:', error);
-        });</script>";
+        });
+        
+          document.getElementById('in_out').innerHTML = '';
+        document.getElementById('entrant_name').innerHTML = '';
+        document.getElementById('department').innerHTML = '';
+        document.getElementById('role').innerHTML = '';
+        document.getElementById('time_in').innerHTML = '';
+        document.getElementById('time_out').innerHTML = '';</script>";
            
         } else {
      
@@ -331,7 +347,12 @@ if ($row) {
         audio.currentTime = 0; // Reset the audio to the start
         audio.play().catch(function(error) {
             console.log('Audio playback failed:', error);
-        });</script>";
+        });document.getElementById('in_out').innerHTML = '';
+        document.getElementById('entrant_name').innerHTML = '';
+        document.getElementById('department').innerHTML = '';
+        document.getElementById('role').innerHTML = '';
+        document.getElementById('time_in').innerHTML = '';
+        document.getElementById('time_out').innerHTML = '';</script>";
         $voice='Uknown Card!';
             $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in, date_logged, photo) 
                              VALUES ('Stranger', '$rfid_number', '$time', '$date_logged', 'stranger.jpg')";
@@ -422,10 +443,7 @@ if ($row) {
         </div>
     </div>
 </div>      
-<audio id="myAudio" hidden>
-    <source src="admin/audio/alert.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio> 
+
              
              
         <?php 
