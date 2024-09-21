@@ -497,7 +497,7 @@ else {
     echo $time_in_out;
 if($time_in_out != 'BLOCKED' || $time_in_out != 'STRANGER'){      
     
- 
+  $row['full_name']=$row['department']=$row['role']=$row['time_in']=$row['time_out'] = '';
 ?>
    
            <script>
