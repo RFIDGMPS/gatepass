@@ -148,7 +148,7 @@ mysqli_close($db);
             while ($row = mysqli_fetch_array($result)) {
                 $output .= '<tr>';
                 $output .= '<td><center><img src="uploads/' . $row['photo'] . '" width="50px" height="50px"></center></td>';
-                $output .= '<td>' . $row['full_name'] . '</td>';
+                $output .= '<td>' . $row['first_name'] . ' ' .  $row['last_name'] '</td>';
                 $output .= '<td>' . $row['department'] . '</td>';
                 $output .= '<td>' . $row['location'] . '</td>';
                 $output .= '<td>' . $row['role'] . '</td>';
@@ -177,7 +177,7 @@ mysqli_close($db);
         while ($row = mysqli_fetch_array($results)) {
             echo '<tr>';
             echo '<td><center><img src="uploads/' . $row['photo'] . '" width="50px" height="50px"></center></td>';
-            echo '<td>' . $row['full_name'] . '</td>';
+            echo '<td>' . $row['first_name'] . ' ' .  $row['last_name'] '</td>';
             echo '<td>' . $row['department'] . '</td>';
             echo '<td>' . $row['location'] . '</td>';
             echo '<td>' . $row['role'] . '</td>';
