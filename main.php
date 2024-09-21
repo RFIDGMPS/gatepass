@@ -211,13 +211,7 @@ if (isset($_POST['submit'])) {
         audio.play().catch(function(error) {
             console.log('Audio playback failed:', error);
         });
-        
-          document.getElementById('in_out').innerHTML = '';
-        document.getElementById('entrant_name').innerHTML = '';
-        document.getElementById('department').innerHTML = '';
-        document.getElementById('role').innerHTML = '';
-        document.getElementById('time_in').innerHTML = '';
-        document.getElementById('time_out').innerHTML = '';</script>";
+    </script>";
            
         } else {
      
@@ -347,12 +341,7 @@ if ($row) {
         audio.currentTime = 0; // Reset the audio to the start
         audio.play().catch(function(error) {
             console.log('Audio playback failed:', error);
-        });document.getElementById('in_out').innerHTML = '';
-        document.getElementById('entrant_name').innerHTML = '';
-        document.getElementById('department').innerHTML = '';
-        document.getElementById('role').innerHTML = '';
-        document.getElementById('time_in').innerHTML = '';
-        document.getElementById('time_out').innerHTML = '';</script>";
+        });</script>";
         $voice='Uknown Card!';
             $insert_query = "INSERT INTO personell_logs (role, rfid_number, time_in, date_logged, photo) 
                              VALUES ('Stranger', '$rfid_number', '$time', '$date_logged', 'stranger.jpg')";
@@ -487,7 +476,7 @@ LIMIT 1;
     ");
     
 
-                                 
+            if($time_in_out != 'BLOCKED' || $time_in_out != 'STRANGER'){                     
         // Fetch and display the results
         while ($row = mysqli_fetch_array($results)) { ?>
         
@@ -522,7 +511,7 @@ else {
             time_out: document.getElementById('time_out').innerHTML
         };
 
-        // Change text to 'Hello World'
+
         document.getElementById('in_out').innerHTML = '<?php echo $time_in_out;?>';
         document.getElementById('entrant_name').innerHTML = '<?php echo $row['full_name']; ?>';
         document.getElementById('department').innerHTML = '<?php echo $row['department']; ?>';
@@ -560,6 +549,7 @@ else {
     $time_in_out='';
     }
         }
+    }
         ?>
        
                  
