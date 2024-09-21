@@ -250,41 +250,7 @@ if ($result1->num_rows > 0) {
     while ($row = $result1->fetch_assoc()) {
         if($row['location'] == 'Main Gate') {
             $fnd=1;
-            while ($row = $result1->fetch_assoc()) {
-                echo $user['department'];
-                echo $department;
-                // Check if user's department matches the log department
-                if ($user['department'] === $department) {
-        
-                    // Update log if 'time_out' is empty and location matches
-                    if (empty($row['time_out'])) {
-                        $time_in_out = 'TIME OUT';
-                        
-                        // Update the log with the current time for 'time_out'
-                        $update_query = "UPDATE personell_logs SET time_out = ? WHERE id = ?";
-                        $stmt2 = $db->prepare($update_query);
-                        $stmt2->bind_param("si", $time, $row['id']);
-                        $stmt2->execute();
-                        
-                    } else {
-                        // Insert new log entry for the user if already clocked out
-                        $time_in_out = 'TIME IN';
-        
-                        $insert_query = "INSERT INTO personell_logs (personnel_id, location, time_in, date_logged) 
-                                         VALUES (?, ?, ?, ?)";
-                        $stmt3 = $db->prepare($insert_query);
-                        $stmt3->bind_param("isss", $user['id'], $location, $time, $date_logged);
-                        $stmt3->execute();
-                    }
-                    
-                } else {
-                    // If the user is trying to log into a different department, prevent access
-                    $voice = 'You\'re not allowed to enter this room.';
-                    $stat = 'Unauthorize';
-                    echo "<script>document.getElementById('myAudio').play(); window.location='main.php';</script>";
-                  
-                }
-            }
+            
             break;
         }
     }
@@ -294,6 +260,43 @@ if ($result1->num_rows > 0) {
    $stat = 'Unauthorize';
    echo "<script>document.getElementById('myAudio').play(); window.location='main.php';</script>";
 
+    }
+    else {
+        while ($row = $result1->fetch_assoc()) {
+            echo $user['department'];
+            echo $department;
+            // Check if user's department matches the log department
+            if ($user['department'] === $department) {
+    
+                // Update log if 'time_out' is empty and location matches
+                if (empty($row['time_out'])) {
+                    $time_in_out = 'TIME OUT';
+                    
+                    // Update the log with the current time for 'time_out'
+                    $update_query = "UPDATE personell_logs SET time_out = ? WHERE id = ?";
+                    $stmt2 = $db->prepare($update_query);
+                    $stmt2->bind_param("si", $time, $row['id']);
+                    $stmt2->execute();
+                    
+                } else {
+                    // Insert new log entry for the user if already clocked out
+                    $time_in_out = 'TIME IN';
+    
+                    $insert_query = "INSERT INTO personell_logs (personnel_id, location, time_in, date_logged) 
+                                     VALUES (?, ?, ?, ?)";
+                    $stmt3 = $db->prepare($insert_query);
+                    $stmt3->bind_param("isss", $user['id'], $location, $time, $date_logged);
+                    $stmt3->execute();
+                }
+                
+            } else {
+                // If the user is trying to log into a different department, prevent access
+                $voice = 'You\'re not allowed to enter this room.';
+                $stat = 'Unauthorize';
+                echo "<script>document.getElementById('myAudio').play(); window.location='main.php';</script>";
+              
+            }
+        }
     }
 
 }
