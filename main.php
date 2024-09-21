@@ -235,41 +235,61 @@ if (isset($_POST['submit'])) {
             }
         } else {
         // Check if user is already logged today
-$query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged' AND location = '$location'";
-$result1 = mysqli_query($db, $query1);
-echo $user['department'];
-    echo $department;
+// Assume $user, $date_logged, $location, and $time are already defined
+
+// Prepare and execute the query to get personnel logs
+$query1 = "SELECT * FROM personell_logs WHERE personnel_id = ? AND date_logged = ? AND location = ?";
+$stmt1 = $db->prepare($query1);
+$stmt1->bind_param("iss", $user['id'], $date_logged, $location); // Parameterized query to prevent SQL injection
+$stmt1->execute();
+$result1 = $stmt1->get_result();
+
 // Loop through the result set
-while ($row = mysqli_fetch_array($result1)) {
-    
-    // Check if user's department matches the log department
-    if ($user['department'] == $department) {
-        echo 'pass2';
-        // Update log if no 'time_out' and location matches
-        if ($row['time_out']=='') {
-
-            $time_in_out = 'TIME OUT';
-            $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$row['id']}'";
-            mysqli_query($db, $update_query);
+if ($result1->num_rows > 0) {
+    while ($row = $result1->fetch_assoc()) {
         
+        // Check if user's department matches the log department
+        if ($user['department'] === $department) {
+
+            // Update log if 'time_out' is empty and location matches
+            if (empty($row['time_out'])) {
+                $time_in_out = 'TIME OUT';
+                
+                // Update the log with the current time for 'time_out'
+                $update_query = "UPDATE personell_logs SET time_out = ? WHERE id = ?";
+                $stmt2 = $db->prepare($update_query);
+                $stmt2->bind_param("si", $time, $row['id']);
+                $stmt2->execute();
+                
+            } else {
+                // Insert new log entry for the user if already clocked out
+                $time_in_out = 'TIME IN';
+
+                $insert_query = "INSERT INTO personell_logs (personnel_id, location, time_in, date_logged) 
+                                 VALUES (?, ?, ?, ?)";
+                $stmt3 = $db->prepare($insert_query);
+                $stmt3->bind_param("isss", $user['id'], $location, $time, $date_logged);
+                $stmt3->execute();
+            }
+            
         } else {
-            // Insert new log entry for the user
-           
-            $time_in_out = 'TIME IN';
-
-            $insert_query = "INSERT INTO personell_logs (personnel_id,location, time_in, date_logged) 
-                             VALUES ('{$user['id']}','$location', '$time', '$date_logged')";
-            mysqli_query($db, $insert_query);
+            // If the user is trying to log into a different department, prevent access
+            $voice = 'You\'re not allowed to enter this room.';
+            $stat = 'Unauthorize';
+            echo "<script>document.getElementById('myAudio').play(); window.location='main.php';</script>";
+            return; // Exit to prevent further execution
         }
-        
-    } else {
-        // Handle if user tries to log into a different department
-        $voice = 'You\'re not allowed to enter this room.';
-        $stat='Unauthorize';
-        echo "<script>document.getElementById('myAudio').play();window.location='main.php';</script>";
-        return; // Exit if condition fails
     }
+} else {
+    // No existing logs, so insert a new entry
+    $time_in_out = 'TIME IN';
+    $insert_query = "INSERT INTO personell_logs (personnel_id, location, time_in, date_logged) 
+                     VALUES (?, ?, ?, ?)";
+    $stmt4 = $db->prepare($insert_query);
+    $stmt4->bind_param("isss", $user['id'], $location, $time, $date_logged);
+    $stmt4->execute();
 }
+
         }
     }
     } else {
