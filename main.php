@@ -247,7 +247,8 @@ $result1 = $stmt1->get_result();
 // Loop through the result set
 if ($result1->num_rows > 0) {
     while ($row = $result1->fetch_assoc()) {
-        
+        echo $user['department'];
+        echo $department;
         // Check if user's department matches the log department
         if ($user['department'] === $department) {
 
