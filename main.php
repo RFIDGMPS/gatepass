@@ -240,7 +240,7 @@ $stmt1 = $db->prepare($query1);
 $stmt1->bind_param("iss", $user['id'], $date_logged, $location); // Parameterized query to prevent SQL injection
 $stmt1->execute();
 $result1 = $stmt1->get_result();
-
+echo 'rrom';
 // Loop through the result set
 if ($result1->num_rows > 0) {
     while ($row = $result1->fetch_assoc()) {
