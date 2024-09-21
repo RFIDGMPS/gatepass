@@ -476,7 +476,7 @@ LIMIT 1;
     ");
     
 
-            if($time_in_out != 'BLOCKED' || $time_in_out != 'STRANGER'){                     
+                           
         // Fetch and display the results
         while ($row = mysqli_fetch_array($results)) { ?>
         
@@ -495,7 +495,7 @@ else {
 }
 
     
-  
+if($time_in_out != 'BLOCKED' || $time_in_out != 'STRANGER'){      
     
  
 ?>
@@ -547,9 +547,10 @@ else {
 <?php 
 
     $time_in_out='';
+ }
     }
         }
-    }
+    
         ?>
        
                  
