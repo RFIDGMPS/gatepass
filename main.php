@@ -402,7 +402,8 @@ if ($result1->num_rows > 0) {
              
         <?php 
         include 'connection.php'; 
-
+        echo $time_in_out;
+        echo $voice;
         // Combine and fetch data from both tables for the current date, ordering by the latest update
         $results = mysqli_query($db, "
         
@@ -448,8 +449,7 @@ LIMIT 1;
         
        
 <?php 
- echo $time_in_out;
- echo $voice;
+
  if(isset($_POST['submit'])){
     
     $alert='alert-primary';
