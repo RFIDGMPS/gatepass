@@ -865,7 +865,8 @@ else {
                             }
                         
         
-?>        
+?>    
+<?php echo $voice; ?>    
  <script>
   
   // Get the PHP-generated text
