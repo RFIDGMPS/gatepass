@@ -315,8 +315,8 @@ if ($row) {
             $query1 = "SELECT * FROM visitor_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
             $result1 = mysqli_query($db, $query1);
             $visitor1 = mysqli_fetch_assoc($result1);
-            echo $rfid_number;
-            echo $date_logged;
+            echo $visitor1['rfid_number'];
+            echo $visitor1['date_logged'];
             if ($visitor1) {
                 
                 if ($visitor1['time_out'] == '') {
