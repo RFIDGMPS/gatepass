@@ -1004,6 +1004,9 @@ Webcam.snap(function(data_uri){
             	readURL(this);
             });
          </script>
+
+         <?php
+         if($department == 'main') { ?>
            <button class="chatbot-toggler" style="background:#FBC257;">
     <span class="material-symbols-rounded"><i class="fa fa-box" aria-hidden="true"></i></span>
     <span class="material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
@@ -1066,7 +1069,7 @@ Webcam.snap(function(data_uri){
       <span id="send-btn" class="material-symbols-rounded" hidden>send</span>
     </div>
   </div>
-
+<?php }?>
 </body>
 
 </html>
