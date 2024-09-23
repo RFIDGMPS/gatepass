@@ -870,7 +870,7 @@ else {
  <script>
   
   // Get the PHP-generated text
-  const text = "<?php echo $voice; ?>";
+  const text = "heloo visitor";
 
   // Function to convert text to speech
   const textToSpeech1 = (text) => {
