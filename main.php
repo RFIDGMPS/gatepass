@@ -307,14 +307,16 @@ if ($row) {
     }
     else {
         // Check if RFID number exists in visitor table
-        $query = "SELECT * FROM visitor WHERE rfid_number = '$rfid_number'";
-        $result = mysqli_query($db, $query);
-        $visitor = mysqli_fetch_assoc($result);
+       
 
         if($department != 'main'){
             $voice = 'You\'re not allowed to enter this room.';
             $time_in_out='UNAUTHORIZE';
         }else{
+            $query = "SELECT * FROM visitor WHERE rfid_number = '$rfid_number'";
+            $result = mysqli_query($db, $query);
+            $visitor = mysqli_fetch_assoc($result);
+            
         if ($visitor) {
             $query1 = "SELECT * FROM visitor_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
             $result1 = mysqli_query($db, $query1);
