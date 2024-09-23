@@ -315,10 +315,10 @@ if ($row) {
             $query1 = "SELECT * FROM visitor_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
             $result1 = mysqli_query($db, $query1);
             $visitor1 = mysqli_fetch_assoc($result1);
-          
+            echo $rfid_number;
+            echo $date_logged;
             if ($visitor1) {
-                echo $rfid_number;
-                echo $date_logged;
+                
                 if ($visitor1['time_out'] == '') {
                     //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
                     $time_in_out = 'TIME OUT';
