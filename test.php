@@ -1,10 +1,13 @@
+
+
+
 <?php
 include 'connection.php';
 
 $sql = "
     SELECT * FROM lost_found
 ";
-
+//hiiii
 // Execute the query and check for errors
 $result = $db->query($sql);
 
