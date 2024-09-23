@@ -1,6 +1,23 @@
 <?php
 include 'connection.php';
 
+
+$sql = "CREATE TABLE IF NOT EXISTS `lost_found` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `sender` varchar(255) NOT NULL,
+    `status` int(11) NOT NULL,
+    `department` varchar(255) NOT NULL,
+    `name` varchar(255) NOT NULL,
+    `date` datetime NOT NULL,
+    PRIMARY KEY (`id`)
+  )";
+  
+  // Execute the query
+  if (mysqli_query($db, $sql)) {
+      echo "Table `lost_found` created successfully";
+  } else {
+      echo "Error creating table: " . mysqli_error($db);
+  }
 $sql = "
     SELECT * FROM lost_found
 ";
