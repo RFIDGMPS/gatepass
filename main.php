@@ -316,7 +316,7 @@ if ($row) {
             $query = "SELECT * FROM visitor WHERE rfid_number = '$rfid_number'";
             $result = mysqli_query($db, $query);
             $visitor = mysqli_fetch_assoc($result);
-            
+
         if ($visitor) {
             $query1 = "SELECT * FROM visitor_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
             $result1 = mysqli_query($db, $query1);
@@ -343,6 +343,7 @@ if ($row) {
                 echo '<script>$(document).ready(function() {
                     $("#visitorModal").modal("show");
                 });</script>';
+                $voice='Thank you for visiting '.$visitor1['name'].'!';
             }
         } else {
          $time_in_out='STRANGER';
@@ -782,9 +783,7 @@ while ($row = $result->fetch_assoc()) {
                                     // Insert query for entrance table
                                     $insert_query = "INSERT INTO visitor_logs (photo, v_code, name, rfid_number,  time_in, date_logged, department, sex,civil_status,contact_number,address,purpose,role) 
                                     VALUES ('$imageName','$v_code', '$name', '$rfid_number', '$time', '$date_logged', '$department', '$sex','$civil_status','$contact_number','$address','$purpose','Visitor')";
-                          $time_in_out='TIME IN';
-                        
-                            $voice='Welcome '.$name.'!';
+                    
                            
                         
                        
@@ -802,7 +801,9 @@ else {
 }
 
 
-
+$time_in_out='TIME IN';
+                        
+$voice='Welcome '.$name.'!';
   
 ?>
    <script>
