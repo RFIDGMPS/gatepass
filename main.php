@@ -314,7 +314,7 @@ if ($row) {
         if($department != 'main'){
             $voice = 'You\'re not allowed to enter this room.';
             $time_in_out='UNAUTHORIZE';
-        }
+        }else{
         if ($visitor) {
             $query1 = "SELECT * FROM visitor_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
             $result1 = mysqli_query($db, $query1);
@@ -355,6 +355,7 @@ if ($row) {
                              VALUES ('Stranger', '$rfid_number', '$time', '$date_logged', 'stranger.jpg')";
             mysqli_query($db, $insert_query);
         }
+    }
     }
 
     // Close database connection
