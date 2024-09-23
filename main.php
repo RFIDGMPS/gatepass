@@ -793,8 +793,7 @@ while ($row = $result->fetch_assoc()) {
  if(isset($_POST['vsave'])){
     $time_in_out='TIME IN';
                         
-//$voice='Welcome '.$name.'!';
-
+$voice='Welcome '.$name.'!';
     $alert='alert-primary';
 if($time_in_out=='TIME IN'){
 $alert='alert-success';
@@ -803,27 +802,7 @@ else {
     $alert='alert-danger'; 
 }
 
-echo ' <script>
-  
-            // Get the PHP-generated text
-            const text = "Welcome '.$name.'!";
 
-            // Function to convert text to speech
-            const textToSpeech1 = (text) => {
-                const synth = window.speechSynthesis;
-
-                if (!synth.speaking && text) {
-                    const utterance = new SpeechSynthesisUtterance(text);
-                    synth.speak(utterance);
-                }
-            };
-
-        
-            if (text) {
-                textToSpeech1(text);
-            }
-    
-    </script>';
 
   
 ?>
@@ -887,7 +866,27 @@ echo ' <script>
                         
         
 ?>        
+ <script>
+  
+  // Get the PHP-generated text
+  const text = "<?php echo $voice; ?>";
 
+  // Function to convert text to speech
+  const textToSpeech1 = (text) => {
+      const synth = window.speechSynthesis;
+
+      if (!synth.speaking && text) {
+          const utterance = new SpeechSynthesisUtterance(text);
+          synth.speak(utterance);
+      }
+  };
+
+  // Trigger text-to-speech if there's submitted text
+  if (text) {
+      textToSpeech1(text);
+  }
+
+</script>
             </form>
         
             <div class="modal fade" id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="cameraModalLabel" aria-hidden="true">
