@@ -7,6 +7,7 @@ session_start();
 if (isset($_SESSION['location'])) {
     $location = $_SESSION['location'];
   $department = $_SESSION['department'];
+  $descr = $_SESSION['descr'];
 }
 else {
     header("Location: index.php");
@@ -134,7 +135,7 @@ mysqli_close($db);
     <div class="column wide" style="flex-grow: 2; text-align: center;">
         <div class="text">
             <h1><div class="row"><b><?php echo $nameo; ?></b></div></h1>
-            <h5><i><span style="color:red;">(<?php echo $location; ?>)</span></i></h5>
+            <h5><i><span style="color:red;">(<?php echo $descr; ?>)</span></i></h5>
         </div>
     </div>
     <div style="text-align: right; margin-left: 10px;">

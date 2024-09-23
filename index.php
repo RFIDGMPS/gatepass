@@ -130,7 +130,7 @@ if ($result->num_rows > 0) {
                 </script>';
                 $_SESSION['location'] = $room;
                 $_SESSION['department'] = $department;
-                $found=1;
+                $_SESSION['descr'] = $row['descr'];
                 exit();
             } 
     }
