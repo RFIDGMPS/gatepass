@@ -866,25 +866,25 @@ else {
                         
         
 ?>    
-<?php echo $voice; ?>    
+
  <script>
   
   // Get the PHP-generated text
-  const text = "heloo visitor";
+  const text1 = "<?php echo $voice; ?>";
 
   // Function to convert text to speech
-  const textToSpeech1 = (text) => {
-      const synth = window.speechSynthesis;
+  const textToSpeech1 = (text1) => {
+      const synth1 = window.speechSynthesis;
 
-      if (!synth.speaking && text) {
-          const utterance = new SpeechSynthesisUtterance(text);
-          synth.speak(utterance);
+      if (!synth1.speaking && text1) {
+          const utterance1 = new SpeechSynthesisUtterance(text1);
+          synth1.speak(utterance1);
       }
   };
 
   // Trigger text-to-speech if there's submitted text
-  if (text) {
-      textToSpeech1(text);
+  if (text1) {
+      textToSpeech1(text1);
   }
 
 </script>
