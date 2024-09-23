@@ -2,7 +2,7 @@
 include 'connection.php';
 
 $sql = "
-    SELECT * FROM visitor_logs
+    SELECT * FROM lost_found
 ";
 
 // Execute the query and check for errors
@@ -17,8 +17,8 @@ if ($result && $result->num_rows > 0) {
     // Display results in an HTML table
     echo "<table border='1'>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
+            <th>Sender</th>
+            <th>Status</th>
             <th>Photo</th>
             <th>Date</th>
             <th>Department</th>
@@ -31,14 +31,11 @@ if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo "<tr>
             <td><img src='" . htmlspecialchars($row['photo']) . "' width='50' height='50'></td>
-            <td>" . htmlspecialchars($row['rfid_number']) . "</td>
-            <td>" . htmlspecialchars($row['name']) . "</td>
-            <td>" . htmlspecialchars($row['date_logged']) . "</td>
-               <td>" . htmlspecialchars($row['department']) . "</td>
-            <td>" . htmlspecialchars($row['time_in']) . "</td>
-            <td>" . htmlspecialchars($row['time_out']) . "</td>
-         
-            <td>" . htmlspecialchars($row['role']) . "</td>
+            <td>" . htmlspecialchars($row['sender']) . "</td>
+            <td>" . htmlspecialchars($row['status']) . "</td>
+            <td>" . htmlspecialchars($row['department']) . "</td>
+               <td>" . htmlspecialchars($row['name']) . "</td>
+            <td>" . htmlspecialchars($row['date']) . "</td>
         </tr>";
     }
 
