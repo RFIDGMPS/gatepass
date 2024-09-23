@@ -31,7 +31,7 @@ if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo "<tr>
             <td><img src='" . htmlspecialchars($row['photo']) . "' width='50' height='50'></td>
-            <td>" . htmlspecialchars($row['id']) . "</td>
+            <td>" . htmlspecialchars($row['rfid_number']) . "</td>
             <td>" . htmlspecialchars($row['name']) . "</td>
             <td>" . htmlspecialchars($row['date_logged']) . "</td>
                <td>" . htmlspecialchars($row['department']) . "</td>
