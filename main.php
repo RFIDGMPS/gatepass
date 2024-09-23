@@ -316,7 +316,7 @@ if ($row) {
             $result1 = mysqli_query($db, $query1);
             $visitor1 = mysqli_fetch_assoc($result1);
             echo $visitor1['rfid_number'];
-            echo $visitor1['date_logged'];
+            echo $visitor1['time_in'];
             if ($visitor1) {
                 
                 if ($visitor1['time_out'] == '') {
