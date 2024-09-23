@@ -135,7 +135,13 @@ mysqli_close($db);
     <div class="column wide" style="flex-grow: 2; text-align: center;">
         <div class="text">
             <h1><div class="row"><b><?php echo $nameo; ?></b></div></h1>
-            <h5><i><span style="color:red;">(<?php echo $descr; ?>)</span></i></h5>
+            <h5><i><span style="color:red;">(<?php 
+            if($location == 'main'){
+                $descr = 'Main Gate';
+            }
+            
+            
+            echo $descr; ?>)</span></i></h5>
         </div>
     </div>
     <div style="text-align: right; margin-left: 10px;">
