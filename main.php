@@ -791,7 +791,9 @@ while ($row = $result->fetch_assoc()) {
                                     if (mysqli_query($db, $insert_query)) {
                                         
  if(isset($_POST['vsave'])){
-    
+    $time_in_out='TIME IN';
+                        
+$voice='Welcome '.$name.'!';
     $alert='alert-primary';
 if($time_in_out=='TIME IN'){
 $alert='alert-success';
@@ -801,9 +803,7 @@ else {
 }
 
 
-$time_in_out='TIME IN';
-                        
-$voice='Welcome '.$name.'!';
+
   
 ?>
    <script>
