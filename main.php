@@ -793,7 +793,8 @@ while ($row = $result->fetch_assoc()) {
  if(isset($_POST['vsave'])){
     $time_in_out='TIME IN';
                         
-$voice='Welcome '.$name.'!';
+//$voice='Welcome '.$name.'!';
+
     $alert='alert-primary';
 if($time_in_out=='TIME IN'){
 $alert='alert-success';
@@ -802,14 +803,10 @@ else {
     $alert='alert-danger'; 
 }
 
-
-
-  
-?>
-   <script>
+echo ' <script>
   
             // Get the PHP-generated text
-            const text = "<?php echo $voice; ?>";
+            const text = "Welcome '.$name.'!";
 
             // Function to convert text to speech
             const textToSpeech1 = (text) => {
@@ -821,12 +818,16 @@ else {
                 }
             };
 
-            // Trigger text-to-speech if there's submitted text
+        
             if (text) {
                 textToSpeech1(text);
             }
     
-    </script>
+    </script>';
+
+  
+?>
+  
            <script>
              // Store original values
         let originalTexts1 = {
