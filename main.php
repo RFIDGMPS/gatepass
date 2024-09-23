@@ -670,7 +670,7 @@ $department_options = [];
 while ($row = $result->fetch_assoc()) {
     $department_id = $row['department_id'];
     $department_name = $row['department_name'];
-    $department_options[] = "<option value='$department_id'>$department_name</option>";
+    $department_options[] = "<option value='$department_name'>$department_name</option>";
 }?>
                           <?php
     // Output department options
