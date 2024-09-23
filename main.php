@@ -307,38 +307,36 @@ if ($row) {
     }
     else {
         // Check if RFID number exists in visitor table
-        $query = "SELECT * FROM visitor WHERE rfid_number = '$rfid_number'";
-        $result = mysqli_query($db, $query);
-        $visitor = mysqli_fetch_assoc($result);
+$query = "SELECT * FROM visitor WHERE rfid_number = '$rfid_number'";
+$result = mysqli_query($db, $query);
+$visitor = mysqli_fetch_assoc($result);
 
-        if ($visitor) {
-            $query1 = "SELECT * FROM visitor_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
-            $result1 = mysqli_query($db, $query1);
-            $visitor1 = mysqli_fetch_assoc($result1);
-            echo $visitor1['rfid_number'];
-            echo $visitor1['time_in'];
-            if ($visitor1) {
-                
-                if ($visitor1['time_out'] == '') {
-                    //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
-                    $time_in_out = 'TIME OUT';
-                  
-                        $voice='Thank you for visiting '.$visitor1['name'].'!';
-                        
-                    
-                    $update_query = "UPDATE visitor_logs SET time_out = '$time' WHERE id = '{$visitor1['id']}'";
-                    mysqli_query($db, $update_query);
-                   
-                    
-                } else {
-                    echo "<script>alert('Please wait for the appropriate time period.');</script>";
-                }
-            } else {
-                echo '<script>$(document).ready(function() {
-                    $("#visitorModal").modal("show");
-                });</script>';
-            }
+if ($visitor) {
+    // Check if the visitor already logged in for the day
+    $query1 = "SELECT * FROM visitor_logs WHERE rfid_number = '$rfid_number' AND date_logged = '$date_logged'";
+    $result1 = mysqli_query($db, $query1);
+    $visitor_log = mysqli_fetch_assoc($result1);
+
+    if ($visitor_log) {
+        // If no time out is logged yet, update with the current time
+        if (empty($visitor_log['time_out'])) {
+            $time_in_out = 'TIME OUT';
+            $voice = 'Thank you for visiting ' . $visitor['name'] . '!';
+
+            // Update the time_out field
+            $update_query = "UPDATE visitor_logs SET time_out = '$time' WHERE id = '{$visitor_log['id']}'";
+            mysqli_query($db, $update_query);
         } else {
+            echo "<script>alert('Please wait for the appropriate time period.');</script>";
+        }
+    } else {
+        // Show the visitor modal for new entry
+        echo '<script>$(document).ready(function() {
+            $("#visitorModal").modal("show");
+        });</script>';
+    }
+}
+ else {
          $time_in_out='STRANGER';
             //$voice='Unknown Card!';
             echo "<script>const audio = document.getElementById('myAudio');
