@@ -2,37 +2,7 @@
 include 'connection.php';
 
 $sql = "
-    SELECT 
-        p.photo,
-        p.department,
-        p.role,
-        CONCAT(p.first_name,' ', p.last_name) AS full_name,
-        pl.time_in,
-        pl.time_out,
-        pl.date_logged
-    FROM personell_logs pl
-    JOIN personell p ON pl.personnel_id = p.id
-    WHERE pl.date_logged = CURRENT_DATE()
-
-    UNION
-
-    SELECT 
-        vl.photo,
-        vl.department,
-        NULL AS role,
-        vl.name AS full_name,
-        vl.time_in,
-        vl.time_out,
-        vl.date_logged
-    FROM visitor_logs vl
-    WHERE vl.date_logged = CURRENT_DATE()
-
-    ORDER BY 
-        -- Use time_out if available, otherwise use time_in
-        CASE 
-            WHEN time_out IS NOT NULL THEN time_out 
-            ELSE time_in 
-        END DESC LIMIT 1
+    SELECT * FROM visitor_logs WHERE rfid_number = '7899889989877' AND date_logged = '2024-09-23'
 ";
 
 // Execute the query and check for errors
@@ -47,25 +17,28 @@ if ($result && $result->num_rows > 0) {
     // Display results in an HTML table
     echo "<table border='1'>
         <tr>
+            <th>ID</th>
+            <th>Name</th>
             <th>Photo</th>
+            <th>Date</th>
             <th>Department</th>
-            <th>Role</th>
-            <th>Full Name</th>
-            <th>Time In</th>
-            <th>Time Out</th>
-            <th>Date Logged</th>
+            <th>Time in</th>
+            <th>Time out</th>
+             <th>Role</th>
         </tr>";
 
     // Fetch each row from the result set
     while ($row = $result->fetch_assoc()) {
         echo "<tr>
             <td><img src='" . htmlspecialchars($row['photo']) . "' width='50' height='50'></td>
-            <td>" . htmlspecialchars($row['department']) . "</td>
-            <td>" . htmlspecialchars($row['role']) . "</td>
-            <td>" . htmlspecialchars($row['full_name']) . "</td>
+            <td>" . htmlspecialchars($row['id']) . "</td>
+            <td>" . htmlspecialchars($row['name']) . "</td>
+            <td>" . htmlspecialchars($row['date_logged']) . "</td>
+               <td>" . htmlspecialchars($row['department']) . "</td>
             <td>" . htmlspecialchars($row['time_in']) . "</td>
             <td>" . htmlspecialchars($row['time_out']) . "</td>
-            <td>" . htmlspecialchars($row['date_logged']) . "</td>
+         
+            <td>" . htmlspecialchars($row['role']) . "</td>
         </tr>";
     }
 
