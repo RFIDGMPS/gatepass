@@ -295,6 +295,12 @@ if ($row) {
         // If department doesn't match
         $voice = 'You\'re not allowed to enter this room.';
         $time_in_out='UNAUTHORIZE';
+        echo "<script>const audio = document.getElementById('myAudio');
+        audio.currentTime = 0; // Reset the audio to the start
+        audio.play().catch(function(error) {
+            console.log('Audio playback failed:', error);
+        });
+    </script>";
     }
 } else {
     // If no previous log exists, insert a new log
