@@ -136,7 +136,7 @@ mysqli_close($db);
         <div class="text">
             <h1><div class="row"><b><?php echo $nameo; ?></b></div></h1>
             <h5><i><span style="color:red;">(<?php 
-            if($location == 'main'){
+            if($department == 'main'){
                 $descr = 'Main Gate';
             }
             
