@@ -317,6 +317,8 @@ if ($row) {
             $visitor1 = mysqli_fetch_assoc($result1);
           
             if ($visitor1) {
+                echo $rfid_number;
+                echo $date_logged;
                 if ($visitor1['time_out'] == '') {
                     //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
                     $time_in_out = 'TIME OUT';
