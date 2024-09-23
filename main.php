@@ -1,51 +1,62 @@
-
 <?php
-
-
-
 session_start();
-if (isset($_SESSION['location'])) {
-    $location = $_SESSION['location'];
-  $department = $_SESSION['department'];
-  $descr = $_SESSION['descr'];
-}
-else {
+
+// Ensure session security settings
+ini_set('session.cookie_httponly', 1);  // Prevent JavaScript from accessing session cookies
+ini_set('session.cookie_secure', 1);    // Enforce HTTPS usage if applicable
+ini_set('session.use_strict_mode', 1);  // Reject session IDs that are not known to the server
+
+// Check if the session variables are set
+if (isset($_SESSION['location'], $_SESSION['department'], $_SESSION['descr'])) {
+    // Sanitize session variables
+    $location = htmlspecialchars($_SESSION['location'], ENT_QUOTES, 'UTF-8');
+    $department = htmlspecialchars($_SESSION['department'], ENT_QUOTES, 'UTF-8');
+    $descr = htmlspecialchars($_SESSION['descr'], ENT_QUOTES, 'UTF-8');
+} else {
+    // Redirect to login if session variables are not set
     header("Location: index.php");
     exit();
 }
 ?>
+
 <?php
-include 'connection.php';
+include 'connection.php';  // Ensure this connection uses secure database practices (e.g., PDO with prepared statements)
 
-
-
-
-
+// Initialize variables
 $logo1 = "";
-    $nameo = "";
-    $address = "";
-    $logo2 = "";
-    
-// Fetch data from the about table
-$sql = "SELECT * FROM about LIMIT 1";
+$nameo = "";
+$address = "";
+$logo2 = "";
 
-$result = $db->query($sql);
+try {
+    // Use a prepared statement to prevent SQL injection
+    $stmt = $db->prepare("SELECT logo1, name, address, logo2 FROM about LIMIT 1");
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-if ($result->num_rows > 0) {
-    // Output data of each row
-    $row = $result->fetch_assoc();
-    $logo1 = $row['logo1'];
-    $nameo = $row['name'];
-    $address = $row['address'];
-    $logo2 = $row['logo2'];
-} 
+    if ($result->num_rows > 0) {
+        // Fetch data safely
+        $row = $result->fetch_assoc();
+        $logo1 = htmlspecialchars($row['logo1'], ENT_QUOTES, 'UTF-8');
+        $nameo = htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8');
+        $address = htmlspecialchars($row['address'], ENT_QUOTES, 'UTF-8');
+        $logo2 = htmlspecialchars($row['logo2'], ENT_QUOTES, 'UTF-8');
+    }
+} catch (Exception $e) {
+    // Log error message without revealing details to the user
+    error_log("Database query error: " . $e->getMessage());
+    // You can redirect or show a user-friendly error message
+    header("Location: error.php");
+    exit();
+}
 
-// Get current period
+// Get current period (AM or PM)
 $current_period = date('A');
 
-
-mysqli_close($db);
+// Close the database connection
+$db->close();
 ?>
+
 
 
 <!doctype html>
