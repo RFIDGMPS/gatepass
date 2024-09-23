@@ -318,6 +318,12 @@ if ($row) {
         if($department != 'main'){
             $voice = 'You\'re not allowed to enter this room.';
             $time_in_out='UNAUTHORIZE';
+            echo "<script>const audio = document.getElementById('myAudio');
+        audio.currentTime = 0; // Reset the audio to the start
+        audio.play().catch(function(error) {
+            console.log('Audio playback failed:', error);
+        });
+    </script>";
         }else{
             $query = "SELECT * FROM visitor WHERE rfid_number = '$rfid_number'";
             $result = mysqli_query($db, $query);
