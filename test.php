@@ -2,7 +2,7 @@
 include 'connection.php';
 
 $sql = "
-    SELECT * FROM visitor_logs WHERE rfid_number = '7899889989877' AND date_logged = '2024-09-23'
+    SELECT * FROM visitor_logs
 ";
 
 // Execute the query and check for errors
