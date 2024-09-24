@@ -1068,22 +1068,37 @@ Webcam.snap(function(data_uri){
 
 <!-- Add JavaScript for Search Functionality -->
 <script>
-   function selectPersonell(selectElement) {
-    const selectedOption = selectElement.options[selectElement.selectedIndex];
-    if (selectedOption.value) {
-        const department = selectedOption.getAttribute('data-department');
-        const photo = selectedOption.getAttribute('data-photo');
-        const name = selectedOption.value;
-
-        document.getElementById("selectedDepartment").textContent = department;
-        document.getElementById("selectedName").textContent = name;
-        document.getElementById("selectedPhoto").src = photo;
-        document.getElementById("selectedPersonelTable").style.display = 'table';
-    } else {
-        document.getElementById("selectedPersonelTable").style.display = 'none';
+    function searchPersonell(query) {
+        if (query.length === 0) {
+            document.getElementById("searchResults").innerHTML = "<option value=''>Select a name...</option>";
+            return;
+        }
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                document.getElementById("searchResults").innerHTML = xhr.responseText;
+            }
+        };
+        xhr.open("GET", "search_personnel.php?q=" + query, true);
+        xhr.send();
     }
-}
 
+    function selectPersonell(selectElement) {
+        const selectedOption = selectElement.options[selectElement.selectedIndex];
+        if (selectedOption.value) {
+            const department = selectedOption.getAttribute('data-department');
+            const photo = selectedOption.getAttribute('data-photo');
+            const name = selectedOption.value;
+
+            // Assuming you have elements to display selected personnel details
+            document.getElementById("selectedDepartment").textContent = department;
+            document.getElementById("selectedName").textContent = name;
+            document.getElementById("selectedPhoto").src = 'admin/uploads/' + photo; // Adjust path if needed
+            document.getElementById("selectedPersonelTable").style.display = 'table';
+        } else {
+            document.getElementById("selectedPersonelTable").style.display = 'none';
+        }
+    }
 </script>
 
 <?php }?>
