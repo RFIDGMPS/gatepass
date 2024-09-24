@@ -1068,7 +1068,7 @@ Webcam.snap(function(data_uri){
 <body>
 
 <div class="form-floating mb-4">
-<input class="form-control" type="text" onkeyup="searchPersonell(this.value)" placeholder="Search Name">   
+<input type="text" onkeyup="searchPersonell(this.value)" placeholder="Search Name">   
                             <label for="floatingPassword">Search Name</label>
                         </div>
 
