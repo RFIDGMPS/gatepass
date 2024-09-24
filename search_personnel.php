@@ -1,5 +1,6 @@
 <?php
 include 'connection.php';
+include 'admin/header.php';
 
 // Get the search query from URL
 $q = isset($_GET['q']) ? $db->real_escape_string($_GET['q']) : '';
