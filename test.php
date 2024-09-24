@@ -8,9 +8,8 @@
     <style>
         .card {
             display: flex;
-            flex-direction: column; /* Stack elements vertically */
-            align-items: center; /* Center align items horizontally */
-            padding: 20px;
+            align-items: center; /* Center align items vertically */
+            padding: 10px;
             margin: 10px 0; /* Space between cards */
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -18,10 +17,13 @@
             position: relative; /* For absolute positioning of the button */
         }
         .card img {
-            width: 80px; /* Adjusted size for the image */
-            height: 80px; /* Adjusted size for the image */
+            width: 60px; /* Size for the image */
+            height: 60px; /* Size for the image */
             border-radius: 50%; /* Makes the image circular */
-            margin-bottom: 10px; /* Space between image and text */
+            margin-right: 15px; /* Space between image and text */
+        }
+        .card-content {
+            flex: 1; /* Take up remaining space */
         }
         .close-btn {
             position: absolute;
@@ -29,7 +31,7 @@
             right: 10px;
             cursor: pointer;
             font-size: 18px;
-            color: #fff;
+            color: white;
             background: red;
             border: none;
             border-radius: 50%;
@@ -43,26 +45,34 @@
     <div class="card">
         <button class="close-btn" onclick="removeCard(this)">×</button>
         <img src="admin/uploads/photo1.jpg" alt="Photo">
-        <h5 class="mb-0">John Doe</h5>
-        <p class="mb-0">Department: HR</p>
+        <div class="card-content">
+            <p class="mb-0"><strong>Department:</strong> HR</p>
+            <h5 class="mb-0">John Doe</h5>
+        </div>
     </div>
     <div class="card">
         <button class="close-btn" onclick="removeCard(this)">×</button>
         <img src="admin/uploads/photo2.jpg" alt="Photo">
-        <h5 class="mb-0">Jane Smith</h5>
-        <p class="mb-0">Department: IT</p>
+        <div class="card-content">
+            <p class="mb-0"><strong>Department:</strong> IT</p>
+            <h5 class="mb-0">Jane Smith</h5>
+        </div>
     </div>
     <div class="card">
         <button class="close-btn" onclick="removeCard(this)">×</button>
         <img src="admin/uploads/photo3.jpg" alt="Photo">
-        <h5 class="mb-0">Emily Johnson</h5>
-        <p class="mb-0">Department: Marketing</p>
+        <div class="card-content">
+            <p class="mb-0"><strong>Department:</strong> Marketing</p>
+            <h5 class="mb-0">Emily Johnson</h5>
+        </div>
     </div>
     <div class="card">
         <button class="close-btn" onclick="removeCard(this)">×</button>
         <img src="admin/uploads/photo4.jpg" alt="Photo">
-        <h5 class="mb-0">Michael Brown</h5>
-        <p class="mb-0">Department: Finance</p>
+        <div class="card-content">
+            <p class="mb-0"><strong>Department:</strong> Finance</p>
+            <h5 class="mb-0">Michael Brown</h5>
+        </div>
     </div>
     <!-- Add more cards as needed -->
 </div>
@@ -72,4 +82,9 @@
         // Get the card element to remove
         const card = button.parentNode;
         // Remove the card from the DOM
- 
+        card.remove();
+    }
+</script>
+
+</body>
+</html>
