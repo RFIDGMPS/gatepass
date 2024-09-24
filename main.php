@@ -1093,7 +1093,7 @@ Webcam.snap(function(data_uri){
                     document.getElementById("selectedPersonelTable").style.display = 'none';
                 }
             };
-            xhr.open("GET", "search_personell.php?q=" + encodeURIComponent(query), true);
+            xhr.open("GET", "search_personnel.php?q=" + encodeURIComponent(query), true);
             xhr.send();
         }
 
