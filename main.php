@@ -1084,10 +1084,14 @@ Webcam.snap(function(data_uri){
 
 <!-- Add JavaScript for Search Functionality -->
 <script>
-    document.querySelector('.chatbot-toggler').addEventListener('click', function() {
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('.chatbot-toggler').addEventListener('click', toggleChatbot);
+    });
+
+    function toggleChatbot() {
         const chatbot = document.querySelector('.chatbot');
         chatbot.style.display = chatbot.style.display === 'none' || chatbot.style.display === '' ? 'block' : 'none';
-    });
+    }
 
     function searchPersonell(query) {
         if (query.length === 0) {
@@ -1120,10 +1124,6 @@ Webcam.snap(function(data_uri){
         } else {
             document.getElementById("selectedPersonelTable").style.display = 'none';
         }
-    }
-    function toggleChatbot() {
-        const chatbot = document.querySelector('.chatbot');
-        chatbot.style.display = chatbot.style.display === 'none' || chatbot.style.display === '' ? 'block' : 'none';
     }
 </script>
 
