@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-    <div style="height:10px;width:100px;border-color:black;"></div>
+    <div style="height:100px;width:100px;border-color: solid black;"></div>
 <table id="myTable">
     <thead>
         <tr>
