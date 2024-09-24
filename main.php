@@ -1046,9 +1046,23 @@ Webcam.snap(function(data_uri){
 
                                 </div>
                             </div>
-                       
-                        
-                        <script>
+              
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" name="pname" placeholder="Name" autocomplete="off">
+                            <label for="floatingPassword">Name</label>
+                        </div>
+                        <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+    <script>
         function searchPersonell(str) {
             if (str.length == 0) {
                 document.getElementById("results").innerHTML = "";
@@ -1067,14 +1081,10 @@ Webcam.snap(function(data_uri){
 </head>
 <body>
 
-<div class="form-floating mb-4">
-<input class="form-control" type="text" onkeyup="searchPersonell(this.value)" placeholder="Search Name">   
-                            <label for="floatingPassword">Search Name</label>
-                            <div id="results"></div>
-                        </div>
+<h2>Search Personell</h2>
+<input type="text" onkeyup="searchPersonell(this.value)" placeholder="Search by name...">
 
-
-
+<div id="results"></div>
                        
                         <button type="submit" name="send" id="login-button" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
                     </form>
