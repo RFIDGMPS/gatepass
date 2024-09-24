@@ -11,15 +11,24 @@ $sql = "SELECT CONCAT(first_name, ' ', middle_name, ' ', last_name) AS full_name
 
 $result = $db->query($sql);
 
-// Output results as dropdown options
+// Output results as a table
 if ($result->num_rows > 0) {
+    echo "<table>
+            <tr>
+                <th>Photo</th>
+                <th>Department</th>
+                <th>Name</th>
+            </tr>";
     while($row = $result->fetch_assoc()) {
-        echo "<option value='" . htmlspecialchars($row['full_name']) . "' 
-                data-department='" . htmlspecialchars($row['department']) . "' 
-                data-photo='" . htmlspecialchars($row['photo']) . "'>" . htmlspecialchars($row['full_name']) . "</option>";
+        echo "<tr>
+               <td><img src='admin/uploads/" . $row['photo'] . "' width='50' height='50'></td>
+                <td>" . $row['department'] . "</td>
+                <td>" . $row['full_name'] . "</td>
+              </tr>";
     }
+    echo "</table>";
 } else {
-    echo "<option value=''>No results found</option>";
+    echo "No results found";
 }
 
 $db->close();
