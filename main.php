@@ -1020,8 +1020,7 @@ Webcam.snap(function(data_uri){
 <style>
         .card {
             display: flex;
-            align-items: center; /* Aligns items vertically center */
-            padding: 10px;
+           padding: 10px;
             margin: 10px 0; /* Space between cards */
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -1079,10 +1078,10 @@ Webcam.snap(function(data_uri){
                         <div class="card">
         <button class="close-btn" onclick="removeCard(this)">×</button>
         <img src="admin/uploads/mcc.jpg" alt="Photo">
-        <div>
+        
             <h5 class="mb-0">Michael Brown</h5>
             <p class="mb-0">Department: Finance</p>
-        </div>
+        
     </div>
                         
                         <!-- Live Search Results -->
