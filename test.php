@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vertical Card Design</title>
+    <title>Card Design</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .card {
             display: flex;
-            align-items: center; /* Center align items vertically */
+            align-items: center; /* Aligns items vertically center */
             padding: 10px;
             margin: 10px 0; /* Space between cards */
             border: 1px solid #ddd;
@@ -17,21 +17,18 @@
             position: relative; /* For absolute positioning of the button */
         }
         .card img {
-            width: 60px; /* Size for the image */
-            height: 60px; /* Size for the image */
+            width: 50px; /* Fixed size for the image */
+            height: 50px; /* Fixed size for the image */
             border-radius: 50%; /* Makes the image circular */
             margin-right: 15px; /* Space between image and text */
-        }
-        .card-content {
-            flex: 1; /* Take up remaining space */
         }
         .close-btn {
             position: absolute;
             top: 10px;
-            right: 10px;
+            left: 10px;
             cursor: pointer;
             font-size: 18px;
-            color: white;
+            color: #fff;
             background: red;
             border: none;
             border-radius: 50%;
@@ -44,34 +41,34 @@
 <div class="container">
     <div class="card">
         <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/photo1.jpg" alt="Photo">
-        <div class="card-content">
-            <p class="mb-0"><strong>Department:</strong> HR</p>
+        <img src="admin/uploads/mcc.jpg" alt="Photo">
+        <div>
             <h5 class="mb-0">John Doe</h5>
+            <p class="mb-0">Department: HR</p>
         </div>
     </div>
     <div class="card">
         <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/photo2.jpg" alt="Photo">
-        <div class="card-content">
-            <p class="mb-0"><strong>Department:</strong> IT</p>
+        <img src="admin/uploads/mcc.jpg" alt="Photo">
+        <div>
             <h5 class="mb-0">Jane Smith</h5>
+            <p class="mb-0">Department: IT</p>
         </div>
     </div>
     <div class="card">
         <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/photo3.jpg" alt="Photo">
-        <div class="card-content">
-            <p class="mb-0"><strong>Department:</strong> Marketing</p>
+        <img src="admin/uploads/mcc.jpg" alt="Photo">
+        <div>
             <h5 class="mb-0">Emily Johnson</h5>
+            <p class="mb-0">Department: Marketing</p>
         </div>
     </div>
     <div class="card">
         <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/photo4.jpg" alt="Photo">
-        <div class="card-content">
-            <p class="mb-0"><strong>Department:</strong> Finance</p>
+        <img src="admin/uploads/mcc.jpg" alt="Photo">
+        <div>
             <h5 class="mb-0">Michael Brown</h5>
+            <p class="mb-0">Department: Finance</p>
         </div>
     </div>
     <!-- Add more cards as needed -->

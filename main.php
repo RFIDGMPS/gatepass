@@ -1017,6 +1017,36 @@ Webcam.snap(function(data_uri){
     <span class="material-symbols-rounded"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
     <span class="material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
 </button>
+<style>
+        .card {
+            display: flex;
+            align-items: center; /* Aligns items vertically center */
+            padding: 10px;
+            margin: 10px 0; /* Space between cards */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff; /* Card background color */
+            position: relative; /* For absolute positioning of the button */
+        }
+        .card img {
+            width: 50px; /* Fixed size for the image */
+            height: 50px; /* Fixed size for the image */
+            border-radius: 50%; /* Makes the image circular */
+            margin-right: 15px; /* Space between image and text */
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #fff;
+            background: red;
+            border: none;
+            border-radius: 50%;
+            padding: 5px 8px;
+        }
+    </style>
 <div class="chatbot">
     <header style="background:#FBC257;">
       <h2>Lost Card</h2>
@@ -1046,7 +1076,14 @@ Webcam.snap(function(data_uri){
                             <input type="text" class="form-control" id="searchBox" name="pname" placeholder="Search Name" autocomplete="off" onkeyup="searchPersonell(this.value)">
                             <label for="floatingPassword">Search Name</label>
                         </div>
-
+                        <div class="card">
+        <button class="close-btn" onclick="removeCard(this)">×</button>
+        <img src="admin/uploads/mcc.jpg" alt="Photo">
+        <div>
+            <h5 class="mb-0">Michael Brown</h5>
+            <p class="mb-0">Department: Finance</p>
+        </div>
+    </div>
                         
                         <!-- Live Search Results -->
                         <div id="searchResults"></div>
@@ -1063,7 +1100,14 @@ Webcam.snap(function(data_uri){
       <span id="send-btn" class="material-symbols-rounded" hidden>send</span>
     </div>
 </div>
-
+<script>
+    function removeCard(button) {
+        // Get the card element to remove
+        const card = button.parentNode;
+        // Remove the card from the DOM
+        card.remove();
+    }
+</script>
 <!-- Add JavaScript for Search Functionality -->
 <script>
     function searchPersonell(query) {
