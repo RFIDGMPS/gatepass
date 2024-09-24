@@ -1078,8 +1078,6 @@ Webcam.snap(function(data_uri){
             xhr.send();
         }
     </script>
-</head>
-<body>
 
 <h2>Search Personell</h2>
 <input type="text" onkeyup="searchPersonell(this.value)" placeholder="Search by name...">
