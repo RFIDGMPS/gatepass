@@ -1121,6 +1121,10 @@ Webcam.snap(function(data_uri){
             document.getElementById("selectedPersonelTable").style.display = 'none';
         }
     }
+    function toggleChatbot() {
+        const chatbot = document.querySelector('.chatbot');
+        chatbot.style.display = chatbot.style.display === 'none' || chatbot.style.display === '' ? 'block' : 'none';
+    }
 </script>
 
 <?php }?>
