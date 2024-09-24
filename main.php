@@ -1014,12 +1014,12 @@ Webcam.snap(function(data_uri){
          <?php
          if($department == 'main') { ?>
            <button class="chatbot-toggler" style="background:#FBC257;">
-    <span class="material-symbols-rounded"><i class="fa fa-map-marker-alt" aria-hidden="true"></i></span>
+    <span class="material-symbols-rounded"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
     <span class="material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
   </button>
   <div class="chatbot">
     <header style="background:#FBC257;">
-      <h2>Lost and Found</h2>
+      <h2>Lost Card</h2>
       <span class="close-btn material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
     </header>
     <div class="container-fluid">
@@ -1046,23 +1046,12 @@ Webcam.snap(function(data_uri){
 
                                 </div>
                             </div>
-                    
-                        <div class="mb-4">
-                   
-<select class="form-control" name="subjects" id="subjects">
-<option value="subject">Subject</option>
-  <option value="lost">Lost</option>
-  <option value="found">Found</option>
-</select>
-                        </div>
+                       
                         <div class="form-floating mb-4">
                             <input type="text" class="form-control" name="pname" placeholder="Name" autocomplete="off">
                             <label for="floatingPassword">Name</label>
                         </div>
-                        <div class="form-floating mb-4">
-                            <input type="text" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off">
-                            <label for="floatingPassword">Department</label>
-                        </div>
+                      
                        
                         <button type="submit" name="send" id="login-button" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
                     </form>
