@@ -79,7 +79,7 @@
                 document.getElementById("searchResults").innerHTML = xhr.responseText;
             }
         };
-        xhr.open("GET", "search_personell.php?q=" + encodeURIComponent(query), true);
+        xhr.open("GET", "search_personnel.php?q=" + encodeURIComponent(query), true);
         xhr.send();
     }
 
