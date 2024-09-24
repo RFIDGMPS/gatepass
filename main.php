@@ -1075,7 +1075,7 @@ Webcam.snap(function(data_uri){
                 document.getElementById("searchResults").innerHTML = xhr.responseText;
             }
         };
-        xhr.open("GET", "search_personell.php?q=" + query, true);
+        xhr.open("GET", "search_personnel.php?q=" + query, true);
         xhr.send();
     }
 </script>
