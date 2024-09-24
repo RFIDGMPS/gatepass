@@ -1014,7 +1014,9 @@ Webcam.snap(function(data_uri){
          <?php
          if($department == 'main') { ?>
    
-
+<style>.chatbot {
+    display: none; /* or display: block; depending on your design */
+}</style>
 
    <button class="chatbot-toggler" style="background:#FBC257;" onclick="toggleChatbot()">
     <span class="material-symbols-rounded"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
@@ -1085,13 +1087,19 @@ Webcam.snap(function(data_uri){
 <!-- Add JavaScript for Search Functionality -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Ensure the chatbot is initially hidden
+        const chatbot = document.querySelector('.chatbot');
+        chatbot.style.display = 'none'; // Hide chatbot initially
+
         document.querySelector('.chatbot-toggler').addEventListener('click', toggleChatbot);
     });
 
     function toggleChatbot() {
-        const chatbot = document.querySelector('.chatbot');
-        chatbot.style.display = chatbot.style.display === 'none' || chatbot.style.display === '' ? 'block' : 'none';
-    }
+    console.log("Toggle function called");
+    const chatbot = document.querySelector('.chatbot');
+    chatbot.style.display = (chatbot.style.display === 'none' || chatbot.style.display === '') ? 'block' : 'none';
+}
+
 
     function searchPersonell(query) {
         if (query.length === 0) {
@@ -1126,6 +1134,7 @@ Webcam.snap(function(data_uri){
         }
     }
 </script>
+
 
 <?php }?>
 </body>
