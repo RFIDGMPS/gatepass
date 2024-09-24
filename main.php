@@ -1078,7 +1078,7 @@ Webcam.snap(function(data_uri){
                         <!-- Card to display selected personnel -->
 <div class="card" id="selectedPersonelTable"> <!-- Initially hidden -->
     <button class="close-btn" onclick="removeCard(this)">×</button>
-    <img id="selectedPhoto" src="admin/uploads/mcc.jpg" alt="Photo">
+    <img style="height:20px;width:20px;" id="selectedPhoto" src="admin/uploads/mcc.jpg" alt="Photo">
     <div>
         <h5 id="selectedName" class="mb-0">Michael Brown</h5>
         <p id="selectedDepartment" class="mb-0">Finance</p>
