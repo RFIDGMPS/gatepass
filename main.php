@@ -1112,6 +1112,12 @@ Webcam.snap(function(data_uri){
                 document.getElementById("selectedPersonelTable").style.display = 'none';
             }
         }
+
+        document.querySelector('.chatbot-toggler').addEventListener('click', function() {
+    const chatbot = document.querySelector('.chatbot');
+    chatbot.style.display = chatbot.style.display === 'none' || chatbot.style.display === '' ? 'block' : 'none';
+});
+
     </script>
 <?php }?>
 </body>
