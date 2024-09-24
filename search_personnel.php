@@ -1,6 +1,6 @@
 <?php
 include 'connection.php';
-include 'admin/header.php';
+
 
 // Get the search query from URL
 $q = isset($_GET['q']) ? $db->real_escape_string($_GET['q']) : '';
@@ -14,7 +14,8 @@ $result = $db->query($sql);
 
 // Output results as a table
 if ($result->num_rows > 0) {
-    echo "<table>
+    echo "<div class='table-responsive'>
+                    <table class='table table-border'>
             <tr>
                 <th>Photo</th>
                 <th>Department</th>
