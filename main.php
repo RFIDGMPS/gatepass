@@ -1029,8 +1029,7 @@ Webcam.snap(function(data_uri){
             position: relative; /* For absolute positioning of the button */
         }
         .card img {
-            width: 50px; /* Fixed size for the image */
-            height: 50px; /* Fixed size for the image */
+     
             border-radius: 50%; /* Makes the image circular */
             margin-right: 15px; /* Space between image and text */
         }

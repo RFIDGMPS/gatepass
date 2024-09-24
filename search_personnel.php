@@ -27,7 +27,14 @@ if ($result->num_rows > 0) {
                 <td>" . htmlspecialchars($row['full_name']) . "</td>
               </tr>";
     }
-    echo "</table></div></form>";
+    echo "</table></div></form>
+    
+    <div id='detailsModal' style='display:none; position:fixed; top:20%; left:50%; transform:translate(-50%, -50%); background-color:white; padding:20px; border:1px solid #ccc; z-index:1000;'>
+    <h3 id='modalTitle'></h3>
+    <img id='modalPhoto' src='' width='100' height='100' alt='Photo'>
+    <p><strong>Department:</strong> <span id='modalDepartment'></span></p>
+    <button onclick='closeModal()'>Close</button>
+</div>";
 } else {
     echo "No results found";
 }
@@ -36,12 +43,7 @@ $db->close();
 ?>
 
 <!-- Modal for displaying details -->
-<div id="detailsModal" style="display:none; position:fixed; top:20%; left:50%; transform:translate(-50%, -50%); background-color:white; padding:20px; border:1px solid #ccc; z-index:1000;">
-    <h3 id="modalTitle"></h3>
-    <img id="modalPhoto" src="" width="100" height="100" alt="Photo">
-    <p><strong>Department:</strong> <span id="modalDepartment"></span></p>
-    <button onclick="closeModal()">Close</button>
-</div>
+
 
 <script>
 function showDetails(id, fullName, department, photo) {
