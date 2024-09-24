@@ -25,7 +25,7 @@
         .close-btn {
             position: absolute;
             top: 10px;
-            right: 10px;
+            left: 10px;
             cursor: pointer;
             font-size: 18px;
             color: #fff;
@@ -41,7 +41,7 @@
 <div class="container">
     <div class="card">
         <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/photo1.jpg" alt="Photo">
+        <img src="admin/uploads/mcc.jpg" alt="Photo">
         <div>
             <h5 class="mb-0">John Doe</h5>
             <p class="mb-0">Department: HR</p>
@@ -49,7 +49,7 @@
     </div>
     <div class="card">
         <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/photo2.jpg" alt="Photo">
+        <img src="admin/uploads/mcc.jpg" alt="Photo">
         <div>
             <h5 class="mb-0">Jane Smith</h5>
             <p class="mb-0">Department: IT</p>
@@ -57,7 +57,7 @@
     </div>
     <div class="card">
         <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/photo3.jpg" alt="Photo">
+        <img src="admin/uploads/mcc.jpg" alt="Photo">
         <div>
             <h5 class="mb-0">Emily Johnson</h5>
             <p class="mb-0">Department: Marketing</p>
@@ -65,7 +65,7 @@
     </div>
     <div class="card">
         <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/photo4.jpg" alt="Photo">
+        <img src="admin/uploads/mcc.jpg" alt="Photo">
         <div>
             <h5 class="mb-0">Michael Brown</h5>
             <p class="mb-0">Department: Finance</p>
