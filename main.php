@@ -1017,7 +1017,7 @@ Webcam.snap(function(data_uri){
     <span class="material-symbols-rounded"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
     <span class="material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
   </button>
-  <div class="chatbot" style="height:100px;">
+  <div class="chatbot" style="height:700px;">
     <header style="background:#FBC257;">
       <h2>Lost Card</h2>
       <span class="close-btn material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
