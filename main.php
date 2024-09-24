@@ -1013,7 +1013,7 @@ Webcam.snap(function(data_uri){
 
          <?php
          if($department == 'main') { ?>
-        <button class="chatbot-toggler" style="background:#FBC257;">
+       <button class="chatbot-toggler" style="background:#FBC257;">
     <span class="material-symbols-rounded"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
     <span class="material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
 </button>
@@ -1042,27 +1042,21 @@ Webcam.snap(function(data_uri){
                         </div>
                         
                         <!-- Search Box -->
-                       <!-- Search Box -->
-<div class="form-floating mb-4">
-    <input type="text" class="form-control" id="searchBox" name="pname" placeholder="Search Name" autocomplete="off" onkeyup="searchPersonell(this.value)">
-    <label for="searchBox">Search Name</label>
-</div>
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" id="searchBox" name="pname" placeholder="Search Name" autocomplete="off" onkeyup="searchPersonell(this.value)">
+                            <label for="searchBox">Search Name</label>
+                        </div>
 
-<!-- Dropdown for Live Search Results -->
-<select id="searchResults" class="form-select mb-4" size="5" onchange="selectPersonell(this)">
-    <option value="">Select a name...</option>
-</select>
-
+                        <!-- Dropdown for Live Search Results -->
+                        <select id="searchResults" class="form-select mb-4" size="5" onchange="selectPersonell(this)">
+                            <option value="">Select a name...</option>
+                        </select>
                         
                         <button type="submit" name="send" id="login-button" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="chat-input" hidden>
-      <textarea placeholder="Enter a message..." spellcheck="false" hidden></textarea>
-      <span id="send-btn" class="material-symbols-rounded" hidden>send</span>
     </div>
 </div>
 
@@ -1100,6 +1094,7 @@ Webcam.snap(function(data_uri){
         }
     }
 </script>
+
 
 <?php }?>
 </body>
