@@ -1,4 +1,3 @@
-<!-- search_personnel.php -->
 <?php
 include 'connection.php';
 
@@ -28,13 +27,14 @@ if ($result->num_rows > 0) {
                 <td>" . $row['full_name'] . "</td>
               </tr>";
     }
-    echo "</table>";
+    echo "</table></div>";
 } else {
     echo "No results found";
 }
 
 $db->close();
 ?>
+
 <script>
     // Get the table element
     const table = document.getElementById("myTable");
