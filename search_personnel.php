@@ -14,7 +14,7 @@ $result = $db->query($sql);
 
 // Output results as a table
 if ($result->num_rows > 0) {
-    echo "<div class='table-responsive'>
+    echo "<div style='height:180px;' class='table-responsive'>
                     <table class='table table-border'>
             <tr>
                 <th>Photo</th>

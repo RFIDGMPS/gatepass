@@ -1049,7 +1049,7 @@ Webcam.snap(function(data_uri){
 
                         
                         <!-- Live Search Results -->
-                        <div style="height:200px;" id="searchResults"></div>
+                        <div id="searchResults"></div>
         
                         
                         <button type="submit" name="send" id="login-button" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
