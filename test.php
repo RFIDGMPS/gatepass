@@ -44,13 +44,13 @@
 <div class="card-container">
     <div class="card">
         <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/photo1.jpg" alt="Photo">
+        <img src="admin/uploads/mcc.jpg" alt="Photo">
         <h5 class="mt-2">John Doe</h5>
         <p>Department: HR</p>
     </div>
     <div class="card">
         <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/photo2.jpg" alt="Photo">
+        <img src="admin/uploads/mcc.jpg" alt="Photo">
         <h5 class="mt-2">Jane Smith</h5>
         <p>Department: IT</p>
     </div>
