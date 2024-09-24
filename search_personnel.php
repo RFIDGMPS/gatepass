@@ -15,7 +15,7 @@ $result = $db->query($sql);
 // Output results as a table
 if ($result->num_rows > 0) {
     echo "<form><div style='height:180px;' class='table-responsive'>
-                    <table class='table table-border'>
+                    <table class='table table-border' id='myTable'>
             <tr>
           
                 <th>Photo</th>
