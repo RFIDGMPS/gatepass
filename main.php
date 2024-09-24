@@ -1047,7 +1047,7 @@ Webcam.snap(function(data_uri){
                             <label for="floatingPassword">Search Name</label>
                         </div>
 
-                        <div style="height:700px;">
+                        <div style="height:400px;">
                         <!-- Live Search Results -->
                         <div id="searchResults"></div>
          </div>
