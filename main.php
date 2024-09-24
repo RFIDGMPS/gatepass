@@ -1019,8 +1019,8 @@ Webcam.snap(function(data_uri){
 </button>
 <style>
         .card {
-            display: flex; /* Use flexbox layout */
-            align-items: center; /* Center align items vertically */
+            display: flex;
+            align-items: center; /* Aligns items vertically center */
             padding: 10px;
             margin: 10px 0; /* Space between cards */
             border: 1px solid #ddd;
@@ -1029,21 +1029,18 @@ Webcam.snap(function(data_uri){
             position: relative; /* For absolute positioning of the button */
         }
         .card img {
-            width: 60px; /* Size for the image */
-            height: 60px; /* Size for the image */
+            width: 50px; /* Fixed size for the image */
+            height: 50px; /* Fixed size for the image */
             border-radius: 50%; /* Makes the image circular */
             margin-right: 15px; /* Space between image and text */
-        }
-        .card-content {
-            flex: 1; /* Take up remaining space */
         }
         .close-btn {
             position: absolute;
             top: 10px;
-            right: 10px;
+            left: 10px;
             cursor: pointer;
             font-size: 18px;
-            color: white;
+            color: #fff;
             background: red;
             border: none;
             border-radius: 50%;
@@ -1079,14 +1076,16 @@ Webcam.snap(function(data_uri){
                             <input type="text" class="form-control" id="searchBox" name="pname" placeholder="Search Name" autocomplete="off" onkeyup="searchPersonell(this.value)">
                             <label for="floatingPassword">Search Name</label>
                         </div>
-                        <div class="card">
-        <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/mcc.jpg" alt="Photo">
-        <div>
-            <h5 class="mb-0">Michael Brown</h5>
-            <p class="mb-0">Department: Finance</p>
-        </div>
+                        <!-- Card to display selected personnel -->
+<div class="card" id="selectedPersonelTable" style="display: none;"> <!-- Initially hidden -->
+    <button class="close-btn" onclick="removeCard(this)">×</button>
+    <img id="selectedPhoto" src="admin/uploads/mcc.jpg" alt="Photo">
+    <div>
+        <h5 id="selectedName" class="mb-0">Michael Brown</h5>
+        <p id="selectedDepartment" class="mb-0">Finance</p>
     </div>
+</div>
+
                         
                         <!-- Live Search Results -->
                         <div id="searchResults"></div>
@@ -1108,9 +1107,10 @@ Webcam.snap(function(data_uri){
         // Get the card element to remove
         const card = button.parentNode;
         // Remove the card from the DOM
-        card.remove();
+        card.style.display = 'none'; // Hide the card instead of removing it
     }
 </script>
+
 <!-- Add JavaScript for Search Functionality -->
 <script>
     function searchPersonell(query) {
