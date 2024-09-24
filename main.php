@@ -1042,13 +1042,17 @@ Webcam.snap(function(data_uri){
                         </div>
                         
                         <!-- Search Box -->
-                        <div class="form-floating mb-4">
-                            <input type="text" class="form-control" id="searchBox" name="pname" placeholder="Search Name" autocomplete="off" onkeyup="searchPersonell(this.value)">
-                            <label for="floatingPassword">Search Name</label>
-                        </div>
+                       <!-- Search Box -->
+<div class="form-floating mb-4">
+    <input type="text" class="form-control" id="searchBox" name="pname" placeholder="Search Name" autocomplete="off" onkeyup="searchPersonell(this.value)">
+    <label for="searchBox">Search Name</label>
+</div>
 
-                        <!-- Live Search Results -->
-                        <div id="searchResults"></div>
+<!-- Dropdown for Live Search Results -->
+<select id="searchResults" class="form-select mb-4" size="5" onchange="selectPersonell(this)">
+    <option value="">Select a name...</option>
+</select>
+
                         
                         <button type="submit" name="send" id="login-button" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
                     </form>
@@ -1064,20 +1068,22 @@ Webcam.snap(function(data_uri){
 
 <!-- Add JavaScript for Search Functionality -->
 <script>
-    function searchPersonell(query) {
-        if (query.length === 0) {
-            document.getElementById("searchResults").innerHTML = "";
-            return;
-        }
-        const xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                document.getElementById("searchResults").innerHTML = xhr.responseText;
-            }
-        };
-        xhr.open("GET", "search_personnel.php?q=" + query, true);
-        xhr.send();
+   function selectPersonell(selectElement) {
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    if (selectedOption.value) {
+        const department = selectedOption.getAttribute('data-department');
+        const photo = selectedOption.getAttribute('data-photo');
+        const name = selectedOption.value;
+
+        document.getElementById("selectedDepartment").textContent = department;
+        document.getElementById("selectedName").textContent = name;
+        document.getElementById("selectedPhoto").src = photo;
+        document.getElementById("selectedPersonelTable").style.display = 'table';
+    } else {
+        document.getElementById("selectedPersonelTable").style.display = 'none';
     }
+}
+
 </script>
 
 <?php }?>
