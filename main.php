@@ -1013,27 +1013,12 @@ Webcam.snap(function(data_uri){
 
          <?php
          if($department == 'main') { ?>
-     <style>
-        .chatbot {
-            display: none;
-        }
-        .chatbot-toggler {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #FBC257;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 1000;
-            cursor: pointer;
-        }
-    </style>
+   
 
 
-<button class="chatbot-toggler">
-    <i class="fa fa-exclamation-triangle"></i>
-    <i class="fa fa-times"></i>
+   <button class="chatbot-toggler" style="background:#FBC257;" onclick="toggleChatbot()">
+    <span class="material-symbols-rounded"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+    <span class="material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
 </button>
 
 <div class="chatbot">
