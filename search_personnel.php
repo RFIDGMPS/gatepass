@@ -21,7 +21,7 @@ if ($result->num_rows > 0) {
             </tr>";
     while($row = $result->fetch_assoc()) {
         echo "<tr>
-               <td><img src='" . $row['photo'] . "' width='50' height='50'></td>
+               <td><img src='admin/uploads/" . $row['photo'] . "' width='50' height='50'></td>
                 <td>" . $row['department'] . "</td>
                 <td>" . $row['full_name'] . "</td>
               </tr>";
