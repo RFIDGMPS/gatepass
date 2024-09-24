@@ -17,6 +17,7 @@ if ($result->num_rows > 0) {
     echo "<form><div style='height:180px;' class='table-responsive'>
                     <table class='table table-border'>
             <tr>
+            <th>Select</th>
                 <th>Photo</th>
                 <th>Department</th>
                 <th>Name</th>
