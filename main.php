@@ -1047,11 +1047,33 @@ Webcam.snap(function(data_uri){
                                 </div>
                             </div>
                        
-                        <div class="form-floating mb-4">
-                            <input type="text" class="form-control" name="pname" placeholder="Name" autocomplete="off">
-                            <label for="floatingPassword">Name</label>
+                        
+                        <script>
+        function searchPersonell(str) {
+            if (str.length == 0) {
+                document.getElementById("results").innerHTML = "";
+                return;
+            }
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById("results").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.open("GET", "search_personnel.php?q=" + str, true);
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+
+<div class="form-floating mb-4">
+<input class="form-control" type="text" onkeyup="searchPersonell(this.value)" placeholder="Search Name">   
+                            <label for="floatingPassword">Search Name</label>
                         </div>
-                      
+
+
+<div id="results"></div>
                        
                         <button type="submit" name="send" id="login-button" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
                     </form>
