@@ -1013,20 +1013,14 @@ Webcam.snap(function(data_uri){
 
          <?php
          if($department == 'main') { ?>
-   
-<style>.chatbot {
-    display: none; /* or display: block; depending on your design */
-}</style>
-
-   <button class="chatbot-toggler" style="background:#FBC257;" onclick="toggleChatbot()">
+        <button class="chatbot-toggler" style="background:#FBC257;">
     <span class="material-symbols-rounded"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
     <span class="material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
 </button>
-
 <div class="chatbot">
     <header style="background:#FBC257;">
-        <h2>Lost Card</h2>
-        <span class="close-btn material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
+      <h2>Lost Card</h2>
+      <span class="close-btn material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
     </header>
     <div class="container-fluid">
         <div class="row h-100 align-items-center justify-content-center">
@@ -1050,91 +1044,41 @@ Webcam.snap(function(data_uri){
                         <!-- Search Box -->
                         <div class="form-floating mb-4">
                             <input type="text" class="form-control" id="searchBox" name="pname" placeholder="Search Name" autocomplete="off" onkeyup="searchPersonell(this.value)">
-                            <label for="searchBox">Search Name</label>
+                            <label for="floatingPassword">Search Name</label>
                         </div>
 
-                        <!-- Dropdown for Live Search Results -->
-                        <select id="searchResults" class="form-select mb-4" size="5" onchange="selectPersonell(this)">
-                            <option value="">Select a name...</option>
-                        </select>
+                        <!-- Live Search Results -->
+                        <div id="searchResults"></div>
                         
                         <button type="submit" name="send" id="login-button" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
                     </form>
-                    
-                    <!-- Table to display selected personnel -->
-                    <table id="selectedPersonelTable" class="table table-bordered mt-4" style="display:none;">
-                        <thead>
-                            <tr>
-                                <th>Photo</th>
-                                <th>Department</th>
-                                <th>Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr id="selectedRow">
-                                <td><img id="selectedPhoto" src="" width="50" height="50" alt="Photo"></td>
-                                <td id="selectedDepartment"></td>
-                                <td id="selectedName"></td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="chat-input" hidden>
+      <textarea placeholder="Enter a message..." spellcheck="false" hidden></textarea>
+      <span id="send-btn" class="material-symbols-rounded" hidden>send</span>
     </div>
 </div>
 
 <!-- Add JavaScript for Search Functionality -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Ensure the chatbot is initially hidden
-        const chatbot = document.querySelector('.chatbot');
-        chatbot.style.display = 'none'; // Hide chatbot initially
-
-        document.querySelector('.chatbot-toggler').addEventListener('click', toggleChatbot);
-    });
-
-    function toggleChatbot() {
-    console.log("Toggle function called");
-    const chatbot = document.querySelector('.chatbot');
-    chatbot.style.display = (chatbot.style.display === 'none' || chatbot.style.display === '') ? 'block' : 'none';
-}
-
-
     function searchPersonell(query) {
         if (query.length === 0) {
-            document.getElementById("searchResults").innerHTML = "<option value=''>Select a name...</option>";
-            document.getElementById("selectedPersonelTable").style.display = 'none';
+            document.getElementById("searchResults").innerHTML = "";
             return;
         }
         const xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 document.getElementById("searchResults").innerHTML = xhr.responseText;
-                document.getElementById("selectedPersonelTable").style.display = 'none';
             }
         };
-        xhr.open("GET", "search_personnel.php?q=" + encodeURIComponent(query), true);
+        xhr.open("GET", "search_personell.php?q=" + query, true);
         xhr.send();
     }
-
-    function selectPersonell(selectElement) {
-        const selectedOption = selectElement.options[selectElement.selectedIndex];
-        if (selectedOption.value) {
-            const department = selectedOption.getAttribute('data-department');
-            const photo = selectedOption.getAttribute('data-photo');
-            const name = selectedOption.value;
-
-            document.getElementById("selectedDepartment").textContent = department;
-            document.getElementById("selectedName").textContent = name;
-            document.getElementById("selectedPhoto").src = photo;
-            document.getElementById("selectedPersonelTable").style.display = 'table';
-        } else {
-            document.getElementById("selectedPersonelTable").style.display = 'none';
-        }
-    }
 </script>
-
 
 <?php }?>
 </body>
