@@ -4,14 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Search</title>
-    <button class="chatbot-toggler" style="background:#FBC257;">
+    <!-- You may add your CSS links here -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add any additional custom styles here */
+        .chatbot {
+            display: none; /* Hide initially, toggle with JavaScript */
+        }
+    </style>
+</head>
+<body>
+
+<button class="chatbot-toggler" style="background:#FBC257;" onclick="toggleChatbot()">
     <span class="material-symbols-rounded"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
     <span class="material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
 </button>
+
 <div class="chatbot">
     <header style="background:#FBC257;">
-      <h2>Lost Card</h2>
-      <span class="close-btn material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
+        <h2>Lost Card</h2>
+        <span class="close-btn material-symbols-outlined" onclick="toggleChatbot()"><i class="fa fa-times" aria-hidden="true"></i></span>
     </header>
     <div class="container-fluid">
         <div class="row h-100 align-items-center justify-content-center">
@@ -35,7 +48,7 @@
                         <!-- Search Box -->
                         <div class="form-floating mb-4">
                             <input type="text" class="form-control" id="searchBox" name="pname" placeholder="Search Name" autocomplete="off" onkeyup="searchPersonell(this.value)">
-                            <label for="floatingPassword">Search Name</label>
+                            <label for="searchBox">Search Name</label>
                         </div>
 
                         <!-- Live Search Results -->
@@ -48,8 +61,8 @@
         </div>
     </div>
     <div class="chat-input" hidden>
-      <textarea placeholder="Enter a message..." spellcheck="false" hidden></textarea>
-      <span id="send-btn" class="material-symbols-rounded" hidden>send</span>
+        <textarea placeholder="Enter a message..." spellcheck="false" hidden></textarea>
+        <span id="send-btn" class="material-symbols-rounded" hidden>send</span>
     </div>
 </div>
 
@@ -66,8 +79,13 @@
                 document.getElementById("searchResults").innerHTML = xhr.responseText;
             }
         };
-        xhr.open("GET", "search_personell.php?q=" + query, true);
+        xhr.open("GET", "search_personell.php?q=" + encodeURIComponent(query), true);
         xhr.send();
+    }
+
+    function toggleChatbot() {
+        const chatbot = document.querySelector('.chatbot');
+        chatbot.style.display = chatbot.style.display === 'none' || chatbot.style.display === '' ? 'block' : 'none';
     }
 </script>
 
