@@ -15,6 +15,7 @@
     </style>
 </head>
 <body>
+    <div style="height:10px;width:100px;"></div>
 <table id="myTable">
     <thead>
         <tr>
