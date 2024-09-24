@@ -1019,8 +1019,9 @@ Webcam.snap(function(data_uri){
 </button>
 <style>
         .card {
-            display: flex;
-           padding: 10px;
+            display: flex; /* Use flexbox layout */
+            align-items: center; /* Center align items vertically */
+            padding: 10px;
             margin: 10px 0; /* Space between cards */
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -1028,18 +1029,21 @@ Webcam.snap(function(data_uri){
             position: relative; /* For absolute positioning of the button */
         }
         .card img {
-            width: 50px; /* Fixed size for the image */
-            height: 50px; /* Fixed size for the image */
+            width: 60px; /* Size for the image */
+            height: 60px; /* Size for the image */
             border-radius: 50%; /* Makes the image circular */
             margin-right: 15px; /* Space between image and text */
+        }
+        .card-content {
+            flex: 1; /* Take up remaining space */
         }
         .close-btn {
             position: absolute;
             top: 10px;
-            left: 10px;
+            right: 10px;
             cursor: pointer;
             font-size: 18px;
-            color: #fff;
+            color: white;
             background: red;
             border: none;
             border-radius: 50%;
@@ -1078,10 +1082,10 @@ Webcam.snap(function(data_uri){
                         <div class="card">
         <button class="close-btn" onclick="removeCard(this)">×</button>
         <img src="admin/uploads/mcc.jpg" alt="Photo">
-        
+        <div>
             <h5 class="mb-0">Michael Brown</h5>
             <p class="mb-0">Department: Finance</p>
-        
+        </div>
     </div>
                         
                         <!-- Live Search Results -->
