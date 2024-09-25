@@ -1079,7 +1079,13 @@ Webcam.snap(function(data_uri){
 <div class="card" id="detailsModal" style="display:none;background-color:#e9ecef;"> <!-- Initially hidden -->
     <span class="close-btn"  onclick="closeModal()">×</span>
     
-            <table class='table table-border' id='myTable'>
+            <table style="
+    margin-left: 30px;
+    padding: 0px;
+    margin-bottom: 0px;
+    border: none;
+    border-color:none;
+" class='table table-border' id='myTable'>
                 
                 <tr>
                 <td><img id="modalPhoto" src="" width='50' height='50'></td>
