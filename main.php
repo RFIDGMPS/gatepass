@@ -1076,11 +1076,11 @@ Webcam.snap(function(data_uri){
     <span class="close-btn" onclick="closeModal()">×</span>
     
     <table style="margin-left: 30px; padding: 0px; margin-bottom: 0px; border: none;" class='table table-border' id='myTable'>
-        <tr style="border-bottom-width:0px;vertical-align:middle;">
+        <tr style="vertical-align:middle;">
             <!-- First column: Photo -->
-            <td><img id="modalPhoto" src="" width='50' height='50'></td>
+            <td style="border-bottom-width:0px;"><img id="modalPhoto" src="" width='50' height='50'></td>
             <!-- Second column: Name and Department (stacked) -->
-            <td style="text-align:left;">
+            <td style="text-align:left;border-bottom-width:0px;">
                 <div id="modalTitle" style="font-weight: bold;"></div> <!-- Bold Name -->
                 <div id="modalDepartment" style="opacity: 0.6;"></div> <!-- Department with less opacity -->
             </td>
