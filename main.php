@@ -1076,12 +1076,12 @@ Webcam.snap(function(data_uri){
                             <label for="floatingPassword">Search Name</label>
                         </div>
                         <!-- Card to display selected personnel -->
-<div class="card" id="selectedPersonelTable"> <!-- Initially hidden -->
-    <button class="close-btn" onclick="removeCard(this)">×</button>
-    <img style="height:20px;width:20px;" id="selectedPhoto" src="admin/uploads/mcc.jpg" alt="Photo">
+<div class="card" id="detailsModal" style="display:none;"> <!-- Initially hidden -->
+    <button class="close-btn"  onclick="closeModal()">×</button>
+    <img style="height:20px;width:20px;" id="modalPhoto" src="admin/uploads/mcc.jpg" alt="Photo">
     <div>
-        <h5 id="selectedName" class="mb-0">Michael Brown</h5>
-        <p id="selectedDepartment" class="mb-0">Finance</p>
+        <h5 id="modalTitle" class="mb-0">Michael Brown</h5>
+        <p id="modalDepartment" class="mb-0">Finance</p>
     </div>
 </div>
 
