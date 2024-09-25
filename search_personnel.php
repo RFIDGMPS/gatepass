@@ -13,7 +13,7 @@ $result = $db->query($sql);
 
 // Output results as a table
 if ($result->num_rows > 0) {
-    echo "<form><div style='height:180px;' class='table-responsive'>
+    echo "<div style='height:180px;' class='table-responsive'>
             <table class='table table-border' id='myTable'>
                 <tr>
                     <th>Photo</th>
@@ -27,29 +27,7 @@ if ($result->num_rows > 0) {
                 <td>" . htmlspecialchars($row['full_name']) . "</td>
               </tr>";
     }
-    echo "</table></div></form>
-    
-    <div id='detailsModal' style='position:fixed; top:20%; left:50%; transform:translate(-50%, -50%); background-color:white; padding:20px; border:1px solid #ccc; z-index:1000;'>
-    <h3 id='modalTitle'></h3>
-    <img id='modalPhoto' src='' width='100' height='100' alt='Photo'>
-    <p><strong>Department:</strong> <span id='modalDepartment'></span></p>
-    <button onclick='closeModal()'>Close</button>
-</div>
-
-<script>
-function showDetails(id, fullName, department, photo) {
-    document.getElementById('modalTitle').innerText = fullName;
-    document.getElementById('modalDepartment').innerText = department;
-    document.getElementById('modalPhoto').src = 'admin/uploads/' + photo;
-    
-    // Show the modal
-    document.getElementById('detailsModal').style.display = 'block';
-}
-
-function closeModal() {
-    document.getElementById('detailsModal').style.display = 'none';
-}
-</script>";
+    echo "</table></div>";
 } else {
     echo "No results found";
 }
