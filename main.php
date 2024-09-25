@@ -1108,7 +1108,7 @@ Webcam.snap(function(data_uri){
         const card = button.parentNode;
         // Remove the card from the DOM
         card.style.display = 'none'; // Hide the card instead of removing it
-        document.getElementById('search').style.display = 'block';
+        //document.getElementById('search').style.display = 'block';
     }
 </script>
 
