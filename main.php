@@ -1042,6 +1042,7 @@ Webcam.snap(function(data_uri){
             font-size: 18px;
             color: #fff;
             background: red;
+            border-radius: 50%; /* Makes the image circular */
             border: none;
             padding: 5px 8px;
         }
