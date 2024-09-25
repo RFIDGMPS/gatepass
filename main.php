@@ -1072,7 +1072,7 @@ Webcam.snap(function(data_uri){
                         </div>
                         
                         <!-- Search Box -->
-                        <div class="form-floating mb-4">
+                        <div id="search" class="form-floating mb-4">
                             <input type="text" class="form-control" id="searchBox" name="pname" placeholder="Search Name" autocomplete="off" onkeyup="searchPersonell(this.value)">
                             <label for="floatingPassword">Search Name</label>
                         </div>
@@ -1130,13 +1130,6 @@ Webcam.snap(function(data_uri){
 </script>
 
 
-<!-- Modal for displaying details -->
-<div id="detailsModal" style="display:none; position:fixed; top:20%; left:50%; transform:translate(-50%, -50%); background-color:white; padding:20px; border:1px solid #ccc; z-index:1000;">
-    <h3 id="modalTitle"></h3>
-    <img id="modalPhoto" src="" width="100" height="100" alt="Photo">
-    <p><strong>Department:</strong> <span id="modalDepartment"></span></p>
-    <button onclick="closeModal()">Close</button>
-</div>
 
 <script>
 function showDetails(id, fullName, department, photo) {
@@ -1146,10 +1139,12 @@ function showDetails(id, fullName, department, photo) {
     
     // Show the modal
     document.getElementById('detailsModal').style.display = 'flex';
+    document.getElementById('search').style.display = 'none';
 }
 
 function closeModal() {
     document.getElementById('detailsModal').style.display = 'none';
+    document.getElementById('search').style.display = 'block';
 }
 </script>
 
