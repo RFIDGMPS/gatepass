@@ -1027,6 +1027,7 @@ Webcam.snap(function(data_uri){
             border-radius: 5px;
             background-color: #fff; /* Card background color */
             position: relative; /* For absolute positioning of the button */
+            text-align:center;
         }
         .card img {
      
@@ -1042,7 +1043,6 @@ Webcam.snap(function(data_uri){
             color: #fff;
             background: red;
             border: none;
-            border-radius: 50%;
             padding: 5px 8px;
         }
     </style>
@@ -1078,7 +1078,7 @@ Webcam.snap(function(data_uri){
                         <!-- Card to display selected personnel -->
 <div class="card" id="detailsModal" style="display:none;"> <!-- Initially hidden -->
     <button class="close-btn"  onclick="closeModal()">×</button>
-    <img style="height:20px;width:20px;" id="modalPhoto" src="admin/uploads/mcc.jpg" alt="Photo">
+    <img style="height:50px;width:50px;" id="modalPhoto" src="admin/uploads/mcc.jpg" alt="Photo">
     <div>
         <h5 id="modalTitle" class="mb-0">Michael Brown</h5>
         <p id="modalDepartment" class="mb-0">Finance</p>
