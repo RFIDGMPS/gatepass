@@ -1040,7 +1040,7 @@ Webcam.snap(function(data_uri){
             left: 10px;
             cursor: pointer;
             font-size: 18px;
-            color: #fff;
+            color: black;
             border-radius: 50%; /* Makes the image circular */
             border: none;
             padding: 5px 8px;
@@ -1076,13 +1076,19 @@ Webcam.snap(function(data_uri){
                             <label for="floatingPassword">Search Name</label>
                         </div>
                         <!-- Card to display selected personnel -->
-<div class="card" id="detailsModal" style="display:none;"> <!-- Initially hidden -->
+<div class="card" id="detailsModal" style="display:none;background-color:#e9ecef;"> <!-- Initially hidden -->
     <span class="close-btn"  onclick="closeModal()">×</span>
-    <img style="height:50px;width:50px;" id="modalPhoto" src="admin/uploads/mcc.jpg" alt="Photo">
-    <div>
-        <h5 id="modalTitle" class="mb-0">Michael Brown</h5>
-        <p id="modalDepartment" class="mb-0">Finance</p>
-    </div>
+    
+            <table class='table table-border' id='myTable'>
+                
+                <tr>
+                <td><img id="modalPhoto" src="" width='50' height='50'></td>
+                <td id="modalDepartment"></td>
+                <td  id="modalTitle"></td>
+              </tr>
+            </table>
+   
+   
 </div>
 
                         
