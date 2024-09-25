@@ -1144,7 +1144,7 @@ function showDetails(id, fullName, department, photo) {
     document.getElementById('modalPhoto').src = 'admin/uploads/' + photo;
     
     // Show the modal
-    document.getElementById('detailsModal').style.display = 'block';
+    document.getElementById('detailsModal').style.display = 'flex';
 }
 
 function closeModal() {
