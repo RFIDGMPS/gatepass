@@ -1084,7 +1084,9 @@ Webcam.snap(function(data_uri){
     padding: 0px;
     margin-bottom: 0px;
     border: none;
-    border-color:none;
+   
+    border-bottom-width: 0px;
+
 " class='table table-border' id='myTable'>
                 
                 <tr>
