@@ -1,87 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card Design</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .card {
-            display: flex;
-            align-items: center; /* Aligns items vertically center */
-            padding: 10px;
-            margin: 10px 0; /* Space between cards */
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #fff; /* Card background color */
-            position: relative; /* For absolute positioning of the button */
-        }
-        .card img {
-            width: 50px; /* Fixed size for the image */
-            height: 50px; /* Fixed size for the image */
-            border-radius: 50%; /* Makes the image circular */
-            margin-right: 15px; /* Space between image and text */
-        }
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            cursor: pointer;
-            font-size: 18px;
-            color: #fff;
-            background: red;
-            border: none;
-            border-radius: 50%;
-            padding: 5px 8px;
-        }
-    </style>
-</head>
-<body>
+<?php
+include 'connection.php';
 
-<div class="container">
-    <div class="card">
-        <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/mcc.jpg" alt="Photo">
-        <div>
-            <h5 class="mb-0">John Doe</h5>
-            <p class="mb-0">Department: HR</p>
-        </div>
-    </div>
-    <div class="card">
-        <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/mcc.jpg" alt="Photo">
-        <div>
-            <h5 class="mb-0">Jane Smith</h5>
-            <p class="mb-0">Department: IT</p>
-        </div>
-    </div>
-    <div class="card">
-        <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/mcc.jpg" alt="Photo">
-        <div>
-            <h5 class="mb-0">Emily Johnson</h5>
-            <p class="mb-0">Department: Marketing</p>
-        </div>
-    </div>
-    <div class="card">
-        <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/mcc.jpg" alt="Photo">
-        <div>
-            <h5 class="mb-0">Michael Brown</h5>
-            <p class="mb-0">Department: Finance</p>
-        </div>
-    </div>
-    <!-- Add more cards as needed -->
+// Get the search query from URL
+$q = isset($_GET['q']) ? $db->real_escape_string($_GET['q']) : '';
+
+// SQL query to search in the personnel table
+$sql = "SELECT CONCAT(first_name, ' ', middle_name, ' ', last_name) AS full_name, id, department, photo 
+        FROM personell 
+        WHERE CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE '%$q%'";
+
+$result = $db->query($sql);
+
+// Output results as a table
+if ($result->num_rows > 0) {
+    echo "<form><div style='height:180px;' class='table-responsive'>
+            <table class='table table-border' id='myTable'>
+                <tr>
+                    <th>Photo</th>
+                    <th>Department</th>
+                    <th>Name</th>
+                </tr>";
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr onclick='showDetails(" . htmlspecialchars($row['id']) . ", \"" . htmlspecialchars($row['full_name']) . "\", \"" . htmlspecialchars($row['department']) . "\", \"" . htmlspecialchars($row['photo']) . "\")'>
+                <td><img src='admin/uploads/" . htmlspecialchars($row['photo']) . "' width='50' height='50'></td>
+                <td>" . htmlspecialchars($row['department']) . "</td>
+                <td>" . htmlspecialchars($row['full_name']) . "</td>
+              </tr>";
+    }
+    echo "</table></div></form>";
+} else {
+    echo "No results found";
+}
+
+$db->close();
+?>
+
+<!-- Modal for displaying details -->
+<div id="detailsModal" style="display:none; position:fixed; top:20%; left:50%; transform:translate(-50%, -50%); background-color:white; padding:20px; border:1px solid #ccc; z-index:1000;">
+    <h3 id="modalTitle"></h3>
+    <img id="modalPhoto" src="" width="100" height="100" alt="Photo">
+    <p><strong>Department:</strong> <span id="modalDepartment"></span></p>
+    <button onclick="closeModal()">Close</button>
 </div>
 
 <script>
-    function removeCard(button) {
-        // Get the card element to remove
-        const card = button.parentNode;
-        // Remove the card from the DOM
-        card.remove();
-    }
-</script>
+function showDetails(id, fullName, department, photo) {
+    document.getElementById('modalTitle').innerText = fullName;
+    document.getElementById('modalDepartment').innerText = department;
+    document.getElementById('modalPhoto').src = 'admin/uploads/' + photo;
+    
+    // Show the modal
+    document.getElementById('detailsModal').style.display = 'block';
+}
 
-</body>
-</html>
+function closeModal() {
+    document.getElementById('detailsModal').style.display = 'none';
+}
+</script>
