@@ -1029,10 +1029,7 @@ Webcam.snap(function(data_uri){
             position: relative; /* For absolute positioning of the button */
             text-align:center;
         }
-        .card img {
-     
-            border-radius: 50%; /* Makes the image circular */
-        }
+      
         .close-btn {
             position: absolute;
             top: 10px;
@@ -1084,14 +1081,14 @@ Webcam.snap(function(data_uri){
     margin-bottom: 0px;
     border: none;
    
-    border-bottom-width: 0px;
+    border-bottom-width: 0px !important;
 
 " class='table table-border' id='myTable'>
                 
                 <tr>
                 <td><img id="modalPhoto" src="" width='50' height='50'></td>
-                <td id="modalDepartment"></td>
-                <td  id="modalTitle"></td>
+                <td id="modalDepartment"> <span  id="modalTitle"></span></td>
+               
               </tr>
             </table>
    
