@@ -1081,14 +1081,14 @@ Webcam.snap(function(data_uri){
     margin-bottom: 0px;
     border: none;
    
-    border-bottom-width: 0px !important;
+    
 
 " class='table table-border' id='myTable'>
                 
-                <tr>
+                <tr style="border-bottom-with:0px;">
                 <td><img id="modalPhoto" src="" width='50' height='50'></td>
-                <td id="modalDepartment"> <span  id="modalTitle"></span></td>
-               
+                <td id="modalDepartment"> </td>
+                <td  id="modalTitle"></td>
               </tr>
             </table>
    
