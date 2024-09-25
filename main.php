@@ -1072,29 +1072,22 @@ Webcam.snap(function(data_uri){
                             <label for="floatingPassword">Search Name</label>
                         </div>
                         <!-- Card to display selected personnel -->
-<div class="card" id="detailsModal" style="display:none;background-color:#e9ecef;"> <!-- Initially hidden -->
-    <span class="close-btn"  onclick="closeModal()">×</span>
+                        <div class="card" id="detailsModal" style="display:none;background-color:#e9ecef;">
+    <span class="close-btn" onclick="closeModal()">×</span>
     
-            <table style="
-    margin-left: 30px;
-    padding: 0px;
-    margin-bottom: 0px;
-    border: none;
-   
-    
-
-" class='table table-border' id='myTable'>
-                
-                <tr style="border-bottom-width:0px;vertical-align:middle;">
-                <td><img id="modalPhoto" src="" width='50' height='50'></td>
-                <td  id="modalTitle"></td><span id="modalDepartment"></span>
-                <td id="modalDepartment"> </td>
-                
-              </tr>
-            </table>
-   
-   
+    <table style="margin-left: 30px; padding: 0px; margin-bottom: 0px; border: none;" class='table table-border' id='myTable'>
+        <tr style="border-bottom-width:0px;vertical-align:middle;">
+            <!-- First column: Photo -->
+            <td><img id="modalPhoto" src="" width='50' height='50'></td>
+            <!-- Second column: Name and Department (stacked) -->
+            <td>
+                <div id="modalTitle"></div> <!-- Name -->
+                <div id="modalDepartment"></div> <!-- Department -->
+            </td>
+        </tr>
+    </table>
 </div>
+
 
                         
                         <!-- Live Search Results -->
