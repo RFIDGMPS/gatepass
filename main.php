@@ -1032,7 +1032,6 @@ Webcam.snap(function(data_uri){
         .card img {
      
             border-radius: 50%; /* Makes the image circular */
-            margin-right: 15px; /* Space between image and text */
         }
         .close-btn {
             position: absolute;
