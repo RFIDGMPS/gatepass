@@ -1078,7 +1078,7 @@ Webcam.snap(function(data_uri){
                         </div>
                         <!-- Card to display selected personnel -->
 <div class="card" id="detailsModal" style="display:none;"> <!-- Initially hidden -->
-    <button class="close-btn"  onclick="closeModal()">×</button>
+    <button class="close-btn"  onclick="removeCard(this)">×</button>
     <img style="height:50px;width:50px;" id="modalPhoto" src="admin/uploads/mcc.jpg" alt="Photo">
     <div>
         <h5 id="modalTitle" class="mb-0">Michael Brown</h5>
@@ -1108,6 +1108,7 @@ Webcam.snap(function(data_uri){
         const card = button.parentNode;
         // Remove the card from the DOM
         card.style.display = 'none'; // Hide the card instead of removing it
+        document.getElementById('search').style.display = 'block';
     }
 </script>
 
