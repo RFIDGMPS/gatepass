@@ -1150,6 +1150,7 @@ function showDetails(id, fullName, department, photo) {
 function closeModal() {
     document.getElementById('detailsModal').style.display = 'none';
     document.getElementById('search').style.display = 'block';
+    document.getElementById('searchResults').style.display = 'block';
 }
 </script>
 
