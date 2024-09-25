@@ -1041,7 +1041,6 @@ Webcam.snap(function(data_uri){
             cursor: pointer;
             font-size: 18px;
             color: #fff;
-            background: red;
             border-radius: 50%; /* Makes the image circular */
             border: none;
             padding: 5px 8px;
@@ -1078,7 +1077,7 @@ Webcam.snap(function(data_uri){
                         </div>
                         <!-- Card to display selected personnel -->
 <div class="card" id="detailsModal" style="display:none;"> <!-- Initially hidden -->
-    <button class="close-btn"  onclick="closeModal()">×</button>
+    <span class="close-btn"  onclick="closeModal()">×</span>
     <img style="height:50px;width:50px;" id="modalPhoto" src="admin/uploads/mcc.jpg" alt="Photo">
     <div>
         <h5 id="modalTitle" class="mb-0">Michael Brown</h5>
