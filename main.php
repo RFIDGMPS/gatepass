@@ -1080,13 +1080,14 @@ Webcam.snap(function(data_uri){
             <!-- First column: Photo -->
             <td><img id="modalPhoto" src="" width='50' height='50'></td>
             <!-- Second column: Name and Department (stacked) -->
-            <td>
-                <div id="modalTitle"></div> <!-- Name -->
-                <div id="modalDepartment"></div> <!-- Department -->
+            <td style="text-align:left;">
+                <div id="modalTitle" style="font-weight: bold;"></div> <!-- Bold Name -->
+                <div id="modalDepartment" style="opacity: 0.6;"></div> <!-- Department with less opacity -->
             </td>
         </tr>
     </table>
 </div>
+
 
 
                         
