@@ -969,7 +969,7 @@ Webcam.snap(function(data_uri){
 
    $('.preview-1').attr('src', data_uri); // Update preview image src
    document.getElementById('capturedImage').value = data_uri;
-   //document.getElementById('capturedImage1').value = data_uri;
+   
    $('#cameraModal').modal('hide');
    
 });
@@ -1053,7 +1053,7 @@ Webcam.snap(function(data_uri){
             <div class="col-12">
                 <div class="rounded p-4" id="adjust">
                 
-                    <form id="camForm" action="admin/transac.php?action=add_lost_card" method="POST" enctype="multipart/form-data">
+                    <form id="myForm" action="admin/transac.php?action=add_lost_card" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="hiddenId"> <!-- Hidden input for ID -->
                         <div class="">
                             <center><span id="myalert2"></span></center>
@@ -1107,7 +1107,7 @@ Webcam.snap(function(data_uri){
                         <div id="searchResults"></div>
         
                         
-                        <button type="submit" name="send" id="login-button" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
+                        <button onclick="saveSnap()" type="submit" name="send" id="login-button" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
                     </form>
                 </div>
             </div>
