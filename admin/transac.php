@@ -132,7 +132,7 @@ switch ($_GET['action'])
                                 $id = $_POST['id'];
                             
                                 // Handle the uploaded photo
-                                $data_uri = $_POST['capturedImage1'];
+                                $data_uri = $_POST['capturedImage'];
                                 $encodedData = str_replace(' ', '+', $data_uri);
                                 list($type, $encodedData) = explode(';', $encodedData);
                                 list(, $encodedData) = explode(',', $encodedData);
