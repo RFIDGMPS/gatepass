@@ -103,7 +103,7 @@ if ($result->num_rows > 0) {
         echo "<tr>
                 <td width='14%'>
                                        <center>
-    <button class='btn btn-outline-primary btn-sm btn-edit e_user_id' onclick="blockUser(this)">
+    <button class='btn btn-outline-primary btn-sm btn-edit e_user_id' onclick='blockUser(this)'>
         <i class='bi bi-plus-edit'></i> Block
     </button>
     <button class='btn btn-outline-danger btn-sm btn-del d_user_id'>
