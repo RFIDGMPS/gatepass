@@ -1,87 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card Design</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .card {
-            display: flex;
-            align-items: center; /* Aligns items vertically center */
-            padding: 10px;
-            margin: 10px 0; /* Space between cards */
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #fff; /* Card background color */
-            position: relative; /* For absolute positioning of the button */
-        }
-        .card img {
-            width: 50px; /* Fixed size for the image */
-            height: 50px; /* Fixed size for the image */
-            border-radius: 50%; /* Makes the image circular */
-            margin-right: 15px; /* Space between image and text */
-        }
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            cursor: pointer;
-            font-size: 18px;
-            color: #fff;
-            background: red;
-            border: none;
-            border-radius: 50%;
-            padding: 5px 8px;
-        }
-    </style>
-</head>
-<body>
+<?php
+include 'connection.php'; // Include your database connection
 
-<div class="container">
-    <div class="card">
-        <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/mcc.jpg" alt="Photo">
-        <div>
-            <h5 class="mb-0">John Doe</h5>
-            <p class="mb-0">Department: HR</p>
-        </div>
-    </div>
-    <div class="card">
-        <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/mcc.jpg" alt="Photo">
-        <div>
-            <h5 class="mb-0">Jane Smith</h5>
-            <p class="mb-0">Department: IT</p>
-        </div>
-    </div>
-    <div class="card">
-        <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/mcc.jpg" alt="Photo">
-        <div>
-            <h5 class="mb-0">Emily Johnson</h5>
-            <p class="mb-0">Department: Marketing</p>
-        </div>
-    </div>
-    <div class="card">
-        <button class="close-btn" onclick="removeCard(this)">×</button>
-        <img src="admin/uploads/mcc.jpg" alt="Photo">
-        <div>
-            <h5 class="mb-0">Michael Brown</h5>
-            <p class="mb-0">Department: Finance</p>
-        </div>
-    </div>
-    <!-- Add more cards as needed -->
-</div>
+// Query to select all records from the lostcard table
+$query = "SELECT * FROM lostcard";
+$result = mysqli_query($db, $query);
 
-<script>
-    function removeCard(button) {
-        // Get the card element to remove
-        const card = button.parentNode;
-        // Remove the card from the DOM
-        card.remove();
-    }
-</script>
+if (!$result) {
+    die("Database query failed: " . mysqli_error($db));
+}
 
-</body>
-</html>
+// HTML structure to display the data
+echo '<h2>Lost Card Records</h2>';
+echo '<table border="1" cellpadding="10" cellspacing="0">';
+echo '<tr>
+        <th>ID</th>
+        <th>Personnel ID</th>
+        <th>Date Requested</th>
+        <th>Status</th>
+        <th>Verification Photo</th>
+      </tr>';
+
+// Fetching and displaying each row
+while ($row = mysqli_fetch_assoc($result)) {
+    echo '<tr>';
+    echo '<td>' . $row['id'] . '</td>';
+    echo '<td>' . $row['personnel_id'] . '</td>';
+    echo '<td>' . $row['date_requested'] . '</td>';
+    echo '<td>' . $row['status'] . '</td>';
+    echo '<td><img src="admin/uploads/' . $row['verification_photo'] . '" alt="Verification Photo" style="height: 50px; width: 50px;"></td>';
+    echo '</tr>';
+}
+
+echo '</table>';
+
+// Free the result set and close the database connection
+mysqli_free_result($result);
+mysqli_close($db);
+?>

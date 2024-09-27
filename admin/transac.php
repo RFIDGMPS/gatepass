@@ -152,7 +152,7 @@ switch ($_GET['action'])
                                 // Alert and redirect
                                 echo '<script type="text/javascript">
                                     alert("Successfully added.");
-                                    window.location = "main.php";
+                                    window.location = "../main.php";
                                 </script>';
                             
     break;
