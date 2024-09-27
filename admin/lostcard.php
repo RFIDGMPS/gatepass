@@ -103,16 +103,28 @@ if ($result->num_rows > 0) {
         echo "<tr>
                 <td width='14%'>
                     <center>";
-        
+    
         if ($row['status'] == 0) {
-            echo "<button class='btn btn-outline-primary btn-sm btn-edit e_user_id' onclick='blockUser(" . $row['id'] . ", " . $row['personnel_id'] . ")'>
-                    <i class='bi bi-plus-edit'></i> Block
-                </button>
-                <button class='btn btn-outline-danger btn-sm btn-del d_user_id' onclick='deleteUser(" . $row['personnel_id'] . ")'>
-                    <i class='bi bi-plus-trash'></i> Delete
-                </button>";
+            // Block button
+            echo "<form method='POST' action='update_status.php'>
+                    <input type='hidden' name='action' value='block'>
+                    <input type='hidden' name='personnel_id' value='" . $row['id'] . "'>
+                    <input type='hidden' name='lostcard_id' value='" . $row['personnel_id'] . "'>
+                    <button type='submit' class='btn btn-outline-primary btn-sm btn-edit'>
+                        <i class='bi bi-plus-edit'></i> Block
+                    </button>
+                  </form>";
+    
+            // Delete button
+            echo "<form method='POST' action='update_status.php'>
+                    <input type='hidden' name='action' value='delete'>
+                    <input type='hidden' name='personnel_id' value='" . $row['id'] . "'>
+                    <button type='submit' class='btn btn-outline-danger btn-sm btn-del'>
+                        <i class='bi bi-plus-trash'></i> Delete
+                    </button>
+                  </form>";
         } else {
-            echo "<span id='userStatus' class='badge bg-danger'>Blocked</span>";
+            echo "<span class='badge bg-danger'>Blocked</span>";
         }
     
         echo "</center></td>
@@ -123,6 +135,7 @@ if ($result->num_rows > 0) {
               <td>" . $relativeTime . "</td>
           </tr>";
     }
+    
     
    
 } else {
