@@ -141,7 +141,7 @@ $db->close();
         deleteButton.style.display = 'none';
 
         // Optionally, disable the 'Block' button after it's clicked
-        button.display = none;
+        button.style.display = 'none';
     }
 </script>
 
