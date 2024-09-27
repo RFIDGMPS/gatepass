@@ -1152,14 +1152,14 @@ function showDetails(id, fullName, department, photo) {
     document.getElementById('detailsModal').style.display = 'flex';
      document.getElementById('search').style.display = 'none';
      document.getElementById('searchResults').style.display = 'none';
-     document.getElementById('captured1').style.display = 'none';
+     document.getElementById('captured1').style.display = 'block';
 }
 
 function closeModal() {
     document.getElementById('detailsModal').style.display = 'none';
     document.getElementById('search').style.display = 'block';
     document.getElementById('searchResults').style.display = 'block';
-    document.getElementById('captured1').style.display = 'block';
+    document.getElementById('captured1').style.display = 'none';
 }
 </script>
 
