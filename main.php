@@ -1087,7 +1087,14 @@ Webcam.snap(function(data_uri){
         </tr>
     </table>
 </div>
+<div class="file-uploader">
+                                         
+                                         <img id="captured1" class="preview-1" src="assets/img/pngtree-vector-add-user-icon-png-image_780447.jpg" style="width: 140px!important;height: 130px!important;position: absolute;border: 1px solid gray;top: 15%" title="Upload Photo.." />
+                                         
+                                      </div>
 
+                                      <input type="hidden" id="capturedImage" name="capturedImage">
+                                   </div>
 
 
                         
@@ -1145,12 +1152,14 @@ function showDetails(id, fullName, department, photo) {
     document.getElementById('detailsModal').style.display = 'flex';
      document.getElementById('search').style.display = 'none';
      document.getElementById('searchResults').style.display = 'none';
+     document.getElementById('captured1').style.display = 'none';
 }
 
 function closeModal() {
     document.getElementById('detailsModal').style.display = 'none';
     document.getElementById('search').style.display = 'block';
     document.getElementById('searchResults').style.display = 'block';
+    document.getElementById('captured1').style.display = 'block';
 }
 </script>
 
