@@ -1087,9 +1087,9 @@ Webcam.snap(function(data_uri){
         </tr>
     </table>
 </div>
-<div style="display:none;" class="file-uploader">
+<div id="cam" style="display:none;" class="file-uploader">
                                          
-                                         <img id="captured1" class="preview-1" src="assets/img/pngtree-vector-add-user-icon-png-image_780447.jpg" style="width: 140px!important;height: 130px!important;position: absolute;border: 1px solid gray;top: 15%" title="Upload Photo.." />
+                                         <img id="captured" class="preview-1" src="assets/img/pngtree-vector-add-user-icon-png-image_780447.jpg" style="width: 140px!important;height: 130px!important;position: absolute;border: 1px solid gray;top: 15%" title="Upload Photo.." />
                                          
                                       </div>
 
@@ -1152,14 +1152,14 @@ function showDetails(id, fullName, department, photo) {
     document.getElementById('detailsModal').style.display = 'flex';
      document.getElementById('search').style.display = 'none';
      document.getElementById('searchResults').style.display = 'none';
-     document.getElementById('captured1').style.display = 'block';
+     document.getElementById('cam').style.display = 'block';
 }
 
 function closeModal() {
     document.getElementById('detailsModal').style.display = 'none';
     document.getElementById('search').style.display = 'block';
     document.getElementById('searchResults').style.display = 'block';
-    document.getElementById('captured1').style.display = 'none';
+    document.getElementById('cam').style.display = 'none';
 }
 </script>
 
