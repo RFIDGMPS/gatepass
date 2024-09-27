@@ -19,7 +19,19 @@ include 'connection.php';
 
 
 
+$sql = "CREATE TABLE IF NOT EXISTS lostcard (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    personnel_id INT(11) NOT NULL,
+    date_requested DATETIME NOT NULL,
+    status INT(1) NOT NULL
+)";
 
+// Execute the query
+if ($db->query($sql) === TRUE) {
+    echo "Table 'lostcard' created successfully.";
+} else {
+    echo "Error creating table: " . $db->error;
+}
 
 $logo1 = "";
     $nameo = "";
@@ -1149,6 +1161,7 @@ function showDetails(id, fullName, department, photo) {
     document.getElementById('modalDepartment').innerText = department;
     document.getElementById('modalPhoto').src = 'admin/uploads/' + photo;
     
+    <?php $id=id?>
     // Show the modal
     document.getElementById('detailsModal').style.display = 'flex';
      document.getElementById('search').style.display = 'none';
@@ -1171,7 +1184,24 @@ function closeModal() {
 
 
 <?php }?>
+<?php
+  if(isset($_POST['send'])){
+    $id = $_POST['id_no'];
 
+$photo = $_FILES['photo']['name'];
+
+$target_dir = "admin/uploads/";
+$target_file = $target_dir . basename($_FILES["photo"]["name"]);
+move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
+    $query = "INSERT INTO personell (id_no, rfid_number, last_name, first_name, middle_name, date_of_birth, role, sex, civil_status, contact_number, email_address, department, section, status, complete_address, photo, place_of_birth)
+    VALUES ('$id_no', '$rfid_number', '$last_name', '$first_name', '$middle_name', '$date_of_birth', '$role', '$sex', '$civil_status', '$contact_number', '$email_address', '$department', '$section', '$status', '$complete_address', '$photo', '$place_of_birth')";
+    mysqli_query($db, $query) or die('Error in updating Database');
+    echo '<script type="text/javascript">
+    alert("Successfully added.");
+    window.location = "personell.php";
+</script>';
+  }
+?>
 
 </body>
 
