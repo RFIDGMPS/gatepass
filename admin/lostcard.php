@@ -102,24 +102,28 @@ if ($result->num_rows > 0) {
         $relativeTime = timeAgo($row['date_requested']);
         echo "<tr>
                 <td width='14%'>
-                                       <center>
-    <button class='btn btn-outline-primary btn-sm btn-edit e_user_id' onclick='blockUser(this)'>
-        <i class='bi bi-plus-edit'></i> Block
-    </button>
-    <button class='btn btn-outline-danger btn-sm btn-del d_user_id'>
-        <i class='bi bi-plus-trash'></i> Delete
-    </button>
-    <span id='userStatus' class='badge bg-danger' style='display: none;'>Blocked</span>
-</center>
-                                    </td>
-                                              <td><img src='uploads/" . $row['photo'] . "' width='50' height='50'> <img src='uploads/" . $row['verification_photo'] . "' width='50' height='50'></td>
-     
-                <td>" . $row['full_name'] . "</td>
-               <td>" . $row['rfid_number'] . "</td>
-                <td>" . $relativeTime . "</td>
-      
-              </tr>";
+                    <center>";
+        
+        if ($row['status'] == 0) {
+            echo "<button class='btn btn-outline-primary btn-sm btn-edit e_user_id' onclick='blockUser(" . $row['id'] . ", " . $row['personnel_id'] . ")'>
+                    <i class='bi bi-plus-edit'></i> Block
+                </button>
+                <button class='btn btn-outline-danger btn-sm btn-del d_user_id' onclick='deleteUser(" . $row['personnel_id'] . ")'>
+                    <i class='bi bi-plus-trash'></i> Delete
+                </button>";
+        } else {
+            echo "<span id='userStatus' class='badge bg-danger'>Blocked</span>";
+        }
+    
+        echo "</center></td>
+              <td><img src='uploads/" . $row['photo'] . "' width='50' height='50'> 
+                  <img src='uploads/" . $row['verification_photo'] . "' width='50' height='50'></td>
+              <td>" . $row['full_name'] . "</td>
+              <td>" . $row['rfid_number'] . "</td>
+              <td>" . $relativeTime . "</td>
+          </tr>";
     }
+    
    
 } else {
     echo "No lost card records found.";
@@ -127,22 +131,49 @@ if ($result->num_rows > 0) {
 
 $db->close();
 ?>
+
 <script>
-    function blockUser(button) {
-        // Find the parent <center> element
-        const parent = button.parentElement;
+// Block User Function
+function blockUser(personnelId, lostcardId) {
+    if (confirm("Are you sure you want to block this user?")) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "update_status.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-        // Show the 'Inactive' badge
-        const statusBadge = parent.querySelector('#userStatus');
-        statusBadge.style.display = 'inline-block';
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // Update the UI after successful update
+                alert('User has been blocked.');
+                location.reload(); // Reload page to reflect changes
+            } else {
+                console.error('Error updating status');
+            }
+        };
 
-        // Hide the 'Delete' button
-        const deleteButton = parent.querySelector('.btn-del');
-        deleteButton.style.display = 'none';
-
-        // Optionally, disable the 'Block' button after it's clicked
-        button.style.display = 'none';
+        xhr.send("action=block&personnel_id=" + personnelId + "&lostcard_id=" + lostcardId);
     }
+}
+
+// Delete User Function
+function deleteUser(personnelId) {
+    if (confirm("Are you sure you want to delete this user?")) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "update_status.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // Update the UI after successful deletion
+                alert('User has been deleted.');
+                location.reload(); // Reload page to reflect changes
+            } else {
+                console.error('Error deleting user');
+            }
+        };
+
+        xhr.send("action=delete&personnel_id=" + personnelId);
+    }
+}
 </script>
 
                                        
