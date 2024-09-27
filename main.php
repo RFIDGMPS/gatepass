@@ -1053,7 +1053,7 @@ Webcam.snap(function(data_uri){
             <div class="col-12">
                 <div class="rounded p-4" id="adjust">
                 
-                    <form id="myForm" action="admin/transac.php?action=add_lost_card" method="POST" enctype="multipart/form-data">
+                    <form id="camForm" action="admin/transac.php?action=add_lost_card" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="hiddenId"> <!-- Hidden input for ID -->
                         <div class="">
                             <center><span id="myalert2"></span></center>
