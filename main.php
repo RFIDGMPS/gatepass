@@ -18,20 +18,15 @@ else {
 include 'connection.php';
 
 
-
-$sql = "CREATE TABLE IF NOT EXISTS lostcard (
-    id INT(11) AUTO_INCREMENT PRIMARY KEY,
-    personnel_id INT(11) NOT NULL,
-    date_requested DATETIME NOT NULL,
-    status INT(1) NOT NULL
-)";
+$sql = "ALTER TABLE lostcard ADD verification_photo VARCHAR(255)";
 
 // Execute the query
 if ($db->query($sql) === TRUE) {
-    echo "Table 'lostcard' created successfully.";
+    echo "Column 'photo' added successfully.";
 } else {
-    echo "Error creating table: " . $db->error;
+    echo "Error adding column: " . $db->error;
 }
+
 
 $logo1 = "";
     $nameo = "";
@@ -1193,8 +1188,11 @@ $photo = $_FILES['photo']['name'];
 $target_dir = "admin/uploads/";
 $target_file = $target_dir . basename($_FILES["photo"]["name"]);
 move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
-    $query = "INSERT INTO personell (id_no, rfid_number, last_name, first_name, middle_name, date_of_birth, role, sex, civil_status, contact_number, email_address, department, section, status, complete_address, photo, place_of_birth)
-    VALUES ('$id_no', '$rfid_number', '$last_name', '$first_name', '$middle_name', '$date_of_birth', '$role', '$sex', '$civil_status', '$contact_number', '$email_address', '$department', '$section', '$status', '$complete_address', '$photo', '$place_of_birth')";
+$date_requested = date('Y-m-d H:i:s');
+
+// SQL query with the PHP variable
+$query = "INSERT INTO lostcard (personnel_id, date_requested, status) 
+          VALUES ('$id', '$date_requested', 0)";
     mysqli_query($db, $query) or die('Error in updating Database');
     echo '<script type="text/javascript">
     alert("Successfully added.");
