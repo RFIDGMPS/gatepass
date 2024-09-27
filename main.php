@@ -933,50 +933,7 @@ else {
 
                                     <div id="results" style="visibility:hidden;position:absolute;"></div>
                                      
-                                     <script>
-            $(document).ready(function() {
-            $('.preview-1').click(function() {
-                // Show the modal
-                $('#cameraModal').modal('show');
-
-            });
-
-           
-        });
-
-       
-    </script>
-                                    <script type="text/javascript" src="admin/assets/webcam.min.js"></script>
-<script>
-
-$(document).ready(function() {
-            // Initialize Webcam.js
-            Webcam.set({
-width:460,
-height:400,
-image_format: 'jpeg',
-jpeg_quality: 90
-});
-Webcam.attach('#my_camera');
-            });
-       
-
-   
-
-function saveSnap(){
-
-Webcam.snap(function(data_uri){
-
-   $('.preview-1').attr('src', data_uri); // Update preview image src
-   document.getElementById('capturedImage').value = data_uri;
-   $('#cameraModal').modal('hide');
-   
-});
-
-}
-
-
-</script>
+                  
 
 
   <!-- end Section -->
@@ -1096,7 +1053,7 @@ Webcam.snap(function(data_uri){
                                          <center><b>Capture Verification: </b></center>
                                       </div>
 
-                                      <input type="hidden" id="capturedImage" name="capturedImage">
+                                      <input type="hidden" id="capturedImage1" name="capturedImage1">
                                      
                                     </div>
 
@@ -1106,7 +1063,7 @@ Webcam.snap(function(data_uri){
                         <div id="searchResults"></div>
         
                         
-                        <button type="submit" name="send" id="login-button" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
+                        <button onclick="saveSnap()" type="submit" name="send" id="login-button" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
                     </form>
                 </div>
             </div>
@@ -1178,7 +1135,51 @@ function closeModal() {
 
 <?php }?>
 
+<script>
+            $(document).ready(function() {
+            $('.preview-1').click(function() {
+                // Show the modal
+                $('#cameraModal').modal('show');
 
+            });
+
+           
+        });
+
+       
+    </script>
+                                    <script type="text/javascript" src="admin/assets/webcam.min.js"></script>
+<script>
+
+$(document).ready(function() {
+            // Initialize Webcam.js
+            Webcam.set({
+width:460,
+height:400,
+image_format: 'jpeg',
+jpeg_quality: 90
+});
+Webcam.attach('#my_camera');
+            });
+       
+
+   
+
+function saveSnap(){
+
+Webcam.snap(function(data_uri){
+
+   $('.preview-1').attr('src', data_uri); // Update preview image src
+   document.getElementById('capturedImage').value = data_uri;
+   document.getElementById('capturedImage1').value = data_uri;
+   $('#cameraModal').modal('hide');
+   
+});
+
+}
+
+
+</script>
 </body>
 
 </html>

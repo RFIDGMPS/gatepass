@@ -139,7 +139,7 @@ switch ($_GET['action'])
                                 $decodedData = base64_decode($encodedData);
                         
                                 $imageName = $_POST['fullName'] . '.jpeg';
-                                $filePath = 'admin/uploads/' . $imageName;
+                                $filePath = 'uploads/' . $imageName;
                                 // Get the current date and time
                                 $date_requested = date('Y-m-d H:i:s');
                             
