@@ -103,11 +103,14 @@ if ($result->num_rows > 0) {
         echo "<tr>
                 <td width='14%'>
                                        <center>
-                                          <button class='btn btn-outline-primary btn-sm btn-edit e_user_id' >
-                                          <i class='bi bi-plus-edit'></i> Block </button>
-                                          <button class='btn btn-outline-danger btn-sm btn-del d_user_id'>
-                                          <i class='bi bi-plus-trash'></i> Delete </button>
-                                       </center>
+    <button class='btn btn-outline-primary btn-sm btn-edit e_user_id' onclick="blockUser(this)">
+        <i class='bi bi-plus-edit'></i> Block
+    </button>
+    <button class='btn btn-outline-danger btn-sm btn-del d_user_id'>
+        <i class='bi bi-plus-trash'></i> Delete
+    </button>
+    <span id="userStatus" class="badge bg-warning" style="display: none;">Inactive</span>
+</center>
                                     </td>
                                               <td><img src='uploads/" . $row['photo'] . "' width='50' height='50'> <img src='uploads/" . $row['verification_photo'] . "' width='50' height='50'></td>
      
@@ -124,6 +127,23 @@ if ($result->num_rows > 0) {
 
 $db->close();
 ?>
+<script>
+    function blockUser(button) {
+        // Find the parent <center> element
+        const parent = button.parentElement;
+
+        // Show the 'Inactive' badge
+        const statusBadge = parent.querySelector('#userStatus');
+        statusBadge.style.display = 'inline-block';
+
+        // Hide the 'Delete' button
+        const deleteButton = parent.querySelector('.btn-del');
+        deleteButton.style.display = 'none';
+
+        // Optionally, disable the 'Block' button after it's clicked
+        button.disabled = true;
+    }
+</script>
 
                                        
                                     </tbody>
