@@ -18,14 +18,7 @@ else {
 include 'connection.php';
 
 
-$sql = "ALTER TABLE lostcard ADD verification_photo VARCHAR(255)";
 
-// Execute the query
-if ($db->query($sql) === TRUE) {
-    echo "Column 'photo' added successfully.";
-} else {
-    echo "Error adding column: " . $db->error;
-}
 
 
 $logo1 = "";
@@ -1058,7 +1051,9 @@ Webcam.snap(function(data_uri){
         <div class="row h-100 align-items-center justify-content-center">
             <div class="col-12">
                 <div class="rounded p-4" id="adjust">
-                    <form role="form" id="logform" method="POST">
+                
+                    <form id="myForm" action="admin/transac.php?action=add_lost_card" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="id" id="hiddenId"> <!-- Hidden input for ID -->
                         <div class="">
                             <center><span id="myalert2"></span></center>
                         </div>
@@ -1090,6 +1085,7 @@ Webcam.snap(function(data_uri){
             <td style="text-align:left;border-bottom-width:0px;">
                 <div id="modalTitle" style="font-weight: bold;"></div> <!-- Bold Name -->
                 <div id="modalDepartment" style="opacity: 0.6;"></div> <!-- Department with less opacity -->
+               
             </td>
         </tr>
     </table>
@@ -1155,14 +1151,16 @@ function showDetails(id, fullName, department, photo) {
     document.getElementById('modalTitle').innerText = fullName;
     document.getElementById('modalDepartment').innerText = department;
     document.getElementById('modalPhoto').src = 'admin/uploads/' + photo;
-    
-    <?php $id=id?>
+
+    // Set the hidden input field value
+    document.getElementById('hiddenId').value = id;
+
     // Show the modal
     document.getElementById('detailsModal').style.display = 'flex';
-     document.getElementById('search').style.display = 'none';
-     document.getElementById('searchResults').style.display = 'none';
-     document.getElementById('cam').style.display = 'block';
-     document.getElementById('adjust').style.height = '300px';
+    document.getElementById('search').style.display = 'none';
+    document.getElementById('searchResults').style.display = 'none';
+    document.getElementById('cam').style.display = 'block';
+    document.getElementById('adjust').style.height = '300px';
 }
 
 function closeModal() {
@@ -1179,27 +1177,7 @@ function closeModal() {
 
 
 <?php }?>
-<?php
-  if(isset($_POST['send'])){
-    $id = $_POST['id_no'];
 
-$photo = $_FILES['photo']['name'];
-
-$target_dir = "admin/uploads/";
-$target_file = $target_dir . basename($_FILES["photo"]["name"]);
-move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
-$date_requested = date('Y-m-d H:i:s');
-
-// SQL query with the PHP variable
-$query = "INSERT INTO lostcard (personnel_id, date_requested, status) 
-          VALUES ('$id', '$date_requested', 0)";
-    mysqli_query($db, $query) or die('Error in updating Database');
-    echo '<script type="text/javascript">
-    alert("Successfully added.");
-    window.location = "personell.php";
-</script>';
-  }
-?>
 
 </body>
 
