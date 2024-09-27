@@ -1154,7 +1154,7 @@ function showDetails(id, fullName, department, photo) {
      document.getElementById('search').style.display = 'none';
      document.getElementById('searchResults').style.display = 'none';
      document.getElementById('cam').style.display = 'block';
-     document.getElementById('adjust').style.height = '300px';
+     //document.getElementById('adjust').style.height = '300px';
 }
 
 function closeModal() {
@@ -1162,7 +1162,7 @@ function closeModal() {
     document.getElementById('search').style.display = 'block';
     document.getElementById('searchResults').style.display = 'block';
     document.getElementById('cam').style.display = 'none';
-    document.getElementById('adjust').style.height = '0px';
+    //document.getElementById('adjust').style.height = '0px';
 }
 </script>
 
