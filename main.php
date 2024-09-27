@@ -1087,10 +1087,10 @@ Webcam.snap(function(data_uri){
         </tr>
     </table>
 </div>
-<div id="cam" style="display:none;position:fixed;left:50%;" class="file-uploader">
+<div id="cam" style="display:none;position:fixed;" class="file-uploader">
                                          
-                                         <img id="captured" class="preview-1" src="assets/img/pngtree-vector-add-user-icon-png-image_780447.jpg" style="width: 140px!important;height: 130px!important;position: absolute;border: 1px solid gray;top: 15%" title="Upload Photo.." />
-                                         <center><h5>Capture Verification</h5></center>
+                                         <img id="captured" class="preview-1" src="assets/img/pngtree-vector-add-user-icon-png-image_780447.jpg" style="width: 140px!important;height: 130px!important;position: absolute;border: 1px solid gray;top: 15%; left:100%;" title="Upload Photo.." />
+                                         <center><b>Capture Verification</b></center>
                                       </div>
 
                                       <input type="hidden" id="capturedImage" name="capturedImage">
