@@ -132,19 +132,21 @@ switch ($_GET['action'])
                                 $id = $_POST['id'];
                             
                                 // Handle the uploaded photo
-                                $photo = $_FILES['photo']['name'];
-                                $target_dir = "admin/uploads/";
-                                $target_file = $target_dir . basename($_FILES["photo"]["name"]);
-                                
-                                // Move the uploaded file to the target directory
-                                move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
-                                
+                                $data_uri = $_POST['capturedImage'];
+                                $encodedData = str_replace(' ', '+', $data_uri);
+                                list($type, $encodedData) = explode(';', $encodedData);
+                                list(, $encodedData) = explode(',', $encodedData);
+                                $decodedData = base64_decode($encodedData);
+                        
+                                $imageName = $_POST['fullName'] . '.jpeg';
+                                $filePath = 'admin/uploads/' . $imageName;
                                 // Get the current date and time
                                 $date_requested = date('Y-m-d H:i:s');
                             
                                 // SQL query with the PHP variable
+                                if (file_put_contents($filePath, $decodedData)) {
                                 $query = "INSERT INTO lostcard (personnel_id, date_requested, status, verification_photo) 
-                                          VALUES ('$id', '$date_requested', 0, '$photo')";
+                                          VALUES ('$id', '$date_requested', 0, '$imageName')";
                                 
                                 // Execute the query
                                 mysqli_query($db, $query) or die('Error in updating Database');
@@ -154,6 +156,7 @@ switch ($_GET['action'])
                                     alert("Successfully added.");
                                     window.location = "../main.php";
                                 </script>';
+                                }
                             
     break;
 }
