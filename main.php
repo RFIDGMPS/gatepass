@@ -1161,9 +1161,8 @@ function closeModal() {
     document.getElementById('detailsModal').style.display = 'none';
     document.getElementById('search').style.display = 'block';
     document.getElementById('searchResults').style.display = 'block';
-    document.getElementById('searchResults').style.padding-top = '50px';
     document.getElementById('cam').style.display = 'none';
-    document.getElementById('adjust').style.height = '30px';
+    //document.getElementById('adjust').style.height = '0px';
 }
 </script>
 
