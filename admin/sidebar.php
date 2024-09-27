@@ -90,8 +90,8 @@ if ($result1->num_rows > 0) {
             </div>
 
             <!-- Lost and Found -->
-            <a href="lostfound.php" class="nav-item nav-link <?php echo ($current_page == 'lostfound.php') ? 'active' : ''; ?>">
-                <i class="fa fa-box me-2"></i>Lost and Found
+            <a href="lostcard.php" class="nav-item nav-link <?php echo ($current_page == 'lostcard.php') ? 'active' : ''; ?>">
+                <i class="fas fa-id-card"></i>Lost and Found
             </a>
 
             <!-- Settings -->
