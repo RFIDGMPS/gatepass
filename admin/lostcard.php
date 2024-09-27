@@ -72,10 +72,34 @@ $sql = "SELECT personell.id, CONCAT(personell.first_name, ' ', personell.last_na
 
 $result = $db->query($sql);
 
+// Function to calculate relative time
+function timeAgo($datetime) {
+    $now = new DateTime();
+    $past = new DateTime($datetime);
+    $diff = $now->diff($past);
+
+    if ($diff->y > 0) {
+        return $diff->y == 1 ? '1 year ago' : $diff->y . ' years ago';
+    } elseif ($diff->m > 0) {
+        return $diff->m == 1 ? '1 month ago' : $diff->m . ' months ago';
+    } elseif ($diff->d > 1) {
+        return $diff->d == 1 ? 'Yesterday' : $diff->d . ' days ago';
+    } elseif ($diff->d == 1) {
+        return 'Yesterday';
+    } elseif ($diff->h > 0) {
+        return $diff->h == 1 ? '1 hour ago' : $diff->h . ' hours ago';
+    } elseif ($diff->i > 0) {
+        return $diff->i == 1 ? '1 minute ago' : $diff->i . ' minutes ago';
+    } else {
+        return 'Just now';
+    }
+}
+
 // Check if any rows are returned
 if ($result->num_rows > 0) {
 
     while ($row = $result->fetch_assoc()) {
+        $relativeTime = timeAgo($row['date_requested']);
         echo "<tr>
                 <td width='14%'>
                                        <center>
@@ -89,7 +113,7 @@ if ($result->num_rows > 0) {
      
                 <td>" . $row['full_name'] . "</td>
                <td>" . $row['rfid_number'] . "</td>
-                <td>" . $row['date_requested'] . "</td>
+                <td>" . $relativeTime . "</td>
       
               </tr>";
     }
