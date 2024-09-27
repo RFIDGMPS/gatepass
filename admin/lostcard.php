@@ -109,7 +109,7 @@ if ($result->num_rows > 0) {
     <button class='btn btn-outline-danger btn-sm btn-del d_user_id'>
         <i class='bi bi-plus-trash'></i> Delete
     </button>
-    <span id='userStatus' class='badge bg-warning' style='display: none;'>Inactive</span>
+    <span id='userStatus' class='badge bg-danger' style='display: none;'>Blocked</span>
 </center>
                                     </td>
                                               <td><img src='uploads/" . $row['photo'] . "' width='50' height='50'> <img src='uploads/" . $row['verification_photo'] . "' width='50' height='50'></td>
@@ -141,7 +141,7 @@ $db->close();
         deleteButton.style.display = 'none';
 
         // Optionally, disable the 'Block' button after it's clicked
-        button.disabled = true;
+        button.display = none;
     }
 </script>
 
