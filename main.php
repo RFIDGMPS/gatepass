@@ -1087,7 +1087,7 @@ Webcam.snap(function(data_uri){
         </tr>
     </table>
 </div>
-<div class="file-uploader">
+<div style="display:none;" class="file-uploader">
                                          
                                          <img id="captured1" class="preview-1" src="assets/img/pngtree-vector-add-user-icon-png-image_780447.jpg" style="width: 140px!important;height: 130px!important;position: absolute;border: 1px solid gray;top: 15%" title="Upload Photo.." />
                                          
