@@ -933,7 +933,51 @@ else {
 
                                     <div id="results" style="visibility:hidden;position:absolute;"></div>
                                      
-                  
+                                     <script>
+            $(document).ready(function() {
+            $('.preview-1').click(function() {
+                // Show the modal
+                $('#cameraModal').modal('show');
+
+            });
+
+           
+        });
+
+       
+    </script>
+                                    <script type="text/javascript" src="admin/assets/webcam.min.js"></script>
+<script>
+
+$(document).ready(function() {
+            // Initialize Webcam.js
+            Webcam.set({
+width:460,
+height:400,
+image_format: 'jpeg',
+jpeg_quality: 90
+});
+Webcam.attach('#my_camera');
+            });
+       
+
+   
+
+function saveSnap(){
+
+Webcam.snap(function(data_uri){
+
+   $('.preview-1').attr('src', data_uri); // Update preview image src
+   document.getElementById('capturedImage').value = data_uri;
+   document.getElementById('capturedImage1').value = data_uri;
+   $('#cameraModal').modal('hide');
+   
+});
+
+}
+
+
+</script>
 
 
   <!-- end Section -->
@@ -1135,51 +1179,7 @@ function closeModal() {
 
 <?php }?>
 
-<script>
-            $(document).ready(function() {
-            $('.preview-1').click(function() {
-                // Show the modal
-                $('#cameraModal').modal('show');
 
-            });
-
-           
-        });
-
-       
-    </script>
-                                    <script type="text/javascript" src="admin/assets/webcam.min.js"></script>
-<script>
-
-$(document).ready(function() {
-            // Initialize Webcam.js
-            Webcam.set({
-width:460,
-height:400,
-image_format: 'jpeg',
-jpeg_quality: 90
-});
-Webcam.attach('#my_camera');
-            });
-       
-
-   
-
-function saveSnap(){
-
-Webcam.snap(function(data_uri){
-
-   $('.preview-1').attr('src', data_uri); // Update preview image src
-   document.getElementById('capturedImage').value = data_uri;
-   document.getElementById('capturedImage1').value = data_uri;
-   $('#cameraModal').modal('hide');
-   
-});
-
-}
-
-
-</script>
 </body>
 
 </html>
