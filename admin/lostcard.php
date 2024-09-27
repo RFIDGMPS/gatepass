@@ -50,108 +50,50 @@ include 'header.php';
                                 <table class="table table-border" id="myDataTable">
                                     <thead>
                                         <tr>
-                                            <th scope="col">From</th>
-                                            <th scope="col">Subject</th>
-                                            <th scope="col">Message</th>
+                                        <th scope="col">Action</th>
+                                            <th scope="col">Photo</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">RFID Number</th>
+                                            <th scope="col"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Bea Dlonsod</td>
-                                            <td>beadlonsod9@gmail.com</td>
-                                            <td>09942816700</td>
-                                            <td>Hello sir pano po ito</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bea Dlonsod</td>
-                                            <td>beadlonsod9@gmail.com</td>
-                                            <td>09942816700</td>
-                                            <td>Hello sir pano po ito</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Vikash Sharma</td>
-                                            <td>vikashsharma3598@gmail.com</td>
-                                            <td>08083693214</td>
-                                            <td>How to buy this project</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Janssen Kim Buizon</td>
-                                            <td>jbuizon2019@gmail.com</td>
-                                            <td>09305949291</td>
-                                            <td>Paano po ako makakapag avail nito</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bryan Dave Ostiano Covita</td>
-                                            <td>bryandavecovita65@gmail.com</td>
-                                            <td>09158027117</td>
-                                            <td>Thanks</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Rambotan Lansones</td>
-                                            <td>bautista@gmail.com</td>
-                                            <td>09202320245</td>
-                                            <td>Hello pu</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Test</td>
-                                            <td>Test@gmail.com</td>
-                                            <td>09123456781</td>
-                                            <td>Test</td>
-                                        </tr>
-                                        <tr>
-                                            <td>OLIVER MANUEL NERVES PAYLA</td>
-                                            <td>olivermanuelpayla@gmail.com</td>
-                                            <td>09569339911</td>
-                                            <td>Hello sir mag kano po yan</td>
-                                        </tr>
-                                        <tr>
-                                            <td>OLIVER MANUEL NERVES PAYLA</td>
-                                            <td>olivermanuelpayla@gmail.com</td>
-                                            <td>09569339911</td>
-                                            <td>Hello</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Saturn</td>
-                                            <td>saturndeasis@gmail.com</td>
-                                            <td>09108327855</td>
-                                            <td>Pwde po ba tayo mag usap sa email sir salamat po</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mkm</td>
-                                            <td>865e75opi8y8@gmail.com</td>
-                                            <td>12312312312</td>
-                                            <td>Qwdq</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Niel Dhemster L Santos</td>
-                                            <td>dhemster57@gmail.com</td>
-                                            <td>09218074592</td>
-                                            <td>Hiii</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Archie Lim</td>
-                                            <td>katripchannel@gmail.com</td>
-                                            <td>09687450820</td>
-                                            <td>How to avail this system and how much for trial how long</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ara May Calma</td>
-                                            <td>ara@gmail.com</td>
-                                            <td>09768788888</td>
-                                            <td>Wow nice i love this work</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Nario Luis</td>
-                                            <td>nario@gmail.com</td>
-                                            <td>09988799899</td>
-                                            <td>Nice work admin</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Junil Toledo</td>
-                                            <td>toledojonel557@gmail.com</td>
-                                            <td>09797899767</td>
-                                            <td>Sample lamang</td>
-                                        </tr>
+                                        
+
+                                        <?php
+include 'connection.php';
+
+// SQL query to join the 'personell' and 'lostcard' tables
+$sql = "SELECT personell.id, CONCAT(personell.first_name, ' ', personell.last_name) AS full_name, 
+               personell.department, personell.photo, personell.rfid_number,
+               lostcard.date_requested, lostcard.verification_photo
+        FROM personell
+        JOIN lostcard ON personell.id = lostcard.personnel_id";
+
+$result = $db->query($sql);
+
+// Check if any rows are returned
+if ($result->num_rows > 0) {
+
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>
+                <td><img src='admin/uploads/" . $row['photo'] . "' width='50' height='50'></td>
+                <td>" . $row['full_name'] . "</td>
+               <td>" . $row['rfid_number'] . "</td>
+                <td>" . $row['date_requested'] . "</td>
+               
+                <td><img src='admin/uploads/" . $row['verification_photo'] . "' width='50' height='50'></td>
+              </tr>";
+    }
+   
+} else {
+    echo "No lost card records found.";
+}
+
+$db->close();
+?>
+
+                                       
                                     </tbody>
                                 </table>
                             </div>
