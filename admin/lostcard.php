@@ -85,11 +85,12 @@ if ($result->num_rows > 0) {
                                           <i class='bi bi-plus-trash'></i> Delete </button>
                                        </center>
                                     </td>
+                                              <td><img src='admin/uploads/" . $row['photo'] . "' width='50' height='50'> <img src='admin/uploads/" . $row['verification_photo'] . "' width='50' height='50'></td>
+     
                 <td>" . $row['full_name'] . "</td>
                <td>" . $row['rfid_number'] . "</td>
                 <td>" . $row['date_requested'] . "</td>
-                <td><img src='admin/uploads/" . $row['photo'] . "' width='50' height='50'> <img src='admin/uploads/" . $row['verification_photo'] . "' width='50' height='50'></td>
-     
+      
               </tr>";
     }
    
