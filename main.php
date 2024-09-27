@@ -1088,13 +1088,14 @@ Webcam.snap(function(data_uri){
     </table>
 </div>
 <div id="cam" style="display:none;position:fixed;left:50%;" class="file-uploader">
-                                         <h5>Capture Verification: </h5>
+                                         
                                          <img id="captured" class="preview-1" src="assets/img/pngtree-vector-add-user-icon-png-image_780447.jpg" style="width: 140px!important;height: 130px!important;position: absolute;border: 1px solid gray;top: 15%" title="Upload Photo.." />
                                          
                                       </div>
 
                                       <input type="hidden" id="capturedImage" name="capturedImage">
-                                   </div>
+                                      <h5>Capture Verification</h5>
+                                    </div>
 
 
                         
@@ -1161,6 +1162,7 @@ function closeModal() {
     document.getElementById('search').style.display = 'block';
     document.getElementById('searchResults').style.display = 'block';
     document.getElementById('cam').style.display = 'none';
+    document.getElementById('adjust').style.height = '0px';
 }
 </script>
 
