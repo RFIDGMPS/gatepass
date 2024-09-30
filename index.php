@@ -85,13 +85,13 @@ if (isset($_POST['submit'])) {
     $password1 = mysqli_real_escape_string($db, stripslashes($password1));
 
     // Check if user is a security personnel at the gate
-    $sql1 = "SELECT * FROM personell WHERE rfid_number = '$Prfid_number' AND status = 'Active'";
+    $sql1 = "SELECT * FROM personell WHERE rfid_number = '$Prfid_number'";
     $result1 = $db->query($sql1);
 
     if ($result1->num_rows > 0 && $location == "Gate") {
         $personell = $result1->fetch_assoc();
       
-        if ($password1 == "gate123" && $personell['role'] == 'Security Personnel') {
+        if ($password1 == "gate123" && $personell['role'] == 'Security Personnel' && $personell['status'] == 'Active') {
             // Successful login, redirect
             $_SESSION['location'] = 'Main Gate';
             $_SESSION['department'] = 'main';
@@ -110,13 +110,13 @@ if (isset($_POST['submit'])) {
 
     if ($result2->num_rows > 0) {
         $room = $result2->fetch_assoc();
-        $sql3 = "SELECT * FROM personell WHERE department = '{$room['department']}' AND role = 'Instructor' AND status = 'Active'";
+        $sql3 = "SELECT * FROM personell WHERE department = '{$room['department']}' AND role = 'Instructor'";
         $result3 = $db->query($sql3);
 
         if ($result3->num_rows > 0) {
             $instructor = $result3->fetch_assoc();
             // Verify password and ensure the department matches
-            if (password_verify($password1, $room['password']) && $instructor['department'] == $room['department']) {
+            if (password_verify($password1, $room['password']) && $instructor['department'] == $room['department'] && $instructor['status'] == 'Active') {
                 // Successful login, redirect
                 $_SESSION['location'] = $room['room'];
                 $_SESSION['department'] = $room['department'];
