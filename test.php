@@ -1,5 +1,9 @@
 <?php
+// Set the time zone to your desired location
+date_default_timezone_set('Asia/Manila'); // Replace with your preferred time zone
 
+// Get the current date
+echo date('Y-m-d H:i:s'); // Output the current date and time
 include 'connection.php';
 
 // SQL query to select all records from personell_logs table
