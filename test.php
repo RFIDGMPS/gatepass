@@ -2,18 +2,7 @@
 include 'connection.php';
 
 // SQL query to select all records from personell_logs table
-$sql = "      SELECT 
-    p.photo,
-    p.department,
-    p.role,
-    CONCAT(p.first_name, ' ', p.last_name) AS full_name,
-    pl.time_in,
-    pl.time_out,
-    pl.date_logged,
-    CURRENT_DATE() AS currentDate
-FROM personell_logs pl
-JOIN personell p ON pl.personnel_id = p.id
-WHERE pl.date_logged = CURRENT_DATE()
+$sql = "    SELECT CURRENT_DATE() AS currentDate
 
 ";
 $result = $db->query($sql);
