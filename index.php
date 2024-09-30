@@ -85,7 +85,7 @@ if (isset($_POST['submit'])) {
     $password1 = mysqli_real_escape_string($db, stripslashes($password1));
 
     // Check if user is a security personnel at the gate
-    $sql1 = "SELECT * FROM personell WHERE rfid_number = '$Prfid_number' status = 'Active'";
+    $sql1 = "SELECT * FROM personell WHERE rfid_number = '$Prfid_number' AND status = 'Active'";
     $result1 = $db->query($sql1);
 
     if ($result1->num_rows > 0 && $location == "Gate") {
