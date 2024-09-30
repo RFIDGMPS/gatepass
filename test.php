@@ -40,7 +40,7 @@ if ($result->num_rows > 0) {
                 <td>{$row['location']}</td>
               </tr>";
 
-              echo $row['currentDate'];y
+        
     }
     echo "</table>";
 } else {
