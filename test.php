@@ -7,7 +7,7 @@ include 'connection.php';
 // SQL query to get MySQL time zones
 $query = "SELECT @@global.time_zone as global_time_zone, @@session.time_zone as session_time_zone";
 
-$result = $conn->query($query);
+$result = $db->query($query);
 
 if ($result->num_rows > 0) {
     // Output the result
