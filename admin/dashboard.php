@@ -256,15 +256,15 @@ WHERE pl.date_logged = CURRENT_DATE()
 UNION
 
 SELECT 
-    vl.photo,
-    vl.department,
+    photo,
+    department,
     'Visitor' AS role,
-    vl.name AS full_name,
-    vl.time_in,
-    vl.time_out,
-    vl.date_logged
-FROM visitor_logs vl
-WHERE vl.date_logged = CURRENT_DATE()
+    name AS full_name,
+    time_in,
+    time_out,
+    date_logged
+FROM visitor_logs 
+WHERE date_logged = CURRENT_DATE()
 
 ORDER BY 
     CASE 
