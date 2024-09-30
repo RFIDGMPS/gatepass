@@ -97,6 +97,9 @@ if (isset($_POST['submit'])) {
             echo '<script>window.location = "main.php";</script>';
             exit();
         }
+        else {
+            echo '<script>alert("Invalid username and password.");</script>';
+        }
     }
 
     // If not security personnel, check for room login
@@ -118,12 +121,14 @@ if (isset($_POST['submit'])) {
                 $_SESSION['descr'] = $room['descr'];
                 echo '<script>window.location = "main.php";</script>';
                 exit();
+            }else {
+                echo '<script>alert("Invalid username and password1.");</script>';
             }
         }
     }
 
     // Invalid login
-    echo '<script>alert("Invalid username and password.");</script>';
+   
 }
 ?>
 
