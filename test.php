@@ -8,9 +8,10 @@ include 'connection.php';
 
 // SQL query to select all records from personell_logs table
 
-// SQL query to get MySQL time zones
-$query = "SELECT @@global.time_zone as global_time_zone, @@session.time_zone as session_time_zone";
-
+$query = "SELECT CURRENT_DATE() as today_date";
+$result = $db->query($query);
+$row = $result->fetch_assoc();
+echo "MySQL Date: " . $row['today_date'];
 $result = $db->query($query);
 
 if ($result->num_rows > 0) {
