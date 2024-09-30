@@ -2,21 +2,22 @@
 include 'connection.php';
 
 // Display the current date using MySQL's CURRENT_DATE function
-$result = $db->query("SELECT CURRENT_DATE() as current_time");
 
-// Check if query was successful
-if (!$result) {
-    die("Query failed: " . $db->error);
-}
+// SQL query to get MySQL time zones
+$query = "SELECT @@global.time_zone as global_time_zone, @@session.time_zone as session_time_zone";
 
-// Check if any rows are returned
+$result = $db->query($query);
+
 if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    echo "MySQL Current Date: " . $row['current_time'];
+    // Output the result
+    while ($row = $result->fetch_assoc()) {
+        echo "Global Time Zone: " . $row['global_time_zone'] . "<br>";
+        echo "Session Time Zone: " . $row['session_time_zone'] . "<br>";
+    }
 } else {
-    echo "No rows found.";
+    echo "No time zone information found.";
 }
 
-// Close the database connection
+
 $db->close();
 ?>
