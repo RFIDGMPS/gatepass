@@ -3,7 +3,7 @@ date_default_timezone_set('Asia/Manila');
 include 'connection.php';
 
 // SQL query to select all records from personell_logs table
-$sql = "    SELECT CURRENT_DATE() AS currentDate
+$sql = " SELECT @@global.time_zone, @@session.time_zone
 
 ";
 $result = $db->query($sql);
