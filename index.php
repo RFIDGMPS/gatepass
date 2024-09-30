@@ -110,7 +110,7 @@ if (isset($_POST['submit'])) {
 
     if ($result2->num_rows > 0) {
         $room = $result2->fetch_assoc();
-        $sql3 = "SELECT * FROM personell WHERE department = '{$room['department']}' AND role = 'Instructor'";
+        $sql3 = "SELECT * FROM personell WHERE rfid_number = '$Prfid_number' AND department = '{$room['department']}' AND role = 'Instructor'";
         $result3 = $db->query($sql3);
 
         if ($result3->num_rows > 0) {
@@ -124,7 +124,7 @@ if (isset($_POST['submit'])) {
                 echo '<script>window.location = "main.php";</script>';
                 exit();
             }else {
-                echo '<script>alert("'.password_verify($password1, $room['password']).'You\'re not allowed to open this room.");</script>';
+                echo '<script>alert("You\'re not allowed to open this room.");</script>';
             }
         }
     }
