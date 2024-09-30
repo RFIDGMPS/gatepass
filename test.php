@@ -14,11 +14,7 @@ FROM personell_logs pl
 JOIN personell p ON pl.personnel_id = p.id
 WHERE pl.date_logged = CURRENT_DATE()
 
-ORDER BY 
-    CASE 
-        WHEN time_out IS NOT NULL THEN time_out 
-        ELSE time_in 
-    END DESC";
+";
 $result = $db->query($sql);
 
 if ($result->num_rows > 0) {
