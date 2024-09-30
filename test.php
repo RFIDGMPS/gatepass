@@ -3,41 +3,21 @@ date_default_timezone_set('Asia/Manila');
 include 'connection.php';
 
 // SQL query to select all records from personell_logs table
-$sql = " SELECT @@global.time_zone, @@session.time_zone
 
-";
-$result = $db->query($sql);
+// SQL query to get MySQL time zones
+$query = "SELECT @@global.time_zone as global_time_zone, @@session.time_zone as session_time_zone";
+
+$result = $conn->query($query);
 
 if ($result->num_rows > 0) {
-    echo "<table border='1' cellpadding='10'>
-            <tr>
-                <th>ID</th>
-                <th>Personnel ID</th>
-                <th>Date Logged</th>
-                <th>Time In</th>
-                <th>Time Out</th>
-                <th>Location</th>
-            </tr>";
-    
-    // Output data of each row
+    // Output the result
     while ($row = $result->fetch_assoc()) {
-        echo "<tr>
-                <td>{$row['id']}</td>
-                <td>{$row['currentDate']}</td>
-                <td>{$row['date_logged']}</td>
-                <td>{$row['time_in']}</td>
-                <td>{$row['time_out']}</td>
-                <td>{$row['location']}</td>
-              </tr>";
-
-        
+        echo "Global Time Zone: " . $row['global_time_zone'] . "<br>";
+        echo "Session Time Zone: " . $row['session_time_zone'] . "<br>";
     }
-    echo "</table>";
 } else {
-    echo "0 results";
- 
+    echo "No time zone information found.";
 }
-
 // Close the database connection
 $db->close();
 ?>
