@@ -2,7 +2,7 @@
 include 'connection.php';
 
 // SQL query to select all records from personell_logs table
-$sql = "SELECT * FROM personell_logs";
+$sql = "SELECT * FROM visitor_logs";
 $result = $db->query($sql);
 
 if ($result->num_rows > 0) {
