@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set('Asia/Manila');
+
 include 'connection.php';
 
 // SQL query to select all records from personell_logs table
