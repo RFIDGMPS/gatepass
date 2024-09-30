@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (mysqli_affected_rows($db) > 0) {
             echo "<script>
                     alert('User has been blocked.');
-                    window.location.href = 'main.php'; // Redirect back to the main page
+                    window.location.href = 'lostcard.php'; // Redirect back to the main page
                   </script>";
         } else {
             echo "<script>alert('Error blocking user $personnel_id');</script>";
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (mysqli_affected_rows($db) > 0) {
             echo "<script>
                     alert('User has been deleted.');
-                    window.location.href = 'main.php'; // Redirect back to the main page
+                    window.location.href = 'lostcard.php'; // Redirect back to the main page
                   </script>";
         } else {
             echo "<script>alert('Error deleting user');</script>";
