@@ -66,7 +66,7 @@ include 'connection.php';
 // SQL query to join the 'personell' and 'lostcard' tables
 $sql = "SELECT personell.id, CONCAT(personell.first_name, ' ', personell.last_name) AS full_name, 
                personell.department, personell.photo, personell.rfid_number,
-               lostcard.date_requested, lostcard.verification_photo
+               lostcard.date_requested, lostcard.verification_photo, lostcard.status
         FROM personell
         JOIN lostcard ON personell.id = lostcard.personnel_id";
 
@@ -129,7 +129,7 @@ if ($result->num_rows > 0) {
     
         echo "</center></td>
               <td><img src='uploads/" . $row['photo'] . "' width='50' height='50'> 
-                  <img src='uploads/" . $row['verification_photo'] . "' width='50' height='50'></td>
+                  <img src='uploads/" . $row['status'] . "' width='50' height='50'></td>
               <td>" . $row['full_name'] . "</td>
               <td>" . $row['rfid_number'] . "</td>
               <td>" . $relativeTime . "</td>
