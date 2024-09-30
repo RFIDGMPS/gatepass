@@ -5,7 +5,7 @@ include 'connection.php';
 
 // Display the current time using MySQL's CURRENT_TIMESTAMP function
 
-$result = $db->query("SELECT NOW() as current_time");
+$result = $db->query("SELECT CURRENT_DATE() as current_time");
 
 // Check if query was successful
 if (!$result) {
