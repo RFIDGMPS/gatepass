@@ -88,10 +88,10 @@ if (isset($_POST['submit'])) {
     $sql1 = "SELECT * FROM personell WHERE rfid_number = '$Prfid_number'";
     $result1 = $db->query($sql1);
 
-    if ($result1->num_rows > 0) {
+    if ($result1->num_rows > 0 && $location == "Gate") {
         $personell = $result1->fetch_assoc();
       
-        if ($location == "Gate" && $password1 == "gate123" && $personell['role'] == 'Security Personnel') {
+        if ($password1 == "gate123" && $personell['role'] == 'Security Personnel') {
             // Successful login, redirect
             $_SESSION['location'] = 'Main Gate';
             $_SESSION['department'] = 'main';
