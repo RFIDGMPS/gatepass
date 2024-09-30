@@ -362,7 +362,7 @@ if ($row) {
                 echo '<script>$(document).ready(function() {
                     $("#visitorModal").modal("show");
                 });</script>';
-                $voice='Thank you for visiting '.$visitor1['name'].'!';
+               
             }
         } else {
          $time_in_out='STRANGER';
