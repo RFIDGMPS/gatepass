@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     window.location.href = 'main.php'; // Redirect back to the main page
                   </script>";
         } else {
-            echo "<script>alert('Error blocking user');</script>";
+            echo "<script>alert('Error blocking user $personnel_id');</script>";
         }
     } elseif ($action === 'delete') {
         // Delete the user from the 'lostcard' table
