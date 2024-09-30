@@ -72,77 +72,58 @@ session_start();
 <?php
 include 'connection.php';
 
-
-
-
 $location = "";
 $password = "";
 
-// Fetch data from the 'user' table (you can limit this query based on specific user login)
-
-
-// Check if login form is submitted
 if (isset($_POST['submit'])) {
-    // Validate the username and password
+    // Sanitize input
     $location = htmlspecialchars($_POST['location'], ENT_QUOTES, 'UTF-8');
     $password1 = htmlspecialchars($_POST['Ppassword'], ENT_QUOTES, 'UTF-8');
+    $Prfid_number = htmlspecialchars($_POST['Prfid_number'], ENT_QUOTES, 'UTF-8');
 
+    // Escape special characters for database use
+    $password1 = mysqli_real_escape_string($db, stripslashes($password1));
 
-$password1 = stripcslashes($password1); 
+    // Check if user is a security personnel at the gate
+    $sql1 = "SELECT * FROM personell WHERE rfid_number = '$Prfid_number'";
+    $result1 = $db->query($sql1);
 
-$password1 = mysqli_real_escape_string($db, $password1);
-$found=0;
-$sql = "SELECT * FROM rooms"; 
-$result = $db->query($sql);
-
-if ($location == "Gate" && $password1 == "gate123") {
-    // Store the username in session to indicate successful login
-    //$_SESSION['username'] = $username;
-
-    // Redirect to the dashboard
-    echo '<script type="text/javascript">
-        window.location = "main.php";
-    </script>';
-    $_SESSION['location'] = 'Main Gate';
-    $_SESSION['department'] = 'main';
-    $found=1;
-    exit();
-} 
-
-
-if ($result->num_rows > 0) {
-    
-    // Iterate over all rows
-    while ($row = $result->fetch_assoc()) {
-        
-        $room = $row['room'];
-        $password = $row['password'];
-        $department = $row['department'];
-        //$desc = $row['description'];
-       
-            if ($location == $room && password_verify($password1, $password)) {
-                // Store the username in session to indicate successful login
-                //$_SESSION['username'] = $username;
-        
-                // Redirect to the dashboard
-                echo '<script type="text/javascript">
-                    window.location = "main.php";
-                </script>';
-                $_SESSION['location'] = $room;
-                $_SESSION['department'] = $department;
-                $_SESSION['descr'] = $row['descr'];
-                exit();
-            } 
+    if ($result1->num_rows > 0) {
+        $personell = $result1->fetch_assoc();
+        if ($location == "Gate" && $password1 == "gate123" && $personell['role'] == 'Security Personell') {
+            // Successful login, redirect
+            $_SESSION['location'] = 'Main Gate';
+            $_SESSION['department'] = 'main';
+            echo '<script>window.location = "main.php";</script>';
+            exit();
+        }
     }
 
-    
-} 
-if($found==0) {
-    // Show invalid login message
-    echo '<script type="text/javascript">
-        alert("Invalid username and password.");
-    </script>';
-}
+    // If not security personnel, check for room login
+    $sql2 = "SELECT * FROM rooms WHERE room = '$location'";
+    $result2 = $db->query($sql2);
+
+    if ($result2->num_rows > 0) {
+        $room = $result2->fetch_assoc();
+        $sql3 = "SELECT * FROM personell WHERE department = '{$room['department']}' AND role = 'Instructor'";
+        $result3 = $db->query($sql3);
+
+        if ($result3->num_rows > 0) {
+            $instructor = $result3->fetch_assoc();
+            // Verify password and ensure the department matches
+            if (password_verify($password1, $room['password']) && $instructor['department'] == $room['department']) {
+                // Successful login, redirect
+                $_SESSION['location'] = $room['room'];
+                $_SESSION['department'] = $room['department'];
+                $_SESSION['descr'] = $room['descr'];
+                echo '<script>window.location = "main.php";</script>';
+                exit();
+            }
+        }
+    }
+
+    // Invalid login
+    echo '<script>alert("Invalid username and password.");</script>';
 }
 ?>
 
@@ -227,7 +208,7 @@ if($found==0) {
                             </div>
                         </div>
                         <input style="border-color:#084298" type="text" name="Prfid_number" class="form-control" placeholder="Tap RFID card" autofocus>
-                        <input id="submit" type="submit" name="submit" value="Submit"/>
+                        <input hidden id="submit" type="submit" name="submit" value="Submit"/>
                    </form>
                     </div>
                 </div>
@@ -237,7 +218,7 @@ if($found==0) {
     </div>
     <script>
         function myFunction() {
-            var x = document.getElementById("password");
+            var x = document.getElementById("remember");
             if (x.type === "password") {
                 x.type = "text";
             } else {

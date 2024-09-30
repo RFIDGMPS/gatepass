@@ -61,13 +61,15 @@ switch ($_GET['edit'])
 						 complete_address = '$complete_address' 
 					 WHERE id = '$id'";
 
-if($status == 'Active'){
-$query1 = "UPDATE lostcard SET 
- status = 0
-WHERE personnel_id = '$id'";
-$result = mysqli_query($db, $query1) or die(mysqli_error($db));
-}
+
 							$result = mysqli_query($db, $query) or die(mysqli_error($db));
+
+							if($status == 'Active'){
+								$query1 = "UPDATE lostcard SET 
+								 status = 0
+								WHERE personnel_id = '$id'";
+								$result = mysqli_query($db, $query1) or die(mysqli_error($db));
+								}
 							echo '<script type="text/javascript">
 			alert("Update Successfull.");
 			window.location = "personell.php";
