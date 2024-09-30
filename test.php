@@ -1,23 +1,37 @@
 <?php
 include 'connection.php';
 
-// Display the current date using MySQL's CURRENT_DATE function
 
-// SQL query to get MySQL time zones
-$query = "SELECT @@global.time_zone as global_time_zone, @@session.time_zone as session_time_zone";
+// Set the time zone to Asia/Manila
+$db->query("SET time_zone = 'Asia/Manila'");
 
-$result = $db->query($query);
+// Fetch current date from MySQL
+$result = $db->query("SELECT CURRENT_DATE() as current_date");
 
-if ($result->num_rows > 0) {
-    // Output the result
-    while ($row = $result->fetch_assoc()) {
-        echo "Global Time Zone: " . $row['global_time_zone'] . "<br>";
-        echo "Session Time Zone: " . $row['session_time_zone'] . "<br>";
-    }
-} else {
-    echo "No time zone information found.";
+// Check if query was successful
+if (!$result) {
+    die("Query failed: " . $db->error);
 }
 
+// Fetch the current date
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $mysql_current_date = $row['current_date'];
+    $php_current_date = date('Y-m-d'); // Current date in PHP
+
+    // Output the dates for comparison
+    echo "MySQL Current Date: " . $mysql_current_date . "<br>";
+    echo "PHP Current Date: " . $php_current_date . "<br>";
+
+    // Compare the dates
+    if ($mysql_current_date === $php_current_date) {
+        echo "The dates are the same.";
+    } else {
+        echo "The dates are different.";
+    }
+} else {
+    echo "No rows found.";
+}
 
 $db->close();
 ?>
