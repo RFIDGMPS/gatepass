@@ -1,39 +1,37 @@
 <?php
-include 'connection.php'; // Include your database connection
+include 'connection.php';
 
-// Query to select all records from the lostcard table
-$query = "SELECT * FROM visi";
-$result = mysqli_query($db, $query);
+// SQL query to select all records from personell_logs table
+$sql = "SELECT * FROM personell_logs";
+$result = $db->query($sql);
 
-if (!$result) {
-    die("Database query failed: " . mysqli_error($db));
+if ($result->num_rows > 0) {
+    echo "<table border='1' cellpadding='10'>
+            <tr>
+                <th>ID</th>
+                <th>Personnel ID</th>
+                <th>Date Logged</th>
+                <th>Time In</th>
+                <th>Time Out</th>
+                <th>Location</th>
+            </tr>";
+    
+    // Output data of each row
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>
+                <td>{$row['id']}</td>
+                <td>{$row['personnel_id']}</td>
+                <td>{$row['date_logged']}</td>
+                <td>{$row['time_in']}</td>
+                <td>{$row['time_out']}</td>
+                <td>{$row['location']}</td>
+              </tr>";
+    }
+    echo "</table>";
+} else {
+    echo "0 results";
 }
 
-// HTML structure to display the data
-echo '<h2>Lost Card Records</h2>';
-echo '<table border="1" cellpadding="10" cellspacing="0">';
-echo '<tr>
-        <th>ID</th>
-        <th>Personnel ID</th>
-        <th>Date Requested</th>
-        <th>Status</th>
-        <th>Verification Photo</th>
-      </tr>';
-
-// Fetching and displaying each row
-while ($row = mysqli_fetch_assoc($result)) {
-    echo '<tr>';
-    echo '<td>' . $row['id'] . '</td>';
-    echo '<td>' . $row['personnel_id'] . '</td>';
-    echo '<td>' . $row['date_requested'] . '</td>';
-    echo '<td>' . $row['status'] . '</td>';
-    echo '<td><img src="admin/uploads/' . $row['verification_photo'] . '" alt="Verification Photo" style="height: 50px; width: 50px;"></td>';
-    echo '</tr>';
-}
-
-echo '</table>';
-
-// Free the result set and close the database connection
-mysqli_free_result($result);
-mysqli_close($db);
+// Close the database connection
+$db->close();
 ?>
