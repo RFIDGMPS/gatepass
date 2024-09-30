@@ -61,7 +61,7 @@ switch ($_GET['edit'])
 						 complete_address = '$complete_address' 
 					 WHERE id = '$id'";
 
-if($status == 'Block'){
+if($status == 'Active'){
 $query1 = "UPDATE lostcard SET 
  status = 0
 WHERE personnel_id = '$id'";
