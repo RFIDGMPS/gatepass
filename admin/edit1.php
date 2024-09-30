@@ -165,7 +165,7 @@ switch ($_GET['edit'])
 																						$query = "UPDATE rooms SET 
 																										room = '$room',
 																										 department = '$department',
-																										 descr='$descr';
+																										 descr='$descr',
 																										 password = '$password'
 																									 WHERE id = '$id'";
 																											$result = mysqli_query($db, $query) or die(mysqli_error($db));
