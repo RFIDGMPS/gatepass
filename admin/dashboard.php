@@ -231,10 +231,8 @@ $strangers = getCount($db, "SELECT COUNT(*) AS count FROM personell_logs WHERE d
                                             <th scope="col">RFID Number</th>
                                             <th scope="col">Role</th>
                                             <th scope="col">Full Name</th>
-                                            <th scope="col">Time In (AM)</th>
-                                            <th scope="col">Time Out (AM)</th>
-                                            <th scope="col">Time In (PM)</th>
-                                            <th scope="col">Time Out (PM)</th>
+                                            <th scope="col">Time In</th>
+                                            <th scope="col">Time Out</th>
                                         
                                           
 
@@ -243,16 +241,36 @@ $strangers = getCount($db, "SELECT COUNT(*) AS count FROM personell_logs WHERE d
                                     <tbody>
                                     <?php include '../connection.php'; ?>
                                  <?php  $results = mysqli_query($db, "
-            SELECT id, rfid_number, photo, role, full_name, time_in_am, time_out_am, time_in_pm, time_out_pm, 'personell_logs' AS source, 
-            GREATEST(STR_TO_DATE(time_in_am, '%H:%i:%s'), STR_TO_DATE(time_out_am, '%H:%i:%s'), STR_TO_DATE(time_in_pm, '%H:%i:%s'), STR_TO_DATE(time_out_pm, '%H:%i:%s')) AS latest_time
-            FROM personell_logs
-            WHERE DATE(date_logged) = CURDATE()
-            UNION ALL
-            SELECT id, rfid_number, photo, role, name as full_name, time_in_am, time_out_am, time_in_pm, time_out_pm, 'visitor_logs' AS source, 
-            GREATEST(STR_TO_DATE(time_in_am, '%H:%i:%s'), STR_TO_DATE(time_out_am, '%H:%i:%s'), STR_TO_DATE(time_in_pm, '%H:%i:%s'), STR_TO_DATE(time_out_pm, '%H:%i:%s')) AS latest_time
-            FROM visitor_logs
-            WHERE DATE(date_logged) = CURDATE()
-            ORDER BY latest_time DESC, source DESC
+            SELECT 
+    p.photo,
+    p.department,
+    p.role,
+    CONCAT(p.first_name, ' ', p.last_name) AS full_name,
+    pl.time_in,
+    pl.time_out,
+    pl.date_logged
+FROM personell_logs pl
+JOIN personell p ON pl.personnel_id = p.id
+WHERE pl.date_logged = CURRENT_DATE()
+
+UNION
+
+SELECT 
+    vl.photo,
+    vl.department,
+    'Visitor' AS role,
+    vl.name AS full_name,
+    vl.time_in,
+    vl.time_out,
+    vl.date_logged
+FROM visitor_logs vl
+WHERE vl.date_logged = CURRENT_DATE()
+
+ORDER BY 
+    CASE 
+        WHEN time_out IS NOT NULL THEN time_out 
+        ELSE time_in 
+    END DESC
         ");  ?>
                                  <?php while ($row = mysqli_fetch_array($results)) { ?>
                                         <tr>
@@ -263,12 +281,9 @@ $strangers = getCount($db, "SELECT COUNT(*) AS count FROM personell_logs WHERE d
                                             <td><?php echo $row['role']; ?></td>
                                             <td><?php echo $row['full_name']; ?></td>
 
-                                            <td><?php echo $row['time_in_am']; ?></td>
+                                            <td><?php echo $row['time_in']; ?></td>
                                             <td>
-                                            <?php echo $row['time_out_am']; ?></td>
-                                            <td><?php echo $row['time_in_pm']; ?></td>
-                                            <td>
-                                            <?php echo $row['time_out_pm']; ?></td>
+                                            <?php echo $row['time_out']; ?></td>
                                           
                                            
                                         </tr>

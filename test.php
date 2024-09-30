@@ -2,7 +2,7 @@
 include 'connection.php'; // Include your database connection
 
 // Query to select all records from the lostcard table
-$query = "SELECT * FROM lostcard";
+$query = "SELECT * FROM visi";
 $result = mysqli_query($db, $query);
 
 if (!$result) {
