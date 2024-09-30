@@ -124,7 +124,7 @@ if (isset($_POST['submit'])) {
                 echo '<script>window.location = "main.php";</script>';
                 exit();
             }else {
-                echo '<script>alert("'.$room['password'].' '. $instructor['department'].' '. $room['department'].'You\'re not allowed to open this room.");</script>';
+                echo '<script>alert("'.password_verify($password1, $room['password']).' '. $instructor['department'].' '. $room['department'].'You\'re not allowed to open this room.");</script>';
             }
         }
     }
