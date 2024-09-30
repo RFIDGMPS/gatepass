@@ -198,7 +198,7 @@ if (isset($_POST['submit'])) {
                         </div>
                        
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" name="Ppassword" placeholder="Password" autocomplete="off">
+                            <input id="remember" type="password" class="form-control" name="Ppassword" placeholder="Password" autocomplete="off">
                             <label for="floatingPassword">Password</label>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mb-4">
