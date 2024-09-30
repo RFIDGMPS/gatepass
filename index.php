@@ -98,7 +98,7 @@ if (isset($_POST['submit'])) {
             exit();
         }
         else {
-            echo '<script>alert("Invalid username and password.'.$location.' '. $$personell['role'].' '. .'");</script>';
+            echo '<script>alert("Invalid username and password.'.$location.' '. $personell['role'].' '. $password1.'");</script>';
         }
     }
 
