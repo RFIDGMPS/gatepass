@@ -9,7 +9,8 @@ $sql = "    SELECT
     CONCAT(p.first_name, ' ', p.last_name) AS full_name,
     pl.time_in,
     pl.time_out,
-    pl.date_logged
+    pl.date_logged,
+    CURRENT_DATE() AS currentDate
 FROM personell_logs pl
 JOIN personell p ON pl.personnel_id = p.id
 
@@ -41,6 +42,7 @@ if ($result->num_rows > 0) {
     echo "</table>";
 } else {
     echo "0 results";
+    echo $row['currentDate'];
 }
 
 // Close the database connection
