@@ -126,6 +126,8 @@ if (isset($_POST['submit'])) {
             }else {
                 echo '<script>alert("You\'re not allowed to open this room.");</script>';
             }
+        }else {
+            echo '<script>alert("You\'re not allowed to open this room.");</script>';
         }
     }
 
