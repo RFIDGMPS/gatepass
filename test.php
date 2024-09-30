@@ -8,10 +8,12 @@ include 'connection.php';
 
 // SQL query to select all records from personell_logs table
 
-$query = "SELECT CURRENT_DATE() as today_date";
-$result = $db->query($query);
-$row = $result->fetch_assoc();
-echo "MySQL Date: " . $row['today_date'];
+$timeZoneQuery = "SET time_zone = 'Asia/Manila';";
+if ($db->query($timeZoneQuery) === TRUE) {
+    echo "Time zone set to Asia/Manila.";
+} else {
+    echo "Error setting time zone: " . $db->error;
+}
 $result = $db->query($query);
 
 if ($result->num_rows > 0) {
