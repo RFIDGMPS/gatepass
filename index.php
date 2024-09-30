@@ -98,7 +98,7 @@ if (isset($_POST['submit'])) {
             exit();
         }
         else {
-            echo '<script>alert("Invalid username and password.'.$location.' '. $personell['role'].' '. $password1.'");</script>';
+            echo '<script>alert("You\'re not allowed to open the Main Gate");</script>';
         }
     }
 
@@ -122,7 +122,7 @@ if (isset($_POST['submit'])) {
                 echo '<script>window.location = "main.php";</script>';
                 exit();
             }else {
-                echo '<script>alert("Invalid username and password1.");</script>';
+                echo '<script>alert("You\'re not allowed to open this room.");</script>';
             }
         }
     }
