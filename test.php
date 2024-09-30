@@ -14,19 +14,6 @@ FROM personell_logs pl
 JOIN personell p ON pl.personnel_id = p.id
 WHERE pl.date_logged = CURRENT_DATE()
 
-UNION
-
-SELECT 
-    photo,
-    department,
-    'Visitor' AS role,
-    name AS full_name,
-    time_in,
-    time_out,
-    date_logged
-FROM visitor_logs 
-WHERE date_logged = CURRENT_DATE()
-
 ORDER BY 
     CASE 
         WHEN time_out IS NOT NULL THEN time_out 
