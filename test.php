@@ -1,30 +1,42 @@
 <?php
-// Set the time zone to your desired location
-date_default_timezone_set('Asia/Manila'); // Replace with your preferred time zone
-
-// Get the current date
-echo date('Y-m-d H:i:s'); // Output the current date and time
 include 'connection.php';
 
 // SQL query to select all records from personell_logs table
+$sql = "    SELECT CURRENT_DATE() AS currentDate
 
-$timeZoneQuery = "SET time_zone = 'Asia/Manila';";
-if ($db->query($timeZoneQuery) === TRUE) {
-    echo "Time zone set to Asia/Manila.";
-} else {
-    echo "Error setting time zone: " . $db->error;
-}
-$result = $db->query($query);
+";
+$result = $db->query($sql);
 
 if ($result->num_rows > 0) {
-    // Output the result
+    echo "<table border='1' cellpadding='10'>
+            <tr>
+                <th>ID</th>
+                <th>Personnel ID</th>
+                <th>Date Logged</th>
+                <th>Time In</th>
+                <th>Time Out</th>
+                <th>Location</th>
+            </tr>";
+    
+    // Output data of each row
     while ($row = $result->fetch_assoc()) {
-        echo "Global Time Zone: " . $row['global_time_zone'] . "<br>";
-        echo "Session Time Zone: " . $row['session_time_zone'] . "<br>";
+        echo "<tr>
+                <td>{$row['id']}</td>
+                <td>{$row['currentDate']}</td>
+                <td>{$row['date_logged']}</td>
+                <td>{$row['time_in']}</td>
+                <td>{$row['time_out']}</td>
+                <td>{$row['location']}</td>
+              </tr>";
+
+        
     }
+    echo "</table>";
 } else {
-    echo "No time zone information found.";
+    echo "0 results";
+ 
 }
+
 // Close the database connection
 $db->close();
 ?>
