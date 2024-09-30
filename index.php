@@ -90,18 +90,18 @@ if (isset($_POST['submit'])) {
 
     if ($result1->num_rows > 0) {
         $personell = $result1->fetch_assoc();
-        if($location == "Gate"){
-        if ($password1 == "gate123" && $personell['role'] == 'Security Personnel') {
+      
+        if ($location == "Gate" && $password1 == "gate123" && $personell['role'] == 'Security Personnel') {
             // Successful login, redirect
             $_SESSION['location'] = 'Main Gate';
             $_SESSION['department'] = 'main';
             echo '<script>window.location = "main.php";</script>';
             exit();
+        }else {
+            echo '<script>alert("You\'re not allowed to open the Main Gate");</script>';
         }
         
-    }else {
-        echo '<script>alert("You\'re not allowed to open the Main Gate");</script>';
-    }
+    
     }
 
     // If not security personnel, check for room login
