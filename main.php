@@ -510,7 +510,7 @@ LIMIT 1;
         // Fetch and display the results
         while ($row = mysqli_fetch_array($results)) {
 
-
+ if(isset($_POST['submit'])){
     
     $alert='alert-primary';
 if($time_in_out=='TIME IN'){
@@ -573,7 +573,7 @@ if($time_in_out == 'BLOCKED' || $time_in_out == 'STRANGER' || $time_in_out == 'U
     </script>
 <?php 
 
-
+ }
     }
         
     
