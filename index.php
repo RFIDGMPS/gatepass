@@ -90,8 +90,8 @@ if (isset($_POST['submit'])) {
 
     if ($result1->num_rows > 0 && $location == "Gate") {
         $personell = $result1->fetch_assoc();
-      
-        if ($password1 == "gate123" && $personell['role'] == 'Security Personnel' && $personell['status'] == 'Active') {
+      if($password1 == "gate123"){
+        if ($personell['role'] == 'Security Personnel' && $personell['status'] == 'Active') {
             // Successful login, redirect
             $_SESSION['location'] = 'Main Gate';
             $_SESSION['department'] = 'main';
@@ -100,7 +100,9 @@ if (isset($_POST['submit'])) {
         }else {
             echo '<script>alert("You\'re not allowed to open the Main Gate");</script>';
         }
-        
+    }else {
+
+    }
     
     }
 
@@ -127,7 +129,7 @@ if (isset($_POST['submit'])) {
                 echo '<script>alert("You\'re not allowed to open this room.");</script>';
             }
         }else {
-            echo '<script>alert("You\'re not allowed to open this room.");</script>';
+            echo '<script> document.getElementById("in_pass").innerHTML = "Incorrect Password.";</script>';
         }
     }
 
@@ -209,6 +211,9 @@ if (isset($_POST['submit'])) {
                         <div class="form-floating mb-4">
                             <input id="remember" type="password" class="form-control" name="Ppassword" placeholder="Password" autocomplete="off">
                             <label for="floatingPassword">Password</label>
+                         
+                                <center><span style="color:red;" id="in_pass"></span></center>
+                            
                         </div>
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <div class="form-check">
