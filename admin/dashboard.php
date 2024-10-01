@@ -279,7 +279,7 @@ ORDER BY
                                             <td>
                                                 <center><img src="uploads/<?php echo $row['photo']; ?>" width="50px" height="50px"></center>
                                             </td>
-                                            <td><?php echo $row['rfid_number']; ?></td>
+                                            <td><?php echo $row['date_logged']; ?></td>
                                             <td><?php echo $row['role']; ?></td>
                                             <td><?php echo $row['full_name']; ?></td>
 
