@@ -964,7 +964,7 @@ Webcam.snap(function(data_uri){
 
    $('.preview-1').attr('src', data_uri); // Update preview image src
    document.getElementById('capturedImage').value = data_uri;
-   
+   document.getElementById('capturedImage1').value = data_uri;
    $('#cameraModal').modal('hide');
    
 });
@@ -1092,7 +1092,7 @@ Webcam.snap(function(data_uri){
                                          <center><b>Capture Verification: </b></center>
                                       </div>
 
-                                      <input type="hidden" id="capturedImage" name="capturedImage">
+                                      <input type="hidden" id="capturedImage1" name="capturedImage1">
                                      
                                     </div>
 
