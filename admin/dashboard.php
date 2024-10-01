@@ -244,6 +244,7 @@ $strangers = getCount($db, "SELECT COUNT(*) AS count FROM personell_logs WHERE d
             SELECT 
     p.photo,
     p.department,
+    p.rfid_number,
     p.role,
     CONCAT(p.first_name, ' ', p.last_name) AS full_name,
     pl.time_in,
@@ -258,6 +259,7 @@ UNION
 SELECT 
     vl.photo,
     vl.department,
+    vl.rfid_number,
     'Visitor' AS role,
     vl.name AS full_name,
     vl.time_in,
