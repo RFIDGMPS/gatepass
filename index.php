@@ -109,6 +109,7 @@ if (isset($_POST['submit'])) {
         }
     } else {
         $error_message = "RFID number not found.";
+        echo '<script>document.getElementById("myalert3").style.display = "Block";</script>';
     }
     
 
@@ -136,7 +137,7 @@ if (isset($_POST['submit'])) {
                 echo '<script>alert("You\'re not allowed to open this room.");</script>';
             }
         }else {
-            echo '<script>alert("You\'re not allowed to open this room.");  document.getElementById("myalert3").style.display = "Block";</script>';
+            echo '<script>alert("You\'re not allowed to open this room."); </script>';
         }
     }
 
