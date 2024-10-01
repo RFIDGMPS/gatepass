@@ -99,7 +99,7 @@ include 'connection.php';
 <script>
        // If there's an error message, show the alert and set a timer to fade it out
        <?php if (!empty($error_message)): ?>
-       
+        document.getElementById("myalert3").style.display = "block";
         
         // Fade out function
     
@@ -157,8 +157,9 @@ include 'connection.php';
                    </form>
                    <script>
     $(document).ready(function(){
+      
         $('#logform').on('submit', function(event){
-             document.getElementById("myalert3").style.display = "block";
+            
             event.preventDefault();  // Prevent form from reloading the page
 
             // Gather form data
