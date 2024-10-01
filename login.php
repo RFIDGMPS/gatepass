@@ -64,14 +64,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo '<script>window.location = "main.php";</script>';
                 exit();
             }else {
-                $error_message = "You're not allowed to open this room.";
+                echo "You're not allowed to open this room.";
             }
         }
         else {
-            $error_message = "Incorrect Password.";
+            echo "Incorrect Password.";
         }
     } else {
-        $error_message = "RFID number not found.";
+        echo "RFID number not found.";
       
     }
 
