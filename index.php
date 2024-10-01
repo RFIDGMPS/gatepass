@@ -102,8 +102,6 @@ if (isset($_POST['submit'])) {
         }
         
     
-    }else {
-        echo '<script>alert("You\'re not allowed to open this room.");</script>';
     }
 
     // If not security personnel, check for room login
