@@ -127,7 +127,10 @@ switch ($_GET['action'])
 
 
                   case 'add_lost_card':
-                     
+                     // Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
                                 // Get the ID from the hidden input
                                 $id = $_POST['id'];
                             
@@ -139,7 +142,7 @@ switch ($_GET['action'])
                                 list(, $encodedData) = explode(',', $encodedData);
                                 $decodedData = base64_decode($encodedData);
 
-                                $imageName = $_POST['id'] . '.jpeg';
+                                $imageName = $_POST['capturedImage'] . '.jpeg';
                                 $filePath = 'uploads/' . $imageName;
                                 // Get the current date and time
                                 $date_requested = date('Y-m-d H:i:s');
