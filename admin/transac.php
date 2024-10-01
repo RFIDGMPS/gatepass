@@ -145,8 +145,8 @@ switch ($_GET['action'])
                             
                                 // SQL query with the PHP variable
                                 if (file_put_contents($filePath, $decodedData)) {
-                                $query = "INSERT INTO lostcard (personnel_id, date_requested, status, verification_photo) 
-                                          VALUES ('$id', '$date_requested', 0, '$imageName')";
+                                $query = "INSERT INTO lostcard (personnel_id, date_requested,verification_photo, status) 
+                                          VALUES ('$id', '$date_requested', '$imageName',0)";
                                 
                                 // Execute the query
                                 mysqli_query($db, $query) or die('Error in updating Database');
