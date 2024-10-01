@@ -163,22 +163,13 @@ if (isset($_POST['submit'])) {
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
                     <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
                          <form role="form" id="logform" method="POST">
-                            <div class="">
-                                <center><span id="myalert2">aaaa</span></center>
-                                
-                            </div>
-                            <div id="myalert" >
-
+                          
+                            <div id="myalert3" style="display:none;">
                                 <div class="">
-                                   <center><span id="alerttext">aaa2</span></center>
-                                </div>
-
-
-                            </div>
-                            <div id="myalert3">
-                                <div class="">
-                                    <div class="alert alert-success" id="alerttext3">
-                                    <center><span id="alerttext">aaa3</span></center>
+                                    <div class="alert alert-danger" id="alerttext3">
+                                    <?php if (!empty($error_message)): ?>
+        <span id="alerttext"><?= $error_message ?></span>
+    <?php endif; ?>
                                     </div>
 
                                 </div>
