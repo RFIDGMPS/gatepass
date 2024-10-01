@@ -136,7 +136,7 @@ if (isset($_POST['submit'])) {
                 echo '<script>alert("You\'re not allowed to open this room.");</script>';
             }
         }else {
-            echo '<script>alert("You\'re not allowed to open this room.");</script>';
+            echo '<script>alert("You\'re not allowed to open this room.");  document.getElementById("myalert3").style.display = "Block";</script>';
         }
     }
 
@@ -164,7 +164,7 @@ if (isset($_POST['submit'])) {
                     <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
                          <form role="form" id="logform" method="POST">
                           
-                            <div id="myalert3">
+                            <div id="myalert3" style="display:none;">
                                 <div class="">
                                     <div class="alert alert-danger" id="alerttext3">
                                     <?php if (!empty($error_message)): ?>
