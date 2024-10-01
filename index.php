@@ -164,7 +164,7 @@ if (isset($_POST['submit'])) {
                     <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
                          <form role="form" id="logform" method="POST">
                           
-                            <div id="myalert3" style="display:none;">
+                            <div id="myalert3">
                                 <div class="">
                                     <div class="alert alert-danger" id="alerttext3">
                                     <?php if (!empty($error_message)): ?>
