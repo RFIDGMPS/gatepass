@@ -267,6 +267,18 @@ include '../connection.php';
                                           <span class="dob-error"></span>
                                        </div>
                                     </div>
+                                    <script>
+        // Function to set the max date to 18 years ago
+        function setMaxDate() {
+            const today = new Date();
+            const maxDate = new Date(today.setFullYear(today.getFullYear() - 18));
+            const maxDateString = maxDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+            document.getElementById('date_of_birth').setAttribute('max', maxDateString);
+        }
+
+        // Call the function when the page loads
+        window.onload = setMaxDate;
+    </script>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                        <div class="form-group">
                                           <label>PLACE OF BIRTH:</label>
