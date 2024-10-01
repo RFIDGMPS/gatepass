@@ -102,7 +102,7 @@ if (isset($_POST['submit'])) {
                 echo '<script>window.location = "main.php";</script>';
                 exit();
             } else {
-                $error_message = "You\'re not allowed to open the Main Gate.";
+                $error_message = "You're not allowed to open the Main Gate.";
             }
         } else {
             $error_message = "Incorrect Password.";
@@ -126,7 +126,8 @@ if (isset($_POST['submit'])) {
         if ($result3->num_rows > 0) {
             $instructor = $result3->fetch_assoc();
             // Verify password and ensure the department matches
-            if (password_verify($password1, $room['password']) && $instructor['department'] == $room['department'] && $instructor['status'] == 'Active') {
+            if(password_verify($password1, $room['password'])){
+            if ($instructor['department'] == $room['department'] && $instructor['status'] == 'Active') {
                 // Successful login, redirect
                 $_SESSION['location'] = $room['room'];
                 $_SESSION['department'] = $room['department'];
@@ -134,11 +135,15 @@ if (isset($_POST['submit'])) {
                 echo '<script>window.location = "main.php";</script>';
                 exit();
             }else {
-                echo '<script>alert("You\'re not allowed to open this room.");</script>';
+                $error_message = "You're not allowed to open this room.";
             }
-        }else {
-            echo '<script>alert("You\'re not allowed to open this room."); </script>';
         }
+        else {
+            $error_message = "Incorrect Password.";
+        }
+    } else {
+        $error_message = "RFID number not found.";
+      
     }
 
     // Invalid login
