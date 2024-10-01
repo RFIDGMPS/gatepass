@@ -143,14 +143,14 @@ switch ($_GET['action'])
                                 $filePath = 'uploads/' . $imageName;
                                 // Get the current date and time
                                 $date_requested = date('Y-m-d H:i:s');
-                                echo '<script type="text/javascript">
-                                alert("'.$filePath.'");
-                            </script>';
+                                
                                 // SQL query with the PHP variable
                                 if (file_put_contents($filePath, $decodedData)) {
                                 $query = "INSERT INTO lostcard (personnel_id, date_requested,verification_photo, status) 
                                           VALUES ('$id', '$date_requested', '$imageName',0)";
-                                
+                                echo '<script type="text/javascript">
+                                alert("'.$imageName.'");
+                            </script>';
                                 // Execute the query
                                 mysqli_query($db, $query) or die('Error in updating Database');
                                
