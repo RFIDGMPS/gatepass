@@ -101,7 +101,7 @@ if (isset($_POST['submit'])) {
             echo '<script>alert("You\'re not allowed to open the Main Gate");</script>';
         }
     }else {
-
+        echo '<script> document.getElementById("in_pass").innerHTML = "Incorrect Password.";</script>';
     }
     
     }
@@ -212,9 +212,10 @@ if (isset($_POST['submit'])) {
                             <input id="remember" type="password" class="form-control" name="Ppassword" placeholder="Password" autocomplete="off">
                             <label for="floatingPassword">Password</label>
                          
-                                <center><span style="color:red;" id="in_pass"></span></center>
-                            
+                                
                         </div>
+                        <center><span style="color:red;" id="in_pass"></span></center>
+                            
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <div class="form-check">
                                 <input type="checkbox" id="remember" onclick="myFunction()"  class="form-check-input" id="exampleCheck1">
