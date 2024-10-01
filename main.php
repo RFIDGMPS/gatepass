@@ -1092,7 +1092,7 @@ Webcam.snap(function(data_uri){
                                          <center><b>Capture Verification: </b></center>
                                       </div>
 
-                                      <input  id="capturedImage2" name="capturedImage2">
+                                      <input hidden id="capturedImage2" name="capturedImage2">
                                      
                                     </div>
 
