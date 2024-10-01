@@ -90,16 +90,27 @@ include 'connection.php';
                     <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
                          <form role="form" id="logform" method="POST">
                           
-                         <div id="myalert3" style="display:none;">
+                         <div id="myalert3">
     <div class="alert alert-danger">
-        <span id="alerttext"></span>
+        <span id="alerttext"><?= $error_message ?></span>
     </div>
 </div>
 
 <script>
-   
-        document.getElementById("myalert3").style.display = "block";
-
+       // If there's an error message, show the alert and set a timer to fade it out
+       <?php if (!empty($error_message)): ?>
+        //document.getElementById("myalert3").style.display = "block";
+        
+        // Fade out function
+        setTimeout(function() {
+            var alertDiv = document.getElementById("myalert3");
+            alertDiv.style.transition = "opacity 1s"; // Transition effect for fade out
+            alertDiv.style.opacity = 0; // Change opacity to 0
+            setTimeout(function() {
+                alertDiv.style.display = "none"; // Hide the div after fading out
+            }, 1000); // Wait for the transition to complete before hiding
+        }, 3000); // Wait 3 seconds b
+    <?php endif; ?>
 </script>
 
                         <div class="d-flex align-items-center justify-content-between mb-3">
@@ -153,9 +164,7 @@ include 'connection.php';
                    </form>
                    <script>
     $(document).ready(function(){
-      
         $('#logform').on('submit', function(event){
-            
             event.preventDefault();  // Prevent form from reloading the page
 
             // Gather form data
@@ -175,15 +184,6 @@ include 'connection.php';
                 }
             });
         });
-
-        setTimeout(function() {
-            var alertDiv = document.getElementById("myalert3");
-            alertDiv.style.transition = "opacity 1s"; // Transition effect for fade out
-            alertDiv.style.opacity = 0; // Change opacity to 0
-            setTimeout(function() {
-                alertDiv.style.display = "none"; // Hide the div after fading out
-            }, 1000); // Wait for the transition to complete before hiding
-        }, 3000); // Wait 3 seconds b
     });
 </script>
                     </div>
