@@ -148,16 +148,9 @@ include 'connection.php';
                         <button type="submit">Submit</button>
                    </form>
                    <script>
-                          document.getElementById("myalert3").style.display = "block";
-            setTimeout(function() {
-            var alertDiv = document.getElementById("myalert3");
-            alertDiv.style.transition = "opacity 1s"; // Transition effect for fade out
-            alertDiv.style.opacity = 0; // Change opacity to 0
-            setTimeout(function() {
-                alertDiv.style.display = "none"; // Hide the div after fading out
-            }, 1000); // Wait for the transition to complete before hiding
-        }, 3000); // Wait 3 seconds b
+           
     $(document).ready(function(){
+        document.getElementById("myalert3").style.display = "block";
         $('#logform').on('submit', function(event){
             
             event.preventDefault();  // Prevent form from reloading the page
@@ -178,7 +171,15 @@ include 'connection.php';
                     $('#alerttext').html("Error in form submission.");
                 }
             });
-      
+            
+            setTimeout(function() {
+            var alertDiv = document.getElementById("myalert3");
+            alertDiv.style.transition = "opacity 1s"; // Transition effect for fade out
+            alertDiv.style.opacity = 0; // Change opacity to 0
+            setTimeout(function() {
+                alertDiv.style.display = "none"; // Hide the div after fading out
+            }, 1000); // Wait for the transition to complete before hiding
+        }, 3000); // Wait 3 seconds b
         });
     });
 </script>
