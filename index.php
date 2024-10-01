@@ -90,27 +90,36 @@ if (isset($_POST['submit'])) {
     $sql1 = "SELECT * FROM personell WHERE rfid_number = '$Prfid_number'";
     $result1 = $db->query($sql1);
     
-    if ($result1 && $result1->num_rows > 0 && $location === "Gate") {
-        $personell = $result1->fetch_assoc();
-        
-        // Validate password
+    $location = htmlspecialchars($_POST['location'], ENT_QUOTES, 'UTF-8');
+    $password1 = htmlspecialchars($_POST['Ppassword'], ENT_QUOTES, 'UTF-8');
+    $Prfid_number = htmlspecialchars($_POST['Prfid_number'], ENT_QUOTES, 'UTF-8');
+    
+    // Escape special characters for database use
+    $password1 = mysqli_real_escape_string($db, stripslashes($password1));
+
+    // Default JSON response
+    $response = ['success' => false, 'message' => '', 'location' => $location];
+
+    // Your validation logic...
+    if ($result1->num_rows > 0 && $location === "Gate") {
         if ($password1 === "gate123") {
-            if ($personell['role'] === 'Security Personnel' && $personell['status'] === 'Active') {
-                // Successful login, redirect
+            if ($personell['role'] === 'Security Personnel') {
+                // Login success
                 $_SESSION['location'] = 'Main Gate';
                 $_SESSION['department'] = 'main';
-                echo '<script>window.location = "main.php";</script>';
-                exit();
+                $response['success'] = true;
             } else {
-                $error_message = "You're not allowed to open the Main Gate.";
+                $response['message'] = "You're not allowed to open the Main Gate.";
             }
         } else {
-            $error_message = "Incorrect Password.";
+            $response['message'] = "Incorrect Password.";
         }
     } else {
-        $error_message = "RFID number not found.";
-      
+        $response['message'] = "RFID number not found.";
     }
+
+    echo json_encode($response);
+    exit();
     
 
 
@@ -168,56 +177,84 @@ if (isset($_POST['submit'])) {
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
                     <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
-                    <form role="form" id="logform" method="POST">
-    <div id="myalert3" style="display:none;">
-        <div class="alert alert-danger">
-            <span id="alerttext"></span>
-        </div>
+                         <form role="form" id="logform" method="POST">
+                          
+                         <div id="myalert3" style="display:none;">
+    <div class="alert alert-danger">
+        <span id="alerttext"><?= $error_message ?></span>
     </div>
-
-    <div class="d-flex align-items-center justify-content-between mb-3">
-        <a href="index.html" class="">
-            <h3 class="text-warning">GPMS</h3>
-        </a>
-        <h3>Sign In</h3>
-    </div>
-
-    <select class="form-control mb-4" name="location" id="location" autocomplete="off">
-        <option value='Gate'>Gate</option>
-        <?php
-        $sql = "SELECT * FROM rooms";
-        $result = $db->query($sql);
-        while ($row = $result->fetch_assoc()) {
-            echo "<option value='{$row['room']}'>{$row['room']}</option>";
-        }
-        ?>
-    </select>
-
-    <div class="form-floating mb-4">
-        <input id="remember" type="password" class="form-control" name="Ppassword" placeholder="Password" autocomplete="off">
-        <label for="floatingPassword">Password</label>
-    </div>
-
-    <div class="d-flex align-items-center justify-content-between mb-4">
-        <div class="form-check">
-            <input type="checkbox" id="remember" onclick="myFunction()" class="form-check-input">
-            <label class="form-check-label" for="exampleCheck1">Show Password</label>
-        </div>
-    </div>
-
-    <input id="Prfid_number" type="text" name="Prfid_number" class="form-control" placeholder="Tap RFID card" autofocus>
-    <input hidden id="submit" type="submit" name="submit" value="Submit"/>
-</form>
+</div>
 
 <script>
-    document.getElementById('Prfid_number').addEventListener('keypress', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault(); // Prevent form submission
-            handleRFIDSubmission(); // Call the function to handle RFID input
-        }
-    });
+       // If there's an error message, show the alert and set a timer to fade it out
+       <?php if (!empty($error_message)): ?>
+        document.getElementById("myalert3").style.display = "block";
+        
+        // Fade out function
+        setTimeout(function() {
+            var alertDiv = document.getElementById("myalert3");
+            alertDiv.style.transition = "opacity 1s"; // Transition effect for fade out
+            alertDiv.style.opacity = 0; // Change opacity to 0
+            setTimeout(function() {
+                alertDiv.style.display = "none"; // Hide the div after fading out
+            }, 1000); // Wait for the transition to complete before hiding
+        }, 3000); // Wait 3 seconds before starting the fade out
+    <?php endif; ?>
+</script>
 
-    function handleRFIDSubmission() {
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <a href="index.html" class="">
+                                <h3 class="text-warning">GPMS</h3>
+                            </a>
+                            <h3>Sign In</h3>
+                        </div>
+                        <div >
+                        <select  class="form-control mb-4" name="location" id="location" autocomplete="off">
+                        <option value='Gate'>Gate</option>
+				
+                  <?php
+                                                            $sql = "SELECT * FROM rooms";
+                  $result = $db->query($sql);
+                  
+                  // Initialize an array to store department options
+                  $rooms = [];
+                  
+                  // Fetch and store department options
+                  while ($row = $result->fetch_assoc()) {
+                      $id = $row['department_id'];
+                      $room = $row['room'];
+                      $rooms[] = "<option value='$room'>$room</option>";
+                  }?>
+                                            <?php
+                      // Output department options
+                      foreach ($rooms as $option) {
+                          echo $option;
+                         
+                      }
+                      ?>            
+                                 </select>
+                        </div>
+                       
+                        <div class="form-floating mb-4">
+    <input id="remember" type="password" class="form-control" name="Ppassword" placeholder="Password" autocomplete="off">
+    <label for="floatingPassword">Password</label>
+   
+</div>
+
+                            
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="form-check">
+                                <input type="checkbox" id="remember" onclick="myFunction()"  class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Show Password</label>
+                            </div>
+                        </div>
+                        <input style="border-color:#084298" type="text" name="Prfid_number" class="form-control" placeholder="Tap RFID card" autofocus>
+                        <input hidden id="submit" type="submit" name="submit" value="Submit"/>
+                   </form>
+                   <script>
+    document.getElementById('logform').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
         let rfidNumber = document.getElementById('Prfid_number').value;
         let location = document.getElementById('location').value;
         let password = document.querySelector('input[name="Ppassword"]').value;
@@ -227,6 +264,7 @@ if (isset($_POST['submit'])) {
         formData.append('Prfid_number', rfidNumber);
         formData.append('location', location);
         formData.append('Ppassword', password);
+        formData.append('submit', 'submit');  // Add submit for PHP processing
 
         // Send data via AJAX (fetch)
         fetch('index.php', {
@@ -236,26 +274,29 @@ if (isset($_POST['submit'])) {
         .then(response => response.json()) // Expect JSON response
         .then(data => {
             if (data.success) {
-                window.location.href = "main.php"; // Redirect to main page on success
+                window.location.href = "main.php"; // Redirect on success
             } else {
-                // Display error message
+                // Show the error message
                 document.getElementById('alerttext').innerText = data.message;
                 document.getElementById('myalert3').style.display = "block";
 
-                // Fade out after 3 seconds
+                // Keep the location selected
+                document.getElementById('location').value = data.location;
+
+                // Fade out the alert after 3 seconds
                 setTimeout(function() {
                     var alertDiv = document.getElementById("myalert3");
                     alertDiv.style.transition = "opacity 1s";
                     alertDiv.style.opacity = 0;
                     setTimeout(function() {
                         alertDiv.style.display = "none";
-                        alertDiv.style.opacity = 1; // Reset opacity for future alerts
+                        alertDiv.style.opacity = 1; // Reset opacity for next time
                     }, 1000);
                 }, 3000);
             }
         })
         .catch(error => console.error('Error:', error));
-    }
+    });
 </script>
 
                     </div>
