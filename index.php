@@ -165,6 +165,7 @@ include 'connection.php';
                    <script>
     $(document).ready(function(){
         $('#logform').on('submit', function(event){
+            document.getElementById("myalert3").style.display = "block";
             event.preventDefault();  // Prevent form from reloading the page
 
             // Gather form data
