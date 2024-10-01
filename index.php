@@ -102,14 +102,7 @@ include 'connection.php';
         //document.getElementById("myalert3").style.display = "block";
         
         // Fade out function
-        setTimeout(function() {
-            var alertDiv = document.getElementById("myalert3");
-            alertDiv.style.transition = "opacity 1s"; // Transition effect for fade out
-            alertDiv.style.opacity = 0; // Change opacity to 0
-            setTimeout(function() {
-                alertDiv.style.display = "none"; // Hide the div after fading out
-            }, 1000); // Wait for the transition to complete before hiding
-        }, 3000); // Wait 3 seconds before starting the fade out
+       
     <?php endif; ?>
 </script>
 
