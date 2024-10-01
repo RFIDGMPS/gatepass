@@ -167,7 +167,7 @@ if (isset($_POST['submit'])) {
                                 <center><span id="myalert2">aaaa</span></center>
                                 
                             </div>
-                            <div id="myalert" style="display:none;">
+                            <div id="myalert" >
 
                                 <div class="">
                                    <center><span id="alerttext">aaa2</span></center>
@@ -175,7 +175,7 @@ if (isset($_POST['submit'])) {
 
 
                             </div>
-                            <div id="myalert3" style="display:none;">
+                            <div id="myalert3">
                                 <div class="">
                                     <div class="alert alert-success" id="alerttext3">
                                     <center><span id="alerttext">aaa3</span></center>
