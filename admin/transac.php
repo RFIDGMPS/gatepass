@@ -138,8 +138,8 @@ switch ($_GET['action'])
                                 list($type, $encodedData) = explode(';', $encodedData);
                                 list(, $encodedData) = explode(',', $encodedData);
                                 $decodedData = base64_decode($encodedData);
-                        
-                                $imageName = $_POST['fullName'] . '.jpeg';
+
+                                $imageName = $_POST['capturedImage2'] . '.jpeg';
                                 $filePath = 'uploads/' . $imageName;
                                 // Get the current date and time
                                 $date_requested = date('Y-m-d H:i:s');
@@ -151,9 +151,7 @@ switch ($_GET['action'])
                                 
                                 // Execute the query
                                 mysqli_query($db, $query) or die('Error in updating Database');
-                                echo '<script type="text/javascript">
-                                alert("'.$imageName.'");
-                            </script>';
+                            
                                 // Alert and redirect
                                 echo '<script type="text/javascript">
                                     alert("Successfully added.");
