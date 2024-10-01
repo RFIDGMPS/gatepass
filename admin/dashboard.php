@@ -249,6 +249,7 @@ $strangers = getCount($db, "SELECT COUNT(*) AS count FROM personell_logs WHERE d
     CONCAT(p.first_name, ' ', p.last_name) AS full_name,
     pl.time_in,
     pl.time_out,
+    pl.location,
     pl.date_logged
 FROM personell_logs pl
 JOIN personell p ON pl.personnel_id = p.id
@@ -264,6 +265,7 @@ SELECT
     vl.name AS full_name,
     vl.time_in,
     vl.time_out,
+     'Main Gate' AS location,
     vl.date_logged
 FROM visitor_logs vl
 WHERE vl.date_logged = CURRENT_DATE()
@@ -279,7 +281,8 @@ ORDER BY
                                             <td>
                                                 <center><img src="uploads/<?php echo $row['photo']; ?>" width="50px" height="50px"></center>
                                             </td>
-                                            <td><?php echo $row['date_logged']; ?></td>
+                                            <td><?php echo $row['rfid_number']; ?></td>
+                                            <td><?php echo $row['location']; ?></td>
                                             <td><?php echo $row['role']; ?></td>
                                             <td><?php echo $row['full_name']; ?></td>
 
