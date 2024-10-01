@@ -11,8 +11,11 @@ if ($db->connect_error) {
     die("Connection failed: " . $db->connect_error);
 }
 
-// Set the time zone to Asia/Manila
-$db->query("SET time_zone = 'Asia/Manila'");
+// Attempt to set the time zone
+if (!$db->query("SET time_zone = 'Asia/Manila'")) {
+    // If that fails, use UTC offset
+    $db->query("SET time_zone = '+08:00'");
+}
 
 // Fetch the current date from MySQL
 $result = $db->query("SELECT CURRENT_DATE() as current_date");
