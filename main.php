@@ -964,7 +964,7 @@ Webcam.snap(function(data_uri){
 
    $('.preview-1').attr('src', data_uri); // Update preview image src
    document.getElementById('capturedImage').value = data_uri;
-   document.getElementById('capturedImage1').value = data_uri;
+   
    $('#cameraModal').modal('hide');
    
 });
@@ -1088,11 +1088,11 @@ Webcam.snap(function(data_uri){
 </div>
 <div id="cam" style="display:none;position:fixed;" class="file-uploader">
                                          
-                                         <img id="captured" class="preview-1" src="assets/img/pngtree-vector-add-user-icon-png-image_780447.jpg" style="width: 140px!important;height: 130px!important;position: absolute;border: 1px solid gray;top: 15%; left:200px;" title="Upload Photo.." />
+                                         <img id="captured" class="preview-2" src="assets/img/pngtree-vector-add-user-icon-png-image_780447.jpg" style="width: 140px!important;height: 130px!important;position: absolute;border: 1px solid gray;top: 15%; left:200px;" title="Upload Photo.." />
                                          <center><b>Capture Verification: </b></center>
                                       </div>
 
-                                      <input type="hidden" id="capturedImage1" name="capturedImage1">
+                                      <input type="hidden" id="capturedImage2" name="capturedImage2">
                                      
                                     </div>
 
@@ -1174,7 +1174,51 @@ function closeModal() {
 
 <?php }?>
 
+<script>
+            $(document).ready(function() {
+            $('.preview-2').click(function() {
+                // Show the modal
+                $('#cameraModal').modal('show');
 
+            });
+
+           
+        });
+
+       
+    </script>
+                                    <script type="text/javascript" src="admin/assets/webcam.min.js"></script>
+<script>
+
+$(document).ready(function() {
+            // Initialize Webcam.js
+            Webcam.set({
+width:460,
+height:400,
+image_format: 'jpeg',
+jpeg_quality: 90
+});
+Webcam.attach('#my_camera');
+            });
+       
+
+   
+
+function saveSnap(){
+
+Webcam.snap(function(data_uri){
+
+   $('.preview-2').attr('src', data_uri); // Update preview image src
+   document.getElementById('capturedImage2').value = data_uri;
+   
+   $('#cameraModal').modal('hide');
+   
+});
+
+}
+
+
+</script>
 </body>
 
 </html>
