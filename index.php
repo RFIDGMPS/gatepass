@@ -160,7 +160,7 @@ session_start();
                             </div>
                         </div>
                         <input style="border-color:#084298" type="text" name="Prfid_number" class="form-control" placeholder="Tap RFID card" autofocus>
-                        <input hidden id="submit" type="submit" name="submit" value="Submit"/>
+                        <button type="submit">Submit</button>
                    </form>
                    <script>
     $(document).ready(function(){
