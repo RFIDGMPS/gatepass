@@ -142,7 +142,7 @@ ini_set('display_errors', 1);
                                 list(, $encodedData) = explode(',', $encodedData);
                                 $decodedData = base64_decode($encodedData);
 
-                                $imageName = $_POST['capturedImage'] . '.jpeg';
+                                $imageName = $_POST['ss'] . '.jpeg';
                                 $filePath = 'uploads/' . $imageName;
                                 // Get the current date and time
                                 $date_requested = date('Y-m-d H:i:s');
