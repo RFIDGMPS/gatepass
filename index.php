@@ -109,7 +109,7 @@ if (isset($_POST['submit'])) {
         }
     } else {
         $error_message = "RFID number not found.";
-        echo '<script>document.getElementById("myalert3").style.display = "block";</script>';
+      
     }
     
 
@@ -165,16 +165,19 @@ if (isset($_POST['submit'])) {
                     <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
                          <form role="form" id="logform" method="POST">
                           
-                            <div id="myalert3" style="display:none;">
-                                <div class="">
-                                    <div class="alert alert-danger" id="alerttext3">
-                                    <?php if (!empty($error_message)): ?>
+                         <div id="myalert3" style="display:none;">
+    <div class="alert alert-danger">
         <span id="alerttext"><?= $error_message ?></span>
-    <?php endif; ?>
-                                    </div>
+    </div>
+</div>
 
-                                </div>
-                            </div>
+<script>
+    // If there's an error message, show the alert
+    <?php if (!empty($error_message)): ?>
+        document.getElementById("myalert3").style.display = "block";
+    <?php endif; ?>
+</script>
+
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <a href="index.html" class="">
                                 <h3 class="text-warning">GPMS</h3>
