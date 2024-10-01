@@ -147,7 +147,7 @@ if (isset($_POST['submit'])) {
     }
 
     // Invalid login
-   
+}
 }
 ?>
 
