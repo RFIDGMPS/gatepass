@@ -90,7 +90,7 @@ include 'connection.php';
                     <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
                          <form role="form" id="logform" method="POST">
                           
-                         <div id="myalert3">
+                         <div id="myalert3" style="display:none;">
     <div class="alert alert-danger">
         <span id="alerttext"><?= $error_message ?></span>
     </div>
@@ -99,7 +99,7 @@ include 'connection.php';
 <script>
        // If there's an error message, show the alert and set a timer to fade it out
        <?php if (!empty($error_message)): ?>
-        //document.getElementById("myalert3").style.display = "block";
+        document.getElementById("myalert3").style.display = "block";
         
         // Fade out function
         setTimeout(function() {
