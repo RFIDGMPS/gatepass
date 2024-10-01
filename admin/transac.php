@@ -127,9 +127,7 @@ switch ($_GET['action'])
 
 
                   case 'add_lost_card':
-                     // Enable error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 
                                 // Get the ID from the hidden input
                                 $id = $_POST['id'];
