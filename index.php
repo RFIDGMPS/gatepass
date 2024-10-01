@@ -149,40 +149,48 @@ include 'connection.php';
                    </form>
                    <script>
            
-    $(document).ready(function(){
-        document.getElementById("myalert3").style.display = "block";
-        $('#logform').on('submit', function(event){
-            
-            event.preventDefault();  // Prevent form from reloading the page
+           $(document).ready(function(){
+    $('#logform').on('submit', function(event){
+        
+        event.preventDefault();  // Prevent form from reloading the page
 
-            // Gather form data
-            var formData = $(this).serialize();
+        // Gather form data
+        var formData = $(this).serialize();
 
-            // Send form data via AJAX
-            $.ajax({
-                url: 'login.php',  // PHP file to handle the form submission
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    // Display the response message
-                    $('#alerttext').html(response);
-               window.location = "main.php";
-                },
-                error: function() {
-                    $('#alerttext').html("Error in form submission.");
+        // Send form data via AJAX
+        $.ajax({
+            url: 'login.php',  // PHP file to handle the form submission
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                // Check the response content
+                if (response.trim() === 'success') {
+                    // Redirect to the main page if successful
+                    window.location = "main.php";
+                } else {
+                    // Show the error message and prevent page reload
+                    $('#alerttext').html(response);  // Set the response message
+                    document.getElementById("myalert3").style.display = "block";  // Show alert
+                    
+                    // Fade out the alert box after 3 seconds
+                    setTimeout(function() {
+                        var alertDiv = document.getElementById("myalert3");
+                        alertDiv.style.transition = "opacity 1s"; // Transition effect for fade out
+                        alertDiv.style.opacity = 0; // Change opacity to 0
+                        setTimeout(function() {
+                            alertDiv.style.display = "none"; // Hide the div after fading out
+                        }, 1000); // Wait for the transition to complete before hiding
+                    }, 3000); // Wait 3 seconds before starting the fade out
                 }
-            });
-            
-            setTimeout(function() {
-            var alertDiv = document.getElementById("myalert3");
-            alertDiv.style.transition = "opacity 1s"; // Transition effect for fade out
-            alertDiv.style.opacity = 0; // Change opacity to 0
-            setTimeout(function() {
-                alertDiv.style.display = "none"; // Hide the div after fading out
-            }, 1000); // Wait for the transition to complete before hiding
-        }, 3000); // Wait 3 seconds b
+            },
+            error: function() {
+                $('#alerttext').html("Error in form submission.");  // Handle AJAX error
+                document.getElementById("myalert3").style.display = "block";  // Show error alert
+            }
         });
     });
+});
+
 </script>
                     </div>
                 </div>
