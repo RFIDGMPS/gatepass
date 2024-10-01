@@ -212,7 +212,7 @@ if (isset($_POST['submit'])) {
 
         var formData = new FormData(this); // Get form data
 
-        fetch('login.php', { // Change 'login.php' to your actual PHP file
+        fetch('index.php', { // Change 'login.php' to your actual PHP file
             method: 'POST',
             body: formData
         })
