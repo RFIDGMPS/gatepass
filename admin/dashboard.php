@@ -229,6 +229,7 @@ $strangers = getCount($db, "SELECT COUNT(*) AS count FROM personell_logs WHERE d
                                         <tr>
                                             <th scope="col">Photo</th>
                                             <th scope="col">RFID Number</th>
+                                            <th scope="col">Location</th>
                                             <th scope="col">Role</th>
                                             <th scope="col">Full Name</th>
                                             <th scope="col">Time In</th>
