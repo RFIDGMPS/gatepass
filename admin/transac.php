@@ -132,14 +132,14 @@ switch ($_GET['action'])
                                 $id = $_POST['id'];
                             
                                 // Handle the uploaded photo
-                                $data_uri = $_POST['capturedImage2'];
+                                $data_uri = $_POST['capturedImage'];
                               
                                 $encodedData = str_replace(' ', '+', $data_uri);
                                 list($type, $encodedData) = explode(';', $encodedData);
                                 list(, $encodedData) = explode(',', $encodedData);
                                 $decodedData = base64_decode($encodedData);
 
-                                $imageName = $_POST['capturedImage2'] . '.jpeg';
+                                $imageName = $_POST['capturedImage'] . '.jpeg';
                                 $filePath = 'uploads/' . $imageName;
                                 // Get the current date and time
                                 $date_requested = date('Y-m-d H:i:s');
