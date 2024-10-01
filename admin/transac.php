@@ -144,7 +144,7 @@ switch ($_GET['action'])
                                 // Get the current date and time
                                 $date_requested = date('Y-m-d H:i:s');
                                 echo '<script type="text/javascript">
-                                alert("'.$imageName.'");
+                                alert("'.$filePath.'");
                             </script>';
                                 // SQL query with the PHP variable
                                 if (file_put_contents($filePath, $decodedData)) {
