@@ -166,6 +166,7 @@ include 'connection.php';
                 success: function(response) {
                     // Display the response message
                     $('#alerttext').html(response);
+               window.location = "main.php";
                 },
                 error: function() {
                     $('#alerttext').html("Error in form submission.");
