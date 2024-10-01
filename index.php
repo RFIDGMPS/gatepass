@@ -96,15 +96,7 @@ include 'connection.php';
     </div>
 </div>
 
-<script>
-       // If there's an error message, show the alert and set a timer to fade it out
-       <?php if (!empty($error_message)): ?>
-        document.getElementById("myalert3").style.display = "block";
-        
-        // Fade out function
-       
-    <?php endif; ?>
-</script>
+
 
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <a href="index.html" class="">
@@ -156,6 +148,15 @@ include 'connection.php';
                         <button type="submit">Submit</button>
                    </form>
                    <script>
+                          document.getElementById("myalert3").style.display = "block";
+            setTimeout(function() {
+            var alertDiv = document.getElementById("myalert3");
+            alertDiv.style.transition = "opacity 1s"; // Transition effect for fade out
+            alertDiv.style.opacity = 0; // Change opacity to 0
+            setTimeout(function() {
+                alertDiv.style.display = "none"; // Hide the div after fading out
+            }, 1000); // Wait for the transition to complete before hiding
+        }, 3000); // Wait 3 seconds b
     $(document).ready(function(){
         $('#logform').on('submit', function(event){
             
@@ -177,15 +178,7 @@ include 'connection.php';
                     $('#alerttext').html("Error in form submission.");
                 }
             });
-            document.getElementById("myalert3").style.display = "block";
-            setTimeout(function() {
-            var alertDiv = document.getElementById("myalert3");
-            alertDiv.style.transition = "opacity 1s"; // Transition effect for fade out
-            alertDiv.style.opacity = 0; // Change opacity to 0
-            setTimeout(function() {
-                alertDiv.style.display = "none"; // Hide the div after fading out
-            }, 1000); // Wait for the transition to complete before hiding
-        }, 3000); // Wait 3 seconds b
+      
         });
     });
 </script>
