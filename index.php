@@ -164,12 +164,13 @@ if (isset($_POST['submit'])) {
                     <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
                          <form role="form" id="logform" method="POST">
                             <div class="">
-                                <center><span id="myalert2"></span></center>
+                                <center><span id="myalert2">aaaa</span></center>
+                                
                             </div>
                             <div id="myalert" style="display:none;">
 
                                 <div class="">
-                                   <center><span id="alerttext"></span></center>
+                                   <center><span id="alerttext">aaa2</span></center>
                                 </div>
 
 
@@ -177,7 +178,7 @@ if (isset($_POST['submit'])) {
                             <div id="myalert3" style="display:none;">
                                 <div class="">
                                     <div class="alert alert-success" id="alerttext3">
-
+                                    <center><span id="alerttext">aaa3</span></center>
                                     </div>
 
                                 </div>
@@ -218,10 +219,7 @@ if (isset($_POST['submit'])) {
                         <div class="form-floating mb-4">
     <input id="remember" type="password" class="form-control" name="Ppassword" placeholder="Password" autocomplete="off">
     <label for="floatingPassword">Password</label>
-    <!-- Display error message if there is any -->
-    <?php if (!empty($error_message)): ?>
-        <span style="color:red;"><?= $error_message ?></span>
-    <?php endif; ?>
+   
 </div>
 
                             
