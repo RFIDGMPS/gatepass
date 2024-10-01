@@ -72,7 +72,7 @@ session_start();
 <?php
 include 'connection.php';
 
-header('Content-Type: application/json'); // Ensure the response is in JSON format
+
 
 $location = "";
 $password = "";
