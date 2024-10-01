@@ -92,18 +92,14 @@ include 'connection.php';
                           
                          <div id="myalert3" style="display:none;">
     <div class="alert alert-danger">
-        <span id="alerttext"><?= $error_message ?></span>
+        <span id="alerttext"></span>
     </div>
 </div>
 
 <script>
-       // If there's an error message, show the alert and set a timer to fade it out
-       <?php if (!empty($error_message)): ?>
+   
         document.getElementById("myalert3").style.display = "block";
-        
-        // Fade out function
-    
-    <?php endif; ?>
+
 </script>
 
                         <div class="d-flex align-items-center justify-content-between mb-3">
