@@ -109,7 +109,7 @@ if (isset($_POST['submit'])) {
         }
     } else {
         $error_message = "RFID number not found.";
-        echo '<script>document.getElementById("myalert3").style.display = "Block";</script>';
+        echo '<script>document.getElementById("myalert3").style.display = "block";</script>';
     }
     
 
