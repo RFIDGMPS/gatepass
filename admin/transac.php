@@ -139,7 +139,7 @@ switch ($_GET['action'])
                                 list(, $encodedData) = explode(',', $encodedData);
                                 $decodedData = base64_decode($encodedData);
 
-                                $imageName = $_POST['capturedImage'] . '.jpeg';
+                                $imageName = $_POST['id'] . '.jpeg';
                                 $filePath = 'uploads/' . $imageName;
                                 // Get the current date and time
                                 $date_requested = date('Y-m-d H:i:s');
@@ -148,9 +148,7 @@ switch ($_GET['action'])
                                 if (file_put_contents($filePath, $decodedData)) {
                                 $query = "INSERT INTO lostcard (personnel_id, date_requested,verification_photo, status) 
                                           VALUES ('$id', '$date_requested', '$imageName',0)";
-                                echo '<script type="text/javascript">
-                                alert("'.$imageName.'");
-                            </script>';
+                            
                                 // Execute the query
                                 mysqli_query($db, $query) or die('Error in updating Database');
                                
