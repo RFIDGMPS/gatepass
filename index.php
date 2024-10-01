@@ -76,35 +76,42 @@ $location = "";
 $password = "";
 
 if (isset($_POST['submit'])) {
-    // Sanitize input
     $location = htmlspecialchars($_POST['location'], ENT_QUOTES, 'UTF-8');
     $password1 = htmlspecialchars($_POST['Ppassword'], ENT_QUOTES, 'UTF-8');
     $Prfid_number = htmlspecialchars($_POST['Prfid_number'], ENT_QUOTES, 'UTF-8');
-
+    
     // Escape special characters for database use
     $password1 = mysqli_real_escape_string($db, stripslashes($password1));
-
+    
+    // Initialize an error message variable
+    $error_message = '';
+    
     // Check if user is a security personnel at the gate
     $sql1 = "SELECT * FROM personell WHERE rfid_number = '$Prfid_number'";
     $result1 = $db->query($sql1);
-
-    if ($result1->num_rows > 0 && $location == "Gate") {
+    
+    if ($result1 && $result1->num_rows > 0 && $location === "Gate") {
         $personell = $result1->fetch_assoc();
-      if($password1 == "gate123"){
-        if ($personell['role'] == 'Security Personnel' && $personell['status'] == 'Active') {
-            // Successful login, redirect
-            $_SESSION['location'] = 'Main Gate';
-            $_SESSION['department'] = 'main';
-            echo '<script>window.location = "main.php";</script>';
-            exit();
-        }else {
-            echo '<script>alert("You\'re not allowed to open the Main Gate");</script>';
+        
+        // Validate password
+        if ($password1 === "gate123") {
+            if ($personell['role'] === 'Security Personnel' && $personell['status'] === 'Active') {
+                // Successful login, redirect
+                $_SESSION['location'] = 'Main Gate';
+                $_SESSION['department'] = 'main';
+                echo '<script>window.location = "main.php";</script>';
+                exit();
+            } else {
+                $error_message = "You\'re not allowed to open the Main Gate.";
+            }
+        } else {
+            $error_message = "Incorrect Password.";
         }
-    }else {
-        echo '<script> document.getElementById("in_pass").innerHTML = "Incorrect Password.";</script>';
+    } else {
+        $error_message = "RFID number not found or location is incorrect.";
     }
     
-    }
+
 
     // If not security personnel, check for room login
     $sql2 = "SELECT * FROM rooms WHERE room = '$location'";
@@ -129,7 +136,7 @@ if (isset($_POST['submit'])) {
                 echo '<script>alert("You\'re not allowed to open this room.");</script>';
             }
         }else {
-            echo '<script> document.getElementById("in_pass").innerHTML = "Incorrect Password.";</script>';
+            echo '<script>alert("You\'re not allowed to open this room.");</script>';
         }
     }
 
@@ -209,12 +216,14 @@ if (isset($_POST['submit'])) {
                         </div>
                        
                         <div class="form-floating mb-4">
-                            <input id="remember" type="password" class="form-control" name="Ppassword" placeholder="Password" autocomplete="off">
-                            <label for="floatingPassword">Password</label>
-                         
-                                
-                        </div>
-                        <center><span style="color:red;" id="in_pass"></span></center>
+    <input id="remember" type="password" class="form-control" name="Ppassword" placeholder="Password" autocomplete="off">
+    <label for="floatingPassword">Password</label>
+    <!-- Display error message if there is any -->
+    <?php if (!empty($error_message)): ?>
+        <span style="color:red;"><?= $error_message ?></span>
+    <?php endif; ?>
+</div>
+
                             
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <div class="form-check">
