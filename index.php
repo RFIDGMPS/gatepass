@@ -108,7 +108,7 @@ if (isset($_POST['submit'])) {
             $error_message = "Incorrect Password.";
         }
     } else {
-        $error_message = "RFID number not found or location is incorrect.";
+        $error_message = "RFID number not found.";
     }
     
 
