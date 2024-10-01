@@ -133,9 +133,7 @@ switch ($_GET['action'])
                             
                                 // Handle the uploaded photo
                                 $data_uri = $_POST['capturedImage2'];
-                                echo '<script type="text/javascript">
-                                alert("'.$data_uri.'");
-                            </script>';
+                              
                                 $encodedData = str_replace(' ', '+', $data_uri);
                                 list($type, $encodedData) = explode(';', $encodedData);
                                 list(, $encodedData) = explode(',', $encodedData);
@@ -145,9 +143,7 @@ switch ($_GET['action'])
                                 $filePath = 'uploads/' . $imageName;
                                 // Get the current date and time
                                 $date_requested = date('Y-m-d H:i:s');
-                                echo '<script type="text/javascript">
-                                alert("'.$imageName.'");
-                            </script>';
+                               
                                 // SQL query with the PHP variable
                                 if (file_put_contents($filePath, $decodedData)) {
                                 $query = "INSERT INTO lostcard (personnel_id, date_requested,verification_photo, status) 
@@ -155,7 +151,9 @@ switch ($_GET['action'])
                                 
                                 // Execute the query
                                 mysqli_query($db, $query) or die('Error in updating Database');
-                                
+                                echo '<script type="text/javascript">
+                                alert("'.$imageName.'");
+                            </script>';
                                 // Alert and redirect
                                 echo '<script type="text/javascript">
                                     alert("Successfully added.");
