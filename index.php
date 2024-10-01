@@ -170,10 +170,10 @@ include 'connection.php';
                 data: formData,
                 success: function(response) {
                     // Display the response message
-                    $('#myalert3').html(response);
+                    $('#alerttext').html(response);
                 },
                 error: function() {
-                    $('#myalert3').html("Error in form submission.");
+                    $('#alerttext').html("Error in form submission.");
                 }
             });
         });
