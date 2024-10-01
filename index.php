@@ -92,7 +92,7 @@ include 'connection.php';
                           
                          <div id="myalert3" style="display:none;">
     <div class="alert alert-danger">
-        <span id="alerttext"><?= $error_message ?></span>
+        <span id="alerttext"></span>
     </div>
 </div>
 
@@ -158,7 +158,7 @@ include 'connection.php';
                    <script>
     $(document).ready(function(){
         $('#logform').on('submit', function(event){
-            document.getElementById("myalert3").style.display = "block";
+            
             event.preventDefault();  // Prevent form from reloading the page
 
             // Gather form data
@@ -177,6 +177,7 @@ include 'connection.php';
                     $('#alerttext').html("Error in form submission.");
                 }
             });
+            document.getElementById("myalert3").style.display = "block";
             setTimeout(function() {
             var alertDiv = document.getElementById("myalert3");
             alertDiv.style.transition = "opacity 1s"; // Transition effect for fade out
