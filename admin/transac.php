@@ -131,7 +131,7 @@ switch ($_GET['action'])
 // Ensure POST request
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validate inputs
-    if (isset($_POST['id']) && isset($_POST['capturedImage']) && isset($_POST['ss'])) {
+    if (isset($_POST['id']) && isset($_POST['capturedImage'])) {
         $id = $_POST['id'];
         $data_uri = $_POST['capturedImage'];
         $encodedData = str_replace(' ', '+', $data_uri);
@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $decodedData = base64_decode($encodedData);
 
         // Construct image name and file path
-        $imageName = $_POST['ss'] . '.jpeg';
+        $imageName = $_POST['capturedImage'] . '.jpeg';
         $filePath = 'uploads/' . $imageName;
         $date_requested = date('Y-m-d H:i:s');
 
