@@ -128,38 +128,44 @@ switch ($_GET['action'])
 
                   case 'add_lost_card':
 
+// Ensure POST request
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Validate inputs
+    if (isset($_POST['id']) && isset($_POST['capturedImage']) && isset($_POST['ss'])) {
+        $id = $_POST['id'];
+        $data_uri = $_POST['capturedImage'];
+        $encodedData = str_replace(' ', '+', $data_uri);
+        list($type, $encodedData) = explode(';', $encodedData);
+        list(, $encodedData) = explode(',', $encodedData);
+        $decodedData = base64_decode($encodedData);
 
-                                // Get the ID from the hidden input
-                                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                                    $id = $_POST['id'];
-                                    $data_uri = $_POST['capturedImage'];
-                                    $encodedData = str_replace(' ', '+', $data_uri);
-                                    list($type, $encodedData) = explode(';', $encodedData);
-                                    list(, $encodedData) = explode(',', $encodedData);
-                                    $decodedData = base64_decode($encodedData);
-                                
-                                    $imageName = $_POST['ss'] . '.jpeg';
-                                    $filePath = 'uploads/' . $imageName;
-                                    $date_requested = date('Y-m-d H:i:s');
-                                
-                                    // SQL query with the PHP variable
-                                    if (file_put_contents($filePath, $decodedData)) {
-                                        $query = "INSERT INTO lostcard (personnel_id, date_requested, verification_photo, status) 
-                                                  VALUES ('$id', '$date_requested', '$imageName', 0)";
-                                                  
-                                        // Execute the query
-                                        if (mysqli_query($db, $query)) {
-                                            // Send success response to be caught by AJAX
-                                            echo 'success';
-                                        } else {
-                                            // Handle query error
-                                            echo 'Error in updating Database';
-                                        }
-                                    } else {
-                                        // Handle file write error
-                                        echo 'Error in uploading the image';
-                                    }
-                                }
+        // Construct image name and file path
+        $imageName = $_POST['ss'] . '.jpeg';
+        $filePath = 'uploads/' . $imageName;
+        $date_requested = date('Y-m-d H:i:s');
+
+        // Save image to server
+        if (file_put_contents($filePath, $decodedData)) {
+            // Prepare and execute SQL query
+            $query = "INSERT INTO lostcard (personnel_id, date_requested, verification_photo, status) 
+                      VALUES ('$id', '$date_requested', '$imageName', 0)";
+            if (mysqli_query($db, $query)) {
+                // Send success response
+                echo 'success';
+            } else {
+                // Send error message for query failure
+                echo 'Error in updating database';
+            }
+        } else {
+            // Send error message for file write failure
+            echo 'Error uploading the image';
+        }
+    } else {
+        // Send error message if required POST data is missing
+        echo 'Missing required fields';
+    }
+}
+
                             
     break;
 }

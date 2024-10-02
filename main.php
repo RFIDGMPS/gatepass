@@ -1116,56 +1116,53 @@ Webcam.snap(function(data_uri){
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function(){
-        $('#myForm').on('submit', function(event){
-            event.preventDefault();  // Prevent form from submitting normally
+    $(document).ready(function() {
+        $('#myForm').on('submit', function(event) {
+            event.preventDefault();  // Prevent normal form submission
 
-            // Gather form data
-            var formData = new FormData(this);  // Use FormData for file upload
+            var formData = new FormData(this);  // Create form data object for file upload
 
-            // AJAX request
+            // AJAX request to the server
             $.ajax({
-                url: $(this).attr('action'),  // The action from the form
+                url: $(this).attr('action'),  // Use the form's action attribute
                 type: 'POST',
                 data: formData,
-                contentType: false,  // Ensure no content type processing
-                processData: false,  // Prevent jQuery from processing the data
+                contentType: false,
+                processData: false,
                 success: function(response) {
                     if (response.trim() === 'success') {
-                        // Success alert
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
-                            title: 'Your work has been saved',
+                            title: 'Your request has been saved',
                             showConfirmButton: false,
                             timer: 1500
                         }).then(() => {
-                            // Redirect to main.php after the alert disappears
-                            setTimeout(() => {
-                                window.location.href = '../main.php';
-                            }, 1500);
+                            // Redirect after success
+                            window.location.href = '../main.php';
                         });
                     } else {
-                        // Error alert
+                        // Display error message from PHP
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: response,  // Show the error response from PHP
+                            text: response
                         });
                     }
                 },
                 error: function(xhr, status, error) {
-                    // AJAX error handler
+                    // Handle AJAX error
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Something went wrong during the submission!',
+                        text: 'Something went wrong!'
                     });
                 }
             });
         });
     });
 </script>
+
 
 
 <script>
