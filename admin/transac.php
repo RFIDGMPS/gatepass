@@ -155,7 +155,13 @@ switch ($_GET['action'])
                                
                                 // Alert and redirect
                                 echo '<script type="text/javascript">
-                                    alert("Successfully added.");
+                                    Swal.fire({
+  position: "top-end",
+  icon: "success",
+  title: "Your work has been saved",
+  showConfirmButton: false,
+  timer: 1500
+});
                                     window.location = "../main.php";
                                 </script>';
                                 }
