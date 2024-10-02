@@ -60,7 +60,7 @@ if($location === "Gate") {
                 echo "Incorrect Password.";
             }
         } else {
-            echo "RFID number not found.";
+            echo "Only Instructors can open this room.";
         }
     }
 }
