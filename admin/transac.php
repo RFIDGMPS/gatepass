@@ -156,14 +156,16 @@ switch ($_GET['action'])
                                 // Alert and redirect
                                 echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
     echo "<script>
-       Swal.fire({
-  position: 'top-end',
-  icon: 'success',
-  title: 'Request sent!',
-  showConfirmButton: false,
-  timer: 1500
+        Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    title: 'Your request has been saved',
+    showConfirmButton: false,
+    timer: 1500
+}).then(() => {
+    // This will run after the alert disappears
+    window.location.href = '../main.php';
 });
-        window.location = '../main.php';
     </script>";
                                 }
                             
