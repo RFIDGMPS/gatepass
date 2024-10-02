@@ -1139,7 +1139,7 @@ Webcam.snap(function(data_uri){
                             timer: 1500
                         }).then(() => {
                             // Redirect after success
-                            window.location.href = '../main.php';
+                            window.location.href = 'main.php';
                         });
                     } else {
                         // Display error message from PHP
