@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } else {
         echo "RFID number not found.";
+        echo $location ;
     }
 
     // Additional logic for room login
