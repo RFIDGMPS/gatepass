@@ -166,17 +166,28 @@ include 'connection.php';
                     window.location.href = "main.php";
                 } else {
                     // Show error message
-                    $('#alerttext').html(response);
-                    document.getElementById("myalert3").style.display = "block";
+                    $('#alerttext').html(response); // Set the response message
+                    $("#myalert3").fadeIn();  // Show alert
+                    
+                    // Set fade-out timeout after 3 seconds
+                    setTimeout(function() {
+                        $("#myalert3").fadeOut("slow");  // Slowly fade out the alert
+                    }, 3000);
                 }
             },
             error: function() {
                 $('#alerttext').html("Error in form submission.");
-                document.getElementById("myalert3").style.display = "block";
+                $("#myalert3").fadeIn();  // Show error alert
+                
+                // Fade out the alert after 3 seconds
+                setTimeout(function() {
+                    $("#myalert3").fadeOut("slow");
+                }, 3000);
             }
         });
     });
 });
+
 
 </script>
                     </div>
