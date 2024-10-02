@@ -147,49 +147,45 @@ include 'connection.php';
                         <input style="border-color:#084298" type="text" name="Prfid_number" class="form-control" placeholder="Tap RFID card" autofocus>
                         <button type="submit">Submit</button>
                    </form>
-                   <script>
-           $(document).ready(function() {
-    $('#logform').on('submit', function(event) {
-        event.preventDefault();  // Prevent form reload
-        
-        // Serialize the form data
-        var formData = $(this).serialize();
-        
-        // Send the data via AJAX
-        $.ajax({
-            url: 'login.php',  // PHP script for handling login
-            type: 'POST',
-            data: formData,
-            success: function(response) {
-                // If the response is success, redirect to the main page
-                if (response.trim() === 'success') {
-                    window.location.href = "main.php";
-                } else {
-                    // Show error message
-                    $('#alerttext').html(response); // Set the response message
-                    $("#myalert3").fadeIn();  // Show alert
-                    
-                    // Set fade-out timeout after 3 seconds
-                    setTimeout(function() {
-                        $("#myalert3").fadeOut("slow");  // Slowly fade out the alert
-                    }, 3000);
+                   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#logform').on('submit', function(event){
+            event.preventDefault();  // Prevent form from reloading the page
+
+            // Gather form data
+            var formData = $(this).serialize();
+
+            // Send form data via AJAX
+            $.ajax({
+                url: 'login.php',  // PHP file to handle the form submission
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    // Check the response content
+                    if (response.trim() === 'success') {
+                        // Redirect to the main page if successful
+                        window.location.href = "main.php";
+                    } else {
+                        // Show the error message and prevent page reload
+                        $('#alerttext').html(response);  // Set the response message
+                        document.getElementById("myalert3").style.display = "block";  // Show alert
+                        
+                        // Fade out the alert box after 3 seconds
+                        setTimeout(function() {
+                            $("#myalert3").fadeOut("slow");
+                        }, 3000);
+                    }
+                },
+                error: function() {
+                    $('#alerttext').html("Error in form submission.");  // Handle AJAX error
+                    document.getElementById("myalert3").style.display = "block";  // Show error alert
                 }
-            },
-            error: function() {
-                $('#alerttext').html("Error in form submission.");
-                $("#myalert3").fadeIn();  // Show error alert
-                
-                // Fade out the alert after 3 seconds
-                setTimeout(function() {
-                    $("#myalert3").fadeOut("slow");
-                }, 3000);
-            }
+            });
         });
     });
-});
-
-
 </script>
+
                     </div>
                 </div>
             </div>
