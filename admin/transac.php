@@ -130,41 +130,49 @@ switch ($_GET['action'])
 
 // Ensure POST request
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Validate inputs
     if (isset($_POST['id']) && isset($_POST['capturedImage'])) {
         $id = $_POST['id'];
         $data_uri = $_POST['capturedImage'];
+
+        // Base64 data handling
         $encodedData = str_replace(' ', '+', $data_uri);
         list($type, $encodedData) = explode(';', $encodedData);
         list(, $encodedData) = explode(',', $encodedData);
-        $decodedData = base64_decode($encodedData);
 
-        // Construct image name and file path
-        $imageName = $_POST['capturedImage'] . '.jpeg';
+        // Decode image
+        $decodedData = base64_decode($encodedData);
+        if ($decodedData === false) {
+            echo "Error decoding base64 image data";
+            exit;
+        }
+
+        // Construct unique image name
+        $imageName = uniqid() . '.jpeg';
         $filePath = 'uploads/' . $imageName;
-        $date_requested = date('Y-m-d H:i:s');
+
+        // Ensure directory exists
+        if (!is_dir('uploads')) {
+            mkdir('uploads', 0755, true);
+        }
 
         // Save image to server
         if (file_put_contents($filePath, $decodedData)) {
-            // Prepare and execute SQL query
+            $date_requested = date('Y-m-d H:i:s');
             $query = "INSERT INTO lostcard (personnel_id, date_requested, verification_photo, status) 
                       VALUES ('$id', '$date_requested', '$imageName', 0)";
             if (mysqli_query($db, $query)) {
-                // Send success response
                 echo 'success';
             } else {
-                // Send error message for query failure
                 echo 'Error in updating database';
             }
         } else {
-            // Send error message for file write failure
             echo 'Error uploading the image';
         }
     } else {
-        // Send error message if required POST data is missing
         echo 'Missing required fields';
     }
 }
+
 
                             
     break;
