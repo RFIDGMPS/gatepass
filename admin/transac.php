@@ -129,13 +129,7 @@ switch ($_GET['action'])
                   case 'add_lost_card':
 
 
-                            
-    break;
-}
-?>
-        
-<?php
-        // Get the ID from the hidden input
+                                // Get the ID from the hidden input
                                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     $id = $_POST['id'];
                                     $data_uri = $_POST['capturedImage'];
@@ -166,4 +160,8 @@ switch ($_GET['action'])
                                         echo 'Error in uploading the image';
                                     }
                                 }
-                                ?>
+                            
+    break;
+}
+?>
+        

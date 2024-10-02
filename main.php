@@ -1139,9 +1139,11 @@ Webcam.snap(function(data_uri){
                             title: 'Your work has been saved',
                             showConfirmButton: false,
                             timer: 1500
-                        }).then(function() {
-                            // Redirect to main.php after SweetAlert fades out
-                            window.location.href = '../main.php';
+                        }).then(() => {
+                            // Redirect to main.php after the alert disappears
+                            setTimeout(() => {
+                                window.location.href = '../main.php';
+                            }, 1500);
                         });
                     } else {
                         // Error alert
@@ -1164,6 +1166,7 @@ Webcam.snap(function(data_uri){
         });
     });
 </script>
+
 
 <script>
     function removeCard(button) {
