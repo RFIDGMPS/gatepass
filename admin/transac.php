@@ -1,5 +1,5 @@
 <?php
-       session_start();
+       
  include('../connection.php');
        
        
@@ -128,52 +128,44 @@ switch ($_GET['action'])
 
                   case 'add_lost_card':
 
-// Ensure POST request
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['id']) && isset($_POST['capturedImage'])) {
-        $id = $_POST['id'];
-        $data_uri = $_POST['capturedImage'];
 
-        // Base64 data handling
-        $encodedData = str_replace(' ', '+', $data_uri);
-        list($type, $encodedData) = explode(';', $encodedData);
-        list(, $encodedData) = explode(',', $encodedData);
+                                // Get the ID from the hidden input
+                                $id = $_POST['id'];
+                            
+                                // Handle the uploaded photo
+                                $data_uri = $_POST['capturedImage'];
+                              
+                                $encodedData = str_replace(' ', '+', $data_uri);
+                                list($type, $encodedData) = explode(';', $encodedData);
+                                list(, $encodedData) = explode(',', $encodedData);
+                                $decodedData = base64_decode($encodedData);
 
-        // Decode image
-        $decodedData = base64_decode($encodedData);
-        if ($decodedData === false) {
-            echo "Error decoding base64 image data";
-            exit;
-        }
-
-        // Construct unique image name
-        $imageName = uniqid() . '.jpeg';
-        $filePath = 'uploads/' . $imageName;
-
-        // Ensure directory exists
-        if (!is_dir('uploads')) {
-            mkdir('uploads', 0755, true);
-        }
-
-        // Save image to server
-        if (file_put_contents($filePath, $decodedData)) {
-            $date_requested = date('Y-m-d H:i:s');
-            $query = "INSERT INTO lostcard (personnel_id, date_requested, verification_photo, status) 
-                      VALUES ('$id', '$date_requested', '$imageName', 0)";
-            if (mysqli_query($db, $query)) {
-                echo 'success';
-            } else {
-                echo 'Error in updating database';
-            }
-        } else {
-            echo 'Error uploading the image';
-        }
-    } else {
-        echo 'Missing required fields';
-    }
-}
-
-
+                                $imageName = $_POST['ss'] . '.jpeg';
+                                $filePath = 'uploads/' . $imageName;
+                                // Get the current date and time
+                                $date_requested = date('Y-m-d H:i:s');
+                                
+                                // SQL query with the PHP variable
+                                if (file_put_contents($filePath, $decodedData)) {
+                                $query = "INSERT INTO lostcard (personnel_id, date_requested,verification_photo, status) 
+                                          VALUES ('$id', '$date_requested', '$imageName',0)";
+                            
+                                // Execute the query
+                                mysqli_query($db, $query) or die('Error in updating Database');
+                               
+                                // Alert and redirect
+                                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+    echo "<script>
+       Swal.fire({
+  position: 'top-end',
+  icon: 'success',
+  title: 'Request sent!',
+  showConfirmButton: false,
+  timer: 1500
+});
+        window.location = '../main.php';
+    </script>";
+                                }
                             
     break;
 }
