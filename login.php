@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sql1 = "SELECT * FROM personell WHERE rfid_number = '$Prfid_number'";
     $result1 = $db->query($sql1);
 
-    if ($result1 && $result1->num_rows > 0 && $location === "Gate") {
+    if ($location === "Gate" && $result1 && $result1->num_rows > 0) {
         $personell = $result1->fetch_assoc();
         
         if ($password1 === "gate123") {
