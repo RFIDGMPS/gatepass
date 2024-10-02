@@ -41,13 +41,13 @@ if($location === "Gate") {
 
     if ($result2->num_rows > 0) {
         $room = $result2->fetch_assoc();
-        $sql3 = "SELECT * FROM personell WHERE rfid_number = '$Prfid_number' AND department = '{$room['department']}' AND role = 'Instructor'";
+        $sql3 = "SELECT * FROM personell WHERE rfid_number = '$Prfid_number' AND department = '{$room['department']}'";
         $result3 = $db->query($sql3);
 
         if ($result3->num_rows > 0) {
             $instructor = $result3->fetch_assoc();
             if(password_verify($password1, $room['password'])) {
-                if ($instructor['department'] == $room['department'] && $instructor['status'] == 'Active') {
+                if ($instructor['department'] == $room['department'] && $instructor['status'] == 'Active' && $instructor['role'] == 'Instructor') {
                     $_SESSION['location'] = $room['room'];
                     $_SESSION['department'] = $room['department'];
                     $_SESSION['descr'] = $room['descr'];
@@ -60,7 +60,7 @@ if($location === "Gate") {
                 echo "Incorrect Password.";
             }
         } else {
-            echo "Only Instructors can open this room.";
+            echo "RFID number not found.";
         }
     }
 }
