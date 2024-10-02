@@ -65,7 +65,6 @@ mysqli_close($db);
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="lostfound.css">
     <script src="lostfound.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>RFID GPMS</title>
     <style>
         .preview-1 {
@@ -1114,6 +1113,58 @@ Webcam.snap(function(data_uri){
       <span id="send-btn" class="material-symbols-rounded" hidden>send</span>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#myForm').on('submit', function(event){
+            event.preventDefault();  // Prevent form from submitting normally
+
+            // Gather form data
+            var formData = new FormData(this);  // Use FormData for file upload
+
+            // AJAX request
+            $.ajax({
+                url: $(this).attr('action'),  // The action from the form
+                type: 'POST',
+                data: formData,
+                contentType: false,  // Ensure no content type processing
+                processData: false,  // Prevent jQuery from processing the data
+                success: function(response) {
+                    if (response.trim() === 'success') {
+                        // Success alert
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Your work has been saved',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function() {
+                            // Redirect to main.php after SweetAlert fades out
+                            window.location.href = '../main.php';
+                        });
+                    } else {
+                        // Error alert
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: response,  // Show the error response from PHP
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // AJAX error handler
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong during the submission!',
+                    });
+                }
+            });
+        });
+    });
+</script>
+
 <script>
     function removeCard(button) {
         // Get the card element to remove
