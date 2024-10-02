@@ -148,44 +148,31 @@ include 'connection.php';
                         <button type="submit">Submit</button>
                    </form>
                    <script>
-           
-           $(document).ready(function(){
-    $('#logform').on('submit', function(event){
+           $(document).ready(function() {
+    $('#logform').on('submit', function(event) {
+        event.preventDefault();  // Prevent form reload
         
-        event.preventDefault();  // Prevent form from reloading the page
-
-        // Gather form data
+        // Serialize the form data
         var formData = $(this).serialize();
-
-        // Send form data via AJAX
+        
+        // Send the data via AJAX
         $.ajax({
-            url: 'login.php',  // PHP file to handle the form submission
+            url: 'login.php',  // PHP script for handling login
             type: 'POST',
             data: formData,
             success: function(response) {
-                // Check the response content
+                // If the response is success, redirect to the main page
                 if (response.trim() === 'success') {
-                    // Redirect to the main page if successful
-                    window.location = "main.php";
+                    window.location.href = "main.php";
                 } else {
-                    // Show the error message and prevent page reload
-                    $('#alerttext').html(response);  // Set the response message
-                    document.getElementById("myalert3").style.display = "block";  // Show alert
-                    
-                    // Fade out the alert box after 3 seconds
-                    setTimeout(function() {
-                        var alertDiv = document.getElementById("myalert3");
-                        alertDiv.style.transition = "opacity 1s"; // Transition effect for fade out
-                        alertDiv.style.opacity = 0; // Change opacity to 0
-                        setTimeout(function() {
-                            alertDiv.style.display = "none"; // Hide the div after fading out
-                        }, 1000); // Wait for the transition to complete before hiding
-                    }, 3000); // Wait 3 seconds before starting the fade out
+                    // Show error message
+                    $('#alerttext').html(response);
+                    document.getElementById("myalert3").style.display = "block";
                 }
             },
             error: function() {
-                $('#alerttext').html("Error in form submission.");  // Handle AJAX error
-                document.getElementById("myalert3").style.display = "block";  // Show error alert
+                $('#alerttext').html("Error in form submission.");
+                document.getElementById("myalert3").style.display = "block";
             }
         });
     });
