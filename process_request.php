@@ -43,8 +43,7 @@ if (isset($_POST['send'])) {
             echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-document.getElementById("submitButton").addEventListener("click", function (e) {
-  
+
             Swal.fire({
                 icon: "success",
                 title: "Your request has been sent",
@@ -54,7 +53,7 @@ document.getElementById("submitButton").addEventListener("click", function (e) {
                 window.location.href = "main.php"; // Redirect after 1.5 seconds
             });
       
-});
+
 </script>';
     exit; // Terminate the script
         } else {
