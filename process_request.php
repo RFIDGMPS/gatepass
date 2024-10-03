@@ -50,5 +50,7 @@ if (isset($_POST['send'])) {
     } else {
         echo 'Error saving the image.'; // Change to echo for error response
     }
+
+    
 }
 ?>
