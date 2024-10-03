@@ -238,6 +238,7 @@ include 'header.php';
 <script>
 $('#btn-editdepartment').click(function(){
 var id =  document.getElementById('hiddenId').value;
+alert(id);
 var dptname =  document.getElementById('edit_departmentname').value;
 var dptdesc =  document.getElementById('edit_departmentdescription').value;
 
