@@ -1048,7 +1048,7 @@ Webcam.snap(function(data_uri){
             <div class="col-12">
                 <div class="rounded p-4" id="adjust">
                 
-                    <form id="myForm" method="POST" enctype="multipart/form-data">
+                    <form id="myForm"  method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="hiddenId"> <!-- Hidden input for ID -->
                         <div class="">
                             <center><span id="myalert2"></span></center>
@@ -1102,7 +1102,7 @@ Webcam.snap(function(data_uri){
                         <div id="searchResults"></div>
         
                         
-                        <button type="button" name="send" id="submitButton" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
+                        <button type="submit" name="send" id="submitButton" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
                     </form>
                 </div>
             </div>
@@ -1117,10 +1117,7 @@ Webcam.snap(function(data_uri){
 
 <script>
 document.getElementById('submitButton').addEventListener('click', function (e) {
-
-   // Display SweetAlert on success
- 
-       
+    e.preventDefault(); // Prevent the form from submitting traditionally
 
     var formData = new FormData(document.getElementById('myForm')); // Capture the form data
 
@@ -1130,13 +1127,24 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
     })
     .then(response => response.text()) // Parse the response as text
     .then(result => {
-       
-        Swal.fire({
+        if (result.trim() === 'success') {
+            // Display SweetAlert on success
+            Swal.fire({
                 icon: 'success',
                 title: 'Your request has been sent',
                 showConfirmButton: false,
                 timer: 1500
+            }).then(() => {
+                window.location.href = 'main.php'; // Redirect after 1.5 seconds
             });
+        } else {
+            // Display SweetAlert for any error
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'An error occurred: ' + result
+            });
+        }
     })
     .catch(error => {
         // Handle fetch errors
