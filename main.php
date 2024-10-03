@@ -1123,8 +1123,8 @@ alert('test');
                 type: "POST",
                 url: "process_request.php",
                 data:{id:id, capturedImage:capturedImage},
-                success: function(data){
-                    alert(data);
+                success: function(response){
+                    alert(response);
                 }
 });
 
