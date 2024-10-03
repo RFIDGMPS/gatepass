@@ -178,7 +178,7 @@ if ($stmt) {
 																					</script>';
 																					break;
 																					case 'room':
-																						<?php
+																					
 // Get the ID from the URL
 $id = $_GET['id'];
 
@@ -217,7 +217,7 @@ if ($stmt) {
 // Close the database connection
 $db->close();
 
-																										break;
+break;
 																					
 																
 }
