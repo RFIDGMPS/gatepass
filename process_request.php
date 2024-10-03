@@ -27,13 +27,13 @@ if (isset($_POST['send'])) {
         if (mysqli_query($db, $query)) {
             echo 'success';
         } else {
-            echo 'success';
+            
             echo 'error: ' . mysqli_error($db) . ' - Query: ' . $query;
         }
     } else {
+        echo 'success';
         echo 'error: Failed to save the image.';
     }
 
-    mysqli_close($db);
 }
 ?>
