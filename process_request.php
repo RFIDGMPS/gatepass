@@ -40,7 +40,7 @@ if (isset($_POST['send'])) {
         
         // Execute the query and check for success
         if ($stmt->execute()) {
-            echo "success"; // Return success response
+            header('Location: main.php'); // Redirect to main.php
         } else {
             echo 'Error in updating Database: ' . $stmt->error; // Change to echo for error response
         }
