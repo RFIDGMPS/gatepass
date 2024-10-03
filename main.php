@@ -1145,7 +1145,7 @@ if(isset($_POST['send'])){
 
                              ?>
                                 <script>
-                               
+                                document.getElementById('login-button').addEventListener('click', function() {
                                     Swal.fire({
                                     position: 'top-end',
                                     icon: 'success',
@@ -1156,7 +1156,7 @@ if(isset($_POST['send'])){
                                     // This will run after the alert disappears
                                     window.location.href = 'main.php';
                                 });
-                          
+                                });
                                 </script>
                                
                                 <?php
