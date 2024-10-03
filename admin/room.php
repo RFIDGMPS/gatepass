@@ -200,7 +200,7 @@ while ($row = $result->fetch_assoc()) {
 					$('.edit-name').val($dptname);
 					$('.edit-desc').val($desc);
                     $('.edit-pass').val($password);
-                    $('.edit-department').val($dptdesc);
+                    $('.edit-department').html($dptdesc);
 					// $('.edit-form').attr('action','edit1.php?id='+$id+'&edit=room');
                  
 					
@@ -223,7 +223,7 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department: </b></label>
-                                        <select  class="form-control edit_department" name="departments" id="edit_department" autocomplete="off">
+                                        <select  class="form-control edit_department" name="department" id="edit_department" autocomplete="off">
                   
 				
 <?php
