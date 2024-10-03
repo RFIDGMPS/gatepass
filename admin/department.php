@@ -68,6 +68,7 @@ include 'header.php';
                                             <center>
                                           <button department_name="<?php echo $row['department_name'];?>" department_desc="<?php echo $row['department_desc'];?>" data-id="<?php echo $row['department_id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_department_id" >
                                           <i class="bi bi-plus-edit"></i> Edit </button>
+                                          <input name="hiddenId" type="text" id="hiddenId" value="<?php echo $row['department_id'];?>" hidden>
                                           <button department_name="<?php echo $row['department_name'];?>" department_desc="<?php echo $row['department_desc'];?>"  data-id="<?php echo $row['department_id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_department_id">
                                           <i class="bi bi-plus-trash"></i> Delete </button>
                                        </center> </td>
@@ -141,33 +142,7 @@ include 'header.php';
                        $dptname =  $(this).attr('department_name');
                        $dptdesc =  $(this).attr('department_desc');
        
-var dptname =  document.getElementById('edit_departmentname').value;
-var dptdesc =  document.getElementById('edit_departmentdescription').value;
 
-    $.ajax({
-                type: "POST",
-                url: "edit1.php?id="+$id+"&edit=department",
-                data:{dptname:department_name, dptdesc:department_desc},
-                dataType: 'text',
-                success: function(data){
-                    if (data.trim() == 'success') {
-                        Swal.fire({
-                icon: 'success',
-                title: 'Successfully Updated.',
-                showConfirmButton: false,
-                timer: 1500
-            }).then(() => {
-                window.location.href = 'department.php'; // Redirect after 1.5 seconds
-            });
-                    } else {
-                        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong! Please try again.'
-        });
-                    }
-                }
-});
 
 					$('.edit-name').val($dptname);
 					$('.edit-desc').val($dptdesc);
@@ -218,7 +193,33 @@ var dptdesc =  document.getElementById('edit_departmentdescription').value;
 
 <script>
 $('#btn-editdepartment').click(function(){
-
+var dptname =  document.getElementById('edit_departmentname').value;
+var dptdesc =  document.getElementById('edit_departmentdescription').value;
+var id = document.getElementById('hiddenId').value;
+    $.ajax({
+                type: "POST",
+                url: "edit1.php?id="+id+"&edit=department",
+                data:{id:id,dptname:department_name, dptdesc:department_desc},
+                dataType: 'text',
+                success: function(data){
+                    if (data.trim() == 'success') {
+                        Swal.fire({
+                icon: 'success',
+                title: 'Successfully Updated.',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                window.location.href = 'department.php'; // Redirect after 1.5 seconds
+            });
+                    } else {
+                        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong! Please try again.'
+        });
+                    }
+                }
+});
 
 });
 

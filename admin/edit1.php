@@ -98,7 +98,10 @@ switch ($_GET['edit'])
 											rfid_number = '$rfid_number' 
 										 WHERE id = '$id'";
 												$result = mysqli_query($db, $query) or die(mysqli_error($db));
-												echo 'success';
+												echo '<script type="text/javascript">
+												alert("Update Successfull.");
+												window.location = "visitor.php";
+											</script>';
 											break;
 											case 'about':
 												$name = $_POST['name'];
