@@ -1123,9 +1123,9 @@ alert('test');
                 type: "POST",
                 url: "process_request.php",
                 data:{id:id, capturedImage:capturedImage},
-                success: function(response){
-                    alert(response.text());
-                    if (response == 'success') {
+                success: function(data){
+                    alert(data);
+                    if (data == 'success') {
                         alert('sucess');
                     } else {
                         alert('agfagf');
