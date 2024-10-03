@@ -1130,7 +1130,6 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
     .then(result => {
         // Display SweetAlert on successful request
         Swal.fire({
-            position: 'top-end',
             icon: 'success',
             title: 'Your request has been saved',
             showConfirmButton: false,
