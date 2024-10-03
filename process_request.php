@@ -5,7 +5,7 @@ if (isset($_POST['send'])) {
  
     $id = mysqli_real_escape_string($db, $_POST['id']);
     $data_uri = $_POST['capturedImage'];
-    
+    echo  $data_uri;
     if (empty($data_uri)) {
         echo 'error: Captured image is missing.';
         exit();
