@@ -1,11 +1,12 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 include 'connection.php';
 
 if (isset($_POST['send'])) {
- 
-    $id = $_POST['id'];
+    $id = mysqli_real_escape_string($db, $_POST['id']); // Always sanitize inputs
     $data_uri = $_POST['capturedImage'];
-    echo  $data_uri;
+    
     if (empty($data_uri)) {
         echo 'error: Captured image is missing.';
         exit();
@@ -27,13 +28,12 @@ if (isset($_POST['send'])) {
         if (mysqli_query($db, $query)) {
             echo 'success';
         } else {
-            
             echo 'error: ' . mysqli_error($db) . ' - Query: ' . $query;
         }
     } else {
-     
         echo 'error: Failed to save the image.';
     }
 
+    mysqli_close($db);
 }
 ?>
