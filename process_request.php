@@ -46,7 +46,6 @@ if (isset($_POST['send'])) {
         echo 'error: Failed to save the image.';
     }
 
-    // Close the database connection
-    mysqli_close($db);
+    
 }
 ?>
