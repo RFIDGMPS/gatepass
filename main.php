@@ -1121,7 +1121,6 @@ alert('tae');
                 type: "POST",
                 url: "process_request.php",
                 dataType:'json',
-                data:formdata,
                 success: function(data){
                     alert(data);
                 }
