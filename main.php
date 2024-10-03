@@ -1118,7 +1118,7 @@ Webcam.snap(function(data_uri){
 $('#submitButton').click(function(){
 var id =  document.getElementById('hiddenId').value;
 var capturedImage =  document.getElementById('capturedImage').value;
-
+alert('test');
     $.ajax({
                 type: "POST",
                 url: "process_request.php",
