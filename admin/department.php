@@ -94,7 +94,7 @@ include 'header.php';
                             <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-plus-circle"></i> New Department</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="POST" action="transac.php?action=add_department">
+                        <!-- <form method="POST" action="transac.php?action=add_department"> -->
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-dept"></div>
                                 <div class="col-lg-12 mb-1">
@@ -117,7 +117,7 @@ include 'header.php';
                                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-outline-warning" id="btn-department">Save</button>
                             </div>
-                        </form>
+                        <!-- </form> -->
                     </div>
                 </div>
             </div>
