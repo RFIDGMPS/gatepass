@@ -19,7 +19,7 @@ if (isset($_POST['send'])) {
     $decodedData = base64_decode($encodedData);
 
     $imageName = uniqid() . '.jpeg';
-    $filePath = 'uploads/' . $imageName;
+    $filePath = 'admin/uploads/' . $imageName;
     $date_requested = date('Y-m-d H:i:s');
 
     if (file_put_contents($filePath, $decodedData)) {
