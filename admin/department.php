@@ -160,7 +160,7 @@ include 'header.php';
                             <h5 class="modal-title"><i class="bi bi-pencil"></i> Edit Department</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <!-- <form method="POST"  class="edit-form" role="form" action=""> -->
+                        <form method="POST"  class="edit-form" role="form" action="">
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-editdept"></div>
                                 <div class="col-lg-12 mb-1">
@@ -184,7 +184,7 @@ include 'header.php';
                                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-outline-primary" id="btn-editdepartment">Update</button>
                             </div>
-                        <!-- </form> -->
+                        </form>
                     </div>
                 </div>
             </div>
