@@ -199,7 +199,7 @@ $('#btn-editdepartment').click(function(){
 var id =  document.getElementById('hiddenId').value;
 var dptname =  document.getElementById('department_name').value;
 var dptdesc =  document.getElementById('department_desc').value;
-
+alert('test');
 alert(id);
 alert(dptname);
 alert(dptdesc);
