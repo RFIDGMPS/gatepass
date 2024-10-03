@@ -307,11 +307,11 @@ var dptdesc =  document.getElementById('edit_departmentdescription').value;
             </div>
             <script>
 $('#btn-deldepartment').click(function(){
-    $('#deldepartment-modal').modal('show');
-						
-                        $id = $(this).attr('data-id');
-                       
-                    });
+    $('.d_department_id').click(function(){
+                
+               		$id = $(this).attr('data-id');
+                  
+               	});
 
 
     $.ajax({
