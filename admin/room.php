@@ -194,7 +194,7 @@ while ($row = $result->fetch_assoc()) {
                       
                        $dptname =  $(this).attr('room');
                        $dptdesc =  $(this).attr('department');
-                       $password =  $(this).attr('password');
+                       $password =  $(this).attr('pass');
                        $desc =  $(this).attr('descr');
 
 					$('.edit-name').val($dptname);
