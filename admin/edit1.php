@@ -76,15 +76,39 @@ switch ($_GET['edit'])
 		</script>';
     break;
     case 'department':
-		$id = $_GET['id'];
-        $department_name = $_POST['dptname'];
-        $department_desc = $_POST['dptdesc'];
-        $query = "UPDATE department SET 
-						department_name = '$department_name',
-						 department_desc = '$department_desc' 
-					 WHERE department_id = '$id'";
-							$result = mysqli_query($db, $query) or die(mysqli_error($db));
-							echo 'success';
+
+$id = $_GET['id'];
+$department_name = $_POST['dptname'];
+$department_desc = $_POST['dptdesc'];
+
+
+// Prepare an update query with placeholders
+$query = "UPDATE department SET department_name = ?, department_desc = ? WHERE department_id = ?";
+
+// Initialize a prepared statement
+$stmt = $db->prepare($query);
+
+if ($stmt) {
+    // Bind parameters to the query (s = string, i = integer)
+    $stmt->bind_param("ssi", $department_name, $department_desc, $id);
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        echo 'success';
+    } else {
+        // Handle execution error
+        echo "Error: " . $stmt->error;
+    }
+
+    // Close the statement
+    $stmt->close();
+} else {
+    // Handle query preparation error
+    echo "Error preparing statement: " . $db->error;
+}
+
+
+
 						break;
 						case 'visitor':
 							$id = $_GET['id'];
