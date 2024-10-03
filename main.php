@@ -1121,7 +1121,7 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
 
     var formData = new FormData(document.getElementById('myForm')); // Capture the form data
 
-    fetch('https://rfidgpms.com/process_request.php', { // Send the data to the PHP script
+    fetch('process_request.php', { // Send the data to the PHP script
         method: 'POST',
         body: formData
     })
@@ -1133,8 +1133,6 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
                 title: 'Your request has been sent',
                 showConfirmButton: false,
                 timer: 1500
-            }).then(() => {
-                window.location.href = 'main.php'; // Redirect after 1.5 seconds
             });
      
     })
