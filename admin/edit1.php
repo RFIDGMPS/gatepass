@@ -77,8 +77,8 @@ switch ($_GET['edit'])
     break;
     case 'department':
 		$id = $_GET['id'];
-        $department_name = $_POST['department_name'];
-        $department_desc = $_POST['department_desc'];
+        $department_name = $_POST['dptname'];
+        $department_desc = $_POST['dptdesc'];
         $query = "UPDATE department SET 
 						department_name = '$department_name',
 						 department_desc = '$department_desc' 
