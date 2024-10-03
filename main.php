@@ -1122,7 +1122,6 @@ alert('test');
     $.ajax({
                 type: "POST",
                 url: "process_request.php",
-                dataType:'json',
                 data:{id:id, capturedImage:capturedImage},
                 success: function(data){
                     alert(data);
