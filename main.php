@@ -1048,7 +1048,7 @@ Webcam.snap(function(data_uri){
             <div class="col-12">
                 <div class="rounded p-4" id="adjust">
                 
-                    <form id="myForm" method="POST" enctype="multipart/form-data">
+                    <form id="myForm" action="admin/transac.php?action=add_lost_card" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="hiddenId"> <!-- Hidden input for ID -->
                         <div class="">
                             <center><span id="myalert2"></span></center>
@@ -1102,7 +1102,7 @@ Webcam.snap(function(data_uri){
                         <div id="searchResults"></div>
         
                         
-                        <button type="submit" name="send" id="submitButton" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
+                        <button type="submit" name="send" id="login-button" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
                     </form>
                 </div>
             </div>
@@ -1113,86 +1113,56 @@ Webcam.snap(function(data_uri){
       <span id="send-btn" class="material-symbols-rounded" hidden>send</span>
     </div>
 </div>
-<?php
-// Start PHP section for processing the request
-include 'connection.php'; // Include your database connection
-
-if (isset($_POST['send'])) {
-    $id = mysqli_real_escape_string($db, $_POST['id']);
-    $data_uri = $_POST['capturedImage'];
-
-    if (empty($data_uri)) {
-        echo 'error: Captured image is missing.';
-        exit();
-    }
-
-    $encodedData = str_replace(' ', '+', $data_uri);
-    list($type, $encodedData) = explode(';', $encodedData);
-    list(, $encodedData) = explode(',', $encodedData);
-    $decodedData = base64_decode($encodedData);
-
-    $imageName = uniqid() . '.jpeg';
-    $filePath = 'admin/uploads/' . $imageName;
-    $date_requested = date('Y-m-d H:i:s');
-
-    if (file_put_contents($filePath, $decodedData)) {
-        $query = "INSERT INTO lostcard (personnel_id, date_requested, verification_photo, status) 
-                  VALUES ('$id', '$date_requested', '$imageName', 0)";
-        
-        if (mysqli_query($db, $query)) {
-            echo 'success';
-        } else {
-            echo 'success';
-        }
-    } else {
-        echo 'error: Failed to save the image.';
-    }
-
-    mysqli_close($db); // Close the database connection
-    exit(); // Exit to prevent further processing
-}
-?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-document.getElementById('submitButton').addEventListener('click', function (e) {
-    e.preventDefault(); // Prevent the form from submitting the traditional way
+    $(document).ready(function(){
+        $('#myForm').on('submit', function(event){
+            event.preventDefault();  // Prevent form from submitting normally
 
-    var formData = new FormData(document.getElementById('myForm')); // Capture the form data
+            // Gather form data
+            var formData = new FormData(this);  // Use FormData for file upload
 
-    fetch('', { // Use empty string to send data to the same file
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text()) // Parse the response as text
-    .then(result => {
-        if (result.trim() === 'success') {
-            // Display SweetAlert on success
-            Swal.fire({
-                icon: 'success',
-                title: 'Your request has been saved',
-                showConfirmButton: false,
-                timer: 1500
-            }).then(() => {
-                window.location.href = 'main.php'; // Redirect after 1.5 seconds
+            // AJAX request
+            $.ajax({
+                url: $(this).attr('action'),  // The action from the form
+                type: 'POST',
+                data: formData,
+                contentType: false,  // Ensure no content type processing
+                processData: false,  // Prevent jQuery from processing the data
+                success: function(response) {
+                    if (response.trim() === 'success') {
+                        // Success alert
+                        Swal.fire({
+                      
+                            icon: 'success',
+                            title: 'Your work has been saved',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function() {
+                            // Redirect to main.php after SweetAlert fades out
+                            window.location.href = 'main.php';
+                        });
+                    } else {
+                        // Error alert
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: response,  // Show the error response from PHP
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // AJAX error handler
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong during the submission!',
+                    });
+                }
             });
-        } else {
-            // Display SweetAlert for any error
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'An error occurred: ' + result
-            });
-        }
-    })
-    .catch(error => {
-        // Handle fetch errors
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong! Please try again.'
         });
     });
-});
 </script>
 
 <script>
