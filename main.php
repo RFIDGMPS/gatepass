@@ -1120,15 +1120,10 @@ alert('tae');
     $.ajax({
                 type: "POST",
                 url: "process_request.php",
-                dataType:'text',
-                success: function(response){
-                    if (response == 'success') {
-                        alert(response);
-                    } else {
-                        alert('error');
-                    }
-                    
-                    //echo what the server sent back...
+                dataType:'json',
+                data:formdata,
+                success: function(data){
+                    alert(data);
                 }
 });
 
