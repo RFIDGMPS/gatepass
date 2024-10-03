@@ -1115,43 +1115,21 @@ Webcam.snap(function(data_uri){
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- AJAX Form Submission -->
 <script>
-document.getElementById('submitButton').addEventListener('click', function (e) {
-    e.preventDefault(); // Prevent form submission
-
-    var formData = new FormData(document.getElementById('myForm'));
-
-    fetch('process_request.php', { // Replace 'process_request.php' with your actual PHP file
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text()) // Get the response as text
-    .then(result => {
-        // Display SweetAlert on successful request
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Your request has been saved',
-            showConfirmButton: false,
-            timer: 1500
-        });
-
-        // Delay redirect to main page
-        setTimeout(() => {
-            window.location.href = 'main.php'; // Redirect to main.php
-        }, 2000); // 2-second delay
-    })
-    .catch(error => {
-        // Handle errors and display alert
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!'
-        });
-    });
+document.getElementById('login-button').addEventListener('click', function() {
+    Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    title: 'Your request has been saved',
+    showConfirmButton: false,
+    timer: 1500
+}).then(() => {
+    // This will run after the alert disappears
+    window.location.href = 'main.php';
+});
 });
 </script>
+
 
 <script>
     function removeCard(button) {
