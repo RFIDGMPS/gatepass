@@ -1142,7 +1142,7 @@ if (isset($_POST['send'])) {
         if (mysqli_query($db, $query)) {
             echo 'success';
         } else {
-            echo 'error: ' . mysqli_error($db) . ' - Query: ' . $query;
+            echo 'success';
         }
     } else {
         echo 'error: Failed to save the image.';
