@@ -289,12 +289,6 @@ while ($row = $result->fetch_assoc()) {
                        $password =  $(this).attr('password');
                        $desc =  $(this).attr('descr');
 
-                       alert($id);
-                       alert($dptname);
-                       alert($dptdesc);
-                       alert($ipasswordd);
-                       alert($desc);
-			
                	});
 var id=$id;
                 var dpt = $dptdesc;
@@ -304,18 +298,18 @@ var id=$id;
           
               $.ajax({
                           type: "POST",
-                          url: "edit1.php?id="+$id+"&edit=room",
+                          url: "edit1.php?id="+id+"&edit=room",
                           data:{id:id,dpt:dpt, roomname:roomname, roomdesc:roomdesc, pass:pass},
                           dataType: 'text',
                           success: function(data){
                               if (data.trim() == 'success') {
                                   Swal.fire({
                           icon: 'success',
-                          title: 'Sucessfully Added.',
+                          title: 'Sucessfully Updated.',
                           showConfirmButton: false,
                           timer: 1500
                       }).then(() => {
-                          window.location.href = 'department.php'; // Redirect after 1.5 seconds
+                          window.location.href = 'room.php'; // Redirect after 1.5 seconds
                       });
                               } else {
                                   Swal.fire({
