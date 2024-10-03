@@ -1127,7 +1127,7 @@ alert('test');
                 success: function(data){
                     alert(data.trim());
                     if (data.trim() == 'success') {
-                        alert('sucess');
+                        alert('success');
                     } else {
                         alert('agfagf');
                     }
