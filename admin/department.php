@@ -196,10 +196,6 @@ include 'header.php';
 <script>
 $('#btn-editdepartment').click(function(){
   
-// Assign values from hidden fields to corresponding input fields
-document.getElementById('department_name').value = document.getElementById('hiddenName').value;
-document.getElementById('department_desc').value = document.getElementById('hiddenDesc').value;
-
 
 // Capture the current values
 var id = document.getElementById('hiddenId').value;
