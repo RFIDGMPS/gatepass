@@ -198,9 +198,9 @@ while ($row = $result->fetch_assoc()) {
                        $desc =  $(this).attr('descr');
 
 					$('.edit-name').val($dptname);
-					$('.edit-desc').val($dptdesc);
+					$('.edit-desc').val($desc);
                     $('.edit-pass').val($password);
-                    $('.edit-desc').val($desc);
+                    $('.edit-department').val($dptdesc);
 					// $('.edit-form').attr('action','edit1.php?id='+$id+'&edit=room');
                  
 					
