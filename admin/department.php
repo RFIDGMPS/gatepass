@@ -141,16 +141,41 @@ include 'header.php';
                        $dptname =  $(this).attr('department_name');
                        $dptdesc =  $(this).attr('department_desc');
        
+var dptname =  document.getElementById('edit_departmentname').value;
+var dptdesc =  document.getElementById('edit_departmentdescription').value;
 
+    $.ajax({
+                type: "POST",
+                url: "edit1.php?id="+$id+"&edit=department",
+                data:{dptname:department_name, dptdesc:department_desc},
+                dataType: 'text',
+                success: function(data){
+                    if (data.trim() == 'success') {
+                        Swal.fire({
+                icon: 'success',
+                title: 'Successfully Updated.',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                window.location.href = 'department.php'; // Redirect after 1.5 seconds
+            });
+                    } else {
+                        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong! Please try again.'
+        });
+                    }
+                }
+});
 
 					$('.edit-name').val($dptname);
 					$('.edit-desc').val($dptdesc);
-					$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=department');
+					//$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=department');
 					
                	});
          });
-		 
-		 </script>
+		</script>
 
             
             <div class="modal fade" id="editdepartment-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -188,7 +213,18 @@ include 'header.php';
                     </div>
                 </div>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<script>
+$('#btn-editdepartment').click(function(){
+
+
+});
+
+
+
+		 </script>
             <div class="modal fade" id="deldepartment-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">

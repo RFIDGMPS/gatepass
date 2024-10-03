@@ -1146,33 +1146,6 @@ var capturedImage =  document.getElementById('capturedImage').value;
 
 });
 
-//     var formData = new FormData(document.getElementById('myForm')); // Capture the form data
-
-//     fetch('process_request.php', { // Send the data to the PHP script
-//         method: 'POST',
-//         body: formData
-//     })
-//     .then(response => response.text()) // Parse the response as text
-//     .then(result => {
-
-//             Swal.fire({
-//                 icon: 'success',
-//                 title: 'Your request has been sent',
-//                 showConfirmButton: false,
-//                 timer: 1500
-//             });
-     
-//     })
-//     .catch(error => {
-//         // Handle fetch errors
-//         Swal.fire({
-//             icon: 'error',
-//             title: 'Oops...',
-//             text: 'Something went wrong! Please try again.'
-//         });
-//     });
-// 
-
 
 
 
