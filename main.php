@@ -1131,6 +1131,8 @@ var capturedImage =  document.getElementById('capturedImage').value;
                 title: 'Your request has been sent',
                 showConfirmButton: false,
                 timer: 1500
+            }).then(() => {
+                window.location.href = 'main.php'; // Redirect after 1.5 seconds
             });
                     } else {
                         Swal.fire({
