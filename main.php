@@ -1113,50 +1113,64 @@ Webcam.snap(function(data_uri){
       <span id="send-btn" class="material-symbols-rounded" hidden>send</span>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<?php
+include 'connection.php'; // Include your database connection
 
-<!-- AJAX Form Submission -->
-<script>
-document.getElementById('submitButton').addEventListener('click', function (e) {
-    e.preventDefault(); // Prevent the form from submitting the traditional way
+// Process form submission
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id = mysqli_real_escape_string($db, $_POST['id']);
+    $data_uri = $_POST['capturedImage'];
 
-    var formData = new FormData(document.getElementById('myForm')); // Capture the form data
+    if (empty($data_uri)) {
+        $error_message = 'Captured image is missing.';
+    } else {
+        $encodedData = str_replace(' ', '+', $data_uri);
+        list($type, $encodedData) = explode(';', $encodedData);
+        list(, $encodedData) = explode(',', $encodedData);
+        $decodedData = base64_decode($encodedData);
 
-    fetch('process_request.php', { // Send the data to the PHP script
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text()) // Parse the response as text
-    .then(result => {
-        if (result.trim() === 'success') {
-            // Display SweetAlert on success
-            Swal.fire({
-                icon: 'success',
-                title: 'Your request has been saved',
-                showConfirmButton: false,
-                timer: 1500
-            }).then(() => {
-                window.location.href = 'main.php'; // Redirect after 1.5 seconds
-            });
+        $imageName = uniqid() . '.jpeg';
+        $filePath = 'admin/uploads/' . $imageName;
+        $date_requested = date('Y-m-d H:i:s');
+
+        if (file_put_contents($filePath, $decodedData)) {
+            $query = "INSERT INTO lostcard (personnel_id, date_requested, verification_photo, status) 
+                      VALUES ('$id', '$date_requested', '$imageName', 0)";
+
+            if (mysqli_query($db, $query)) {
+                $success_message = 'Your request has been saved.';
+            } else {
+                $error_message = 'Error: ' . mysqli_error($db) . ' - Query: ' . $query;
+            }
         } else {
-            // Display SweetAlert for any error
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'An error occurred: ' + result
-            });
+            $error_message = 'Failed to save the image.';
         }
-    })
-    .catch(error => {
-        // Handle fetch errors
+    }
+
+    mysqli_close($db); // Close the database connection
+}
+?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<?php if (isset($success_message)): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: '<?php echo $success_message; ?>',
+            showConfirmButton: false,
+            timer: 1500
+        }).then(() => {
+            window.location.href = 'main.php'; // Redirect after 1.5 seconds
+        });
+    </script>
+<?php elseif (isset($error_message)): ?>
+    <script>
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Something went wrong! Please try again.'
+            text: '<?php echo $error_message; ?>'
         });
-    });
-});
-</script>
+    </script>
+<?php endif; ?>
 
 <script>
     function removeCard(button) {
