@@ -1127,7 +1127,7 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
     })
     .then(response => response.text()) // Parse the response as text
     .then(result => {
-        alert(result.trim());
+        alert(result);
         if (result.trim() === 'success') {
             // Display SweetAlert on success
             Swal.fire({
