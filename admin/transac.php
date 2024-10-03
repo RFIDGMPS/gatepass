@@ -128,46 +128,6 @@ switch ($_GET['action'])
 
                   case 'add_lost_card':
 
-
-                                // Get the ID from the hidden input
-                                $id = $_POST['id'];
-                            
-                                // Handle the uploaded photo
-                                $data_uri = $_POST['capturedImage'];
-                              
-                                $encodedData = str_replace(' ', '+', $data_uri);
-                                list($type, $encodedData) = explode(';', $encodedData);
-                                list(, $encodedData) = explode(',', $encodedData);
-                                $decodedData = base64_decode($encodedData);
-
-                                $imageName = $_POST['ss'] . '.jpeg';
-                                $filePath = 'uploads/' . $imageName;
-                                // Get the current date and time
-                                $date_requested = date('Y-m-d H:i:s');
-                                
-                                // SQL query with the PHP variable
-                                if (file_put_contents($filePath, $decodedData)) {
-                                $query = "INSERT INTO lostcard (personnel_id, date_requested,verification_photo, status) 
-                                          VALUES ('$id', '$date_requested', '$imageName',0)";
-                            
-                                // Execute the query
-                                mysqli_query($db, $query) or die('Error in updating Database');
-                               
-                                // Alert and redirect
-                              
-    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script><script>
-        Swal.fire({
-    position: 'top-end',
-    icon: 'success',
-    title: 'Your request has been saved',
-    showConfirmButton: false,
-    timer: 1500
-}).then(() => {
-    // This will run after the alert disappears
-    window.location.href = '../main.php';
-});
-    </script>";
-                                }
                             
     break;
 }

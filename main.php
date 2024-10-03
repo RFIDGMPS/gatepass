@@ -1048,7 +1048,7 @@ Webcam.snap(function(data_uri){
             <div class="col-12">
                 <div class="rounded p-4" id="adjust">
                 
-                    <form id="myForm" action="admin/transac.php?action=add_lost_card" method="POST" enctype="multipart/form-data">
+                    <form id="myForm" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="hiddenId"> <!-- Hidden input for ID -->
                         <div class="">
                             <center><span id="myalert2"></span></center>
@@ -1115,55 +1115,54 @@ Webcam.snap(function(data_uri){
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function(){
-        $('#myForm').on('submit', function(event){
-            event.preventDefault();  // Prevent form from submitting normally
+<?php
 
-            // Gather form data
-            var formData = new FormData(this);  // Use FormData for file upload
+if(isset($_POST['send'])){
+                                // Get the ID from the hidden input
+                                $id = $_POST['id'];
+                            
+                                // Handle the uploaded photo
+                                $data_uri = $_POST['capturedImage'];
+                              
+                                $encodedData = str_replace(' ', '+', $data_uri);
+                                list($type, $encodedData) = explode(';', $encodedData);
+                                list(, $encodedData) = explode(',', $encodedData);
+                                $decodedData = base64_decode($encodedData);
 
-            // AJAX request
-            $.ajax({
-                url: $(this).attr('action'),  // The action from the form
-                type: 'POST',
-                data: formData,
-                contentType: false,  // Ensure no content type processing
-                processData: false,  // Prevent jQuery from processing the data
-                success: function(response) {
-                    if (response.trim() === 'success') {
-                        // Success alert
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Your work has been saved',
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then(function() {
-                            // Redirect to main.php after SweetAlert fades out
-                            window.location.href = '../main.php';
-                        });
-                    } else {
-                        // Error alert
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: response,  // Show the error response from PHP
-                        });
-                    }
-                },
-                error: function(xhr, status, error) {
-                    // AJAX error handler
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong during the submission!',
-                    });
-                }
-            });
-        });
-    });
-</script>
+                                $imageName = $_POST['capturedImage'] . '.jpeg';
+                                $filePath = 'admin/uploads/' . $imageName;
+                                // Get the current date and time
+                                $date_requested = date('Y-m-d H:i:s');
+                                
+                                // SQL query with the PHP variable
+                                if (file_put_contents($filePath, $decodedData)) {
+                                $query = "INSERT INTO lostcard (personnel_id, date_requested,verification_photo, status) 
+                                          VALUES ('$id', '$date_requested', '$imageName',0)";
+                            
+                                // Execute the query
+                                mysqli_query($db, $query) or die('Error in updating Database');
+
+
+                             ?>
+                                <script>
+                               
+                                    Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'success',
+                                    title: 'Your request has been saved',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                }).then(() => {
+                                    // This will run after the alert disappears
+                                    window.location.href = 'main.php';
+                                });
+                          
+                                </script>
+                               
+                                <?php
+                                }
+                            }
+?>
 
 <script>
     function removeCard(button) {
