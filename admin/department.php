@@ -196,19 +196,25 @@ include 'header.php';
 <script>
 $('#btn-editdepartment').click(function(){
   
+// Assign values from hidden fields to corresponding input fields
+document.getElementById('department_name').value = document.getElementById('hiddenName').value;
+document.getElementById('department_desc').value = document.getElementById('hiddenDesc').value;
 
-    document.getElementById('department_name').value = document.getElementById('hiddenName').value;
-    document.getElementById('department_desc').value = document.getElementById('hiddenDesc').value;
 
-    alert(document.getElementById('hiddenId').value);
-    alert(document.getElementById('department_name').value);
-    alert(document.getElementById('department_desc').value);
+// Capture the current values
+var id = document.getElementById('hiddenId').value;
+var dptname = document.getElementById('department_name').value;
+var dptdesc = document.getElementById('department_desc').value;
 
-var id =  document.getElementById('hiddenId').value;
-var dptname =  document.getElementById('department_name').value;
-var dptdesc =  document.getElementById('department_desc').value;
+// Assign default value if department_name is not updated or is empty
+if (dptname === document.getElementById('hiddenName').value || dptname === '') {
+    dptname = document.getElementById('hiddenName').value; // Replace with your desired default value
+}
 
-alert('sss'+dptname);
+// Proceed with dptname and dptdesc variables
+alert("Final Department Name: " + dptname);
+
+
     $.ajax({
                 type: "POST",
                 url: "edit1.php?id="+id+"&edit=department",
