@@ -42,12 +42,40 @@ switch ($_GET['action'])
 </script>';
     break;
     case 'add_department':
+
+        // Get the POST data
         $department_name = $_POST['dptname'];
         $department_desc = $_POST['dptdesc'];
-        $query = "INSERT INTO department (department_name, department_desc)
-        VALUES ('$department_name', '$department_desc')";
-        mysqli_query($db, $query) or die('Error in updating Database');
-        echo 'success';
+        
+        
+        // Prepare an INSERT query with placeholders
+        $query = "INSERT INTO department (department_name, department_desc) VALUES (?, ?)";
+        
+        // Initialize a prepared statement
+        $stmt = $db->prepare($query);
+        
+        if ($stmt) {
+            // Bind parameters to the query (s = string)
+            $stmt->bind_param("ss", $department_name, $department_desc);
+        
+            // Execute the statement
+            if ($stmt->execute()) {
+                echo 'success';
+            } else {
+                // Handle execution error
+                echo "Error: " . $stmt->error;
+            }
+        
+            // Close the statement
+            $stmt->close();
+        } else {
+            // Handle query preparation error
+            echo "Error preparing statement: " . $db->error;
+        }
+        
+        // Close the database connection
+        $db->close();
+     
         break;
         case 'add_visitor':
             $v_code = $_POST['v_code'];

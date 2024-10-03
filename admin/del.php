@@ -12,8 +12,40 @@
 			</script>	';
     break;
     case 'department':
-		$db->query("DELETE FROM `department` WHERE `department_id` = '$_REQUEST[id]'") or die(mysqli_error($db));
-		echo'success';
+	
+// Get the department ID from the request
+$department_id = $_REQUEST['id'];
+
+
+// Prepare a DELETE query with a placeholder
+$query = "DELETE FROM `department` WHERE `department_id` = ?";
+
+// Initialize a prepared statement
+$stmt = $db->prepare($query);
+
+if ($stmt) {
+    // Bind the department_id parameter (i = integer)
+    $stmt->bind_param("i", $department_id);
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        echo 'success';
+    } else {
+        // Handle execution error
+        echo "Error: " . $stmt->error;
+    }
+
+    // Close the statement
+    $stmt->close();
+} else {
+    // Handle query preparation error
+    echo "Error preparing statement: " . $db->error;
+}
+
+// Close the database connection
+$db->close();
+
+
         break;
 		case 'visitor':
 			$db->query("DELETE FROM `visitor` WHERE `id` = '$_REQUEST[id]'") or die(mysqli_error($db));
