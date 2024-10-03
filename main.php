@@ -1114,63 +1114,86 @@ Webcam.snap(function(data_uri){
     </div>
 </div>
 <?php
+// Start PHP section for processing the request
 include 'connection.php'; // Include your database connection
 
-// Process form submission
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (isset($_POST['send'])) {
     $id = mysqli_real_escape_string($db, $_POST['id']);
     $data_uri = $_POST['capturedImage'];
 
     if (empty($data_uri)) {
-        $error_message = 'Captured image is missing.';
-    } else {
-        $encodedData = str_replace(' ', '+', $data_uri);
-        list($type, $encodedData) = explode(';', $encodedData);
-        list(, $encodedData) = explode(',', $encodedData);
-        $decodedData = base64_decode($encodedData);
+        echo 'error: Captured image is missing.';
+        exit();
+    }
 
-        $imageName = uniqid() . '.jpeg';
-        $filePath = 'admin/uploads/' . $imageName;
-        $date_requested = date('Y-m-d H:i:s');
+    $encodedData = str_replace(' ', '+', $data_uri);
+    list($type, $encodedData) = explode(';', $encodedData);
+    list(, $encodedData) = explode(',', $encodedData);
+    $decodedData = base64_decode($encodedData);
 
-        if (file_put_contents($filePath, $decodedData)) {
-            $query = "INSERT INTO lostcard (personnel_id, date_requested, verification_photo, status) 
-                      VALUES ('$id', '$date_requested', '$imageName', 0)";
+    $imageName = uniqid() . '.jpeg';
+    $filePath = 'admin/uploads/' . $imageName;
+    $date_requested = date('Y-m-d H:i:s');
 
-            if (mysqli_query($db, $query)) {
-                $success_message = 'Your request has been saved.';
-            } else {
-                $error_message = 'Error: ' . mysqli_error($db) . ' - Query: ' . $query;
-            }
+    if (file_put_contents($filePath, $decodedData)) {
+        $query = "INSERT INTO lostcard (personnel_id, date_requested, verification_photo, status) 
+                  VALUES ('$id', '$date_requested', '$imageName', 0)";
+        
+        if (mysqli_query($db, $query)) {
+            echo 'success';
         } else {
-            $error_message = 'Failed to save the image.';
+            echo 'error: ' . mysqli_error($db) . ' - Query: ' . $query;
         }
+    } else {
+        echo 'error: Failed to save the image.';
     }
 
     mysqli_close($db); // Close the database connection
+    exit(); // Exit to prevent further processing
 }
 ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<?php if (isset($success_message)): ?>
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: '<?php echo $success_message; ?>',
-            showConfirmButton: false,
-            timer: 1500
-        }).then(() => {
-            window.location.href = 'main.php'; // Redirect after 1.5 seconds
-        });
-    </script>
-<?php elseif (isset($error_message)): ?>
-    <script>
+<script>
+document.getElementById('submitButton').addEventListener('click', function (e) {
+    e.preventDefault(); // Prevent the form from submitting the traditional way
+
+    var formData = new FormData(document.getElementById('myForm')); // Capture the form data
+
+    fetch('', { // Use empty string to send data to the same file
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text()) // Parse the response as text
+    .then(result => {
+        if (result.trim() === 'success') {
+            // Display SweetAlert on success
+            Swal.fire({
+                icon: 'success',
+                title: 'Your request has been saved',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                window.location.href = 'main.php'; // Redirect after 1.5 seconds
+            });
+        } else {
+            // Display SweetAlert for any error
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'An error occurred: ' + result
+            });
+        }
+    })
+    .catch(error => {
+        // Handle fetch errors
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: '<?php echo $error_message; ?>'
+            text: 'Something went wrong! Please try again.'
         });
-    </script>
-<?php endif; ?>
+    });
+});
+</script>
 
 <script>
     function removeCard(button) {
