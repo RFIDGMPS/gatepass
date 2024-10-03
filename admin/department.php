@@ -195,14 +195,11 @@ include 'header.php';
           
 <script>
 $('#btn-editdepartment').click(function(){
-   
+    alert(document.getElementById('hiddenId').value);
 var id =  document.getElementById('hiddenId').value;
 var dptname =  document.getElementById('department_name').value;
 var dptdesc =  document.getElementById('department_desc').value;
-alert('test');
-alert(id);
-alert(dptname);
-alert(dptdesc);
+
     $.ajax({
                 type: "POST",
                 url: "edit1.php?id="+id+"&edit=department",
