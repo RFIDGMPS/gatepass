@@ -1122,7 +1122,7 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
                 icon: 'success',
                 title: 'Your request has been sent',
                 showConfirmButton: false,
-                timer: 3000
+                timer: 1500
             }).then(() => {
                 window.location.href = 'main.php'; // Redirect after 1.5 seconds
             });
