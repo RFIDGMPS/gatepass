@@ -40,7 +40,12 @@ if (isset($_POST['send'])) {
         
         // Execute the query and check for success
         if ($stmt->execute()) {
-            header('Location: main.php'); // Redirect to main.php
+            echo "<script>
+            setTimeout(function() {
+                window.location.href = 'main.php';
+            }, 1500); // Delay in milliseconds (1500 ms = 1.5 seconds)
+          </script>";
+    exit; // Terminate the script
         } else {
             echo 'Error in updating Database: ' . $stmt->error; // Change to echo for error response
         }
