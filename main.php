@@ -1121,13 +1121,6 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
 
     var formData = new FormData(document.getElementById('myForm')); // Capture the form data
 
-    fetch('process_request.php', { // Send the data to the PHP script
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text()) // Parse the response as text
-    .then(result => {
-       
             // Display SweetAlert on success
             Swal.fire({
                 icon: 'success',
@@ -1135,6 +1128,13 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
                 showConfirmButton: false,
                 timer: 1500
             });
+    fetch('process_request.php', { // Send the data to the PHP script
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text()) // Parse the response as text
+    .then(result => {
+       
        
     })
     .catch(error => {
