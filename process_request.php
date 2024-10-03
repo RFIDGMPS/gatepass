@@ -40,10 +40,7 @@ if (isset($_POST['send'])) {
         
         // Execute the query and check for success
         if ($stmt->execute()) {
-            echo '<script>
-                window.location.href = "main.php"; // Redirect after 1.5 seconds
-</script>';
-    exit; // Terminate the script
+            echo "success"; // Return success response
         } else {
             echo 'Error in updating Database: ' . $stmt->error; // Change to echo for error response
         }
