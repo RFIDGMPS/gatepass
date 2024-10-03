@@ -1117,17 +1117,18 @@ Webcam.snap(function(data_uri){
 
 <script>
 document.getElementById('submitButton').addEventListener('click', function (e) {
- 
-
-    var formData = new FormData(document.getElementById('myForm')); // Capture the form data
-
-            // Display SweetAlert on success
-            Swal.fire({
+    e.preventDefault(); // Prevent the form from submitting traditionally
+   // Display SweetAlert on success
+   Swal.fire({
                 icon: 'success',
                 title: 'Your request has been sent',
                 showConfirmButton: false,
                 timer: 1500
             });
+       
+            
+    var formData = new FormData(document.getElementById('myForm')); // Capture the form data
+
     fetch('process_request.php', { // Send the data to the PHP script
         method: 'POST',
         body: formData
@@ -1135,7 +1136,7 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
     .then(response => response.text()) // Parse the response as text
     .then(result => {
        
-       
+         
     })
     .catch(error => {
         // Handle fetch errors
