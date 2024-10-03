@@ -1,6 +1,6 @@
 <?php
 // Check if form has been submitted
-if (isset($_POST['send'])) {
+
     // Include the database connection
     include 'connection.php';
 
@@ -52,5 +52,5 @@ if (isset($_POST['send'])) {
     }
 
     
-}
+
 ?>
