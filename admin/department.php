@@ -195,10 +195,10 @@ include 'header.php';
           
 <script>
 $('#btn-editdepartment').click(function(){
-    alert('pass');
+   
 var id =  document.getElementById('hiddenId').value;
-var dptname =  document.getElementById('department_name').value;
-var dptdesc =  document.getElementById('department_desc').value;
+var dptname =  document.getElementById('hiddenName').value;
+var dptdesc =  document.getElementById('hiddenDesc').value;
 
     $.ajax({
                 type: "POST",
