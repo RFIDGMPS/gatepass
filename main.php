@@ -1119,31 +1119,48 @@ Webcam.snap(function(data_uri){
 document.getElementById('submitButton').addEventListener('click', function (e) {
     e.preventDefault();
 
-    var formData = new FormData(document.getElementById('myForm')); // Capture the form data
+//     var formData = new FormData(document.getElementById('myForm')); // Capture the form data
 
-    fetch('process_request.php', { // Send the data to the PHP script
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text()) // Parse the response as text
-    .then(result => {
+//     fetch('process_request.php', { // Send the data to the PHP script
+//         method: 'POST',
+//         body: formData
+//     })
+//     .then(response => response.text()) // Parse the response as text
+//     .then(result => {
 
-            Swal.fire({
-                icon: 'success',
-                title: 'Your request has been sent'+response,
-                showConfirmButton: false,
-                timer: 1500
-            });
+//             Swal.fire({
+//                 icon: 'success',
+//                 title: 'Your request has been sent',
+//                 showConfirmButton: false,
+//                 timer: 1500
+//             });
      
-    })
-    .catch(error => {
-        // Handle fetch errors
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong! Please try again.'
-        });
-    });
+//     })
+//     .catch(error => {
+//         // Handle fetch errors
+//         Swal.fire({
+//             icon: 'error',
+//             title: 'Oops...',
+//             text: 'Something went wrong! Please try again.'
+//         });
+//     });
+// 
+
+
+$.ajax({
+                type: "POST",
+                url: "process_request.php",
+                dataType:'text'; //or HTML, JSON, etc.
+                success: function(response){
+                    if (response == 'success') {
+                        alert(response);
+                    } else {
+                        alert('error');
+                    }
+                    
+                    //echo what the server sent back...
+                }
+            });
 });
 </script>
 
