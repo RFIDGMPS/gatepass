@@ -121,6 +121,48 @@ include 'header.php';
                     </div>
                 </div>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          
+          <script>
+          $('#btn-department').click(function(){
+         
+          var dptname =  document.getElementById('department_name').value;
+          var dptdesc =  document.getElementById('department_description').value;
+          
+              $.ajax({
+                          type: "POST",
+                          url: "transac.php?action=add_department",
+                          data:{dptname:dptname, dptdesc:dptdesc},
+                          dataType: 'text',
+                          success: function(data){
+                              if (data.trim() == 'success') {
+                                  Swal.fire({
+                          icon: 'success',
+                          title: 'Sucessfully Added.',
+                          showConfirmButton: false,
+                          timer: 1500
+                      }).then(() => {
+                          window.location.href = 'department.php'; // Redirect after 1.5 seconds
+                      });
+                              } else {
+                                  Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'Something went wrong! Please try again.'
+                  });
+                              }
+                          }
+          });
+          
+          });
+          
+          
+          
+          
+          </script>
+
+
+
             <script type="text/javascript">
          $(document).ready(function() {
          	$("#myDataTable").DataTable();
@@ -191,7 +233,7 @@ include 'header.php';
                     </div>
                 </div>
             </div>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
           
 <script>
 $('#btn-editdepartment').click(function(){

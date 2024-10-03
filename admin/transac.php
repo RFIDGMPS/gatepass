@@ -42,15 +42,12 @@ switch ($_GET['action'])
 </script>';
     break;
     case 'add_department':
-        $department_name = $_POST['department_name'];
-        $department_desc = $_POST['department_desc'];
+        $department_name = $_POST['dptname'];
+        $department_desc = $_POST['dptdesc'];
         $query = "INSERT INTO department (department_name, department_desc)
         VALUES ('$department_name', '$department_desc')";
         mysqli_query($db, $query) or die('Error in updating Database');
-        echo '<script type="text/javascript">
-        alert("Successfully added.");
-        window.location = "department.php";
-</script>';
+        echo 'success';
         break;
         case 'add_visitor':
             $v_code = $_POST['v_code'];
