@@ -288,6 +288,12 @@ while ($row = $result->fetch_assoc()) {
                        $dptdesc =  $(this).attr('department');
                        $password =  $(this).attr('password');
                        $desc =  $(this).attr('descr');
+
+                       alert($id);
+                       alert($dptname);
+                       alert($dptdesc);
+                       alert($ipasswordd);
+                       alert($desc);
 			
                	});
 var id=$id;
