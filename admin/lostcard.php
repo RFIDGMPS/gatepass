@@ -129,7 +129,7 @@ if ($result->num_rows > 0) {
     
         echo "</center></td>
               <td><img src='uploads/" . $row['photo'] . "' width='50' height='50'> 
-                  <img src='uploads/" . $row['status'] . "' width='50' height='50'></td>
+                  <img src='uploads/" . $row['verification_photo'] . "' width='50' height='50'></td>
               <td>" . $row['full_name'] . "</td>
               <td>" . $row['rfid_number'] . "</td>
               <td>" . $relativeTime . "</td>
