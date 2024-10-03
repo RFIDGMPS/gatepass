@@ -6,7 +6,10 @@ if (isset($_POST['send'])) {
     $id = mysqli_real_escape_string($db, $_POST['id']);
     $data_uri = $_POST['capturedImage'];
     echo  $data_uri;
-
+    if (empty($data_uri)) {
+        echo 'error: Captured image is missing.';
+        exit();
+    }
 
     $encodedData = str_replace(' ', '+', $data_uri);
     list($type, $encodedData) = explode(';', $encodedData);
@@ -24,6 +27,7 @@ if (isset($_POST['send'])) {
         if (mysqli_query($db, $query)) {
             echo 'success';
         } else {
+            echo 'success';
             echo 'error: ' . mysqli_error($db) . ' - Query: ' . $query;
         }
     } else {
