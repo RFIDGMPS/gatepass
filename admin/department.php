@@ -131,10 +131,10 @@ include 'header.php';
                        $dptname =  $(this).attr('department_name');
        
        $('.d-dpt').val($dptname);
-               		$('.remove_id').click(function(){
-               			window.location = 'del.php?type=department&id=' + $id;
+               		// $('.remove_id').click(function(){
+               		// 	window.location = 'del.php?type=department&id=' + $id;
 						 
-               		});
+               		// });
                	});
                	$('.e_department_id').click(function(){
                		$id = $(this).attr('data-id');
@@ -258,6 +258,42 @@ var dptdesc =  document.getElementById('edit_departmentdescription').value;
                     </div>
                 </div>
             </div>
+            <script>
+$('#btn-deldepartment').click(function(){
+var id =  document.getElementById('hiddenId').value;
+
+
+    $.ajax({
+                type: "REQUEST",
+                url: "del.php?type=department&id=" + id,
+                data:{id:id},
+                dataType: 'text',
+                success: function(data){
+                    if (data.trim() == 'success') {
+                        Swal.fire({
+                icon: 'success',
+                title: 'Sucessfully Deleted.',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                window.location.href = 'department.php'; // Redirect after 1.5 seconds
+            });
+                    } else {
+                        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong! Please try again.'
+        });
+                    }
+                }
+});
+
+});
+
+
+
+
+</script>
 
             <?php
 include 'footer.php';

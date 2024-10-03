@@ -13,10 +13,7 @@
     break;
     case 'department':
 		$db->query("DELETE FROM `department` WHERE `department_id` = '$_REQUEST[id]'") or die(mysqli_error($db));
-		echo'<script type="text/javascript">
-				alert("Successfully Deleted.");
-				window.location = "department.php";
-			</script>	';
+		echo'success';
         break;
 		case 'visitor':
 			$db->query("DELETE FROM `visitor` WHERE `id` = '$_REQUEST[id]'") or die(mysqli_error($db));
