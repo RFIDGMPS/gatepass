@@ -1123,6 +1123,7 @@ alert('test');
                 type: "POST",
                 url: "process_request.php",
                 data:{id:id, capturedImage:capturedImage},
+                dataType: 'text',
                 success: function(data){
                     alert(data);
                     if (data == 'success') {
