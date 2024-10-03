@@ -84,10 +84,7 @@ switch ($_GET['edit'])
 						 department_desc = '$department_desc' 
 					 WHERE department_id = '$id'";
 							$result = mysqli_query($db, $query) or die(mysqli_error($db));
-							echo '<script type="text/javascript">
-							alert("Update Successfull.");
-							window.location = "department.php";
-						</script>';
+							echo 'success';
 						break;
 						case 'visitor':
 							$id = $_GET['id'];
