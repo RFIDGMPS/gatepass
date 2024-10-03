@@ -79,12 +79,12 @@ include 'header.php';
                                             <td><?php echo substr($row['password'], 0, 10) . '...'; ?></td>
                                             <td width="14%">
                                             <center>
-                                          <button descr="<?php echo $row['description'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>" data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_room_id" >
+                                          <button descr="<?php echo $row['descr'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>" data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_room_id" >
                                           <i class="bi bi-plus-edit"></i> Edit </button>
-                                          <button descr="<?php echo $row['description'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>"  data-id="<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_room_id">
+                                          <button descr="<?php echo $row['descr'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>"  data-id="<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_room_id">
                                           <i class="bi bi-plus-trash"></i> Delete </button>
                                           <input type="hidden" id="dpt" value="<?php echo $row['department'];?>"/>
-                                          <input type="hidden" id="roomdesc" value="<?php echo $row['description'];?>"/>
+                                          <input type="hidden" id="roomdesc" value="<?php echo $row['descr'];?>"/>
                                           <input type="hidden" id="pass" value="<?php echo $row['password'];?>"/>
                                           <input type="hidden" id="roomname" value="<?php echo $row['room'];?>"/>
                                        </center> </td>
@@ -198,7 +198,7 @@ while ($row = $result->fetch_assoc()) {
                        $desc =  $(this).attr('descr');
 
 					$('.edit-name').val($dptname);
-					$('.edit-desc').html($desc);
+					$('.edit-desc').val($desc);
                     $('.edit-pass').val($password);
                     $('.edit-department').html($dptdesc);
 					// $('.edit-form').attr('action','edit1.php?id='+$id+'&edit=room');
@@ -259,7 +259,7 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Description:</b></label>
-                                        <input name="descr" type="text" id="edit_departmentdesc" class="form-control edit-desc" autocomplete="off">
+                                        <input name="desc" type="text" id="edit_departmentdesc" class="form-control edit-desc" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
