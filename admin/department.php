@@ -202,7 +202,7 @@ var dptdesc =  document.getElementById('edit_departmentdescription').value;
     $.ajax({
                 type: "POST",
                 url: "edit1.php?id="+id+"&edit=department",
-                data:{id:id, dptname:dptname, dptdesc:dptname},
+                data:{dptname:dptname, dptdesc:dptdesc},
                 dataType: 'text',
                 success: function(data){
                     if (data.trim() == 'success') {
