@@ -1118,33 +1118,32 @@ Webcam.snap(function(data_uri){
 <!-- AJAX Form Submission -->
 <script>
 document.getElementById('submitButton').addEventListener('click', function (e) {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault(); // Prevent the form from submitting the traditional way
 
-    var formData = new FormData(document.getElementById('myForm')); // Collect form data
+    var formData = new FormData(document.getElementById('myForm')); // Capture the form data
 
-    fetch('process_request.php', { // Replace 'process_request.php' with your actual PHP file
+    fetch('process_request.php', { // Send the data to the PHP script
         method: 'POST',
         body: formData
     })
-    .then(response => response.text()) // Get the response as text
+    .then(response => response.text()) // Parse the response as text
     .then(result => {
-        if (result.includes('Your request has been saved')) {
-            // Show SweetAlert for successful submission
+        if (result.trim() === 'success') {
+            // Display SweetAlert on success
             Swal.fire({
                 icon: 'success',
                 title: 'Your request has been saved',
                 showConfirmButton: false,
                 timer: 1500
             }).then(() => {
-                // Redirect after alert
-                window.location.href = 'main.php'; // Redirect to main.php
+                window.location.href = 'main.php'; // Redirect after 1.5 seconds
             });
         } else {
-            // Show SweetAlert for an error
+            // Display SweetAlert for any error
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: result // Display the error from the server response
+                text: 'An error occurred: ' + result
             });
         }
     })
@@ -1153,12 +1152,10 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Something went wrong!'
+            text: 'Something went wrong! Please try again.'
         });
-        console.error('Error:', error);
     });
 });
-
 </script>
 
 <script>

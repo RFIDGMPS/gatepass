@@ -1,50 +1,51 @@
 <?php
+// Check if form has been submitted
 if (isset($_POST['send'])) {
-    // Database connection should be established earlier
-    if (!$db) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
+ 
 
+    // Sanitize the input fields to prevent SQL injection
     $id = mysqli_real_escape_string($db, $_POST['id']);
     $data_uri = $_POST['capturedImage'];
     
+    // Check if the captured image is provided
     if (empty($data_uri)) {
-        die('Captured image is missing.');
+        echo 'error: Captured image is missing.';
+        exit();
     }
 
+    // Decode the base64 encoded image
     $encodedData = str_replace(' ', '+', $data_uri);
     list($type, $encodedData) = explode(';', $encodedData);
     list(, $encodedData) = explode(',', $encodedData);
     $decodedData = base64_decode($encodedData);
 
-    $imageName = uniqid() . '.jpeg';  // Unique name to prevent overwriting
+    // Generate a unique name for the image
+    $imageName = uniqid() . '.jpeg';
     $filePath = 'admin/uploads/' . $imageName;
 
+    // Get the current date and time
     $date_requested = date('Y-m-d H:i:s');
 
-    // Save the file
+    // Save the decoded image to the server
     if (file_put_contents($filePath, $decodedData)) {
-        // Prepare the SQL query
+        // Prepare the SQL query to insert data into the database
         $query = "INSERT INTO lostcard (personnel_id, date_requested, verification_photo, status) 
                   VALUES ('$id', '$date_requested', '$imageName', 0)";
         
-        // Execute the query and check for errors
+        // Execute the query
         if (mysqli_query($db, $query)) {
-            echo "<script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Your request has been saved',
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then(() => {
-                        window.location.href = 'main.php';
-                    });
-                </script>";
+            // Return a success message
+            echo 'success';
         } else {
-            echo "Error in saving data: " . mysqli_error($db);  // Show error from MySQL
+            // Return a MySQL error message
+            echo 'error: ' . mysqli_error($db);
         }
     } else {
-        echo "Failed to save the image.";
+        // Return an error if the image couldn't be saved
+        echo 'error: Failed to save the image.';
     }
+
+    // Close the database connection
+    mysqli_close($db);
 }
 ?>
