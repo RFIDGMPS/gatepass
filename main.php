@@ -1120,40 +1120,42 @@ Webcam.snap(function(data_uri){
 document.getElementById('submitButton').addEventListener('click', function (e) {
     e.preventDefault(); // Prevent form submission
 
-    var formData = new FormData(document.getElementById('myForm'));
+    var formData = new FormData(document.getElementById('myForm')); // Collect form data
 
     fetch('process_request.php', { // Replace 'process_request.php' with your actual PHP file
         method: 'POST',
         body: formData
     })
-    .then(response => {
-        if (!response.ok) { // Check if the response is OK (status in the range 200-299)
-            throw new Error('Network response was not ok');
-        }
-        return response.text(); // Return response text if request was successful
-    })
+    .then(response => response.text()) // Get the response as text
     .then(result => {
-        // Display SweetAlert on successful request
-        Swal.fire({
-            icon: 'success',
-            title: 'Your request has been sent',
-            showConfirmButton: false,
-            timer: 1500
-        });
-
-        // Delay redirect to main page
-        setTimeout(() => {
-            window.location.href = 'main.php'; // Redirect to main.php
-        }, 2000); // 2-second delay
+        if (result.includes('Your request has been saved')) {
+            // Show SweetAlert for successful submission
+            Swal.fire({
+                icon: 'success',
+                title: 'Your request has been saved',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                // Redirect after alert
+                window.location.href = 'main.php'; // Redirect to main.php
+            });
+        } else {
+            // Show SweetAlert for an error
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: result // Display the error from the server response
+            });
+        }
     })
     .catch(error => {
-        // Handle errors and display alert
+        // Handle fetch errors
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Something went wrong!'
         });
-        console.error('There was a problem with the fetch operation:', error); // Log error details
+        console.error('Error:', error);
     });
 });
 
