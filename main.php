@@ -1116,11 +1116,11 @@ Webcam.snap(function(data_uri){
 
 <script>
 $('#submitButton').click(function(){
-
+alert('tae');
     $.ajax({
                 type: "POST",
                 url: "process_request.php",
-                dataType:'text'; //or HTML, JSON, etc.
+                dataType:'text',
                 success: function(response){
                     if (response == 'success') {
                         alert(response);
