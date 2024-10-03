@@ -143,7 +143,7 @@ switch ($_GET['action'])
                         $decodedData = base64_decode($encodedData);
                     
                         $imageName = uniqid() . '.jpeg';
-                        $filePath = 'admin/uploads/' . $imageName;
+                        $filePath = 'uploads/' . $imageName;
                         $date_requested = date('Y-m-d H:i:s');
                     
                         if (file_put_contents($filePath, $decodedData)) {
