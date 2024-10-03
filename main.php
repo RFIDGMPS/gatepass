@@ -1102,7 +1102,7 @@ Webcam.snap(function(data_uri){
                         <div id="searchResults"></div>
         
                         
-                        <button type="submit" name="send" id="login-button" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
+                        <button type="submit" name="send" id="submitButton" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
                     </form>
                 </div>
             </div>
@@ -1117,42 +1117,48 @@ Webcam.snap(function(data_uri){
 
 
     <script>
-        document.getElementById('myForm').onsubmit = function(event) {
-            event.preventDefault(); // Prevent form submission
+    document.getElementById('submitButton').addEventListener('click', function (e) {
+    e.preventDefault(); // Prevent form submission
 
-            const formData = new FormData(this);
+    var formData = new FormData(document.getElementById('myForm')); // Collect form data
 
-            fetch('process_request.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    Swal.fire({
-                        icon: 'success',
-                        title: data.message,
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then(() => {
-                        window.location.href = 'main.php'; // Redirect after success
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: data.message
-                    });
-                }
-            })
-            .catch(error => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong! Please try again.'
-                });
+    fetch('process_request.php', { // Replace 'process_request.php' with your actual PHP file
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text()) // Get the response as text
+    .then(result => {
+        if (result.includes('Your request has been saved')) {
+            // Show SweetAlert for successful submission
+            Swal.fire({
+                icon: 'success',
+                title: 'Your request has been saved',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                // Redirect after alert
+                window.location.href = 'main.php'; // Redirect to main.php
             });
-        };
+        } else {
+            // Show SweetAlert for an error
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: result // Display the error from the server response
+            });
+        }
+    })
+    .catch(error => {
+        // Handle fetch errors
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!'
+        });
+        console.error('Error:', error);
+    });
+});
+
     </script>
 
 <script>
