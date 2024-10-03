@@ -198,7 +198,7 @@ while ($row = $result->fetch_assoc()) {
                        $desc =  $(this).attr('descr');
 
 					$('.edit-name').val($dptname);
-					$('.edit-desc').val($desc);
+					$('.edit-desc').html($desc);
                     $('.edit-pass').val($password);
                     $('.edit-department').html($dptdesc);
 					// $('.edit-form').attr('action','edit1.php?id='+$id+'&edit=room');
@@ -259,7 +259,7 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Description:</b></label>
-                                        <input name="descri" type="text" id="edit_departmentdesc" class="form-control edit-desc" autocomplete="off">
+                                        <input name="descr" type="text" id="edit_departmentdesc" class="form-control edit-desc" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
