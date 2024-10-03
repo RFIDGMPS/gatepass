@@ -83,6 +83,10 @@ include 'header.php';
                                           <i class="bi bi-plus-edit"></i> Edit </button>
                                           <button descr="<?php echo $row['description'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>"  data-id="<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_room_id">
                                           <i class="bi bi-plus-trash"></i> Delete </button>
+                                          <input type="hidden" id="dpt" value="<?php echo $row['department'];?>"/>
+                                          <input type="hidden" id="roomdesc" value="<?php echo $row['description'];?>"/>
+                                          <input type="hidden" id="pass" value="<?php echo $row['password'];?>"/>
+                                          <input type="hidden" id="roomname" value="<?php echo $row['room'];?>"/>
                                        </center> </td>
                                         </tr>
                                        
@@ -255,14 +259,14 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Description:</b></label>
-                                        <input name="descr" type="text" id="edit_departmentname" class="form-control edit-desc" autocomplete="off">
+                                        <input name="descr" type="text" id="edit_departmentdesc" class="form-control edit-desc" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Password:</b></label>
-                                        <input name="password" type="text" id="edit_departmentname" class="form-control edit-pass" autocomplete="off">
+                                        <input name="password" type="text" id="edit_roompass" class="form-control edit-pass" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
@@ -283,18 +287,14 @@ while ($row = $result->fetch_assoc()) {
           $('#btn-editdepartment').click(function(){
             $('.e_room_id').click(function(){
                		$id = $(this).attr('data-id');
-                         
-                       $dptname =  $(this).attr('room');
-                       $dptdesc =  $(this).attr('department');
-                       $password =  $(this).attr('password');
-                       $desc =  $(this).attr('descr');
+
 
                	});
 var id=$id;
-                var dpt = $dptdesc;
-          var roomname =  $dptname;
-          var roomdesc =  $desc;
-          var pass = $password;
+                var dpt = document.getElementById('department').value;
+          var roomname =  document.getElementById('edit_departmentname').value;
+          var roomdesc =  document.getElementById('edit_departmentdesc').value;
+          var pass = document.getElementById('edit_roompass').value;
           
           alert(id);
           alert(dpt);
