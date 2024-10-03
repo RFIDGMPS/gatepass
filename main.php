@@ -1115,8 +1115,9 @@ Webcam.snap(function(data_uri){
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-document.getElementById('submitButton').addEventListener('click', function (e) {
-    e.preventDefault();
+$('#submitButton').click(function(){
+alert('tae');
+});
 
 //     var formData = new FormData(document.getElementById('myForm')); // Capture the form data
 
@@ -1146,21 +1147,21 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
 // 
 
 
-$.ajax({
-                type: "POST",
-                url: "process_request.php",
-                dataType:'text'; //or HTML, JSON, etc.
-                success: function(response){
-                    if (response == 'success') {
-                        alert(response);
-                    } else {
-                        alert('error');
-                    }
+// $.ajax({
+//                 type: "POST",
+//                 url: "process_request.php",
+//                 dataType:'text'; //or HTML, JSON, etc.
+//                 success: function(response){
+//                     if (response == 'success') {
+//                         alert(response);
+//                     } else {
+//                         alert('error');
+//                     }
                     
-                    //echo what the server sent back...
-                }
-            });
-});
+//                     //echo what the server sent back...
+//                 }
+//             });
+// });
 </script>
 
 
