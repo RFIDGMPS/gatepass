@@ -1114,31 +1114,34 @@ Webcam.snap(function(data_uri){
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
 document.getElementById('submitButton').addEventListener('click', function (e) {
-    e.preventDefault(); // Prevent the form from submitting traditionally
+    e.preventDefault();
+    console.log("Button clicked");
 
-    var formData = new FormData(document.getElementById('myForm')); // Capture the form data
+    var formData = new FormData(document.getElementById('myForm'));
 
-    fetch('process_request.php', { // Send the data to the PHP script
+    for (var pair of formData.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]);
+    }
+
+    fetch('process_request.php', {
         method: 'POST',
         body: formData
     })
-    .then(response => response.text()) // Parse the response as text
+    .then(response => response.text())
     .then(result => {
+        console.log("Result from server:", result);
         if (result.trim() === 'success') {
-            // Display SweetAlert on success
             Swal.fire({
                 icon: 'success',
                 title: 'Your request has been sent',
                 showConfirmButton: false,
                 timer: 1500
             }).then(() => {
-                window.location.href = 'main.php'; // Redirect after 1.5 seconds
+                window.location.href = 'main.php';
             });
         } else {
-            // Display SweetAlert for any error
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -1147,7 +1150,7 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
         }
     })
     .catch(error => {
-        // Handle fetch errors
+        console.error("Fetch error:", error);
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -1156,6 +1159,7 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
     });
 });
 </script>
+
 
 
 <script>
