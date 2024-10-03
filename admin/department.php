@@ -192,7 +192,7 @@ include 'header.php';
                 </div>
             </div>
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+          
 <script>
 $('#btn-editdepartment').click(function(){
 var id =  document.getElementById('hiddenId').value;
