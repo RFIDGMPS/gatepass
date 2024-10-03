@@ -1126,12 +1126,17 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
         method: 'POST',
         body: formData
     })
-    .then(response => response.text()) // Get the response as text
+    .then(response => {
+        if (!response.ok) { // Check if the response is OK (status in the range 200-299)
+            throw new Error('Network response was not ok');
+        }
+        return response.text(); // Return response text if request was successful
+    })
     .then(result => {
         // Display SweetAlert on successful request
         Swal.fire({
             icon: 'success',
-            title: 'Your request has been saved',
+            title: 'Your request has been sent',
             showConfirmButton: false,
             timer: 1500
         });
@@ -1148,8 +1153,10 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
             title: 'Oops...',
             text: 'Something went wrong!'
         });
+        console.error('There was a problem with the fetch operation:', error); // Log error details
     });
 });
+
 </script>
 
 <script>
