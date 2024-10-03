@@ -195,21 +195,9 @@ include 'header.php';
           
 <script>
 $('#btn-editdepartment').click(function(){
-  
-
-// Capture the current values
-var id = document.getElementById('hiddenId').value;
-var dptname = document.getElementById('department_name').value;
-var dptdesc = document.getElementById('department_desc').value;
-
-// Assign default value if department_name is not updated or is empty
-if (dptname === document.getElementById('hiddenName').value || dptname === '') {
-    dptname = document.getElementById('hiddenName').value; // Replace with your desired default value
-}
-
-// Proceed with dptname and dptdesc variables
-alert("Final Department Name: " + dptname);
-
+var id =  document.getElementById('hiddenId').value;
+var dptname =  document.getElementById('edit_departmentname').value;
+var dptdesc =  document.getElementById('edit_departmentdescription').value;
 
     $.ajax({
                 type: "POST",
@@ -217,7 +205,6 @@ alert("Final Department Name: " + dptname);
                 data:{id:id, dptname:department_name, dptdesc:department_desc},
                 dataType: 'text',
                 success: function(data){
-                    alert('pass1');
                     if (data.trim() == 'success') {
                         Swal.fire({
                 icon: 'success',
