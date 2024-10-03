@@ -296,6 +296,11 @@ var id=$id;
           var roomdesc =  $desc;
           var pass = $password;
           
+          alert(id);
+          alert(dpt);
+          alert(roomname);
+          alert(roomdesc);
+          alert(pass);
               $.ajax({
                           type: "POST",
                           url: "edit1.php?id="+id+"&edit=room",
