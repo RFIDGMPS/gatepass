@@ -1114,7 +1114,51 @@ Webcam.snap(function(data_uri){
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.getElementById('submitButton').addEventListener('click', function (e) {
+    e.preventDefault();
+    console.log("Button clicked");
 
+    var formData = new FormData(document.getElementById('myForm'));
+
+    for (var pair of formData.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]);
+    }
+
+    fetch('process_request.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(result => {
+        console.log("Result from server:", result);
+        if (result.trim() === 'success') {
+            Swal.fire({
+                icon: 'success',
+                title: 'Your request has been sent',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                window.location.href = 'main.php';
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'An error occurred: ' + result
+            });
+        }
+    })
+    .catch(error => {
+        console.error("Fetch error:", error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong! Please try again.'
+        });
+    });
+});
+</script>
 
 
 
