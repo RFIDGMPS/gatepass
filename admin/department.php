@@ -134,21 +134,21 @@ include 'header.php';
 						 
                		});
                	});
-               	$('.e_department_id').click(function(){
-               		$id = $(this).attr('data-id');
-                       $('#editdepartment-modal').modal('show');
-               		// $('#editModal').load('edit.php?id=' + $id);
+               	// $('.e_department_id').click(function(){
+               	// 	$id = $(this).attr('data-id');
+                //        $('#editdepartment-modal').modal('show');
+               	// 	// $('#editModal').load('edit.php?id=' + $id);
                       
-                       $dptname =  $(this).attr('department_name');
-                       $dptdesc =  $(this).attr('department_desc');
+                //        $dptname =  $(this).attr('department_name');
+                //        $dptdesc =  $(this).attr('department_desc');
        
 
 
-					$('.edit-name').val($dptname);
-					$('.edit-desc').val($dptdesc);
-					//$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=department');
+				// 	$('.edit-name').val($dptname);
+				// 	$('.edit-desc').val($dptdesc);
+				// 	//$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=department');
 					
-               	});
+               	// });
          });
 		</script>
 
@@ -160,7 +160,7 @@ include 'header.php';
                             <h5 class="modal-title"><i class="bi bi-pencil"></i> Edit Department</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="POST"  class="edit-form" role="form" action="">
+                        <!-- <form method="POST"  class="edit-form" role="form" action=""> -->
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-editdept"></div>
                                 <div class="col-lg-12 mb-1">
@@ -184,7 +184,7 @@ include 'header.php';
                                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-outline-primary" id="btn-editdepartment">Update</button>
                             </div>
-                        </form>
+                        <!-- </form> -->
                     </div>
                 </div>
             </div>
