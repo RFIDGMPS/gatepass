@@ -152,7 +152,7 @@ switch ($_GET['action'])
                             
                             if (mysqli_query($db, $query)) {
                                 echo 'success';
-                                header('Location: main.php');
+                                header('Location: ../main.php');
                                 exit();
                             } else {
                                 echo 'error: ' . mysqli_error($db) . ' - Query: ' . $query;
