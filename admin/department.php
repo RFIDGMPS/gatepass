@@ -243,10 +243,6 @@ $('#btn-editdepartment').click(function(){
 					
                	});
 
-
-
-
-alert($id);
 var dptname =  document.getElementById('edit_departmentname').value;
 var dptdesc =  document.getElementById('edit_departmentdescription').value;
 
@@ -311,12 +307,16 @@ var dptdesc =  document.getElementById('edit_departmentdescription').value;
             </div>
             <script>
 $('#btn-deldepartment').click(function(){
-var id =  document.getElementById('hiddenId').value;
+    $('#deldepartment-modal').modal('show');
+						
+                        $id = $(this).attr('data-id');
+                       
+                    });
 
 
     $.ajax({
                 type: "GET",
-                url: "del.php?type=department&id=" + id,
+                url: "del.php?type=department&id=" + $id,
                 data:{id:id},
                 dataType: 'text',
                 success: function(data){
