@@ -3,7 +3,7 @@ include 'connection.php';
 
 if (isset($_POST['send'])) {
  
-    $id = mysqli_real_escape_string($db, $_POST['id']);
+    $id = $_POST['id'];
     $data_uri = $_POST['capturedImage'];
     echo  $data_uri;
     if (empty($data_uri)) {
@@ -31,7 +31,7 @@ if (isset($_POST['send'])) {
             echo 'error: ' . mysqli_error($db) . ' - Query: ' . $query;
         }
     } else {
-        echo 'success';
+     
         echo 'error: Failed to save the image.';
     }
 
