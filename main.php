@@ -1124,36 +1124,8 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
     fetch('process_request.php', { // Send the data to the PHP script
         method: 'POST',
         body: formData
-    })
-    .then(response => response.text()) // Parse the response as text
-    .then(result => {
-        if (result.trim() === 'success') {
-            // Display SweetAlert on success
-            Swal.fire({
-                icon: 'success',
-                title: 'Your request has been sent',
-                showConfirmButton: false,
-                timer: 1500
-            }).then(() => {
-                window.location.href = 'main.php'; // Redirect after 1.5 seconds
-            });
-        } else {
-            // Display SweetAlert for any error
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'An error occurred: ' + result
-            });
-        }
-    })
-    .catch(error => {
-        // Handle fetch errors
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong! Please try again.'
-        });
     });
+
 });
 </script>
 
