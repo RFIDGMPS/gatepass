@@ -108,26 +108,35 @@ include 'connection.php';
                         <select  class="form-control mb-4" name="location" id="location" autocomplete="off">
                         <option value='Gate'>Gate</option>
 				
-                  <?php
-                                                            $sql = "SELECT * FROM rooms";
-                  $result = $db->query($sql);
-                  
-                  // Initialize an array to store department options
-                  $rooms = [];
-                  
-                  // Fetch and store department options
-                  while ($row = $result->fetch_assoc()) {
-                      $id = $row['department_id'];
-                      $room = $row['room'];
-                      $rooms[] = "<option value='$room'>$room</option>";
-                  }?>
-                                            <?php
-                      // Output department options
-                      foreach ($rooms as $option) {
-                          echo $option;
-                         
-                      }
-                      ?>            
+                        <?php
+// Assuming $db is your mysqli connection
+$sql = "SELECT * FROM rooms";
+$stmt = $db->prepare($sql);
+
+// Execute the statement
+$stmt->execute();
+
+// Get the result
+$result = $stmt->get_result();
+
+// Initialize an array to store room options
+$rooms = [];
+
+// Fetch and store room options
+while ($row = $result->fetch_assoc()) {
+    $room = htmlspecialchars($row['room'], ENT_QUOTES, 'UTF-8'); // Sanitize output
+    $rooms[] = "<option value='$room'>$room</option>";
+}
+
+// Output room options
+foreach ($rooms as $option) {
+    echo $option;
+}
+
+// Close the statement
+$stmt->close();
+?>
+        
                                  </select>
                         </div>
                        
