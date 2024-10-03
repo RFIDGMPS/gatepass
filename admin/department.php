@@ -208,7 +208,7 @@ var dptdesc =  document.getElementById('edit_departmentdescription').value;
                     if (data.trim() == 'success') {
                         Swal.fire({
                 icon: 'success',
-                title: 'Your request has been sent',
+                title: 'Sucessfully Updated.',
                 showConfirmButton: false,
                 timer: 1500
             }).then(() => {
