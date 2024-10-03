@@ -1113,7 +1113,21 @@ Webcam.snap(function(data_uri){
       <span id="send-btn" class="material-symbols-rounded" hidden>send</span>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script>
+document.getElementById('submitButton').addEventListener('click', function (e) {
+            Swal.fire({
+                icon: "success",
+                title: "Your request has been sent",
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                window.location.href = "process_request.php"; // Redirect after 1.5 seconds
+            });
+        });
+
+</script>
 
 
 <script>

@@ -40,20 +40,8 @@ if (isset($_POST['send'])) {
         
         // Execute the query and check for success
         if ($stmt->execute()) {
-            echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
-
-            Swal.fire({
-                icon: "success",
-                title: "Your request has been sent",
-                showConfirmButton: false,
-                timer: 1500
-            }).then(() => {
+            echo '<script>
                 window.location.href = "main.php"; // Redirect after 1.5 seconds
-            });
-      
-
 </script>';
     exit; // Terminate the script
         } else {
