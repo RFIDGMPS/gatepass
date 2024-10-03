@@ -145,7 +145,7 @@ include 'header.php';
 
 					$('.edit-name').val($dptname);
 					$('.edit-desc').val($dptdesc);
-					$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=department');
+					//$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=department');
 					
                	});
          });
