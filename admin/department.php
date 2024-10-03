@@ -169,14 +169,14 @@ include 'header.php';
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Name:</b></label>
-                                        <input name="department_name" type="text" id="edit_departmentname" class="form-control edit-name" autocomplete="off">
+                                        <input name="edit_departmentname" type="text" id="edit_departmentname" class="form-control edit-name" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Description: </b></label>
-                                        <textarea name="department_desc" type="text" id="edit_departmentdescription" class="form-control edit-desc" autocomplete="off"></textarea>
+                                        <textarea name="edit_departmentdescription" type="text" id="edit_departmentdescription" class="form-control edit-desc" autocomplete="off"></textarea>
                                         <span class="deptdesc-error"></span>
                                     </div>
                                 </div>
