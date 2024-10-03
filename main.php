@@ -1116,11 +1116,14 @@ Webcam.snap(function(data_uri){
 
 <script>
 $('#submitButton').click(function(){
-alert('tae');
+var userid =  document.getElementById('hiddenId').value;
+var capturedImage =  document.getElementById('capturedImage').value;
+
     $.ajax({
                 type: "POST",
                 url: "process_request.php",
                 dataType:'json',
+                data:{id:id},{capturedImage:capturedImage}
                 success: function(data){
                     alert(data);
                 }
