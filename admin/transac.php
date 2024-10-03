@@ -158,8 +158,7 @@ switch ($_GET['action'])
                             showConfirmButton: false,
                             timer: 1500
                         })</script>';
-                                header('Location: ../main.php');
-                                exit();
+                               
                             } else {
                                 echo 'error: ' . mysqli_error($db) . ' - Query: ' . $query;
                             }
