@@ -161,7 +161,7 @@ switch ($_GET['action'])
                                                 showConfirmButton: false,
                                                 timer: 1500
                                             }).then(() => {
-                                                window.location.href = "main.php"; // Redirect after the alert
+                                                window.location.href = "../main.php"; // Redirect after the alert
                                             });
                                         </script>';
                                     } else {
