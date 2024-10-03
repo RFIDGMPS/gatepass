@@ -1125,7 +1125,7 @@ alert('test');
                 data:{id:id, capturedImage:capturedImage},
                 success: function(response){
                     
-                    if (response == 'success') {
+                    if (response === 'success') {
                         alert('sucess');
                     } else {
                         alert('agfagf');
