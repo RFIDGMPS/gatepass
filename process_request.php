@@ -40,7 +40,7 @@ if (file_put_contents($filePath, $decodedData) !== false) {
     // Execute the query and check for success
     if ($stmt->execute()) {
         // Alert and redirect (you can replace this with your redirection logic)
-        echo "Record successfully inserted.";
+        echo "success";
         // header('Location: your_redirect_url.php'); // Uncomment for redirection
     } else {
         die('Error in updating Database: ' . $stmt->error);
