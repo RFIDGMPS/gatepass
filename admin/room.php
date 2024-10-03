@@ -223,7 +223,7 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department: </b></label>
-                                        <select  class="form-control edit-desc" name="department" id="edit_department" autocomplete="off">
+                                        <select  class="form-control edit_department" name="departments" id="edit_department" autocomplete="off">
                   
 				
 <?php
@@ -259,7 +259,7 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Description:</b></label>
-                                        <input name="descr" type="text" id="edit_departmentdesc" class="form-control edit-desc" autocomplete="off">
+                                        <input name="descri" type="text" id="edit_departmentdesc" class="form-control edit-desc" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
