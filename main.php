@@ -1102,7 +1102,7 @@ Webcam.snap(function(data_uri){
                         <div id="searchResults"></div>
         
                         
-                        <button type="button" name="send" id="submitButton" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
+                        <button type="submit" name="send" id="submitButton" class="alert alert-primary py-3 w-100 mb-4"><b>Send</b></button>
                     </form>
                 </div>
             </div>
