@@ -1116,7 +1116,7 @@ Webcam.snap(function(data_uri){
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.getElementById('submitButton').addEventListener('click', function (e) {
-    e.preventDefault();
+    
     
             Swal.fire({
                 icon: 'success',
