@@ -20,17 +20,20 @@ if (isset($_POST['send'])) {
     $imageName = uniqid() . '.jpeg';
     $filePath = 'admin/uploads/' . $imageName;
     $date_requested = date('Y-m-d H:i:s');
-
+echo '<script>alert('.$imageName.');</script>';
     if (file_put_contents($filePath, $decodedData)) {
         $query = "INSERT INTO lostcard (personnel_id, date_requested, verification_photo, status) 
                   VALUES ('$id', '$date_requested', '$imageName', 0)";
-        
+        echo '<script>alert("passs1");</script>';
         if (mysqli_query($db, $query)) {
+            echo '<script>alert("passs2");</script>';
             echo 'success';
         } else {
+            echo '<script>alert("passs3");</script>';
             echo 'error: ' . mysqli_error($db) . ' - Query: ' . $query;
         }
     } else {
+        echo '<script>alert("passs4");</script>';
         echo 'error: Failed to save the image.';
     }
 
