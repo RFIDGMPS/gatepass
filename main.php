@@ -1113,52 +1113,46 @@ Webcam.snap(function(data_uri){
       <span id="send-btn" class="material-symbols-rounded" hidden>send</span>
     </div>
 </div>
-<?php
-if (isset($_POST['send'])) {
-    $id = $_POST['id'];
-    $data_uri = $_POST['capturedImage'];
-    $encodedData = str_replace(' ', '+', $data_uri);
-    list($type, $encodedData) = explode(';', $encodedData);
-    list(, $encodedData) = explode(',', $encodedData);
-    $decodedData = base64_decode($encodedData);
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    $imageName = uniqid() . '.jpeg';  // Use a unique ID for the image name to avoid overwriting files
-    $filePath = 'admin/uploads/' . $imageName;
+<!-- AJAX Form Submission -->
+<script>
+document.getElementById('submitButton').addEventListener('click', function (e) {
+    e.preventDefault(); // Prevent form submission
 
-    $date_requested = date('Y-m-d H:i:s');
+    var formData = new FormData(document.getElementById('myForm'));
 
-    if (file_put_contents($filePath, $decodedData)) {
-        $query = "INSERT INTO lostcard (personnel_id, date_requested, verification_photo, status) 
-                  VALUES ('$id', '$date_requested', '$imageName', 0)";
-        mysqli_query($db, $query) or die('Error in updating Database');
-        
-        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-        echo "<script>
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Your request has been saved',
-                showConfirmButton: false,
-                timer: 1500
-            });
+    fetch('process_request.php', { // Replace 'process_request.php' with your actual PHP file
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text()) // Get the response as text
+    .then(result => {
+        // Display SweetAlert on successful request
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Your request has been saved',
+            showConfirmButton: false,
+            timer: 1500
+        });
 
-            setTimeout(() => {
-                window.location.href = 'main.php';
-            }, 2000); // Delay the redirect by 2 seconds
-        </script>";
-    } else {
-        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-        echo "<script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong with file upload!'
-            });
-        </script>";
-    }
-}
+        // Delay redirect to main page
+        setTimeout(() => {
+            window.location.href = 'main.php'; // Redirect to main.php
+        }, 2000); // 2-second delay
+    })
+    .catch(error => {
+        // Handle errors and display alert
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!'
+        });
+    });
+});
+</script>
 
-?>
 <script>
     function removeCard(button) {
         // Get the card element to remove
