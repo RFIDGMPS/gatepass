@@ -264,7 +264,7 @@ var id =  document.getElementById('hiddenId').value;
 
 
     $.ajax({
-                type: "REQUEST",
+                type: "GET",
                 url: "del.php?type=department&id=" + id,
                 data:{id:id},
                 dataType: 'text',
