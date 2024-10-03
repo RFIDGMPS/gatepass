@@ -1119,12 +1119,7 @@ Webcam.snap(function(data_uri){
 document.getElementById('submitButton').addEventListener('click', function (e) {
 
    // Display SweetAlert on success
-   Swal.fire({
-                icon: 'success',
-                title: 'Your request has been sent',
-                showConfirmButton: false,
-                timer: 1500
-            });
+ 
        
 
     var formData = new FormData(document.getElementById('myForm')); // Capture the form data
@@ -1136,7 +1131,12 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
     .then(response => response.text()) // Parse the response as text
     .then(result => {
        
-         
+        Swal.fire({
+                icon: 'success',
+                title: 'Your request has been sent',
+                showConfirmButton: false,
+                timer: 1500
+            });
     })
     .catch(error => {
         // Handle fetch errors
