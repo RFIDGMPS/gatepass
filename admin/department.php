@@ -195,6 +195,7 @@ include 'header.php';
           
 <script>
 $('#btn-editdepartment').click(function(){
+    alert('pass');
 var id =  document.getElementById('hiddenId').value;
 var dptname =  document.getElementById('department_name').value;
 var dptdesc =  document.getElementById('department_desc').value;
@@ -205,6 +206,7 @@ var dptdesc =  document.getElementById('department_desc').value;
                 data:{id:id, dptname:department_name, dptdesc:department_desc},
                 dataType: 'text',
                 success: function(data){
+                    alert('pass1');
                     if (data.trim() == 'success') {
                         Swal.fire({
                 icon: 'success',
