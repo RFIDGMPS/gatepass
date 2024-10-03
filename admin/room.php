@@ -197,7 +197,7 @@ while ($row = $result->fetch_assoc()) {
 					$('.edit-desc').val($dptdesc);
                     $('.edit-pass').val($password);
                     $('.edit-desc').val($desc);
-					$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=room');
+					// $('.edit-form').attr('action','edit1.php?id='+$id+'&edit=room');
                  
 					
                	});
@@ -213,7 +213,7 @@ while ($row = $result->fetch_assoc()) {
                             <h5 class="modal-title"><i class="bi bi-pencil"></i> Edit Room</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="POST"  class="edit-form" role="form" action="">
+                        <!-- <form method="POST"  class="edit-form" role="form" action=""> -->
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-editdept"></div>
                                 <div class="col-lg-12">
@@ -273,10 +273,60 @@ while ($row = $result->fetch_assoc()) {
                                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-outline-primary" id="btn-editdepartment">Update</button>
                             </div>
-                        </form>
+                        <!-- </form> -->
                     </div>
                 </div>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          
+          <script>
+          $('#btn-editdepartment').click(function(){
+            $('.e_room_id').click(function(){
+               		$id = $(this).attr('data-id');
+                         
+                       $dptname =  $(this).attr('room');
+                       $dptdesc =  $(this).attr('department');
+                       $password =  $(this).attr('password');
+                       $desc =  $(this).attr('descr');
+			
+               	});
+var id=$id;
+                var dpt = $dptdesc;
+          var roomname =  $dptname;
+          var roomdesc =  $desc;
+          var pass = $password;
+          
+              $.ajax({
+                          type: "POST",
+                          url: "edit1.php?id="+$id+"&edit=room",
+                          data:{id:id,dpt:dpt, roomname:roomname, roomdesc:roomdesc, pass:pass},
+                          dataType: 'text',
+                          success: function(data){
+                              if (data.trim() == 'success') {
+                                  Swal.fire({
+                          icon: 'success',
+                          title: 'Sucessfully Added.',
+                          showConfirmButton: false,
+                          timer: 1500
+                      }).then(() => {
+                          window.location.href = 'department.php'; // Redirect after 1.5 seconds
+                      });
+                              } else {
+                                  Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'Something went wrong! Please try again.'
+                  });
+                              }
+                          }
+          });
+          
+          });
+          
+          
+          
+          
+          </script>
 
             <div class="modal fade" id="deldepartment-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">

@@ -178,22 +178,45 @@ if ($stmt) {
 																					</script>';
 																					break;
 																					case 'room':
-																						$id = $_GET['id'];
-																						$room = $_POST['room'];
-																						$department = $_POST['department'];
-																						$descr = $_POST['descr'];
-																						$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-																						$query = "UPDATE rooms SET 
-																										room = '$room',
-																										 department = '$department',
-																										 descr='$descr',
-																										 password = '$password'
-																									 WHERE id = '$id'";
-																											$result = mysqli_query($db, $query) or die(mysqli_error($db));
-																											echo '<script type="text/javascript">
-																											alert("Update Successfull.");
-																											window.location = "room.php";
-																										</script>';
+																						<?php
+// Get the ID from the URL
+$id = $_GET['id'];
+
+// Get the POST data
+$room = $_POST['roomname'];
+$department = $_POST['dpt'];
+$descr = $_POST['roomdesc'];
+$password = password_hash($_POST['pass'], PASSWORD_DEFAULT);
+
+
+// Prepare the UPDATE query with placeholders
+$query = "UPDATE rooms SET room = ?, department = ?, descr = ?, password = ? WHERE id = ?";
+
+// Initialize a prepared statement
+$stmt = $db->prepare($query);
+
+if ($stmt) {
+    // Bind parameters to the query (s = string, i = integer)
+    $stmt->bind_param("ssssi", $room, $department, $descr, $password, $id);
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        echo 'success';
+    } else {
+        // Handle execution error
+        echo "Error: " . $stmt->error;
+    }
+
+    // Close the statement
+    $stmt->close();
+} else {
+    // Handle query preparation error
+    echo "Error preparing statement: " . $db->error;
+}
+
+// Close the database connection
+$db->close();
+
 																										break;
 																					
 																
