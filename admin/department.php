@@ -195,9 +195,15 @@ include 'header.php';
           
 <script>
 $('#btn-editdepartment').click(function(){
+  
+
+    document.getElementById('department_name').value = document.getElementById('hiddenName').value;
+    document.getElementById('department_desc').value = document.getElementById('hiddenDesc').value;
+
     alert(document.getElementById('hiddenId').value);
     alert(document.getElementById('department_name').value);
     alert(document.getElementById('department_desc').value);
+
 var id =  document.getElementById('hiddenId').value;
 var dptname =  document.getElementById('department_name').value;
 var dptdesc =  document.getElementById('department_desc').value;
