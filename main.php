@@ -1048,7 +1048,7 @@ Webcam.snap(function(data_uri){
             <div class="col-12">
                 <div class="rounded p-4" id="adjust">
                 
-                    <form id="myForm" action="admin/transac.php?action=add_lost_card" method="POST" enctype="multipart/form-data">
+                    <form id="myForm"  method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="hiddenId"> <!-- Hidden input for ID -->
                         <div class="">
                             <center><span id="myalert2"></span></center>
@@ -1114,56 +1114,46 @@ Webcam.snap(function(data_uri){
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function(){
-        $('#myForm').on('submit', function(event){
-            event.preventDefault();  // Prevent form from submitting normally
 
-            // Gather form data
-            var formData = new FormData(this);  // Use FormData for file upload
 
-            // AJAX request
-            $.ajax({
-                url: $(this).attr('action'),  // The action from the form
-                type: 'POST',
-                data: formData,
-                contentType: false,  // Ensure no content type processing
-                processData: false,  // Prevent jQuery from processing the data
-                success: function(response) {
-                    if (response.trim() === 'success') {
-                        // Success alert
-                        Swal.fire({
-                      
-                            icon: 'success',
-                            title: 'Your work has been saved',
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then(function() {
-                            // Redirect to main.php after SweetAlert fades out
-                            window.location.href = 'main.php';
-                        });
-                    } else {
-                        // Error alert
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: response,  // Show the error response from PHP
-                        });
-                    }
-                },
-                error: function(xhr, status, error) {
-                    // AJAX error handler
+    <script>
+        document.getElementById('myForm').onsubmit = function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const formData = new FormData(this);
+
+            fetch('process_request.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: data.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        window.location.href = 'main.php'; // Redirect after success
+                    });
+                } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Something went wrong during the submission!',
+                        text: data.message
                     });
                 }
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong! Please try again.'
+                });
             });
-        });
-    });
-</script>
+        };
+    </script>
 
 <script>
     function removeCard(button) {

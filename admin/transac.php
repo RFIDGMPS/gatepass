@@ -127,50 +127,47 @@ switch ($_GET['action'])
 
 
                   case 'add_lost_card':
-                        error_reporting(E_ALL);
-                        ini_set('display_errors', 1);
+                      
+                        
+                        $response = ['status' => 'error', 'message' => 'An unexpected error occurred.'];
+                        
                         if (isset($_POST['send'])) {
-                                $id = mysqli_real_escape_string($db, $_POST['id']);
-                                $data_uri = $_POST['capturedImage'];
-                            
-                                if (empty($data_uri)) {
-                                    echo 'error: Captured image is missing.';
-                                    exit();
-                                }
-                            
-                                $encodedData = str_replace(' ', '+', $data_uri);
-                                list($type, $encodedData) = explode(';', $encodedData);
-                                list(, $encodedData) = explode(',', $encodedData);
-                                $decodedData = base64_decode($encodedData);
-                            
-                                $imageName = uniqid() . '.jpeg';
-                                $filePath = 'uploads/' . $imageName;
-                                $date_requested = date('Y-m-d H:i:s');
-                            
-                                if (file_put_contents($filePath, $decodedData)) {
-                                    $query = "INSERT INTO lostcard (personnel_id, date_requested, verification_photo, status) 
-                                              VALUES ('$id', '$date_requested', '$imageName', 0)";
-                            
-                                    if (mysqli_query($db, $query)) {
-                                        // Display SweetAlert on success
-                                        echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
-                                        echo '<script>
-                                            Swal.fire({
-                                                icon: "success",
-                                                title: "Your work has been saved",
-                                                showConfirmButton: false,
-                                                timer: 1500
-                                            }).then(() => {
-                                                window.location.href = "../main.php"; // Redirect after the alert
-                                            });
-                                        </script>';
-                                    } else {
-                                        echo 'error: ' . mysqli_error($db) . ' - Query: ' . $query;
-                                    }
-                                } else {
-                                    echo 'error: Failed to save the image.';
-                                }
+                            $id = mysqli_real_escape_string($db, $_POST['id']);
+                            $data_uri = $_POST['capturedImage'];
+                        
+                            if (empty($data_uri)) {
+                                $response['message'] = 'Captured image is missing.';
+                                echo json_encode($response);
+                                exit();
                             }
+                        
+                            $encodedData = str_replace(' ', '+', $data_uri);
+                            list($type, $encodedData) = explode(';', $encodedData);
+                            list(, $encodedData) = explode(',', $encodedData);
+                            $decodedData = base64_decode($encodedData);
+                        
+                            $imageName = uniqid() . '.jpeg';
+                            $filePath = 'uploads/' . $imageName;
+                            $date_requested = date('Y-m-d H:i:s');
+                        
+                            if (file_put_contents($filePath, $decodedData)) {
+                                $query = "INSERT INTO lostcard (personnel_id, date_requested, verification_photo, status) 
+                                          VALUES ('$id', '$date_requested', '$imageName', 0)";
+                        
+                                if (mysqli_query($db, $query)) {
+                                    $response['status'] = 'success';
+                                    $response['message'] = 'Your work has been saved.';
+                                } else {
+                                    $response['message'] = 'Database error: ' . mysqli_error($db);
+                                }
+                            } else {
+                                $response['message'] = 'Failed to save the image.';
+                            }
+                        }
+                        
+                        echo json_encode($response);
+                  
+                        
     break;
 }
 ?>

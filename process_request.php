@@ -1,14 +1,15 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 include 'connection.php';
 
+$response = ['status' => 'error', 'message' => 'An unexpected error occurred.'];
+
 if (isset($_POST['send'])) {
-    $id = mysqli_real_escape_string($db, $_POST['id']); // Always sanitize inputs
+    $id = mysqli_real_escape_string($db, $_POST['id']);
     $data_uri = $_POST['capturedImage'];
-    
+
     if (empty($data_uri)) {
-        echo 'error: Captured image is missing.';
+        $response['message'] = 'Captured image is missing.';
+        echo json_encode($response);
         exit();
     }
 
@@ -18,25 +19,23 @@ if (isset($_POST['send'])) {
     $decodedData = base64_decode($encodedData);
 
     $imageName = uniqid() . '.jpeg';
-    $filePath = 'admin/uploads/' . $imageName;
+    $filePath = 'uploads/' . $imageName;
     $date_requested = date('Y-m-d H:i:s');
-echo '<script>alert('.$imageName.');</script>';
+
     if (file_put_contents($filePath, $decodedData)) {
         $query = "INSERT INTO lostcard (personnel_id, date_requested, verification_photo, status) 
                   VALUES ('$id', '$date_requested', '$imageName', 0)";
-        echo '<script>alert("passs1");</script>';
+
         if (mysqli_query($db, $query)) {
-            echo '<script>alert("passs2");</script>';
-            echo 'success';
+            $response['status'] = 'success';
+            $response['message'] = 'Your work has been saved.';
         } else {
-            echo '<script>alert("passs3");</script>';
-            echo 'error: ' . mysqli_error($db) . ' - Query: ' . $query;
+            $response['message'] = 'Database error: ' . mysqli_error($db);
         }
     } else {
-        echo '<script>alert("passs4");</script>';
-        echo 'error: Failed to save the image.';
+        $response['message'] = 'Failed to save the image.';
     }
-
-    mysqli_close($db);
 }
+
+echo json_encode($response);
 ?>
