@@ -197,9 +197,12 @@ include 'header.php';
 $('#btn-editdepartment').click(function(){
    
 var id =  document.getElementById('hiddenId').value;
-var dptname =  document.getElementById('hiddenName').value;
-var dptdesc =  document.getElementById('hiddenDesc').value;
+var dptname =  document.getElementById('department_name').value;
+var dptdesc =  document.getElementById('department_desc').value;
 
+alert(id);
+alert(dptname);
+alert(dptdesc);
     $.ajax({
                 type: "POST",
                 url: "edit1.php?id="+id+"&edit=department",
