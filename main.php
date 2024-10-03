@@ -1126,9 +1126,18 @@ var capturedImage =  document.getElementById('capturedImage').value;
                 dataType: 'text',
                 success: function(data){
                     if (data.trim() == 'success') {
-                        alert('success');
+                        Swal.fire({
+                icon: 'success',
+                title: 'Your request has been sent',
+                showConfirmButton: false,
+                timer: 1500
+            });
                     } else {
-                        alert('error');
+                        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong! Please try again.'
+        });
                     }
                 }
 });
