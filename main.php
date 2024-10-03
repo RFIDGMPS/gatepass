@@ -1125,7 +1125,7 @@ alert('test');
                 data:{id:id, capturedImage:capturedImage},
                 dataType: 'text',
                 success: function(data){
-                    alert(data);
+                    alert(data.trim());
                     if (data == 'success') {
                         alert('sucess');
                     } else {
