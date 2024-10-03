@@ -134,21 +134,21 @@ include 'header.php';
 						 
                		});
                	});
-               	// $('.e_department_id').click(function(){
-               	// 	$id = $(this).attr('data-id');
-                //        $('#editdepartment-modal').modal('show');
-               	// 	// $('#editModal').load('edit.php?id=' + $id);
+               	$('.e_department_id').click(function(){
+               		$id = $(this).attr('data-id');
+                       $('#editdepartment-modal').modal('show');
+               		// $('#editModal').load('edit.php?id=' + $id);
                       
-                //        $dptname =  $(this).attr('department_name');
-                //        $dptdesc =  $(this).attr('department_desc');
+                       $dptname =  $(this).attr('department_name');
+                       $dptdesc =  $(this).attr('department_desc');
        
 
 
-				// 	$('.edit-name').val($dptname);
-				// 	$('.edit-desc').val($dptdesc);
-				// 	//$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=department');
+					$('.edit-name').val($dptname);
+					$('.edit-desc').val($dptdesc);
+					//$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=department');
 					
-               	// });
+               	});
          });
 		</script>
 
