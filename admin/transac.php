@@ -151,7 +151,13 @@ switch ($_GET['action'])
                                       VALUES ('$id', '$date_requested', '$imageName', 0)";
                             
                             if (mysqli_query($db, $query)) {
-                                echo 'success';
+                                echo '</script>   Swal.fire({
+                      
+                            icon: "success",
+                            title: "Your work has been saved",
+                            showConfirmButton: false,
+                            timer: 1500
+                        })</script>';
                                 header('Location: ../main.php');
                                 exit();
                             } else {
