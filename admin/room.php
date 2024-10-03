@@ -76,7 +76,7 @@ include 'header.php';
                                     <td class="department"><?php echo $row['department']; ?></td>
                                             <td><?php echo $row['room']; ?></td>
                                             <td><?php echo $row['descr']; ?></td>
-                                            <td><?php echo $row['password']; ?></td>
+                                            <td><?php echo substr($row['password'], 0, 10) . '...'; ?></td>
                                             <td width="14%">
                                             <center>
                                           <button descr="<?php echo $row['description'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>" data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_room_id" >
