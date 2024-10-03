@@ -43,7 +43,7 @@ if (isset($_POST['send'])) {
             echo "<script>
             setTimeout(function() {
                 window.location.href = 'main.php';
-            }, 1500); // Delay in milliseconds (1500 ms = 1.5 seconds)
+            }, 3000); // Delay in milliseconds (3000 ms = 1.5 seconds)
           </script>";
     exit; // Terminate the script
         } else {
