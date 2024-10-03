@@ -1113,57 +1113,49 @@ Webcam.snap(function(data_uri){
       <span id="send-btn" class="material-symbols-rounded" hidden>send</span>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <?php
+if (isset($_POST['send'])) {
+    $id = $_POST['id'];
+    $data_uri = $_POST['capturedImage'];
+    $encodedData = str_replace(' ', '+', $data_uri);
+    list($type, $encodedData) = explode(';', $encodedData);
+    list(, $encodedData) = explode(',', $encodedData);
+    $decodedData = base64_decode($encodedData);
 
-if(isset($_POST['send'])){
-                                // Get the ID from the hidden input
-                                $id = $_POST['id'];
-                            
-                                // Handle the uploaded photo
-                                $data_uri = $_POST['capturedImage'];
-                              
-                                $encodedData = str_replace(' ', '+', $data_uri);
-                                list($type, $encodedData) = explode(';', $encodedData);
-                                list(, $encodedData) = explode(',', $encodedData);
-                                $decodedData = base64_decode($encodedData);
+    $imageName = uniqid() . '.jpeg';  // Use a unique ID for the image name to avoid overwriting files
+    $filePath = 'admin/uploads/' . $imageName;
 
-                                $imageName = $_POST['capturedImage'] . '.jpeg';
-                                $filePath = 'admin/uploads/' . $imageName;
-                                // Get the current date and time
-                                $date_requested = date('Y-m-d H:i:s');
-                                
-                                // SQL query with the PHP variable
-                                if (file_put_contents($filePath, $decodedData)) {
-                                $query = "INSERT INTO lostcard (personnel_id, date_requested,verification_photo, status) 
-                                          VALUES ('$id', '$date_requested', '$imageName',0)";
-                            
-                                // Execute the query
-                                mysqli_query($db, $query) or die('Error in updating Database');
+    $date_requested = date('Y-m-d H:i:s');
 
-
-                             ?>
-                                <script>
-                                document.getElementById('login-button').addEventListener('click', function() {
-                                    Swal.fire({
-                                    position: 'top-end',
-                                    icon: 'success',
-                                    title: 'Your request has been saved',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                }).then(() => {
-                                    // This will run after the alert disappears
-                                    window.location.href = 'main.php';
-                                });
-                                });
-                                </script>
-                               
-                                <?php
-                                }
-                            }
+    if (file_put_contents($filePath, $decodedData)) {
+        $query = "INSERT INTO lostcard (personnel_id, date_requested, verification_photo, status) 
+                  VALUES ('$id', '$date_requested', '$imageName', 0)";
+        mysqli_query($db, $query) or die('Error in updating Database');
+        
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+        echo "<script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Your request has been saved',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                window.location.href = 'main.php';
+            });
+        </script>";
+    } else {
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+        echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong with file upload!'
+            });
+        </script>";
+    }
+}
 ?>
-
 <script>
     function removeCard(button) {
         // Get the card element to remove
