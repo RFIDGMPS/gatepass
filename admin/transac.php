@@ -151,7 +151,7 @@ switch ($_GET['action'])
                                       VALUES ('$id', '$date_requested', '$imageName', 0)";
                             
                             if (mysqli_query($db, $query)) {
-                                echo '</script>   Swal.fire({
+                                echo ' <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script></script>   Swal.fire({
                       
                             icon: "success",
                             title: "Your work has been saved",
