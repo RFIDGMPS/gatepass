@@ -200,7 +200,7 @@ var id =  document.getElementById('hiddenId').value;
 var dptname =  document.getElementById('department_name').value;
 var dptdesc =  document.getElementById('department_desc').value;
 
-alert('sss'.dptname);
+alert('sss'+dptname);
     $.ajax({
                 type: "POST",
                 url: "edit1.php?id="+id+"&edit=department",
