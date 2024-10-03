@@ -223,7 +223,7 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department: </b></label>
-                                        <select  class="form-control edit-desc" name="department" id="department" autocomplete="off">
+                                        <select  class="form-control edit-desc" name="department" id="edit_department" autocomplete="off">
                   
 				
 <?php
@@ -291,16 +291,12 @@ while ($row = $result->fetch_assoc()) {
 
                	});
 var id=$id;
-                var dpt = document.getElementById('department').value;
+                var dpt = document.getElementById('edit_department').value;
           var roomname =  document.getElementById('edit_departmentname').value;
           var roomdesc =  document.getElementById('edit_departmentdesc').value;
           var pass = document.getElementById('edit_roompass').value;
           
-          alert(id);
-          alert(dpt);
-          alert(roomname);
-          alert(roomdesc);
-          alert(pass);
+    
               $.ajax({
                           type: "POST",
                           url: "edit1.php?id="+id+"&edit=room",
