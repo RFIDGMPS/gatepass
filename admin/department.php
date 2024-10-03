@@ -68,6 +68,9 @@ include 'header.php';
                                             <center>
                                           <button department_name="<?php echo $row['department_name'];?>" department_desc="<?php echo $row['department_desc'];?>" data-id="<?php echo $row['department_id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_department_id" >
                                           <i class="bi bi-plus-edit"></i> Edit </button>
+                                          <input type="text" id="hiddenId" value="<?php echo $row['department_id'];?>"/>
+                                          <input type="text" id="hiddenName" value="<?php echo $row['department_name'];?>"/>
+                                          <input type="text" id="hiddenDesc" value="<?php echo $row['department_desc'];?>"/>
                                           <button department_name="<?php echo $row['department_name'];?>" department_desc="<?php echo $row['department_desc'];?>"  data-id="<?php echo $row['department_id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_department_id">
                                           <i class="bi bi-plus-trash"></i> Delete </button>
                                        </center> </td>
@@ -188,7 +191,45 @@ include 'header.php';
                     </div>
                 </div>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script>
+$('#btn-editdepartment').click(function(){
+var id =  document.getElementById('hiddenId').value;
+var dptname =  document.getElementById('department_name').value;
+var dptdesc =  document.getElementById('department_desc').value;
+
+    $.ajax({
+                type: "POST",
+                url: "edit1.php?id="+id+"&edit=department",
+                data:{id:id, dptname:department_name, dptdesc:department_desc},
+                dataType: 'text',
+                success: function(data){
+                    if (data.trim() == 'success') {
+                        Swal.fire({
+                icon: 'success',
+                title: 'Your request has been sent',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                window.location.href = 'department.php'; // Redirect after 1.5 seconds
+            });
+                    } else {
+                        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong! Please try again.'
+        });
+                    }
+                }
+});
+
+});
+
+
+
+
+</script>
             <div class="modal fade" id="deldepartment-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
