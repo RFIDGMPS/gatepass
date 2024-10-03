@@ -191,7 +191,7 @@ include 'header.php';
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script>
+<!-- <script>
 $('#btn-editdepartment').click(function(){
 var dptname =  document.getElementById('edit_departmentname').value;
 var dptdesc =  document.getElementById('edit_departmentdescription').value;
@@ -225,7 +225,7 @@ var id = document.getElementById('hiddenId').value;
 
 
 
-		 </script>
+		 </script> -->
             <div class="modal fade" id="deldepartment-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
