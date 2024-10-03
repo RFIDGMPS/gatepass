@@ -1048,7 +1048,7 @@ Webcam.snap(function(data_uri){
             <div class="col-12">
                 <div class="rounded p-4" id="adjust">
                 
-                    <form id="myForm"  method="POST" enctype="multipart/form-data">
+                    <form id="myForm" action="process_request.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="hiddenId"> <!-- Hidden input for ID -->
                         <div class="">
                             <center><span id="myalert2"></span></center>
@@ -1121,7 +1121,7 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
 
     var formData = new FormData(document.getElementById('myForm')); // Capture the form data
 
-    fetch('process_request.php', { // Send the data to the PHP script
+    fetch('', { // Send the data to the PHP script
         method: 'POST',
         body: formData
     })
