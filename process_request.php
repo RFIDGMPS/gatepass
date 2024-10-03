@@ -41,7 +41,7 @@ if (file_put_contents($filePath, $decodedData) !== false) {
     if ($stmt->execute()) {
         // Alert and redirect (you can replace this with your redirection logic)
         echo "Record successfully inserted.";
-        echo $imageName;
+        echo "<img src='admin/uploads/".$imageName,". />" ;
         // header('Location: your_redirect_url.php'); // Uncomment for redirection
     } else {
         die('Error in updating Database: ' . $stmt->error);
