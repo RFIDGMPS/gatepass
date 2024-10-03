@@ -1117,7 +1117,7 @@ Webcam.snap(function(data_uri){
 
 <script>
 document.getElementById('submitButton').addEventListener('click', function (e) {
-    
+    e.preventDefault();
 
     var formData = new FormData(document.getElementById('myForm')); // Capture the form data
 
