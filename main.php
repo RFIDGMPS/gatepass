@@ -1126,7 +1126,7 @@ alert('test');
                 dataType: 'text',
                 success: function(data){
                     alert(data.trim());
-                    if (data == 'success') {
+                    if (data.trim() == 'success') {
                         alert('sucess');
                     } else {
                         alert('agfagf');
