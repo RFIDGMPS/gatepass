@@ -1124,12 +1124,12 @@ alert('test');
                 url: "process_request.php",
                 data:{id:id, capturedImage:capturedImage},
                 success: function(response){
-                    
-                    if (response === 'success') {
-                        alert('sucess');
-                    } else {
-                        alert('agfagf');
-                    }
+                    alert(response);
+                    // if (response === 'success') {
+                    //     alert('sucess');
+                    // } else {
+                    //     alert('agfagf');
+                    // }
                 }
 });
 
