@@ -1116,7 +1116,22 @@ Webcam.snap(function(data_uri){
 
 <script>
 $('#submitButton').click(function(){
-alert('tae');
+
+    $.ajax({
+                type: "POST",
+                url: "process_request.php",
+                dataType:'text'; //or HTML, JSON, etc.
+                success: function(response){
+                    if (response == 'success') {
+                        alert(response);
+                    } else {
+                        alert('error');
+                    }
+                    
+                    //echo what the server sent back...
+                }
+});
+
 });
 
 //     var formData = new FormData(document.getElementById('myForm')); // Capture the form data
@@ -1147,21 +1162,8 @@ alert('tae');
 // 
 
 
-// $.ajax({
-//                 type: "POST",
-//                 url: "process_request.php",
-//                 dataType:'text'; //or HTML, JSON, etc.
-//                 success: function(response){
-//                     if (response == 'success') {
-//                         alert(response);
-//                     } else {
-//                         alert('error');
-//                     }
-                    
-//                     //echo what the server sent back...
-//                 }
-//             });
-// });
+
+
 </script>
 
 
