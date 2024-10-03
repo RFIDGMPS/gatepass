@@ -1140,9 +1140,11 @@ if (isset($_POST['send'])) {
                 title: 'Your request has been saved',
                 showConfirmButton: false,
                 timer: 1500
-            }).then(() => {
-                window.location.href = 'main.php';
             });
+
+            setTimeout(() => {
+                window.location.href = 'main.php';
+            }, 2000); // Delay the redirect by 2 seconds
         </script>";
     } else {
         echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
@@ -1155,6 +1157,7 @@ if (isset($_POST['send'])) {
         </script>";
     }
 }
+
 ?>
 <script>
     function removeCard(button) {
