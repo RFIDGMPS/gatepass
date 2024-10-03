@@ -1127,11 +1127,12 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
     })
     .then(response => response.text()) // Parse the response as text
     .then(result => {
+        alert(result.trim());
         if (result.trim() === 'success') {
             // Display SweetAlert on success
             Swal.fire({
                 icon: 'success',
-                title: 'Your request has been saved',
+                title: 'Your request has been sent',
                 showConfirmButton: false,
                 timer: 1500
             }).then(() => {
