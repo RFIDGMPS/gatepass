@@ -223,8 +223,8 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department: </b></label>
-                                        <select  class="form-control edit_department" name="department" id="edit_department" autocomplete="off">
-                  
+                                        <select  class="form-control" name="department" id="edit_department" autocomplete="off">
+                                        <option class="edit-department"></option>
 				
 <?php
 										  $sql = "SELECT * FROM department";
