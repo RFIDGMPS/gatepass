@@ -35,11 +35,9 @@ if (isset($_POST['send'])) {
         
         // Execute the query
         if (mysqli_query($db, $query)) {
-            // Return a success message
-            echo 'success';
+          echo '<script>alert("saved");</script>';
         } else {
-            // Return a MySQL error message
-            echo 'error: ' . mysqli_error($db);
+            echo '<script>alert("error");</script>';
         }
     } else {
         // Return an error if the image couldn't be saved
