@@ -20,7 +20,7 @@ if (preg_match('/^data:image\/(?<type>.+);base64,(?<data>.+)$/', $data_uri, $mat
 
 // Create a unique name for the image to avoid overwriting files
 $imageName = uniqid() . '.jpeg';
-$filePath = 'uploads/' . $imageName;
+$filePath = 'admin/uploads/' . $imageName;
 
 // Get the current date and time
 $date_requested = date('Y-m-d H:i:s');
