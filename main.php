@@ -1117,7 +1117,7 @@ Webcam.snap(function(data_uri){
 
 <script>
 document.getElementById('submitButton').addEventListener('click', function (e) {
-    e.preventDefault(); // Prevent the form from submitting traditionally
+
    // Display SweetAlert on success
    Swal.fire({
                 icon: 'success',
