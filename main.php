@@ -1048,7 +1048,7 @@ Webcam.snap(function(data_uri){
             <div class="col-12">
                 <div class="rounded p-4" id="adjust">
                 
-                    <form id="myForm"  method="POST" action="process_request.php" enctype="multipart/form-data">
+                    <form id="myForm"  method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="hiddenId"> <!-- Hidden input for ID -->
                         <div class="">
                             <center><span id="myalert2"></span></center>
