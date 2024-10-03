@@ -1127,8 +1127,7 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
     })
     .then(response => response.text()) // Parse the response as text
     .then(result => {
-        if (result.trim() === 'success') {
-            // Display SweetAlert on success
+       
             Swal.fire({
                 icon: 'success',
                 title: 'Your request has been sent',
@@ -1137,14 +1136,7 @@ document.getElementById('submitButton').addEventListener('click', function (e) {
             }).then(() => {
                 window.location.href = 'main.php'; // Redirect after 1.5 seconds
             });
-        } else {
-            // Display SweetAlert for any error
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'An error occurred: ' + result
-            });
-        }
+     
     })
     .catch(error => {
         // Handle fetch errors
