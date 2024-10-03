@@ -1048,7 +1048,7 @@ Webcam.snap(function(data_uri){
             <div class="col-12">
                 <div class="rounded p-4" id="adjust">
                 
-                    <form id="myForm" action="process_request.php" method="POST" enctype="multipart/form-data">
+                    <form id="myForm"  method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="hiddenId"> <!-- Hidden input for ID -->
                         <div class="">
                             <center><span id="myalert2"></span></center>
@@ -1115,6 +1115,40 @@ Webcam.snap(function(data_uri){
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script>
+document.getElementById('submitButton').addEventListener('click', function (e) {
+    e.preventDefault(); // Prevent the form from submitting the traditional way
+
+    var formData = new FormData(document.getElementById('myForm')); // Capture the form data
+
+    fetch('process_request.php', { // Send the data to the PHP script
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text()) // Parse the response as text
+    .then(result => {
+       
+            // Display SweetAlert on success
+            Swal.fire({
+                icon: 'success',
+                title: 'Your request has been saved',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                window.location.href = 'main.php'; // Redirect after 1.5 seconds
+            });
+      
+    })
+    .catch(error => {
+        // Handle fetch errors
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong! Please try again.'
+        });
+    });
+});
+</script>
 
 
 <script>
