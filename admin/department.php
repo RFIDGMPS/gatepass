@@ -89,7 +89,7 @@ include 'header.php';
             <script>
  $('.d_department_id').click(function(){
     $id = $(this).attr('data-id');
-
+var id = $id;
     Swal.fire({
   title: "Are you sure?",
   text: "You won't be able to revert this!",
