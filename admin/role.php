@@ -267,7 +267,7 @@ if (!showError(inputField, 'role-error', 'This field is required.')) {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title"><i class="bi bi-pencil"></i> Edit Role</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" onclick="resetForm()"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <!-- <form method="POST"  class="edit-form" role="form" action=""> -->
                             <div class="modal-body">
@@ -284,7 +284,7 @@ if (!showError(inputField, 'role-error', 'This field is required.')) {
                             </div>
                             <div class="modal-footer">
                                 <input type="hidden" name="" id="edit_roleid">
-                                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                                <button type="button" onclick="resetForm()"  class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-outline-primary" id="btn-editrole">Update</button>
                             </div>
                         <!-- </form> -->
@@ -330,7 +330,7 @@ if (!showError(inputField, 'erole-error', 'This field is required.')) {
 
     $.ajax({
                 type: "POST",
-                url: "edit1.php?id="+$id+"&edit=role,
+                url: "edit1.php?id="+$id+"&edit=role",
                 data:{role:role},
                 dataType: 'text',
                 success: function(data){
