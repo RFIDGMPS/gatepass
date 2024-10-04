@@ -22,7 +22,7 @@
         $encodedData = $matches['data'];
         $decodedData = base64_decode($encodedData);
     } else {
-        echo 'Invalid data URI format'; // Change to echo for error response
+        echo 'Please capture verification photo'; // Change to echo for error response
         exit;
     }
 
