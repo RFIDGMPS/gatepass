@@ -371,7 +371,7 @@ var dptdesc =  document.getElementById('edit_departmentdescription').value;
                         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Something went wrong! Please try again.'
+            text: data
         });
                     }
                 }
