@@ -502,28 +502,28 @@ if (!showError(inputField, 'eroomname-error', 'This field is required.') ||
                 
 var id=$id;
 
-alert(id);
+
 var roomdpt =  document.getElementById('eroomdpt').value;
-alert(roomdpt);
+
           
           var roomrole =  document.getElementById('eroomrole').value;
-          alert(roomrole);
+        
          
           var roomname =  document.getElementById('eroomname').value;
-          alert(roomname);
+    
           
           var roomdesc =  document.getElementById('eroomdesc').value;
-          alert(roomdesc);
+    
         
           var roompass =  document.getElementById('eroompass').value;
-          alert(roompass);
+    
 
        
 
               $.ajax({
                           type: "POST",
                           url: "edit1.php?id="+id+"&edit=room",
-                          data:{id:id,dpt:dpt, roomname:roomname, roomdesc:roomdesc, pass:pass,roomrole:roomrole},
+                          data:{id:id,roomdpt:roomdpt, roomname:roomname, roomdesc:roomdesc, roompass:roompass,roomrole:roomrole},
                           dataType: 'text',
                           success: function(data){
                               if (data.trim() == 'success') {
