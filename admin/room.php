@@ -504,18 +504,21 @@ var id=$id;
 
 alert(id);
 var roomdpt =  document.getElementById('eroomdpt').value;
+alert(roomdpt);
+          
           var roomrole =  document.getElementById('eroomrole').value;
-          var roomname =  document.getElementById('eroomname').value;
-          var roomdesc =  document.getElementById('eroomdesc').value;
-          var roompass =  document.getElementById('eroompass').value;
-
-
-          alert(id);
-          alert(roomdpt);
           alert(roomrole);
+         
+          var roomname =  document.getElementById('eroomname').value;
           alert(roomname);
+          
+          var roomdesc =  document.getElementById('eroomdesc').value;
           alert(roomdesc);
+        
+          var roompass =  document.getElementById('eroompass').value;
           alert(roompass);
+
+       
 
               $.ajax({
                           type: "POST",
