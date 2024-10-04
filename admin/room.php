@@ -328,13 +328,13 @@ while ($row = $result->fetch_assoc()) {
                                     </div>
                                 </div>
 
-                            </div>
+                        
                             <div class="d-flex align-items-center justify-content-between mb-4">
                             <div class="form-check">
                                 <input type="checkbox" id="remember" onclick="myFunction()"  class="form-check-input" id="exampleCheck1">
                                 <label class="form-check-label" for="exampleCheck1">Show Password</label>
                             </div>
-                    
+                            </div>
                                 <script>
         function myFunction() {
             var x = document.getElementById("edit_roompass");
