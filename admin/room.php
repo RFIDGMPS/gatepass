@@ -323,12 +323,28 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Password:</b></label>
-                                        <input name="password" type="text" id="edit_roompass" class="form-control edit-pass" autocomplete="off">
+                                        <input name="password" type="password" id="edit_roompass" class="form-control edit-pass" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
 
                             </div>
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="form-check">
+                                <input type="checkbox" id="remember" onclick="myFunction()"  class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Show Password</label>
+                            </div>
+                        </div>
+                                <script>
+        function myFunction() {
+            var x = document.getElementById("password");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
                             <div class="modal-footer">
                                 <input type="hidden" name="" id="edit_departmentid">
                                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
