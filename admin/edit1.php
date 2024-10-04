@@ -210,46 +210,75 @@ switch ($_GET['edit'])
 																						window.location = "role.php";
 																					</script>';
 																					break;
-																					case 'room':
-																					
-// Get the ID from the URL
-$id = $_GET['id'];
-
-// Get the POST data
-$room = $_POST['roomname'];
-$department = $_POST['roomdpt'];
-$descr = $_POST['roomdesc'];
-$role = $_POST['roomrole'];
-$password = password_hash($_POST['roompass'], PASSWORD_DEFAULT);
-
-
-// Prepare the UPDATE query with placeholders
-$query = "UPDATE rooms SET room = ?, department = ?, descr = ?, authorized_personnel = ?, password = ? WHERE id = ?";
-
-// Initialize a prepared statement
-$stmt = $db->prepare($query);
-
-if ($stmt) {
-    // Bind parameters to the query (s = string, i = integer)
-    $stmt->bind_param("sssssi", $room, $department, $descr, $role, $password, $id);
-
-    // Execute the statement
-    if ($stmt->execute()) {
-        echo 'success';
-    } else {
-        // Handle execution error
-        echo "Error: " . $stmt->error;
-    }
-
-    // Close the statement
-    $stmt->close();
-} else {
-    // Handle query preparation error
-    echo "Error preparing statement: " . $db->error;
-}
-
-// Close the database connection
-$db->close();
+																					case 'room':// Get the ID from the URL
+																						$id = $_GET['id'];
+																						
+																						// Get the POST data
+																						$room = $_POST['roomname'];
+																						$department = $_POST['roomdpt'];
+																						$descr = $_POST['roomdesc'];
+																						$role = $_POST['roomrole'];
+																						$password = password_hash($_POST['roompass'], PASSWORD_DEFAULT);
+																						
+																						// Check if the room and department already exist
+																						$checkQuery = "SELECT COUNT(*) FROM rooms WHERE room = ? AND department = ? AND id != ?";
+																						
+																						// Initialize a prepared statement for the SELECT query
+																						$stmt = $db->prepare($checkQuery);
+																						
+																						if ($stmt) {
+																							// Bind parameters to the query (s = string, i = integer)
+																							$stmt->bind_param("ssi", $room, $department, $id);
+																						
+																							// Execute the query
+																							$stmt->execute();
+																						
+																							// Bind the result to a variable
+																							$stmt->bind_result($count);
+																							$stmt->fetch();
+																						
+																							// Close the statement
+																							$stmt->close();
+																						
+																							if ($count > 0) {
+																								// Room and department already exist
+																								echo "Room already exist on the same department.";
+																							} else {
+																								// Proceed with the UPDATE query if no duplicates are found
+																						
+																								// Prepare the UPDATE query with placeholders
+																								$query = "UPDATE rooms SET room = ?, department = ?, descr = ?, authorized_personnel = ?, password = ? WHERE id = ?";
+																						
+																								// Initialize a prepared statement for the UPDATE query
+																								$stmt = $db->prepare($query);
+																						
+																								if ($stmt) {
+																									// Bind parameters to the query (s = string, i = integer)
+																									$stmt->bind_param("sssssi", $room, $department, $descr, $role, $password, $id);
+																						
+																									// Execute the statement
+																									if ($stmt->execute()) {
+																										echo 'success';
+																									} else {
+																										// Handle execution error
+																										echo "Error: " . $stmt->error;
+																									}
+																						
+																									// Close the statement
+																									$stmt->close();
+																								} else {
+																									// Handle query preparation error
+																									echo "Error preparing statement: " . $db->error;
+																								}
+																							}
+																						} else {
+																							// Handle query preparation error for the SELECT query
+																							echo "Error preparing SELECT statement: " . $db->error;
+																						}
+																						
+																						// Close the database connection
+																						$db->close();
+																						
 
 break;
 																					
