@@ -175,6 +175,8 @@ var id = $id;
 
           <script>
             function resetForm() {
+                 document.getElementById('deptname-error').innerHTML = '';
+        document.getElementById('deptname-desc').innerHTML = ''
     document.getElementById('myForm').reset();  // Reset all input fields
 }
           $('#btn-department').click(function(){
