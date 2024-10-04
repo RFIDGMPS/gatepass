@@ -504,6 +504,14 @@ var roomdpt =  document.getElementById('eroomdpt').value;
           var roomdesc =  document.getElementById('eroomdesc').value;
           var roompass =  document.getElementById('eroompass').value;
 
+
+          alert(id);
+          alert(roomdpt);
+          alert(roomrole);
+          alert(roomname);
+          alert(roomdesc);
+          alert(roompass);
+
               $.ajax({
                           type: "POST",
                           url: "edit1.php?id="+id+"&edit=room",
