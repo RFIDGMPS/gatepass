@@ -63,14 +63,7 @@ include 'header.php';
                                     <tbody>
                                         
                                         <?php include '../connection.php';  
-$query = "ALTER TABLE rooms ADD authorized_personnel VARCHAR(255)";
 
-// Execute the query
-if ($db->query($query) === TRUE) {
-    echo "Column 'authorized_personnel' added successfully.";
-} else {
-    echo "Error: " . $db->error;
-}
                                             ?>
 
 
@@ -140,6 +133,36 @@ while ($row = $result->fetch_assoc()) {
                           <?php
     // Output department options
     foreach ($department_options as $option) {
+        echo $option;
+       
+    }
+    ?>            
+               </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="inputTime"><b>Authorized Role: </b></label>
+                                        <select  class="form-control" name="roomrole" id="roomrole" autocomplete="off">
+              
+				
+<?php
+										  $sql = "SELECT * FROM role";
+$result = $db->query($sql);
+
+// Initialize an array to store department options
+$role_options = [];
+
+// Fetch and store department options
+while ($row = $result->fetch_assoc()) {
+
+    $role = $row['role'];
+    $role_options[] = "<option value='$role'>$role</option>";
+}?>
+                          <?php
+    // Output department options
+    foreach ($role_options as $option) {
         echo $option;
        
     }
