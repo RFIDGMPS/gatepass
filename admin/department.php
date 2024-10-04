@@ -143,7 +143,7 @@ var id = $id;
                             <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-plus-circle"></i> New Department</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <!-- <form method="POST" action="transac.php?action=add_department"> -->
+                        <form id="myForm">
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-dept"></div>
                                 <div class="col-lg-12 mb-1">
@@ -163,10 +163,10 @@ var id = $id;
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                                <button type="button" onclick="resetForm()" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-outline-warning" id="btn-department">Save</button>
                             </div>
-                        <!-- </form> -->
+                        </form>
                     </div>
                 </div>
             </div>
@@ -174,6 +174,9 @@ var id = $id;
 
 
           <script>
+            function resetForm() {
+    document.getElementById('myForm').reset();  // Reset all input fields
+}
           $('#btn-department').click(function(){
           
     var inputField = document.getElementById('department_name');
