@@ -106,21 +106,25 @@ include 'connection.php';
                         </div>
                         <div >
                         <select class="form-control mb-4" name="roomdpt" id="roomdpt" autocomplete="off" onchange="fetchRooms()">
-    <option value="">Select Department</option>
+    <!-- Main is selected by default -->
+    <option value="Main" selected>Main</option>
     <?php
     $sql = "SELECT * FROM department";
     $result = $db->query($sql);
 
-    // Fetch department options
+    // Fetch department options (excluding Main)
     while ($row = $result->fetch_assoc()) {
         $department_name = $row['department_name'];
-        echo "<option value='$department_name'>$department_name</option>";
+        if ($department_name !== 'Main') {
+            echo "<option value='$department_name'>$department_name</option>";
+        }
     }
     ?>
 </select>
 
 <select class="form-control mb-4" name="location" id="location" autocomplete="off">
-    <option value="">Select Room</option>
+    <!-- Gate is the default room -->
+    <option value="Gate" selected>Gate</option>
 </select>
 
 <script>
@@ -129,7 +133,7 @@ function fetchRooms() {
 
     // If "Main" is selected, show "Gate"
     if (selectedDepartment === "Main") {
-        document.getElementById('location').innerHTML = "<option value='Gate'>Gate</option>";
+        document.getElementById('location').innerHTML = "<option value='Gate' selected>Gate</option>";
     } else if (selectedDepartment) {
         // Create an XMLHttpRequest object for other departments
         var xhr = new XMLHttpRequest();
