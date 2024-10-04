@@ -181,29 +181,30 @@ var id = $id;
 }
           $('#btn-department').click(function(){
           
-    var inputField = document.getElementById('department_name');
-    var inputField1 = document.getElementById('department_description');
-    
-    // Check if input is empty
-     if(inputField.value === '' && inputField1.value === '') {
-        document.getElementById('deptname-error').innerHTML = 'This field is required.';
-        inputField.focus(); // Focus on the input field if it's empty
-        document.getElementById('deptname-desc').innerHTML = 'This field is required.';
-        
+            var inputField = document.getElementById('department_name');
+var inputField1 = document.getElementById('department_description');
+
+// Function to handle error display
+function showError(input, errorId, message) {
+    if (input.value === '') {
+        document.getElementById(errorId).innerHTML = message;
+        input.focus();
+        return false;
+    } else {
+        document.getElementById(errorId).innerHTML = '';
+        return true;
     }
-    else if (inputField.value === '') {
-        document.getElementById('deptname-error').innerHTML = 'This field is required.';
-        inputField.focus(); // Focus on the input field if it's empty
-         document.getElementById('deptname-desc').innerHTML = '';
-    } 
-    else if (inputField1.value === '') {
-        document.getElementById('deptname-desc').innerHTML = 'This field is required.';
-        inputField1.focus(); // Focus on the input field if it's empty
-        document.getElementById('deptname-error').innerHTML = '';
-    }
-    else {
-        document.getElementById('deptname-error').innerHTML = '';
-        document.getElementById('deptname-desc').innerHTML = '';
+}
+
+// Check inputs
+if (!showError(inputField, 'deptname-error', 'This field is required.') ||
+    !showError(inputField1, 'deptname-desc', 'This field is required.')) {
+    // Prevent submission or continue handling as necessary
+    return;
+} else {
+    // Clear error messages if validation passes
+    document.getElementById('deptname-error').innerHTML = '';
+    document.getElementById('deptname-desc').innerHTML = '';
 
         var dptname =  document.getElementById('department_name').value;
           var dptdesc =  document.getElementById('department_description').value;
