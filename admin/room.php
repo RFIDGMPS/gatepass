@@ -251,12 +251,12 @@ while ($row = $result->fetch_assoc()) {
                       
                        $dptname =  $(this).attr('room');
                        $dptdesc =  $(this).attr('department');
-                       $password =  $(this).attr('pass');
+                      
                        $desc =  $(this).attr('descr');
 
 					$('.edit-name').val($dptname);
 					$('.edit-desc').val($desc);
-                    $('.edit-pass').val($password);
+                 
                     $('.edit-department').html($dptdesc);
 					// $('.edit-form').attr('action','edit1.php?id='+$id+'&edit=room');
                  
