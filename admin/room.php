@@ -418,21 +418,21 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Room:</b></label>
-                                        <input name="eroomname" type="text" id="edit_departmentname" class="form-control edit-name" autocomplete="off">
+                                        <input name="eroomname" type="text" id="eroomname" class="form-control edit-name" autocomplete="off">
                                         <span class="eroomname-error" id="eroomname-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Description:</b></label>
-                                        <input name="eroomdesc" type="text" id="edit_departmentdesc" class="form-control edit-desc" autocomplete="off">
+                                        <input name="eroomdesc" type="text" id="eroomdesc" class="form-control edit-desc" autocomplete="off">
                                         <span class="eroomdesc-error" id="eroomdesc-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Password:</b></label>
-                                        <input name="eroompass" type="password" id="edit_roompass" class="form-control edit-pass" autocomplete="off">
+                                        <input name="eroompass" type="password" id="eroompass" class="form-control edit-pass" autocomplete="off">
                                         <span class="eroompass-error" id="eroompass-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
@@ -446,7 +446,7 @@ while ($row = $result->fetch_assoc()) {
                             </div>
                                 <script>
         function myFunction1() {
-            var x = document.getElementById("edit_roompass");
+            var x = document.getElementById("eroompass");
             if (x.type === "password") {
                 x.type = "text";
             } else {
