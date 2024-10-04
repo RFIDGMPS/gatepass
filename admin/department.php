@@ -149,14 +149,14 @@ var id = $id;
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Name:</b></label>
-                                        <input name="department_name" type="text" id="department_name" class="form-control" autocomplete="off">
+                                        <input name="department_name" type="text" id="department_name" class="form-control" autocomplete="off" required>
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Description: </b></label>
-                                        <textarea name="department_desc" type="text" id="department_description" class="form-control" autocomplete="off"></textarea>
+                                        <textarea name="department_desc" type="text" id="department_description" class="form-control" autocomplete="off" required></textarea>
                                         <span class="deptdesc-error"></span>
                                     </div>
                                 </div>
