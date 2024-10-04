@@ -71,7 +71,7 @@ include 'header.php';
                                    
                                           <input hidden type="text" id="hiddenName" value="<?php echo $row['department_name'];?>"/>
                                           <input hidden type="text" id="hiddenDesc" value="<?php echo $row['department_desc'];?>"/>
-                                          <button department_name="<?php echo $row['department_name'];?>" department_desc="<?php echo $row['department_desc'];?>"  data-id="<?php echo $row['department_id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_department_id">
+                                          <button id="deldpt" department_name="<?php echo $row['department_name'];?>" department_desc="<?php echo $row['department_desc'];?>"  data-id="<?php echo $row['department_id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_department_id">
                                           <i class="bi bi-plus-trash"></i> Delete </button>
                                        </center> </td>
                                         </tr>
@@ -85,6 +85,55 @@ include 'header.php';
                     </div>
                 </div>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+ $('.d_department_id').click(function(){
+    $id = $(this).attr('data-id');
+
+    Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed) {
+    $.ajax({
+                type: "GET",
+                url: "del.php?type=department&id=" + $id,
+                data:{id:id},
+                dataType: 'text',
+                success: function(data){
+                    if (data.trim() == 'success') {
+                        Swal.fire({
+      title: "Deleted!",
+      text: "Your file has been deleted.",
+      icon: "success"
+
+            }).then(() => {
+                window.location.href = 'department.php'; // Redirect after 1.5 seconds
+            });
+                    } else {
+                        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong! Please try again.'
+        });
+                    }
+                }
+});
+
+   
+  }
+});
+
+});
+
+
+
+</script>
 
             <!-- Modal -->
             <div class="modal fade" id="departmentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -121,8 +170,9 @@ include 'header.php';
                     </div>
                 </div>
             </div>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
           
+
+
           <script>
           $('#btn-department').click(function(){
          
@@ -166,18 +216,18 @@ include 'header.php';
             <script type="text/javascript">
          $(document).ready(function() {
          	$("#myDataTable").DataTable();
-			 $('.d_department_id').click(function(){
-                $('#deldepartment-modal').modal('show');
+	// 		 $('.d_department_id').click(function(){
+    //             $('#deldepartment-modal').modal('show');
 						
-               		$id = $(this).attr('data-id');
-                       $dptname =  $(this).attr('department_name');
+    //            		$id = $(this).attr('data-id');
+    //                    $dptname =  $(this).attr('department_name');
        
-       $('.d-dpt').val($dptname);
-               		// $('.remove_id').click(function(){
-               		// 	window.location = 'del.php?type=department&id=' + $id;
+    //    $('.d-dpt').val($dptname);
+    //            		// $('.remove_id').click(function(){
+    //            		// 	window.location = 'del.php?type=department&id=' + $id;
 						 
-               		// });
-               	});
+    //            		// });
+    //            	});
                	$('.e_department_id').click(function(){
                		$id = $(this).attr('data-id');
                        $('#editdepartment-modal').modal('show');
