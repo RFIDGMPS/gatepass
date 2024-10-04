@@ -136,7 +136,7 @@ var id = $id;
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-plus-circle"></i> New Role</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" onclick="resetForm()"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form id="myForm">
                             <div class="modal-body">
@@ -152,7 +152,7 @@ var id = $id;
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                                <button type="button" onclick="resetForm()" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-outline-warning" id="btn-role">Save</button>
                             </div>
                         </form>
