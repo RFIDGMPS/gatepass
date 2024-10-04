@@ -142,7 +142,7 @@ $(document).on('click', '.d_visitor_id', function(){
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>RFID Number: </b></label>
-                                        <input name="rfid_number" type="number" id="rfid_number" class="form-control" autocomplete="off" minlength="10" maxlength="10">
+                                        <input name="rfid_number" type="text" id="rfid_number" class="form-control" autocomplete="off" minlength="10" maxlength="10">
                                         <span class="visitor-error" id="visitor-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
@@ -277,7 +277,7 @@ if (!showError(inputField, 'visitor-error', 'This field is required.')) {
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>RFID Number: </b></label>
-                                        <input minlength="10" maxlength="10" name="rfid_number" type="number" id="erfid_number" class="form-control e-rfid" autocomplete="off">
+                                        <input minlength="10" maxlength="10" name="rfid_number" type="text" id="erfid_number" class="form-control e-rfid" autocomplete="off">
                                         <span class="evisitor-error"  id="evisitor-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
@@ -292,7 +292,16 @@ if (!showError(inputField, 'visitor-error', 'This field is required.')) {
                     </div>
                 </div>
             </div>
-
+            <script>
+document.getElementById('erfid_number').addEventListener('input', function (e) {
+    // Allow only digits
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
+document.getElementById('rfid_number').addEventListener('input', function (e) {
+    // Allow only digits
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
+</script>
             <script>
 $('#btn-editvisitor').click(function(){
     var inputField = document.getElementById('erfid_number');
