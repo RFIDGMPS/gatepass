@@ -85,7 +85,7 @@ include 'header.php';
             <script>
  // Event delegation: Bind click event to a parent element that always exists
 $(document).on('click', '#d_role_id', function(){
-    alert('test');
+ 
     var id = $(this).attr('data-id');  // Corrected variable usage
 
     Swal.fire({

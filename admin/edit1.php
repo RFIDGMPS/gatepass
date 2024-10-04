@@ -144,18 +144,43 @@ switch ($_GET['edit'])
 
 						break;
 						case 'visitor':
-							$id = $_GET['id'];
-							$v_code = $_POST['v_code'];
-							$rfid_number = $_POST['rfid_number'];
-							$query = "UPDATE visitor SET 
-											v_code = '$v_code',
-											rfid_number = '$rfid_number' 
-										 WHERE id = '$id'";
-												$result = mysqli_query($db, $query) or die(mysqli_error($db));
-												echo '<script type="text/javascript">
-												alert("Update Successfull.");
-												window.location = "visitor.php";
-											</script>';
+						
+if (isset($_GET['id']) && isset($_POST['rfid_number'])) {
+    $id = $_GET['id'];
+    $rfid_number = $_POST['rfid_number'];
+
+    // Prepare a query to check if the RFID number already exists for a different ID
+    $checkQuery = "SELECT * FROM visitor WHERE rfid_number = ? AND id != ?";
+    $checkStmt = $db->prepare($checkQuery);
+    $checkStmt->bind_param('si', $rfid_number, $id);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+
+    // Check if the RFID number already exists for a different record
+    if ($checkResult->num_rows > 0) {
+        echo 'RFID number already exist.';
+    } else {
+        // Prepare the update query
+        $updateQuery = "UPDATE visitor SET rfid_number = ? WHERE id = ?";
+        $updateStmt = $db->prepare($updateQuery);
+        $updateStmt->bind_param('si', $rfid_number, $id);
+
+        // Execute the update query and check for success
+        if ($updateStmt->execute()) {
+            echo 'success';
+        } else {
+            echo 'Error in updating Database: ' . $updateStmt->error;
+        }
+
+        // Close the update statement
+        $updateStmt->close();
+    }
+
+    // Close the check statement
+    $checkStmt->close();
+}
+
+
 											break;
 											case 'about':
 												$name = $_POST['name'];

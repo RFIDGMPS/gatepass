@@ -108,15 +108,45 @@ $db->close();
      
         break;
         case 'add_visitor':
-            $v_code = $_POST['v_code'];
-            $rfid_number = $_POST['rfid_number'];
-            $query = "INSERT INTO visitor (v_code, rfid_number)
-            VALUES ('$v_code', '$rfid_number')";
-            mysqli_query($db, $query) or die('Error in updating Database');
-            echo '<script type="text/javascript">
-            alert("Successfully added.");
-            window.location = "visitor.php";
-    </script>';
+           
+           
+            if (isset($_POST['rfid_number'])) {
+                $rfid_number = $_POST['rfid_number'];
+            
+                // Prepare the query to check if the RFID number already exists
+                $checkQuery = "SELECT * FROM visitor WHERE rfid_number = ?";
+                $checkStmt = $db->prepare($checkQuery);
+                $checkStmt->bind_param('s', $rfid_number);
+                $checkStmt->execute();
+                $checkResult = $checkStmt->get_result();
+            
+                // Check if the RFID number already exists
+                if ($checkResult->num_rows > 0) {
+                    echo 'RFID number already exist.';
+                } else {
+                    // Prepare the insert query
+                    $insertQuery = "INSERT INTO visitor (rfid_number) VALUES (?)";
+                    $insertStmt = $db->prepare($insertQuery);
+                    $insertStmt->bind_param('s', $rfid_number);
+            
+                    // Execute the insert query and check for success
+                    if ($insertStmt->execute()) {
+                        echo 'success';
+                    } else {
+                        echo 'Error in updating Database: ' . $insertStmt->error;
+                    }
+            
+                    // Close the insert statement
+                    $insertStmt->close();
+                }
+            
+                // Close the check statement
+                $checkStmt->close();
+            }
+            
+            
+            
+            
             break;
         
         case 'add_role':
