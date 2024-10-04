@@ -226,6 +226,10 @@ while ($row = $result->fetch_assoc()) {
                     document.getElementById('roomname-error').innerHTML = '';
         document.getElementById('roomdesc-error').innerHTML = '';
         document.getElementById('roompass-error').innerHTML = '';
+
+        document.getElementById('eroomname-error').innerHTML = '';
+        document.getElementById('eroomdesc-error').innerHTML = '';
+        document.getElementById('eroompass-error').innerHTML = '';
     document.getElementById('myForm').reset();  // Reset all input fields
 }
 
