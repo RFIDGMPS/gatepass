@@ -304,6 +304,8 @@ document.getElementById('rfid_number').addEventListener('input', function (e) {
 </script>
             <script>
 $('#btn-editvisitor').click(function(){
+    event.preventDefault(); // Prevent the default form submission
+    validateForm(); // Call the validation function
     var inputField = document.getElementById('erfid_number');
 
 // Function to handle error display
@@ -372,8 +374,7 @@ function validateForm() {
 }
 
 
-    event.preventDefault(); // Prevent the default form submission
-    validateForm(); // Call the validation function
+
 
 
 
