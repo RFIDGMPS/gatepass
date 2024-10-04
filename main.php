@@ -1138,7 +1138,7 @@ var capturedImage =  document.getElementById('capturedImage').value;
                         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Something went wrong! Please try again.'
+            text: data
         });
                     }
                 }

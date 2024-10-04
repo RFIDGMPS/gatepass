@@ -109,7 +109,7 @@ var id = $id;
                     if (data.trim() == 'success') {
                         Swal.fire({
       title: "Deleted!",
-      text: "Your file has been deleted.",
+      text: "Department has been deleted.",
       icon: "success"
 
             }).then(() => {
