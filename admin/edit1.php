@@ -102,7 +102,7 @@ switch ($_GET['edit'])
 		
 			if ($count > 0) {
 				// Department with the same name already exists
-				echo "Department name already exists.";
+				echo "Department name already exist.";
 			} else {
 				// If the department does not exist for other records, proceed with the update
 		

@@ -286,7 +286,7 @@ if (!showError(inputField, 'roomname-error', 'This field is required.') ||
                                   Swal.fire({
                       icon: 'error',
                       title: 'Oops...',
-                      text: 'Something went wrong! Please try again.'
+                      text: data
                   });
                               }
                           }
@@ -539,7 +539,7 @@ var roomdpt =  document.getElementById('eroomdpt').value;
                                   Swal.fire({
                       icon: 'error',
                       title: 'Oops...',
-                      text: 'Something went wrong! Please try again.'
+                      text: data
                   });
                               }
                           }
