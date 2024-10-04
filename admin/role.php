@@ -276,7 +276,7 @@ if (!showError(inputField, 'role-error', 'This field is required.')) {
                                     <div class="form-group">
                                         <label for="inputTime"><b>Enter Role:</b></label>
                                         <input name="role" type="text" id="erole" class="form-control edit-role" autocomplete="off">
-                                        <span class="erole-error"></span>
+                                        <span class="erole-error" id="erole-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
                                
@@ -296,7 +296,7 @@ if (!showError(inputField, 'role-error', 'This field is required.')) {
             <script>
 $('#btn-editrole').click(function(){
     var inputField = document.getElementById('erole');
-
+alert(inputField);
 // Function to handle error display
 function showError(input, errorId, message) {
     if (input.value === '') {
@@ -319,7 +319,7 @@ if (!showError(inputField, 'erole-error', 'This field is required.')) {
 
 
         var role =  document.getElementById('erole').value;
-
+        alert(role);
 
         $('.e_role_id').click(function(){
                		$id = $(this).attr('data-id');
