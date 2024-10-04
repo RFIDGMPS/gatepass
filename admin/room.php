@@ -117,7 +117,7 @@ include 'header.php';
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department: </b></label>
-                                        <select  class="form-control" name="department" id="roomdpt" autocomplete="off">
+                                        <select  class="form-control" name="roomdpt" id="roomdpt" autocomplete="off">
               
 				
 <?php
@@ -176,21 +176,21 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Room:</b></label>
-                                        <input name="room" type="text" id="roomname" class="form-control" autocomplete="off">
+                                        <input name="roomname" type="text" id="roomname" class="form-control" autocomplete="off">
                                         <span class="roomname-error" id="roomname-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Description:</b></label>
-                                        <input  name="descr" type="text" id="roomdesc" class="form-control" autocomplete="off">
+                                        <input  name="roomdesc" type="text" id="roomdesc" class="form-control" autocomplete="off">
                                         <span class="roomdesc-error" id="roomdesc-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Password:</b></label>
-                                        <input name="password" type="password" id="roompass" class="form-control" autocomplete="off">
+                                        <input name="roompass" type="password" id="roompass" class="form-control" autocomplete="off">
                                         <span class="roompass-error" id="roompass-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
