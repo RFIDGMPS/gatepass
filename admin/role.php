@@ -67,7 +67,7 @@ include 'header.php';
                                             <center>
                                           <button role="<?php echo $row['role'];?>" data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_role_id" >
                                           <i class="bi bi-plus-edit"></i> Edit </button>
-                                          <button role="<?php echo $row['role'];?>"  data-id="<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_role_id">
+                                          <button id="d_role_id" role="<?php echo $row['role'];?>"  data-id="<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_role_id">
                                           <i class="bi bi-plus-trash"></i> Delete </button>
                                        </center> </td>
                                         </tr>
@@ -83,7 +83,7 @@ include 'header.php';
             </div>
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script>
- $('.d_role_id').click(function(){
+ $('#d_role_id').click(function(){
     alert('test');
     $id = $(this).attr('data-id');
 var id = $id;
