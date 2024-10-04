@@ -39,10 +39,10 @@ include 'header.php';
                         <div class="bg-light rounded h-100 p-4">
                             <div class="row">
                                 <div class="col-9">
-                                    <h6 class="mb-4">Manage Visitor</h6>
+                                    <h6 class="mb-4">Manage Visitor Cards</h6>
                                 </div>
                                 <div class="col-3">
-                                    <button type="button" class="btn btn-outline-warning m-2" data-bs-toggle="modal" data-bs-target="#departmentModal">Add Visitor</button>
+                                    <button type="button" class="btn btn-outline-warning m-2" data-bs-toggle="modal" data-bs-target="#departmentModal">Add Visitor Card</button>
                                 </div>
                             </div>
                             <hr></hr>

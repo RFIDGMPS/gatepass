@@ -76,7 +76,7 @@ if ($result1->num_rows > 0) {
 
             <!-- Visitor with Submenu -->
             <a class="nav-item nav-link collapsed <?php echo in_array($current_page, ['visitor.php', 'visitor_logs.php']) ? 'active' : ''; ?>" href="#visitorSubmenu" data-bs-toggle="collapse" aria-expanded="<?php echo in_array($current_page, ['visitor.php', 'visitor_logs.php']) ? 'true' : 'false'; ?>">
-                <i class="fa fa-user-plus me-2"></i>Visitor
+                <i class="fa fa-user-plus me-2"></i>Visitor Cards
             </a>
             <div id="visitorSubmenu" class="collapse <?php echo in_array($current_page, ['visitor.php', 'visitor_logs.php']) ? 'show' : ''; ?>" data-bs-parent=".navbar-nav">
                 <ul class="navbar-nav ps-3">
