@@ -313,7 +313,7 @@ function showError(input, errorId, message) {
         input.focus();
         return false;
     }    else if (input.value.length !== 10) {
-        document.getElementById(errorId).innerHTML = lengthMessage;
+        document.getElementById('evisitor-error').innerHTML = 'Enter 10 digits.';
         input.focus();
         return false;
     }else {
@@ -323,7 +323,7 @@ function showError(input, errorId, message) {
 }
 
 // Check inputs
-if (!showError(inputField, 'evisitor-error', 'This field is required.','Enter 10 digits.')) {
+if (!showError(inputField, 'evisitor-error', 'This field is required.')) {
     // Prevent submission or continue handling as necessary
     return;
 } else {
