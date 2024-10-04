@@ -55,11 +55,31 @@ $db->close();
 				</script>	';
 			break;
 			case 'role':
-				$db->query("DELETE FROM `role` WHERE `id` = '$_REQUEST[id]'") or die(mysqli_error($db));
-				echo'<script type="text/javascript">
-						alert("Successfully Deleted.");
-						window.location = "role.php";
-					</script>	';
+			
+if (isset($_REQUEST['id'])) {
+    $id = $_REQUEST['id'];
+
+    // Prepare the DELETE query
+    $query = "DELETE FROM `role` WHERE `id` = ?";
+    $stmt = $db->prepare($query);
+
+    // Bind the id parameter
+    $stmt->bind_param('i', $id);
+
+    // Execute the query and check for success
+    if ($stmt->execute()) {
+        echo 'success';
+    } else {
+        echo 'Error in deleting from Database: ' . $stmt->error;
+    }
+
+    // Close the statement
+    $stmt->close();
+} else {
+    echo 'Error: No ID provided.';
+}
+
+
 				break;
 				case 'room':
 					// Prepare the statement
