@@ -105,7 +105,8 @@ include 'connection.php';
                             <h3>Sign In</h3>
                         </div>
                         <div >
-                        <select class="form-control" name="roomdpt" id="roomdpt" autocomplete="off" onchange="fetchRooms()">
+                        <select class="form-control mb-4" name="roomdpt" id="roomdpt" autocomplete="off" onchange="fetchRooms()">
+                        <option value="">Main</option>
     <?php
     $sql = "SELECT * FROM department";
     $result = $db->query($sql);
@@ -119,7 +120,7 @@ include 'connection.php';
 </select>
 
 <select class="form-control mb-4" name="location" id="location" autocomplete="off">
-    <option value="">Select a room</option>
+    <option value="">Gate</option>
 </select>
 <script>
 
