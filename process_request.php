@@ -10,6 +10,12 @@
     // Handle the uploaded photo
     $data_uri = $_POST['capturedImage'];
 
+    if(!isset($_POST['id'])){
+        echo 'Please choose personnel'
+    }
+
+
+
     // Validate the data URI format
     if (preg_match('/^data:image\/(?<type>.+);base64,(?<data>.+)$/', $data_uri, $matches)) {
         $encodedData = $matches['data'];
