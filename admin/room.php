@@ -336,6 +336,36 @@ while ($row = $result->fetch_assoc()) {
                </select>
                                     </div>
                                 </div>
+
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="inputTime"><b>Authorized Role: </b></label>
+                                        <select  class="form-control" name="eroomrole" id="eroomrole" autocomplete="off">
+              
+				
+<?php
+										  $sql = "SELECT * FROM role";
+$result = $db->query($sql);
+
+// Initialize an array to store department options
+$role_options = [];
+
+// Fetch and store department options
+while ($row = $result->fetch_assoc()) {
+
+    $role = $row['role'];
+    $role_options[] = "<option value='$role'>$role</option>";
+}?>
+                          <?php
+    // Output department options
+    foreach ($role_options as $option) {
+        echo $option;
+       
+    }
+    ?>            
+               </select>
+                                    </div>
+                                </div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Room:</b></label>
