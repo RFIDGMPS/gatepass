@@ -10,8 +10,8 @@
     // Handle the uploaded photo
     $data_uri = $_POST['capturedImage'];
 
-    if(isset($_POST['id'])){
-        echo 'Please choose personnel'.$id;
+    if($id == ''){
+        echo 'Please choose personnel';
         exit;
     }
 
