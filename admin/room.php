@@ -334,7 +334,7 @@ while ($row = $result->fetch_assoc()) {
                                 <input type="checkbox" id="remember" onclick="myFunction()"  class="form-check-input" id="exampleCheck1">
                                 <label class="form-check-label" for="exampleCheck1">Show Password</label>
                             </div>
-                        </div>
+                    
                                 <script>
         function myFunction() {
             var x = document.getElementById("password");
@@ -344,7 +344,7 @@ while ($row = $result->fetch_assoc()) {
                 x.type = "password";
             }
         }
-    </script>
+    </script>    </div>
                             <div class="modal-footer">
                                 <input type="hidden" name="" id="edit_departmentid">
                                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
