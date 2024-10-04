@@ -323,26 +323,30 @@ if (!showError(inputField, 'deptname-error', 'This field is required.') ||
 <script>
 $('#btn-editdepartment').click(function(){
     var inputField = document.getElementById('edit_departmentname');
-    var inputField1 = document.getElementById('edit_departmentdescription');
-    if(inputField.value === '' && inputField1.value === '') {
-        document.getElementById('edeptname-error').innerHTML = 'This field is required.';
-        inputField.focus(); // Focus on the input field if it's empty
-        document.getElementById('edeptname-desc').innerHTML = 'This field is required.';
-        
+var inputField1 = document.getElementById('edit_departmentdescription');
+
+// Function to handle error display
+function showError(input, errorId, message) {
+    if (input.value === '') {
+        document.getElementById(errorId).innerHTML = message;
+        input.focus();
+        return false;
+    } else {
+        document.getElementById(errorId).innerHTML = '';
+        return true;
     }
-    else if (inputField.value === '') {
-        document.getElementById('edeptname-error').innerHTML = 'This field is required.';
-        inputField.focus(); // Focus on the input field if it's empty
-         document.getElementById('edeptname-desc').innerHTML = ''
-    } 
-    else if (inputField1.value === '') {
-        document.getElementById('edeptname-desc').innerHTML = 'This field is required.';
-        inputField1.focus(); // Focus on the input field if it's empty
-        document.getElementById('edeptname-error').innerHTML = '';
-    }
-    else {
-        document.getElementById('edeptname-error').innerHTML = '';
-        document.getElementById('edeptname-desc').innerHTML = '';
+}
+
+// Check inputs
+var isNameValid = showError(inputField, 'edeptname-error', 'This field is required.');
+var isDescValid = showError(inputField1, 'edeptname-desc', 'This field is required.');
+
+// If both fields are valid, clear error messages
+if (isNameValid && isDescValid) {
+    document.getElementById('edeptname-error').innerHTML = '';
+    document.getElementById('edeptname-desc').innerHTML = '';
+
+
         $('.e_department_id').click(function(){
                		$id = $(this).attr('data-id');
                       
