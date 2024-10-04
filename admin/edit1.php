@@ -76,36 +76,69 @@ switch ($_GET['edit'])
 		</script>';
     break;
     case 'department':
-
-$id = $_GET['id'];
-$department_name = $_POST['dptname'];
-$department_desc = $_POST['dptdesc'];
-
-
-// Prepare an update query with placeholders
-$query = "UPDATE department SET department_name = ?, department_desc = ? WHERE department_id = ?";
-
-// Initialize a prepared statement
-$stmt = $db->prepare($query);
-
-if ($stmt) {
-    // Bind parameters to the query (s = string, i = integer)
-    $stmt->bind_param("ssi", $department_name, $department_desc, $id);
-
-    // Execute the statement
-    if ($stmt->execute()) {
-        echo 'success';
-    } else {
-        // Handle execution error
-        echo "Error: " . $stmt->error;
-    }
-
-    // Close the statement
-    $stmt->close();
-} else {
-    // Handle query preparation error
-    echo "Error preparing statement: " . $db->error;
-}
+		$id = $_GET['id'];
+		$department_name = $_POST['dptname'];
+		$department_desc = $_POST['dptdesc'];
+		
+		// Prepare a SELECT query to check if the department name already exists, excluding the current department being updated
+		$checkQuery = "SELECT COUNT(*) FROM department WHERE department_name = ? AND department_id != ?";
+		
+		// Initialize a prepared statement for the SELECT query
+		$stmt = $db->prepare($checkQuery);
+		
+		if ($stmt) {
+			// Bind the parameters (s = string, i = integer) for department name and department ID
+			$stmt->bind_param("si", $department_name, $id);
+			
+			// Execute the statement
+			$stmt->execute();
+			
+			// Bind the result to a variable
+			$stmt->bind_result($count);
+			$stmt->fetch();
+		
+			// Close the statement
+			$stmt->close();
+		
+			if ($count > 0) {
+				// Department with the same name already exists
+				echo "Department name already exists.";
+			} else {
+				// If the department does not exist for other records, proceed with the update
+		
+				// Prepare an update query with placeholders
+				$query = "UPDATE department SET department_name = ?, department_desc = ? WHERE department_id = ?";
+		
+				// Initialize a prepared statement for the UPDATE query
+				$stmt = $db->prepare($query);
+		
+				if ($stmt) {
+					// Bind parameters to the query (s = string, i = integer)
+					$stmt->bind_param("ssi", $department_name, $department_desc, $id);
+		
+					// Execute the statement
+					if ($stmt->execute()) {
+						echo 'success';
+					} else {
+						// Handle execution error
+						echo "Error: " . $stmt->error;
+					}
+		
+					// Close the statement
+					$stmt->close();
+				} else {
+					// Handle query preparation error
+					echo "Error preparing UPDATE statement: " . $db->error;
+				}
+			}
+		} else {
+			// Handle query preparation error for the SELECT query
+			echo "Error preparing SELECT statement: " . $db->error;
+		}
+		
+		// Close the database connection
+		$db->close();
+		
 
 
 
