@@ -228,42 +228,35 @@ while ($row = $result->fetch_assoc()) {
 
           $('#btn-room').click(function(){
          
-alert('test');
-            var inputField = document.getElementById('roomname');
-    var inputField1 = document.getElementById('roomdesc');
-    var inputField2 = document.getElementById('roompass');
-    
-    // Check if input is empty
-     if(inputField.value === '' && inputField1.value === '' && inputField2.value === '') {
-        document.getElementById('roomname-error').innerHTML = 'This field is required.';
-        inputField.focus(); // Focus on the input field if it's empty
-        document.getElementById('roomdesc-error').innerHTML = 'This field is required.';
-        document.getElementById('roompass-error').innerHTML = 'This field is required.';
-        
-    }
-    else if (inputField.value === '') {
-        document.getElementById('roomname-error').innerHTML = 'This field is required.';
-        inputField.focus(); // Focus on the input field if it's empty
-         document.getElementById('roomdesc-error').innerHTML = '';
-         document.getElementById('roompass-error').innerHTML = '';
-    } 
-    else if (inputField1.value === '') {
-        document.getElementById('roomdesc-error').innerHTML = 'This field is required.';
-        inputField1.focus(); // Focus on the input field if it's empty
-        document.getElementById('roomname-error').innerHTML = '';
-         document.getElementById('roompass-error').innerHTML = '';
-    }
-    else if (inputField2.value === '') {
-        document.getElementById('roompass-error').innerHTML = 'This field is required.';
-        inputField2.focus(); // Focus on the input field if it's empty
-        document.getElementById('roomname-error').innerHTML = '';
-         document.getElementById('roomdesc-error').innerHTML = '';
-    }
-    else {
-        document.getElementById('roomname-error').innerHTML = '';
-        document.getElementById('roomdesc-error').innerHTML = '';
-        document.getElementById('roompass-error').innerHTML = '';
 
+            var inputField = document.getElementById('roomname');
+var inputField1 = document.getElementById('roomdesc');
+var inputField2 = document.getElementById('roompass');
+
+// Function to handle error display
+function showError(input, errorId, message) {
+    if (input.value === '') {
+        document.getElementById(errorId).innerHTML = message;
+        input.focus();
+        return false;
+    } else {
+        document.getElementById(errorId).innerHTML = '';
+        return true;
+    }
+}
+
+// Check inputs
+if (!showError(inputField, 'roomname-error', 'This field is required.') ||
+    !showError(inputField1, 'roomdesc-error', 'This field is required.') ||
+    !showError(inputField2, 'roompass-error', 'This field is required.')) {
+    // Prevent submission if any input is invalid
+    return;
+} else {
+    // Clear all error messages if validation passes
+    document.getElementById('roomname-error').innerHTML = '';
+    document.getElementById('roomdesc-error').innerHTML = '';
+    document.getElementById('roompass-error').innerHTML = '';
+    
         var roomdpt =  document.getElementById('roomdpt').value;
           var roomrole =  document.getElementById('roomrole').value;
           var roomname =  document.getElementById('roomname').value;
