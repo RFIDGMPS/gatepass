@@ -11,7 +11,8 @@
     $data_uri = $_POST['capturedImage'];
 
     if(!isset($_POST['id'])){
-        echo 'Please choose personnel'
+        echo 'Please choose personnel';
+        exit;
     }
 
 
