@@ -337,7 +337,7 @@ while ($row = $result->fetch_assoc()) {
                     
                                 <script>
         function myFunction() {
-            var x = document.getElementById("password");
+            var x = document.getElementById("edit_roompass");
             if (x.type === "password") {
                 x.type = "text";
             } else {
