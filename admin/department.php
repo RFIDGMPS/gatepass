@@ -164,7 +164,7 @@ var id = $id;
                             </div>
                             <div class="modal-footer">
                                 <button type="button" onclick="resetForm()" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-outline-warning" id="btn-department">Save</button>
+                                <button type="button" class="btn btn-outline-warning" id="btn-department">Save</button>
                             </div>
                         </form>
                     </div>
