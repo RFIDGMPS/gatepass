@@ -495,7 +495,7 @@ if (!showError(inputField, 'eroomname-error', 'This field is required.') ||
     document.getElementById('eroomname-error').innerHTML = '';
     document.getElementById('eroomdesc-error').innerHTML = '';
     document.getElementById('eroompass-error').innerHTML = '';
-}
+
 
 
             $('.e_room_id').click(function(){
@@ -534,10 +534,10 @@ var roomdpt =  document.getElementById('eroomdpt').value;
                               }
                           }
           });
-          
+        }
           });
           
-          
+      
           
           
           </script>
