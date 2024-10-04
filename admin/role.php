@@ -194,7 +194,7 @@ if (!showError(inputField, 'role-error', 'This field is required.')) {
           
               $.ajax({
                           type: "POST",
-                          url: "transac.php?action=add_room",
+                          url: "transac.php?action=add_role",
                           data:{role:role},
                           dataType: 'text',
                           success: function(data){
