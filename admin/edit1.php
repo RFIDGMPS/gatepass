@@ -184,10 +184,10 @@ $id = $_GET['id'];
 
 // Get the POST data
 $room = $_POST['roomname'];
-$department = $_POST['dpt'];
+$department = $_POST['roomdpt'];
 $descr = $_POST['roomdesc'];
 $role = $_POST['roomrole'];
-$password = password_hash($_POST['pass'], PASSWORD_DEFAULT);
+$password = password_hash($_POST['roompass'], PASSWORD_DEFAULT);
 
 
 // Prepare the UPDATE query with placeholders
