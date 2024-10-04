@@ -328,7 +328,7 @@ if (!showError(inputField, 'roomname-error', 'This field is required.') ||
 
 					$('.edit-name').val($dptname);
 					$('.edit-desc').val($desc);
-                    $('.edit-role').val($role);
+                    $('.edit-role').html($role);
                     $('.edit-department').html($dptdesc);
 					// $('.edit-form').attr('action','edit1.php?id='+$id+'&edit=room');
                  
