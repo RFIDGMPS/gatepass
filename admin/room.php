@@ -492,15 +492,17 @@ if (!showError(inputField, 'eroomname-error', 'This field is required.') ||
     document.getElementById('eroompass-error').innerHTML = '';
 
 
-    alert('test');
+
             $('.e_room_id').click(function(){
                		$id = $(this).attr('data-id');
 
 
                	});
 
-                   alert('test1');
+                
 var id=$id;
+
+alert(id);
 var roomdpt =  document.getElementById('eroomdpt').value;
           var roomrole =  document.getElementById('eroomrole').value;
           var roomname =  document.getElementById('eroomname').value;
