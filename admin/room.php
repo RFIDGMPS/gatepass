@@ -167,16 +167,7 @@ while ($row = $result->fetch_assoc()) {
                                 <label class="form-check-label" for="exampleCheck1">Show Password</label>
                             </div>
                         </div>
-                                <script>
-        function myFunction() {
-            var x = document.getElementById("password");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
-        }
-    </script>
+                               
 
                             </div>
                             <div class="modal-footer">
@@ -323,7 +314,7 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Password:</b></label>
-                                        <input name="password" type="password" id="edit_roompass" class="form-control edit-pass" autocomplete="off">
+                                        <input name="password" type="password" id="roompass" class="form-control edit-pass" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
@@ -337,7 +328,7 @@ while ($row = $result->fetch_assoc()) {
                             </div>
                                 <script>
         function myFunction() {
-            var x = document.getElementById("edit_roompass");
+            var x = document.getElementById("roompass");
             if (x.type === "password") {
                 x.type = "text";
             } else {
@@ -367,7 +358,7 @@ var id=$id;
                 var dpt = document.getElementById('edit_department').value;
           var roomname =  document.getElementById('edit_departmentname').value;
           var roomdesc =  document.getElementById('edit_departmentdesc').value;
-          var pass = document.getElementById('edit_roompass').value;
+          var pass = document.getElementById('roompass').value;
           
     
               $.ajax({
