@@ -353,7 +353,7 @@ if (!showError(inputField, 'roomname-error', 'This field is required.') ||
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department: </b></label>
-                                        <select  class="form-control" name="eroomdpt" id="edit_department" autocomplete="off">
+                                        <select  class="form-control" name="eroomdpt" id="eroomdpt" autocomplete="off">
                                         <option class="edit-department"></option>
 				
 <?php
