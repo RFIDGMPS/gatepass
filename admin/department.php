@@ -289,14 +289,14 @@ var id = $id;
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Name:</b></label>
                                         <input name="department_name" type="text" id="edit_departmentname" class="form-control edit-name" autocomplete="off">
-                                        <span class="deptname-error" id="deptname-error" style="color:red;font-size:10px;"></span>
+                                        <span class="deptname-error" id="edeptname-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Description: </b></label>
                                         <textarea name="department_desc" type="text" id="edit_departmentdescription" class="form-control edit-desc" autocomplete="off"></textarea>
-                                        <span class="deptname-error" id="deptname-desc" style="color:red;font-size:10px;"></span>
+                                        <span class="deptname-error" id="edeptname-desc" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
 
@@ -317,24 +317,24 @@ $('#btn-editdepartment').click(function(){
     var inputField = document.getElementById('edit_departmentname');
     var inputField1 = document.getElementById('edit_departmentdescription');
     if(inputField.value === '' && inputField1.value === '') {
-        document.getElementById('deptname-error').innerHTML = 'This field is required.';
+        document.getElementById('edeptname-error').innerHTML = 'This field is required.';
         inputField.focus(); // Focus on the input field if it's empty
-        document.getElementById('deptname-desc').innerHTML = 'This field is required.';
+        document.getElementById('edeptname-desc').innerHTML = 'This field is required.';
         
     }
     else if (inputField.value === '') {
-        document.getElementById('deptname-error').innerHTML = 'This field is required.';
+        document.getElementById('edeptname-error').innerHTML = 'This field is required.';
         inputField.focus(); // Focus on the input field if it's empty
-         document.getElementById('deptname-desc').innerHTML = ''
+         document.getElementById('edeptname-desc').innerHTML = ''
     } 
     else if (inputField1.value === '') {
-        document.getElementById('deptname-desc').innerHTML = 'This field is required.';
+        document.getElementById('edeptname-desc').innerHTML = 'This field is required.';
         inputField1.focus(); // Focus on the input field if it's empty
-        document.getElementById('deptname-error').innerHTML = '';
+        document.getElementById('edeptname-error').innerHTML = '';
     }
     else {
-        document.getElementById('deptname-error').innerHTML = '';
-        document.getElementById('deptname-desc').innerHTML = '';
+        document.getElementById('edeptname-error').innerHTML = '';
+        document.getElementById('edeptname-desc').innerHTML = '';
         $('.e_department_id').click(function(){
                		$id = $(this).attr('data-id');
                       
