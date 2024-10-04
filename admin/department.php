@@ -259,8 +259,8 @@ var id = $id;
                		$id = $(this).attr('data-id');
                        $('#editdepartment-modal').modal('show');
                		// $('#editModal').load('edit.php?id=' + $id);
-                      document.getElementById('edit_departmentname').innerHTML = '';
-    document.getElementById('edit_departmentdescription').innerHTML = '';
+                       document.getElementById('edeptname-error').innerHTML = '';
+                       document.getElementById('edeptname-desc').innerHTML = '';
 
                        $dptname =  $(this).attr('department_name');
                        $dptdesc =  $(this).attr('department_desc');
