@@ -121,15 +121,12 @@ $db->close();
         
         case 'add_role':
       
-            $role = $_POST['role1'];
+            $role = $_POST['role'];
             
-            $query = "INSERT INTO role (id,role)
-            VALUES (NULL,'$role')";
+            $query = "INSERT INTO role (role)
+            VALUES ('$role')";
             mysqli_query($db, $query) or die('Error in updating Database');
-            echo '<script type="text/javascript">
-            alert("Successfully added.");
-            window.location = "role.php";
-    </script>';
+            echo 'success';
           
             break;
             case 'add_room':

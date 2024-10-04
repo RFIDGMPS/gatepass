@@ -81,7 +81,55 @@ include 'header.php';
                     </div>
                 </div>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+ $('.d_role_id').click(function(){
+    $id = $(this).attr('data-id');
+var id = $id;
+    Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed) {
+    $.ajax({
+                type: "GET",
+                url: "del.php?type=role&id=" + $id;
+                data:{id:id},
+                dataType: 'text',
+                success: function(data){
+                    if (data.trim() == 'success') {
+                        Swal.fire({
+      title: "Deleted!",
+      text: "Role has been deleted.",
+      icon: "success"
 
+            }).then(() => {
+                window.location.href = 'role.php'; // Redirect after 1.5 seconds
+            });
+                    } else {
+                        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong! Please try again.'
+        });
+                    }
+                }
+});
+
+   
+  }
+});
+
+});
+
+
+
+</script>
             <!-- Modal -->
             <div class="modal fade" id="roleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -90,14 +138,14 @@ include 'header.php';
                             <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-plus-circle"></i> New Role</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="POST" action="transac.php?action=add_role">
+                        <form id="myForm">
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-dept"></div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Role:</b></label>
                                         <input name="role1" type="text" id="role" class="form-control" autocomplete="off">
-                                        <span class="role-error"></span>
+                                        <span class="role-error" id="role-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
                               
@@ -111,21 +159,89 @@ include 'header.php';
                     </div>
                 </div>
             </div>
+            <script>
+            function resetForm() {
+                 document.getElementById('role-error').innerHTML = '';
+        document.getElementById('erole-error').innerHTML = '';
+    document.getElementById('myForm').reset();  // Reset all input fields
+}
+          $('#btn-role').click(function(){
+          
+            var inputField = document.getElementById('role');
+
+// Function to handle error display
+function showError(input, errorId, message) {
+    if (input.value === '') {
+        document.getElementById(errorId).innerHTML = message;
+        input.focus();
+        return false;
+    } else {
+        document.getElementById(errorId).innerHTML = '';
+        return true;
+    }
+}
+
+// Check inputs
+if (!showError(inputField, 'role-error', 'This field is required.')) {
+    // Prevent submission or continue handling as necessary
+    return;
+} else {
+    // Clear error messages if validation passes
+    document.getElementById('role-error').innerHTML = '';
+
+
+        var role =  document.getElementById('role').value;
+          
+              $.ajax({
+                          type: "POST",
+                          url: "transac.php?action=add_room",
+                          data:{role:role},
+                          dataType: 'text',
+                          success: function(data){
+                              if (data.trim() == 'success') {
+                                  Swal.fire({
+                          icon: 'success',
+                          title: 'Sucessfully Added.',
+                          showConfirmButton: false,
+                          timer: 1500
+                      }).then(() => {
+                          window.location.href = 'role.php'; // Redirect after 1.5 seconds
+                      });
+                              } else {
+                                  Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: data
+                  });
+                              }
+                          }
+          });
+    }
+
+          
+          
+          });
+          
+          
+          
+          
+          </script>
+
             <script type="text/javascript">
          $(document).ready(function() {
          	$("#myDataTable").DataTable();
-			 $('.d_role_id').click(function(){
-                $('#delrole-modal').modal('show');
+	// 		 $('.d_role_id').click(function(){
+    //             $('#delrole-modal').modal('show');
 						
-               		$id = $(this).attr('data-id');
-                       $role =  $(this).attr('role');
+    //            		$id = $(this).attr('data-id');
+    //                    $role =  $(this).attr('role');
        
-       $('.d-role').val($role);
-               		$('.remove_id').click(function(){
-               			window.location = 'del.php?type=role&id=' + $id;
+    //    $('.d-role').val($role);
+    //            		$('.remove_id').click(function(){
+    //            			window.location = 'del.php?type=role&id=' + $id;
 						 
-               		});
-               	});
+    //            		});
+    //            	});
                	$('.e_role_id').click(function(){
                		$id = $(this).attr('data-id');
                        $('#editrole-modal').modal('show');
@@ -138,7 +254,7 @@ include 'header.php';
 
 				
 					$('.edit-role').val($role);
-					$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=role');
+					//$('.edit-form').attr('action','edit1.php?id='+$id+'&edit=role');
 					
                	});
          });
@@ -176,6 +292,84 @@ include 'header.php';
                 </div>
             </div>
 
+          
+            <script>
+$('#btn-editrole').click(function(){
+    var inputField = document.getElementById('erole');
+
+// Function to handle error display
+function showError(input, errorId, message) {
+    if (input.value === '') {
+        document.getElementById(errorId).innerHTML = message;
+        input.focus();
+        return false;
+    } else {
+        document.getElementById(errorId).innerHTML = '';
+        return true;
+    }
+}
+
+// Check inputs
+if (!showError(inputField, 'erole-error', 'This field is required.')) {
+    // Prevent submission or continue handling as necessary
+    return;
+} else {
+    // Clear error messages if validation passes
+    document.getElementById('erole-error').innerHTML = '';
+
+
+        var role =  document.getElementById('erole').value;
+
+
+        $('.e_role_id').click(function(){
+               		$id = $(this).attr('data-id');
+                      
+					
+               	});
+
+
+    $.ajax({
+                type: "POST",
+                url: "edit1.php?id="+$id+"&edit=role,
+                data:{role:role},
+                dataType: 'text',
+                success: function(data){
+                    if (data.trim() == 'success') {
+                        Swal.fire({
+                icon: 'success',
+                title: 'Sucessfully Updated.',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                window.location.href = 'role.php'; // Redirect after 1.5 seconds
+            });
+                    } else {
+                        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: data
+        });
+                    }
+                }
+});
+    }
+
+
+
+
+
+
+
+
+
+
+
+});
+
+
+
+
+</script>
             <div class="modal fade" id="delrole-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
