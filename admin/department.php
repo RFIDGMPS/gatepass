@@ -355,7 +355,7 @@ var dptdesc =  document.getElementById('edit_departmentdescription').value;
                     </div>
                 </div>
             </div>
-            <script>
+            <!-- <script>
 $('#btn-deldepartment').click(function(){
     $('.d_department_id').click(function(){
                 
@@ -394,7 +394,7 @@ var id=$id;
 
 
 
-</script>
+</script> -->
 
             <?php
 include 'footer.php';
