@@ -275,8 +275,8 @@ if (!showError(inputField, 'role-error', 'This field is required.')) {
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Enter Role:</b></label>
-                                        <input name="role" type="text" id="edit_role" class="form-control edit-role" autocomplete="off">
-                                        <span class="deptname-error"></span>
+                                        <input name="role" type="text" id="erole" class="form-control edit-role" autocomplete="off">
+                                        <span class="erole-error"></span>
                                     </div>
                                 </div>
                                
