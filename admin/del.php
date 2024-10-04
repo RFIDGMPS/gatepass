@@ -62,11 +62,22 @@ $db->close();
 					</script>	';
 				break;
 				case 'room':
-					$db->query("DELETE FROM `rooms` WHERE `id` = '$_REQUEST[id]'") or die(mysqli_error($db));
-					echo'<script type="text/javascript">
-							alert("Successfully Deleted.");
-							window.location = "room.php";
-						</script>	';
+					// Prepare the statement
+$stmt = $db->prepare("DELETE FROM `rooms` WHERE `id` = ?");
+
+// Bind the parameter
+$stmt->bind_param("i", $_REQUEST['id']); // Assuming 'id' is an integer
+
+// Execute the statement
+if ($stmt->execute()) {
+    echo 'success';
+} else {
+    die('Error: ' . $stmt->error);
+}
+
+// Close the statement
+$stmt->close();
+
 					break;
 }
 	?>

@@ -102,7 +102,55 @@ include 'header.php';
                     </div>
                 </div>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+ $('.d_room_id').click(function(){
+    $id = $(this).attr('data-id');
+var id = $id;
+    Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed) {
+    $.ajax({
+                type: "GET",
+                url: "del.php?type=room&id=" + id,
+                data:{id:id},
+                dataType: 'text',
+                success: function(data){
+                    if (data.trim() == 'success') {
+                        Swal.fire({
+      title: "Deleted!",
+      text: "Room has been deleted.",
+      icon: "success"
 
+            }).then(() => {
+                window.location.href = 'room.php'; // Redirect after 1.5 seconds
+            });
+                    } else {
+                        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong! Please try again.'
+        });
+                    }
+                }
+});
+
+   
+  }
+});
+
+});
+
+
+
+</script>
             <!-- Modal -->
             <div class="modal fade" id="roomModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -220,7 +268,7 @@ while ($row = $result->fetch_assoc()) {
                     </div>
                 </div>
             </div>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
             <script>
                  function resetForm() {
                     document.getElementById('roomname-error').innerHTML = '';
@@ -309,18 +357,18 @@ if (!showError(inputField, 'roomname-error', 'This field is required.') ||
             <script type="text/javascript">
          $(document).ready(function() {
          	$("#myDataTable").DataTable();
-			 $('.d_room_id').click(function(){
-                $('#deldepartment-modal').modal('show');
+	// 		 $('.d_room_id').click(function(){
+    //             $('#deldepartment-modal').modal('show');
 						
-               		$id = $(this).attr('data-id');
-                       $dptname =  $(this).attr('room');
+    //            		$id = $(this).attr('data-id');
+    //                    $dptname =  $(this).attr('room');
        
-       $('.d-dpt').val($dptname);
-               		$('.remove_id').click(function(){
-               			window.location = 'del.php?type=room&id=' + $id;
+    //    $('.d-dpt').val($dptname);
+    //            		$('.remove_id').click(function(){
+    //            			window.location = 'del.php?type=room&id=' + $id;
 						 
-               		});
-               	});
+    //            		});
+    //            	});
                	$('.e_room_id').click(function(){
                		$id = $(this).attr('data-id');
                        $('#editdepartment-modal').modal('show');
