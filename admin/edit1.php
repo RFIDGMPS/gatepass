@@ -197,18 +197,29 @@ switch ($_GET['edit'])
 																</script>';
 																break;
 																case 'role':
-																	$id = $_GET['id'];
-																	$role = $_POST['role'];
-																
-																	$query = "UPDATE role SET 
-																					role = '$role'
-																					
-																				 WHERE id = '$id'";
-																						$result = mysqli_query($db, $query) or die(mysqli_error($db));
-																						echo '<script type="text/javascript">
-																						alert("Update Successfull.");
-																						window.location = "role.php";
-																					</script>';
+																	
+if (isset($_GET['id']) && isset($_POST['role'])) {
+    $id = $_GET['id'];
+    $role = $_POST['role'];
+
+    // Prepare the update query
+    $query = "UPDATE role SET role = ? WHERE id = ?";
+    $stmt = $db->prepare($query);
+
+    // Bind parameters (role and id)
+    $stmt->bind_param('si', $role, $id);
+
+    // Execute the query and check for success
+    if ($stmt->execute()) {
+        echo 'success';
+    } else {
+        echo 'Error in updating Database: ' . $stmt->error;
+    }
+
+    // Close the statement
+    $stmt->close();
+}
+
 																					break;
 																					case 'room':// Get the ID from the URL
 																						$id = $_GET['id'];
