@@ -97,7 +97,7 @@ include 'header.php';
                                     <div class="form-group">
                                         <label for="inputTime"><b>Role:</b></label>
                                         <input name="role1" type="text" id="role" class="form-control" autocomplete="off">
-                                        <span class="deptname-error"></span>
+                                        <span class="role-error"></span>
                                     </div>
                                 </div>
                               

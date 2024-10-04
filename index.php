@@ -105,39 +105,47 @@ include 'connection.php';
                             <h3>Sign In</h3>
                         </div>
                         <div >
-                        <select  class="form-control mb-4" name="location" id="location" autocomplete="off">
-                        <option value='Gate'>Gate</option>
-				
-                        <?php
-// Assuming $db is your mysqli connection
-$sql = "SELECT * FROM rooms";
-$stmt = $db->prepare($sql);
+                        <select class="form-control" name="roomdpt" id="roomdpt" autocomplete="off" onchange="fetchRooms()">
+    <?php
+    $sql = "SELECT * FROM department";
+    $result = $db->query($sql);
 
-// Execute the statement
-$stmt->execute();
+    // Fetch department options
+    while ($row = $result->fetch_assoc()) {
+        $department_name = $row['department_name'];
+        echo "<option value='$department_name'>$department_name</option>";
+    }
+    ?>
+</select>
 
-// Get the result
-$result = $stmt->get_result();
+<select class="form-control mb-4" name="location" id="location" autocomplete="off">
+    <option value="">Select a room</option>
+</select>
+<script>
 
-// Initialize an array to store room options
-$rooms = [];
+function fetchRooms() {
+    var selectedDepartment = document.getElementById('roomdpt').value;
 
-// Fetch and store room options
-while ($row = $result->fetch_assoc()) {
-    $room = htmlspecialchars($row['room'], ENT_QUOTES, 'UTF-8'); // Sanitize output
-    $rooms[] = "<option value='$room'>$room</option>";
+    if (selectedDepartment) {
+        // Create an XMLHttpRequest object
+        var xhr = new XMLHttpRequest();
+
+        // Define the callback function to handle the server's response
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Replace the room options in the 'location' dropdown
+                document.getElementById('location').innerHTML = xhr.responseText;
+            }
+        };
+
+        // Prepare and send the AJAX request
+        xhr.open('GET', 'get_rooms.php?department=' + encodeURIComponent(selectedDepartment), true);
+        xhr.send();
+    }
 }
 
-// Output room options
-foreach ($rooms as $option) {
-    echo $option;
-}
+</script>
 
-// Close the statement
-$stmt->close();
-?>
-        
-                                 </select>
                         </div>
                        
                         <div class="form-floating mb-4">
