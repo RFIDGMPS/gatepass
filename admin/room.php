@@ -485,14 +485,14 @@ if (!showError(inputField, 'eroomname-error', 'This field is required.') ||
     // Prevent submission if any input is invalid
     return;
 } else {
-    alert('test');
+   
     // Clear all error messages if validation passes
     document.getElementById('eroomname-error').innerHTML = '';
     document.getElementById('eroomdesc-error').innerHTML = '';
     document.getElementById('eroompass-error').innerHTML = '';
 
 
-
+    alert('test');
             $('.e_room_id').click(function(){
                		$id = $(this).attr('data-id');
 
