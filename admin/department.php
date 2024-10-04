@@ -188,6 +188,9 @@ var id = $id;
         document.getElementById('deptname-desc').innerHTML = 'This field is required.';
         inputField1.focus(); // Focus on the input field if it's empty
     }else {
+        document.getElementById('deptname-error').innerHTML = '';
+        document.getElementById('deptname-desc').innerHTML = '';
+
         var dptname =  document.getElementById('department_name').value;
           var dptdesc =  document.getElementById('department_description').value;
           
