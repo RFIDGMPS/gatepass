@@ -149,15 +149,15 @@ var id = $id;
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Name:</b></label>
-                                        <input name="department_name" type="text" id="department_name" class="form-control" autocomplete="off" required>
+                                        <input name="department_name" type="text" id="department_name" class="form-control" autocomplete="off">
                                         <span class="deptname-error" id="deptname-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Description: </b></label>
-                                        <textarea name="department_desc" type="text" id="department_description" class="form-control" autocomplete="off" required></textarea>
-                                        <span class="deptdesc-error"></span>
+                                        <textarea name="department_desc" type="text" id="department_description" class="form-control" autocomplete="off"></textarea>
+                                        <span class="deptname-desc" id="deptname-desc" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
 
@@ -177,12 +177,17 @@ var id = $id;
           $('#btn-department').click(function(){
           
     var inputField = document.getElementById('department_name');
+    var inputField1 = document.getElementById('department_description');
     
     // Check if input is empty
     if (inputField.value === '') {
         document.getElementById('deptname-error').innerHTML = 'This field is required.';
         inputField.focus(); // Focus on the input field if it's empty
-    } else {
+    } 
+    else if (inputField1.value === '') {
+        document.getElementById('deptname-desc').innerHTML = 'This field is required.';
+        inputField1.focus(); // Focus on the input field if it's empty
+    }else {
         var dptname =  document.getElementById('department_name').value;
           var dptdesc =  document.getElementById('department_description').value;
           
