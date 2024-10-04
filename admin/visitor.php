@@ -142,7 +142,9 @@ $(document).on('click', '.d_visitor_id', function(){
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>RFID Number: </b></label>
-                                        <input name="rfid_number" type="text" id="rfid_number" class="form-control" autocomplete="off" minlength="10" maxlength="10">
+                                        <input pattern="\d{10}" 
+    title="Please enter exactly 10 numeric digits."
+    required  name="rfid_number" type="text" id="rfid_number" class="form-control" autocomplete="off" minlength="10" maxlength="10">
                                         <span class="visitor-error" id="visitor-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
@@ -277,7 +279,19 @@ if (!showError(inputField, 'visitor-error', 'This field is required.')) {
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>RFID Number: </b></label>
-                                        <input minlength="10" maxlength="10" name="rfid_number" type="text" id="erfid_number" class="form-control e-rfid" autocomplete="off">
+                                        <input 
+    minlength="10" 
+    maxlength="10" 
+    name="rfid_number" 
+    type="text" 
+    id="erfid_number" 
+    class="form-control e-rfid" 
+    autocomplete="off" 
+    pattern="\d{10}" 
+    title="Please enter exactly 10 numeric digits."
+    required 
+/>
+
                                         <span class="evisitor-error"  id="evisitor-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
