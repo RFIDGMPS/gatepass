@@ -87,9 +87,9 @@ include 'header.php';
                                           <i class="bi bi-plus-trash"></i> Delete </button>
                                           <input type="hidden" id="dpt" value="<?php echo $row['department'];?>"/>
                                           <input type="hidden" id="role" value="<?php echo $row['authorized_personnel'];?>"/>
-                                          <input type="hidden" id="roomdesc" value="<?php echo $row['descr'];?>"/>
+                                          <input type="hidden" id="desc" value="<?php echo $row['descr'];?>"/>
                                           <input type="hidden" id="pass" value="<?php echo $row['password'];?>"/>
-                                          <input type="hidden" id="roomname" value="<?php echo $row['room'];?>"/>
+                                          <input type="hidden" id="name" value="<?php echo $row['room'];?>"/>
                                        </center> </td>
                                         </tr>
                                        
