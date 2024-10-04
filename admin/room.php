@@ -228,7 +228,7 @@ while ($row = $result->fetch_assoc()) {
 
           $('#btn-room').click(function(){
          
-
+alert('test');
             var inputField = document.getElementById('roomname');
     var inputField1 = document.getElementById('roomdesc');
     var inputField2 = document.getElementById('roompass');
