@@ -125,23 +125,38 @@ $db->close();
             if (isset($_POST['role'])) {
                 $role = $_POST['role'];
             
-                // Prepare the query
-                $query = "INSERT INTO role (role) VALUES (?)";
-                $stmt = $db->prepare($query);
-            
-                // Bind the role parameter
+                // Check if the role already exists
+                $check_query = "SELECT * FROM role WHERE role = ?";
+                $stmt = $db->prepare($check_query);
                 $stmt->bind_param('s', $role);
+                $stmt->execute();
+                $result = $stmt->get_result();
             
-                // Execute the query and check for success
-                if ($stmt->execute()) {
-                    echo 'success';
+                if ($result->num_rows > 0) {
+                    // Role already exists
+                    echo 'Role already exist.';
                 } else {
-                    echo 'Error in updating Database: ' . $stmt->error;
+                    // Role does not exist, insert the new role
+                    $stmt->close(); // Close the previous statement
+            
+                    // Prepare the insertion query
+                    $insert_query = "INSERT INTO role (role) VALUES (?)";
+                    $stmt = $db->prepare($insert_query);
+                    $stmt->bind_param('s', $role);
+            
+                    // Execute the query and check for success
+                    if ($stmt->execute()) {
+                        echo 'success';
+                    } else {
+                        echo 'Error in updating Database: ' . $stmt->error;
+                    }
                 }
             
                 // Close the statement
                 $stmt->close();
             }
+         
+            
            
             
           

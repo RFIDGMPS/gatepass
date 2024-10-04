@@ -198,27 +198,46 @@ switch ($_GET['edit'])
 																break;
 																case 'role':
 																	
-if (isset($_GET['id']) && isset($_POST['role'])) {
-    $id = $_GET['id'];
-    $role = $_POST['role'];
-
-    // Prepare the update query
-    $query = "UPDATE role SET role = ? WHERE id = ?";
-    $stmt = $db->prepare($query);
-
-    // Bind parameters (role and id)
-    $stmt->bind_param('si', $role, $id);
-
-    // Execute the query and check for success
-    if ($stmt->execute()) {
-        echo 'success';
-    } else {
-        echo 'Error in updating Database: ' . $stmt->error;
-    }
-
-    // Close the statement
-    $stmt->close();
-}
+																
+																	if (isset($_GET['id']) && isset($_POST['role'])) {
+																		$id = $_GET['id'];
+																		$role = $_POST['role'];
+																	
+																		// Check if the role already exists
+																		$check_query = "SELECT * FROM role WHERE role = ? AND id != ?";
+																		$stmt_check = $db->prepare($check_query);
+																		$stmt_check->bind_param('si', $role, $id);
+																		$stmt_check->execute();
+																		$result_check = $stmt_check->get_result();
+																	
+																		if ($result_check->num_rows > 0) {
+																			// Role already exists
+																			echo 'Role already exist.';
+																		} else {
+																			// Prepare the update query
+																			$query = "UPDATE role SET role = ? WHERE id = ?";
+																			$stmt = $db->prepare($query);
+																	
+																			// Bind parameters (role and id)
+																			$stmt->bind_param('si', $role, $id);
+																	
+																			// Execute the query and check for success
+																			if ($stmt->execute()) {
+																				echo 'success';
+																			} else {
+																				echo 'Error in updating Database: ' . $stmt->error;
+																			}
+																	
+																			// Close the statement
+																			$stmt->close();
+																		}
+																	
+																		// Close the check statement
+																		$stmt_check->close();
+																	}
+																	
+																	
+																	
 
 																					break;
 																					case 'room':// Get the ID from the URL
