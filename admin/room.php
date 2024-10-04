@@ -54,6 +54,7 @@ include 'header.php';
                                     <thead>
                                         <tr>
                                             <th scope="col" >Department</th>
+                                            <th scope="col" >Authorized Role</th>
                                             <th scope="col">Room</th>
                                             <th scope="col">Description</th>
                                             <th scope="col">Password</th>
@@ -74,16 +75,18 @@ include 'header.php';
                                  <?php while ($row = mysqli_fetch_array($results)) { ?>
                                     <tr  class="table-<?php echo $row['id'];?>">
                                     <td class="department"><?php echo $row['department']; ?></td>
+                                    <td><?php echo $row['authorized_personnel']; ?></td>
                                             <td><?php echo $row['room']; ?></td>
                                             <td><?php echo $row['descr']; ?></td>
                                             <td><?php echo substr($row['password'], 0, 10) . '...'; ?></td>
                                             <td width="14%">
                                             <center>
-                                          <button descr="<?php echo $row['descr'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>" data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_room_id" >
+                                          <button authrole="<?php echo $row['authorized_personnel'];?>" descr="<?php echo $row['descr'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>" data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_room_id" >
                                           <i class="bi bi-plus-edit"></i> Edit </button>
-                                          <button descr="<?php echo $row['descr'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>"  data-id="<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_room_id">
+                                          <button authrole="<?php echo $row['authorized_personnel'];?>" descr="<?php echo $row['descr'];?>" pass="<?php echo $row['password'];?>" room="<?php echo $row['room'];?>" department="<?php echo $row['department'];?>"  data-id="<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm btn-del d_room_id">
                                           <i class="bi bi-plus-trash"></i> Delete </button>
                                           <input type="hidden" id="dpt" value="<?php echo $row['department'];?>"/>
+                                          <input type="hidden" id="role" value="<?php echo $row['authorized_personnel'];?>"/>
                                           <input type="hidden" id="roomdesc" value="<?php echo $row['descr'];?>"/>
                                           <input type="hidden" id="pass" value="<?php echo $row['password'];?>"/>
                                           <input type="hidden" id="roomname" value="<?php echo $row['room'];?>"/>
@@ -256,7 +259,7 @@ if (!showError(inputField, 'roomname-error', 'This field is required.') ||
     document.getElementById('roomname-error').innerHTML = '';
     document.getElementById('roomdesc-error').innerHTML = '';
     document.getElementById('roompass-error').innerHTML = '';
-    
+
         var roomdpt =  document.getElementById('roomdpt').value;
           var roomrole =  document.getElementById('roomrole').value;
           var roomname =  document.getElementById('roomname').value;
@@ -320,12 +323,12 @@ if (!showError(inputField, 'roomname-error', 'This field is required.') ||
                       
                        $dptname =  $(this).attr('room');
                        $dptdesc =  $(this).attr('department');
-                      
+                       $role =  $(this).attr('authrole');
                        $desc =  $(this).attr('descr');
 
 					$('.edit-name').val($dptname);
 					$('.edit-desc').val($desc);
-                 
+                    $('.edit-role').val($role);
                     $('.edit-department').html($dptdesc);
 					// $('.edit-form').attr('action','edit1.php?id='+$id+'&edit=room');
                  
@@ -349,7 +352,7 @@ if (!showError(inputField, 'roomname-error', 'This field is required.') ||
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department: </b></label>
-                                        <select  class="form-control" name="department" id="edit_department" autocomplete="off">
+                                        <select  class="form-control" name="eroomdpt" id="edit_department" autocomplete="off">
                                         <option class="edit-department"></option>
 				
 <?php
@@ -380,7 +383,7 @@ while ($row = $result->fetch_assoc()) {
                                     <div class="form-group">
                                         <label for="inputTime"><b>Authorized Role: </b></label>
                                         <select  class="form-control" name="eroomrole" id="eroomrole" autocomplete="off">
-              
+                                        <option class="edit-role"></option>
 				
 <?php
 										  $sql = "SELECT * FROM role";
@@ -408,22 +411,22 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Room:</b></label>
-                                        <input name="room" type="text" id="edit_departmentname" class="form-control edit-name" autocomplete="off">
-                                        <span class="deptname-error"></span>
+                                        <input name="eroomname" type="text" id="edit_departmentname" class="form-control edit-name" autocomplete="off">
+                                        <span class="eroomname-error" id="eroomname-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Description:</b></label>
-                                        <input name="desc" type="text" id="edit_departmentdesc" class="form-control edit-desc" autocomplete="off">
-                                        <span class="deptname-error"></span>
+                                        <input name="eroomdesc" type="text" id="edit_departmentdesc" class="form-control edit-desc" autocomplete="off">
+                                        <span class="eroomdesc-error" id="eroomdesc-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Password:</b></label>
-                                        <input name="password" type="password" id="edit_roompass" class="form-control edit-pass" autocomplete="off">
-                                        <span class="deptname-error"></span>
+                                        <input name="eroompass" type="password" id="edit_roompass" class="form-control edit-pass" autocomplete="off">
+                                        <span class="eroompass-error" id="eroompass-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
 
@@ -457,22 +460,53 @@ while ($row = $result->fetch_assoc()) {
           
           <script>
           $('#btn-editdepartment').click(function(){
+
+            var inputField = document.getElementById('eroomname');
+var inputField1 = document.getElementById('eroomdesc');
+var inputField2 = document.getElementById('eroompass');
+
+// Function to handle error display
+function showError(input, errorId, message) {
+    if (input.value === '') {
+        document.getElementById(errorId).innerHTML = message;
+        input.focus();
+        return false;
+    } else {
+        document.getElementById(errorId).innerHTML = '';
+        return true;
+    }
+}
+
+// Check inputs
+if (!showError(inputField, 'eroomname-error', 'This field is required.') ||
+    !showError(inputField1, 'eroomdesc-error', 'This field is required.') ||
+    !showError(inputField2, 'eroompass-error', 'This field is required.')) {
+    // Prevent submission if any input is invalid
+    return;
+} else {
+    // Clear all error messages if validation passes
+    document.getElementById('eroomname-error').innerHTML = '';
+    document.getElementById('eroomdesc-error').innerHTML = '';
+    document.getElementById('eroompass-error').innerHTML = '';
+}
+
+
             $('.e_room_id').click(function(){
                		$id = $(this).attr('data-id');
 
 
                	});
 var id=$id;
-                var dpt = document.getElementById('edit_department').value;
-          var roomname =  document.getElementById('edit_departmentname').value;
-          var roomdesc =  document.getElementById('edit_departmentdesc').value;
-          var pass = document.getElementById('edit_roompass').value;
-          
-    
+var roomdpt =  document.getElementById('eroomdpt').value;
+          var roomrole =  document.getElementById('eroomrole').value;
+          var roomname =  document.getElementById('eroomname').value;
+          var roomdesc =  document.getElementById('eroomdesc').value;
+          var roompass =  document.getElementById('eroompass').value;
+
               $.ajax({
                           type: "POST",
                           url: "edit1.php?id="+id+"&edit=room",
-                          data:{id:id,dpt:dpt, roomname:roomname, roomdesc:roomdesc, pass:pass},
+                          data:{id:id,dpt:dpt, roomname:roomname, roomdesc:roomdesc, pass:pass,roomrole:roomrole},
                           dataType: 'text',
                           success: function(data){
                               if (data.trim() == 'success') {

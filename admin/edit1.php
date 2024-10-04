@@ -186,18 +186,19 @@ $id = $_GET['id'];
 $room = $_POST['roomname'];
 $department = $_POST['dpt'];
 $descr = $_POST['roomdesc'];
+$role = $_POST['roomrole'];
 $password = password_hash($_POST['pass'], PASSWORD_DEFAULT);
 
 
 // Prepare the UPDATE query with placeholders
-$query = "UPDATE rooms SET room = ?, department = ?, descr = ?, password = ? WHERE id = ?";
+$query = "UPDATE rooms SET room = ?, department = ?, descr = ?, authorized_personnel = ?, password = ? WHERE id = ?";
 
 // Initialize a prepared statement
 $stmt = $db->prepare($query);
 
 if ($stmt) {
     // Bind parameters to the query (s = string, i = integer)
-    $stmt->bind_param("ssssi", $room, $department, $descr, $password, $id);
+    $stmt->bind_param("sssssi", $room, $department, $descr, $role, $password, $id);
 
     // Execute the statement
     if ($stmt->execute()) {
