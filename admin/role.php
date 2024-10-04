@@ -84,6 +84,7 @@ include 'header.php';
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script>
  $('.d_role_id').click(function(){
+    alert('test');
     $id = $(this).attr('data-id');
 var id = $id;
     Swal.fire({
