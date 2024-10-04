@@ -150,7 +150,7 @@ var id = $id;
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Name:</b></label>
                                         <input name="department_name" type="text" id="department_name" class="form-control" autocomplete="off" required>
-                                        <span class="deptname-error" id="deptname-error" style="color:red;font-size:5px;"></span>
+                                        <span class="deptname-error" id="deptname-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
