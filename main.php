@@ -1159,7 +1159,7 @@ var capturedImage =  document.getElementById('capturedImage').value;
         const card = button.parentNode;
         // Remove the card from the DOM
         card.style.display = 'none'; // Hide the card instead of removing it
-        document.getElementById('hiddenId').value = '';
+        document.getElementById('hiddenId').value = null;
 
     }
 </script>

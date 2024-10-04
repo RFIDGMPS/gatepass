@@ -10,8 +10,8 @@
     // Handle the uploaded photo
     $data_uri = $_POST['capturedImage'];
 
-    if($id == ''){
-        echo 'Please choose personnel';
+    if($id == null){
+        echo 'Please choose personnel'.$id;
         exit;
     }
 
@@ -22,7 +22,7 @@
         $encodedData = $matches['data'];
         $decodedData = base64_decode($encodedData);
     } else {
-        echo 'Please capture verification photo'; // Change to echo for error response
+        echo 'Please capture verification photo'.$id; // Change to echo for error response
         exit;
     }
 
