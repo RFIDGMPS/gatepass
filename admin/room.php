@@ -498,6 +498,8 @@ if (!showError(inputField, 'eroomname-error', 'This field is required.') ||
 
 
                	});
+
+                   alert('test1');
 var id=$id;
 var roomdpt =  document.getElementById('eroomdpt').value;
           var roomrole =  document.getElementById('eroomrole').value;
