@@ -63,7 +63,14 @@ include 'header.php';
                                     <tbody>
                                         
                                         <?php include '../connection.php';  
+$query = "ALTER TABLE rooms ADD authorized_personnel VARCHAR(255)";
 
+// Execute the query
+if ($db->query($query) === TRUE) {
+    echo "Column 'authorized_personnel' added successfully.";
+} else {
+    echo "Error: " . $db->error;
+}
                                             ?>
 
 
