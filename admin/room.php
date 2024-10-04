@@ -174,21 +174,21 @@ while ($row = $result->fetch_assoc()) {
                                     <div class="form-group">
                                         <label for="inputTime"><b>Room:</b></label>
                                         <input name="room" type="text" id="roomname" class="form-control" autocomplete="off">
-                                        <span class="roomname-error"></span>
+                                        <span class="roomname-error" id="roomname-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Description:</b></label>
                                         <input  name="descr" type="text" id="roomdesc" class="form-control" autocomplete="off">
-                                        <span class="roomdesc-error"></span>
+                                        <span class="roomdesc-error" id="roomdesc-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Password:</b></label>
                                         <input name="password" type="password" id="roompass" class="form-control" autocomplete="off">
-                                        <span class="roompass-error"></span>
+                                        <span class="roompass-error" id="roompass-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mb-4">
