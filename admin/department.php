@@ -189,10 +189,12 @@ var id = $id;
     else if (inputField.value === '') {
         document.getElementById('deptname-error').innerHTML = 'This field is required.';
         inputField.focus(); // Focus on the input field if it's empty
+         document.getElementById('deptname-desc').innerHTML = ''
     } 
     else if (inputField1.value === '') {
         document.getElementById('deptname-desc').innerHTML = 'This field is required.';
         inputField1.focus(); // Focus on the input field if it's empty
+        document.getElementById('deptname-error').innerHTML = '';
     }
     else {
         document.getElementById('deptname-error').innerHTML = '';
