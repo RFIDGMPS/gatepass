@@ -106,7 +106,7 @@ include 'connection.php';
                         </div>
                         <div >
                         <select class="form-control mb-4" name="roomdpt" id="roomdpt" autocomplete="off" onchange="fetchRooms()">
-                        <option value="">Main</option>
+    <option value="">Select Department</option>
     <?php
     $sql = "SELECT * FROM department";
     $result = $db->query($sql);
@@ -120,15 +120,18 @@ include 'connection.php';
 </select>
 
 <select class="form-control mb-4" name="location" id="location" autocomplete="off">
-    <option value="">Gate</option>
+    <option value="">Select Room</option>
 </select>
-<script>
 
+<script>
 function fetchRooms() {
     var selectedDepartment = document.getElementById('roomdpt').value;
 
-    if (selectedDepartment) {
-        // Create an XMLHttpRequest object
+    // If "Main" is selected, show "Gate"
+    if (selectedDepartment === "Main") {
+        document.getElementById('location').innerHTML = "<option value='Gate'>Gate</option>";
+    } else if (selectedDepartment) {
+        // Create an XMLHttpRequest object for other departments
         var xhr = new XMLHttpRequest();
 
         // Define the callback function to handle the server's response
@@ -142,10 +145,13 @@ function fetchRooms() {
         // Prepare and send the AJAX request
         xhr.open('GET', 'get_rooms.php?department=' + encodeURIComponent(selectedDepartment), true);
         xhr.send();
+    } else {
+        // If no department is selected, clear the location dropdown
+        document.getElementById('location').innerHTML = "<option value=''>Select Room</option>";
     }
 }
-
 </script>
+
 
                         </div>
                        
