@@ -106,9 +106,9 @@ include 'header.php';
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-plus-circle"></i> New Room</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" onclick="resetForm()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <!-- <form method="POST" action="transac.php?action=add_room"> -->
+                        <form id="myForm">
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-dept"></div>
                                 <div class="col-lg-12">
@@ -174,21 +174,21 @@ while ($row = $result->fetch_assoc()) {
                                     <div class="form-group">
                                         <label for="inputTime"><b>Room:</b></label>
                                         <input name="room" type="text" id="roomname" class="form-control" autocomplete="off">
-                                        <span class="deptname-error"></span>
+                                        <span class="roomname-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Description:</b></label>
                                         <input  name="descr" type="text" id="roomdesc" class="form-control" autocomplete="off">
-                                        <span class="deptname-error"></span>
+                                        <span class="roomdesc-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Password:</b></label>
                                         <input name="password" type="password" id="roompass" class="form-control" autocomplete="off">
-                                        <span class="deptname-error"></span>
+                                        <span class="roompass-error"></span>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mb-4">
@@ -210,18 +210,62 @@ while ($row = $result->fetch_assoc()) {
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-outline-warning" id="btn-room">Save</button>
+                                <button type="button" onclick="resetForm()" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-outline-warning" id="btn-room">Save</button>
                             </div>
-                        <!-- </form> -->
+                        </form>
                     </div>
                 </div>
             </div>
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script>
+                 function resetForm() {
+                    document.getElementById('roomname-error').innerHTML = '';
+        document.getElementById('roomdesc-error').innerHTML = '';
+        document.getElementById('roompass-error').innerHTML = '';
+    document.getElementById('myForm').reset();  // Reset all input fields
+}
+
           $('#btn-room').click(function(){
          
-          var roomdpt =  document.getElementById('roomdpt').value;
+
+            var inputField = document.getElementById('roomname');
+    var inputField1 = document.getElementById('roomdesc');
+    var inputField2 = document.getElementById('roompass');
+    
+    // Check if input is empty
+     if(inputField.value === '' && inputField1.value === '' && inputField2.value === '') {
+        document.getElementById('roomname-error').innerHTML = 'This field is required.';
+        inputField.focus(); // Focus on the input field if it's empty
+        document.getElementById('roomdesc-error').innerHTML = 'This field is required.';
+        document.getElementById('roompass-error').innerHTML = 'This field is required.';
+        
+    }
+    else if (inputField.value === '') {
+        document.getElementById('roomname-error').innerHTML = 'This field is required.';
+        inputField.focus(); // Focus on the input field if it's empty
+         document.getElementById('roomdesc-error').innerHTML = '';
+         document.getElementById('roompass-error').innerHTML = '';
+    } 
+    else if (inputField1.value === '') {
+        document.getElementById('roomdesc-error').innerHTML = 'This field is required.';
+        inputField1.focus(); // Focus on the input field if it's empty
+        document.getElementById('roomname-error').innerHTML = '';
+         document.getElementById('roompass-error').innerHTML = '';
+    }
+    else if (inputField2.value === '') {
+        document.getElementById('roompass-error').innerHTML = 'This field is required.';
+        inputField2.focus(); // Focus on the input field if it's empty
+        document.getElementById('roomname-error').innerHTML = '';
+         document.getElementById('roomdesc-error').innerHTML = '';
+    }
+    else {
+        document.getElementById('roomname-error').innerHTML = '';
+        document.getElementById('roomdesc-error').innerHTML = '';
+        document.getElementById('roompass-error').innerHTML = '';
+
+        var roomdpt =  document.getElementById('roomdpt').value;
+          var roomrole =  document.getElementById('roomrole').value;
           var roomname =  document.getElementById('roomname').value;
           var roomdesc =  document.getElementById('roomdesc').value;
           var roompass =  document.getElementById('roompass').value;
@@ -229,7 +273,7 @@ while ($row = $result->fetch_assoc()) {
               $.ajax({
                           type: "POST",
                           url: "transac.php?action=add_room",
-                          data:{roomdpt:roomdpt, roomname:roomname, roomdesc:roomdesc, roompass:roompass},
+                          data:{roomdpt:roomdpt, roomname:roomname, roomdesc:roomdesc, roompass:roompass,roomrole:roomrole},
                           dataType: 'text',
                           success: function(data){
                               if (data.trim() == 'success') {
@@ -250,6 +294,8 @@ while ($row = $result->fetch_assoc()) {
                               }
                           }
           });
+    }
+          
           
           });
           

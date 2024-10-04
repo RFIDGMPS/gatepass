@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($result3->num_rows > 0) {
             $instructor = $result3->fetch_assoc();
             if (password_verify($password1, $room['password'])) {
-                if ($instructor['department'] == $room['department'] && $instructor['status'] == 'Active' && $instructor['role'] == 'Instructor') {
+                if ($instructor['department'] == $room['department'] && $instructor['status'] == 'Active' && $instructor['role'] == $room['authorized_personnel']) {
                     $_SESSION['location'] = $room['room'];
                     $_SESSION['department'] = $room['department'];
                     $_SESSION['descr'] = $room['descr'];

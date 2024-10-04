@@ -176,7 +176,7 @@ var id = $id;
           <script>
             function resetForm() {
                  document.getElementById('deptname-error').innerHTML = '';
-        document.getElementById('deptname-desc').innerHTML = ''
+        document.getElementById('deptname-desc').innerHTML = '';
     document.getElementById('myForm').reset();  // Reset all input fields
 }
           $('#btn-department').click(function(){
@@ -194,7 +194,7 @@ var id = $id;
     else if (inputField.value === '') {
         document.getElementById('deptname-error').innerHTML = 'This field is required.';
         inputField.focus(); // Focus on the input field if it's empty
-         document.getElementById('deptname-desc').innerHTML = ''
+         document.getElementById('deptname-desc').innerHTML = '';
     } 
     else if (inputField1.value === '') {
         document.getElementById('deptname-desc').innerHTML = 'This field is required.';

@@ -108,17 +108,18 @@ switch ($_GET['action'])
                 $room = $_POST['roomname'];
                 $department = $_POST['roomdpt'];
                 $descr = $_POST['roomdesc'];
+                $role = $_POST['roomrole'];
                 $password = password_hash($_POST['roompass'], PASSWORD_DEFAULT);
                 
                 // Prepare the INSERT query with placeholders
-                $query = "INSERT INTO rooms (room, department, password, descr) VALUES (?, ?, ?, ?)";
+                $query = "INSERT INTO rooms (room, authorized_personnel, department, password, descr) VALUES (?, ?, ?, ?, ?)";
                 
                 // Initialize a prepared statement
                 $stmt = $db->prepare($query);
                 
                 if ($stmt) {
                     // Bind parameters to the query (s = string)
-                    $stmt->bind_param("ssss", $room, $department, $password, $descr);
+                    $stmt->bind_param("sssss", $room, $role, $department, $password, $descr);
                 
                     // Execute the statement
                     if ($stmt->execute()) {
@@ -140,21 +141,7 @@ switch ($_GET['action'])
              
                 break;
 
-                 case 'add_room':
-                $room = $_POST['room'];
-                $department = $_POST['department'];
-                $descr = $_POST['descr'];
-                //$desc = $_POST['desc'];
-        
-                $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $query = "INSERT INTO rooms (room, department, password, descr)
-                VALUES ('$room', '$department','$password', '$descr')";
-                mysqli_query($db, $query) or die('Error in updating Database');
-                echo '<script type="text/javascript">
-                alert("Successfully added.");
-                window.location = "room.php";
-        </script>';
-                break;
+                 
 
 
                   case 'add_lost_card':
