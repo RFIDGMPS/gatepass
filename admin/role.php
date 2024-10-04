@@ -83,49 +83,45 @@ include 'header.php';
             </div>
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script>
- $('#d_role_id').click(function(){
+ // Event delegation: Bind click event to a parent element that always exists
+$(document).on('click', '#d_role_id', function(){
     alert('test');
-    $id = $(this).attr('data-id');
-var id = $id;
+    var id = $(this).attr('data-id');  // Corrected variable usage
+
     Swal.fire({
-  title: "Are you sure?",
-  text: "You won't be able to revert this!",
-  icon: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  confirmButtonText: "Yes, delete it!"
-}).then((result) => {
-  if (result.isConfirmed) {
-    $.ajax({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
                 type: "GET",
-                url: "del.php?type=role&id=" + $id;
-                data:{id:id},
+                url: "del.php?type=role&id=" + id,  // Corrected the use of semicolon to a comma
                 dataType: 'text',
                 success: function(data){
                     if (data.trim() == 'success') {
                         Swal.fire({
-      title: "Deleted!",
-      text: "Role has been deleted.",
-      icon: "success"
-
-            }).then(() => {
-                window.location.href = 'role.php'; // Redirect after 1.5 seconds
-            });
+                            title: "Deleted!",
+                            text: "Role has been deleted.",
+                            icon: "success"
+                        }).then(() => {
+                            window.location.href = 'role.php'; // Redirect after success
+                        });
                     } else {
                         Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong! Please try again.'
-        });
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong! Please try again.'
+                        });
                     }
                 }
-});
-
-   
-  }
-});
-
+            });
+        }
+    });
 });
 
 
