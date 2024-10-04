@@ -153,7 +153,7 @@ var id = $id;
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-outline-warning" id="btn-role">Save</button>
+                                <button type="button" class="btn btn-outline-warning" id="btn-role">Save</button>
                             </div>
                         </form>
                     </div>
@@ -269,7 +269,7 @@ if (!showError(inputField, 'role-error', 'This field is required.')) {
                             <h5 class="modal-title"><i class="bi bi-pencil"></i> Edit Role</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="POST"  class="edit-form" role="form" action="">
+                        <!-- <form method="POST"  class="edit-form" role="form" action=""> -->
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-editdept"></div>
                                 <div class="col-lg-12 mb-1">
@@ -287,7 +287,7 @@ if (!showError(inputField, 'role-error', 'This field is required.')) {
                                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-outline-primary" id="btn-editrole">Update</button>
                             </div>
-                        </form>
+                        <!-- </form> -->
                     </div>
                 </div>
             </div>
