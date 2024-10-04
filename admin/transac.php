@@ -121,12 +121,29 @@ $db->close();
         
         case 'add_role':
       
-            $role = $_POST['role'];
             
-            $query = "INSERT INTO role (role)
-            VALUES ('$role')";
-            mysqli_query($db, $query) or die('Error in updating Database');
-            echo 'success';
+            if (isset($_POST['role'])) {
+                $role = $_POST['role'];
+            
+                // Prepare the query
+                $query = "INSERT INTO role (role) VALUES (?)";
+                $stmt = $db->prepare($query);
+            
+                // Bind the role parameter
+                $stmt->bind_param('s', $role);
+            
+                // Execute the query and check for success
+                if ($stmt->execute()) {
+                    echo 'success';
+                } else {
+                    echo 'Error in updating Database: ' . $stmt->error;
+                }
+            
+                // Close the statement
+                $stmt->close();
+            }
+           
+            
           
             break;
             case 'add_room':
