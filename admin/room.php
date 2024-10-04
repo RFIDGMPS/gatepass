@@ -504,7 +504,7 @@ var id=$id;
 
 
 var roomdpt =  document.getElementById('eroomdpt').value;
-alert(roomdpt);
+
           
           var roomrole =  document.getElementById('eroomrole').value;
         

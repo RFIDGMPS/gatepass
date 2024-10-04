@@ -42,16 +42,40 @@ switch ($_GET['action'])
 </script>';
     break;
     case 'add_department':
+// Get the POST data
+$department_name = $_POST['dptname'];
+$department_desc = $_POST['dptdesc'];
 
-        // Get the POST data
-        $department_name = $_POST['dptname'];
-        $department_desc = $_POST['dptdesc'];
-        
-        
+// Prepare a SELECT query to check if the department already exists
+$checkQuery = "SELECT COUNT(*) FROM department WHERE department_name = ?";
+
+// Initialize a prepared statement for the SELECT query
+$stmt = $db->prepare($checkQuery);
+
+if ($stmt) {
+    // Bind the parameter (s = string) to check for department name
+    $stmt->bind_param("s", $department_name);
+    
+    // Execute the statement
+    $stmt->execute();
+    
+    // Bind the result to a variable
+    $stmt->bind_result($count);
+    $stmt->fetch();
+
+    // Close the statement
+    $stmt->close();
+
+    if ($count > 0) {
+        // Department already exists
+        echo "Department already exists.";
+    } else {
+        // If the department does not exist, insert the new record
+
         // Prepare an INSERT query with placeholders
         $query = "INSERT INTO department (department_name, department_desc) VALUES (?, ?)";
         
-        // Initialize a prepared statement
+        // Initialize a prepared statement for the INSERT query
         $stmt = $db->prepare($query);
         
         if ($stmt) {
@@ -72,9 +96,15 @@ switch ($_GET['action'])
             // Handle query preparation error
             echo "Error preparing statement: " . $db->error;
         }
-        
-        // Close the database connection
-        $db->close();
+    }
+} else {
+    // Handle query preparation error for the SELECT query
+    echo "Error preparing SELECT statement: " . $db->error;
+}
+
+// Close the database connection
+$db->close();
+
      
         break;
         case 'add_visitor':
