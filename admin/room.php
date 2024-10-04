@@ -108,13 +108,13 @@ include 'header.php';
                             <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-plus-circle"></i> New Room</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="POST" action="transac.php?action=add_room">
+                        <!-- <form method="POST" action="transac.php?action=add_room"> -->
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-dept"></div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department: </b></label>
-                                        <select  class="form-control" name="department" id="department" autocomplete="off">
+                                        <select  class="form-control" name="department" id="roomdpt" autocomplete="off">
               
 				
 <?php
@@ -143,21 +143,21 @@ while ($row = $result->fetch_assoc()) {
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Room:</b></label>
-                                        <input name="room" type="text" id="room" class="form-control" autocomplete="off">
+                                        <input name="room" type="text" id="roomname" class="form-control" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Description:</b></label>
-                                        <input  name="descr" type="text" id="desc" class="form-control" autocomplete="off">
+                                        <input  name="descr" type="text" id="roomdesc" class="form-control" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mb-1">
                                     <div class="form-group">
                                         <label for="inputTime"><b>Password:</b></label>
-                                        <input name="password" type="password" id="password" class="form-control" autocomplete="off">
+                                        <input name="password" type="password" id="roompass" class="form-control" autocomplete="off">
                                         <span class="deptname-error"></span>
                                     </div>
                                 </div>
@@ -181,12 +181,54 @@ while ($row = $result->fetch_assoc()) {
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-outline-warning" id="btn-department">Save</button>
+                                <button type="submit" class="btn btn-outline-warning" id="btn-room">Save</button>
                             </div>
-                        </form>
+                        <!-- </form> -->
                     </div>
                 </div>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+          $('#btn-room').click(function(){
+         
+          var roomdpt =  document.getElementById('roomdpt').value;
+          var roomname =  document.getElementById('roomname').value;
+          var roomdesc =  document.getElementById('roomdesc').value;
+          var roompass =  document.getElementById('roompass').value;
+          
+              $.ajax({
+                          type: "POST",
+                          url: "transac.php?action=add_room",
+                          data:{roomdpt:roomdpt, roomname:roomname, roomdesc:roomdesc, roompass:roompass},
+                          dataType: 'text',
+                          success: function(data){
+                              if (data.trim() == 'success') {
+                                  Swal.fire({
+                          icon: 'success',
+                          title: 'Sucessfully Added.',
+                          showConfirmButton: false,
+                          timer: 1500
+                      }).then(() => {
+                          window.location.href = 'room.php'; // Redirect after 1.5 seconds
+                      });
+                              } else {
+                                  Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'Something went wrong! Please try again.'
+                  });
+                              }
+                          }
+          });
+          
+          });
+          
+          
+          
+          
+          </script>
+
+
             <script type="text/javascript">
          $(document).ready(function() {
          	$("#myDataTable").DataTable();
@@ -296,7 +338,7 @@ while ($row = $result->fetch_assoc()) {
                     </div>
                 </div>
             </div>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            
           
           <script>
           $('#btn-editdepartment').click(function(){

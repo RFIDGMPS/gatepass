@@ -88,23 +88,7 @@ switch ($_GET['action'])
             window.location = "visitor.php";
     </script>';
             break;
-        case 'add_visitor_log':
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
         
-        break;
         case 'add_role':
       
             $role = $_POST['role1'];
@@ -119,19 +103,41 @@ switch ($_GET['action'])
           
             break;
             case 'add_room':
-                $room = $_POST['room'];
-                $department = $_POST['department'];
-                $descr = $_POST['descr'];
-                //$desc = $_POST['desc'];
-        
-                $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $query = "INSERT INTO rooms (room, department, password, descr)
-                VALUES ('$room', '$department','$password', '$descr')";
-                mysqli_query($db, $query) or die('Error in updating Database');
-                echo '<script type="text/javascript">
-                alert("Successfully added.");
-                window.location = "room.php";
-        </script>';
+           
+                // Get POST data
+                $room = $_POST['roomname'];
+                $department = $_POST['roomdpt'];
+                $descr = $_POST['roomdesc'];
+                $password = password_hash($_POST['roompass'], PASSWORD_DEFAULT);
+                
+                // Prepare the INSERT query with placeholders
+                $query = "INSERT INTO rooms (room, department, password, descr) VALUES (?, ?, ?, ?)";
+                
+                // Initialize a prepared statement
+                $stmt = $db->prepare($query);
+                
+                if ($stmt) {
+                    // Bind parameters to the query (s = string)
+                    $stmt->bind_param("ssss", $room, $department, $password, $descr);
+                
+                    // Execute the statement
+                    if ($stmt->execute()) {
+                        echo 'success';
+                    } else {
+                        // Handle execution error
+                        echo "Error: " . $stmt->error;
+                    }
+                
+                    // Close the statement
+                    $stmt->close();
+                } else {
+                    // Handle query preparation error
+                    echo "Error preparing statement: " . $db->error;
+                }
+                
+                // Close the database connection
+                $db->close();
+             
                 break;
 
                  case 'add_room':
