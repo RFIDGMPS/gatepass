@@ -150,7 +150,7 @@ var id = $id;
                                     <div class="form-group">
                                         <label for="inputTime"><b>Department Name:</b></label>
                                         <input name="department_name" type="text" id="department_name" class="form-control" autocomplete="off" required>
-                                        <span class="deptname-error"></span>
+                                        <span class="deptname-error" id="deptname-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -175,8 +175,15 @@ var id = $id;
 
           <script>
           $('#btn-department').click(function(){
-         
-          var dptname =  document.getElementById('department_name').value;
+          
+    var inputField = document.getElementById('department_name');
+    
+    // Check if input is empty
+    if (inputField.value === '') {
+        document.getElementById('deptname-error').innerHTML = 'This field is required.';
+        inputField.focus(); // Focus on the input field if it's empty
+    } else {
+        var dptname =  document.getElementById('department_name').value;
           var dptdesc =  document.getElementById('department_description').value;
           
               $.ajax({
@@ -203,6 +210,9 @@ var id = $id;
                               }
                           }
           });
+    }
+
+          
           
           });
           
