@@ -266,6 +266,13 @@ if (!showError(inputField, 'roomname-error', 'This field is required.') ||
           var roomdesc =  document.getElementById('roomdesc').value;
           var roompass =  document.getElementById('roompass').value;
           
+alert(roomdpt);
+alert(roomrole);
+alert(roomname);
+alert(roomdesc);
+alert(roompass);
+
+
               $.ajax({
                           type: "POST",
                           url: "transac.php?action=add_room",
