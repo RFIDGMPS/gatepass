@@ -304,38 +304,33 @@ document.getElementById('rfid_number').addEventListener('input', function (e) {
 </script>
             <script>
 $('#btn-editvisitor').click(function(){
-    event.preventDefault(); // Prevent the default form submission
-    validateForm(); // Call the validation function
     var inputField = document.getElementById('erfid_number');
 
 // Function to handle error display
-function showError(input, errorId, requiredMessage, lengthMessage) {
-    // Check for empty input
+function showError(input, errorId, message) {
     if (input.value === '') {
-        document.getElementById(errorId).innerHTML = requiredMessage;
+        document.getElementById(errorId).innerHTML = message;
         input.focus();
         return false;
-    } 
-    // Check for exactly 10 digits
-    else if (input.value.length !== 10) {
+    }    else if (input.value.length !== 10) {
         document.getElementById(errorId).innerHTML = lengthMessage;
         input.focus();
         return false;
-    } else {
+    }else {
         document.getElementById(errorId).innerHTML = '';
         return true;
     }
 }
 
-// Check inputs on form submission or relevant event
-function validateForm() {
-    if (!showError(inputField, 'evisitor-error', 'This field is required.', 'Enter exactly 10 digits.')) {
-        // Prevent submission or continue handling as necessary
-        return;
-    } else {
-        // Clear error messages if validation passes
-        document.getElementById('evisitor-error').innerHTML = '';
-       
+// Check inputs
+if (!showError(inputField, 'evisitor-error', 'This field is required.','Enter 10 digits.')) {
+    // Prevent submission or continue handling as necessary
+    return;
+} else {
+    // Clear error messages if validation passes
+    document.getElementById('evisitor-error').innerHTML = '';
+
+
         var rfid_number =  document.getElementById('erfid_number').value;
     
 
@@ -371,14 +366,6 @@ function validateForm() {
                 }
 });
     }
-}
-
-
-
-
-
-
-    
 
 
 
