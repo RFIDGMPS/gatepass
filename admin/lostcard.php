@@ -50,7 +50,8 @@ include 'header.php';
                                 <table class="table table-border" id="myDataTable">
                                     <thead>
                                         <tr>
-                                        <th scope="col" style="width: 150px;">Action</th>
+                                        <th scope="col">Action</th>
+                                        <th></th>
                                             <th scope="col">Photo</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">RFID Number</th>
