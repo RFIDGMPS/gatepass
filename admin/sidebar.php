@@ -37,9 +37,6 @@ if ($result1->num_rows > 0) {
     $row = $result1->fetch_assoc();
     $username = $row['username'];
 } 
-
-
-
 ?>
 <div class="sidebar pe-4 pb-3" style="background-color: #fcaf42">
     <nav class="navbar navbar-light">
@@ -115,7 +112,6 @@ $new_lost_cards = 0;
 if ($row1 = $result3->fetch_assoc()) {
     $new_lost_cards = $row1['new_lost_cards'];
 }
-
     if ($new_lost_cards > 0): ?>
         <span class="badge"><?php echo $new_lost_cards; ?></span>
     <?php endif; ?>
