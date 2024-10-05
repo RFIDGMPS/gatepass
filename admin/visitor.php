@@ -181,6 +181,64 @@ function validateRFID() {
         errorDiv.innerHTML = 'Enter exactly 10 digits.';
     } else {
         errorDiv.innerHTML = ''; // Clear the error if the input is valid
+
+        $('#btn-visitor').click(function(){
+          
+          var inputField = document.getElementById('rfid_number');
+
+// Function to handle error display
+function showError(input, errorId, message) {
+  if (input.value === '') {
+      document.getElementById(errorId).innerHTML = message;
+      input.focus();
+      return false;
+  } else {
+      document.getElementById(errorId).innerHTML = '';
+      return true;
+  }
+}
+
+// Check inputs
+if (!showError(inputField, 'visitor-error', 'This field is required.')) {
+  // Prevent submission or continue handling as necessary
+  return;
+} else {
+  // Clear error messages if validation passes
+  document.getElementById('visitor-error').innerHTML = '';
+
+
+      var rfid_number =  document.getElementById('rfid_number').value;
+        
+            $.ajax({
+                        type: "POST",
+                        url: "transac.php?action=add_visitor",
+                        data:{rfid_number:rfid_number},
+                        dataType: 'text',
+                        success: function(data){
+                            if (data.trim() == 'success') {
+                                Swal.fire({
+                        icon: 'success',
+                        title: 'Sucessfully Added.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        window.location.href = 'visitor.php'; // Redirect after 1.5 seconds
+                    });
+                            } else {
+                                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data
+                });
+                            }
+                        }
+        });
+  }
+
+        
+        
+        });
+        
     }
 }
 </script>
@@ -191,62 +249,6 @@ function validateRFID() {
                  document.getElementById('evisitor-error').innerHTML = '';
     document.getElementById('myForm').reset();  // Reset all input fields
 }
-          $('#btn-visitor').click(function(){
-          
-            var inputField = document.getElementById('rfid_number');
-
-// Function to handle error display
-function showError(input, errorId, message) {
-    if (input.value === '') {
-        document.getElementById(errorId).innerHTML = message;
-        input.focus();
-        return false;
-    } else {
-        document.getElementById(errorId).innerHTML = '';
-        return true;
-    }
-}
-
-// Check inputs
-if (!showError(inputField, 'visitor-error', 'This field is required.')) {
-    // Prevent submission or continue handling as necessary
-    return;
-} else {
-    // Clear error messages if validation passes
-    document.getElementById('visitor-error').innerHTML = '';
-
-
-        var rfid_number =  document.getElementById('rfid_number').value;
-          
-              $.ajax({
-                          type: "POST",
-                          url: "transac.php?action=add_visitor",
-                          data:{rfid_number:rfid_number},
-                          dataType: 'text',
-                          success: function(data){
-                              if (data.trim() == 'success') {
-                                  Swal.fire({
-                          icon: 'success',
-                          title: 'Sucessfully Added.',
-                          showConfirmButton: false,
-                          timer: 1500
-                      }).then(() => {
-                          window.location.href = 'visitor.php'; // Redirect after 1.5 seconds
-                      });
-                              } else {
-                                  Swal.fire({
-                      icon: 'error',
-                      title: 'Oops...',
-                      text: data
-                  });
-                              }
-                          }
-          });
-    }
-
-          
-          
-          });
           
           
           
