@@ -55,9 +55,10 @@ include '../connection.php';
                                     <th scope="col">Photo</th>
                                     <th scope="col">RFID Number</th>
                                     <th scope="col">Full Name</th>
+                                    <th scope="col">Department</th>
                                     <th scope="col">Role</th>
                                     <th scope="col">Category</th>
-                                    <th scope="col">Department</th>
+                                   
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                  </tr>
@@ -88,9 +89,10 @@ include '../connection.php';
                                     </td>
                                     <td class="rfid"><?php echo $row['rfid_number']; ?></td>
                                     <td><?php echo $row['first_name'] .' '.$row['last_name']; ?></td>
+                                    <td><?php echo $row['department']; ?></td>
                                     <td><?php echo $row['role']; ?></td>
                                     <td><?php echo $row['category']; ?></td>
-                                    <td><?php echo $row['department']; ?></td>
+                                  
                                     <td><?php if ($row['status'] == 'Active') {
 											echo '<span class="badge bg-success">Active</span>';
 									} 
