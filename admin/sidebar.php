@@ -17,7 +17,17 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <?php
 include '../connection.php';
 
+// Query to get the count of lost cards requested today
+$query = "SELECT COUNT(*) AS new_lost_cards FROM lost_card WHERE DATE(date_requested) = CURRENT_DATE()";
+$result = $db->query($query);
+$new_lost_cards = 0;
 
+if ($result && $row = $result->fetch_assoc()) {
+    $new_lost_cards = $row['new_lost_cards'];
+} else {
+    // Handle query error
+    echo "Error in fetching the count: " . $db->error;
+}
 
 $logo1 = "";
 // Fetch data from the about table
