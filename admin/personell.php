@@ -218,58 +218,49 @@ include '../connection.php';
                                        </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
-   <div class="form-group">
-      <label>ROLE:</label>
-      <select required class="form-control dept_ID" name="role" id="role" autocomplete="off" onchange="checkRole()">
-         <?php
-         $sql = "SELECT * FROM role";
-         $result = $db->query($sql);
+                                       <div class="form-group">
+                                          <label>ROLE:</label>
+                                          <select required class="form-control dept_ID" name="role" id="role" autocomplete="off">
+                                            
+                                             <?php
+										  $sql = "SELECT * FROM role";
+$result = $db->query($sql);
 
-         // Fetch and store role options
-         while ($row = $result->fetch_assoc()) {
-             $role = $row['role'];
-             echo "<option value='$role'>$role</option>";
-         }
-         ?>
-      </select>
-      <span class="pob-error"></span>
-   </div>
-</div>
+// Initialize an array to store department options
+$role_options = [];
 
-<!-- Section to toggle between ID Number or Category -->
-<div class="col-lg-5 col-md-6 col-sm-12" id="dynamic-field">
-   <div class="form-group">
-      <label id="dynamic-label"></label>
-      <input required type="text" class="form-control" name="id_no" id="id_no" style="display:none;" autocomplete="off">
-      <select required class="form-control" name="category" id="category" style="display:none;" autocomplete="off">
-         <option value="Regular">Regular</option>
-         <option value="Contractual">Contractual</option>
-      </select>
-      <span class="id-error"></span>
-   </div>
-</div>
-
-<script>// Function to check the selected role and toggle input fields accordingly
-function checkRole() {
-    var role = document.getElementById('role').value;
-    var dynamicLabel = document.getElementById('dynamic-label');
-    var idInput = document.getElementById('id_no');
-    var categorySelect = document.getElementById('category');
-
-    if (role === 'Student') {
-        dynamicLabel.innerHTML = "ID Number:";
-        idInput.style.display = "block";   // Show the ID Number input field
-        categorySelect.style.display = "none";  // Hide the Category dropdown
-    } else {
-        dynamicLabel.innerHTML = "Category:";
-        idInput.style.display = "none";    // Hide the ID Number input field
-        categorySelect.style.display = "block"; // Show the Category dropdown
+// Fetch and store department options
+while ($row = $result->fetch_assoc()) {
+    $id = $row['id'];
+    $role = $row['role'];
+    $role_options[] = "<option value='$role'>$role</option>";
+}?>
+                          <?php
+    // Output department options
+    foreach ($role_options as $option) {
+        echo $option;
     }
-}
-
-// Call checkRole function on page load to set the default view based on the current role
-window.onload = checkRole;
-</script>
+    ?>    
+                                            
+                                          </select>
+                                          <span class="pob-error"></span>
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-5 col-md-6 col-sm-12" id="lnamez">
+                                       <div class="form-group">
+                                      
+                                          <label>Category:</label>
+                                          <select required class="form-control" name="category" id="category" autocomplete="off">
+                                             <option value="Regular">Regular</option>
+                                             <option value="Contractual">Contractual</option>
+                                             <option value="Contractual">Student</option>
+                                          </select>
+                                         
+                                          <span class="id-error"></span>
+                                       </div>
+                                    </div>
+                                    
+                                 </div>
                                  <div class="row mb-3 mt-1">
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                        <div class="form-group">
