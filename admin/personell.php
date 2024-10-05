@@ -246,26 +246,17 @@ while ($row = $result->fetch_assoc()) {
                                           <span class="pob-error"></span>
                                        </div>
                                     </div>
-                                    <div class="col-lg-5 col-md-6 col-sm-12" id="lnamez">
-                                       <div class="form-group">
-                                          <?php
-                                          $role = document.getElementById('role').value;
-                                          if($role === 'Student') {?>
-                                          <label>ID Number:</label>
-                                          <input required type="text" class="form-control" name="id_no" id="id_no" autocomplete="off">
-                                          <?php }
-                                          else {?>
-                                          <label>Category:</label>
-                                          <select required class="form-control" name="category" id="category" autocomplete="off">
-                                             <option value="Regular">Regular</option>
-                                             <option value="Contractual">Contractual</option>
-                                          </select>
-                                          <?php }?>
-                                          <span class="id-error"></span>
-                                       </div>
-                                    </div>
-                                    
-                                 </div>
+                                    <div class="col-lg-5 col-md-6 col-sm-12" id="dynamic-field">
+   <div class="form-group">
+      <label id="dynamic-label"></label>
+      <input required type="text" class="form-control" name="id_no" id="id_no" style="display:none;" autocomplete="off">
+      <select required class="form-control" name="category" id="category" style="display:none;" autocomplete="off">
+         <option value="Regular">Regular</option>
+         <option value="Contractual">Contractual</option>
+      </select>
+      <span class="id-error"></span>
+   </div>
+</div>
                                  <div class="row mb-3 mt-1">
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                        <div class="form-group">
