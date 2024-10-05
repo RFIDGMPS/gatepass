@@ -144,7 +144,7 @@ if ($result->num_rows > 0) {
             echo "<span class='badge bg-danger'>Blocked</span>";
         }
 
-        echo ' <td>" . $relativeTime . "</td>';
+        echo "<td>" . $relativeTime . "</td>";
     
     }
     
