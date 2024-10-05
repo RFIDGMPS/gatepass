@@ -64,11 +64,18 @@ include 'header.php';
 include 'connection.php';
 
 // SQL query to join the 'personell' and 'lostcard' tables
-$sql = "SELECT personell.id, CONCAT(personell.first_name, ' ', personell.last_name) AS full_name, 
-               personell.department, personell.photo, personell.rfid_number,
-               lostcard.date_requested, lostcard.verification_photo, lostcard.status
-        FROM personell
-        JOIN lostcard ON personell.id = lostcard.personnel_id";
+$sql = "SELECT personell.id, 
+       CONCAT(personell.first_name, ' ', personell.last_name) AS full_name, 
+       personell.department, 
+       personell.photo, 
+       personell.rfid_number, 
+       lostcard.date_requested, 
+       lostcard.verification_photo, 
+       lostcard.status
+FROM personell
+JOIN lostcard ON personell.id = lostcard.personnel_id
+ORDER BY lostcard.id DESC;
+";
 
 $result = $db->query($sql);
 
