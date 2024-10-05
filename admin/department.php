@@ -59,7 +59,7 @@ include 'header.php';
                                     <tbody>
                                         
                                         <?php include '../connection.php'; ?>
-                                 <?php $results = mysqli_query($db, "SELECT * FROM department ORDER BY id DESC"); ?>
+                                 <?php $results = mysqli_query($db, "SELECT * FROM department ORDER BY department_id DESC"); ?>
                                  <?php while ($row = mysqli_fetch_array($results)) { ?>
                                     <tr  class="table-<?php echo $row['department_id'];?>">
                                             <td><?php echo $row['department_name']; ?></td>
