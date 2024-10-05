@@ -89,7 +89,7 @@ include '../connection.php';
                                     <td class="rfid"><?php echo $row['rfid_number']; ?></td>
                                     <td><?php echo $row['first_name'] .' '.$row['last_name']; ?></td>
                                     <td><?php echo $row['role']; ?></td>
-                                    <td><?php echo $row['contact_number']; ?></td>
+                                    <td><?php echo $row['category']; ?></td>
                                     <td><?php echo $row['department']; ?></td>
                                     <td><?php if ($row['status'] == 'Active') {
 											echo '<span class="badge bg-success">Active</span>';
@@ -310,12 +310,7 @@ include '../connection.php';
                                           <span class="stat-error"></span>
                                        </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-12">
-                                       <div class="form-group">
-                                          <label>CONTACT NUMBER:</label>
-                                          <input type="text" class="form-control" name="contact_number" id="contact_number" placeholder="Optional" minlength="11" maxlength="11" autocomplete="off">
-                                       </div>
-                                    </div>
+                                  
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                        <div class="form-group">
                                           <label>EMAIL ADDRESS:</label>

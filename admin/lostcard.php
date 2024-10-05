@@ -63,13 +63,7 @@ include 'header.php';
 
                                         <?php
 include 'connection.php';
-$sql = "ALTER TABLE personell ADD COLUMN category VARCHAR(255)";
 
-if ($db->query($sql) === TRUE) {
-    echo "Column 'category' added successfully to the 'personell' table.";
-} else {
-    echo "Error adding column: " . $db->error;
-}
 // SQL query to join the 'personell' and 'lostcard' tables
 $sql = "SELECT personell.id, 
        CONCAT(personell.first_name, ' ', personell.last_name) AS full_name, 
