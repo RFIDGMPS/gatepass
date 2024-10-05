@@ -246,7 +246,7 @@ while ($row = $result->fetch_assoc()) {
                                           <span class="pob-error"></span>
                                        </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-12" id="lnamez">
+                                    <div class="col-lg-5 col-md-6 col-sm-12" id="lnamez">
                                        <div class="form-group">
                                           <label>ID Number:</label>
                                           <input required type="text" class="form-control" name="id_no" id="id_no" autocomplete="off">
@@ -376,7 +376,7 @@ while ($row = $result->fetch_assoc()) {
                                           <span class="dprt-error"></span>
                                        </div>
                                     </div>
-                                    <div class="col-lg-5 col-md-6 col-sm-12">
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                        <div class="form-group">
                                           <label>RFID NUMBER:</label>
                                           <input required type="text" class="form-control" name="rfid_number" id="rfid_number" minlength="10" maxlength="10" autocomplete="off">
