@@ -1,14 +1,14 @@
 <style>
     .badge1 {
-        background-color: red;
-        color: white;
-  
-        border-radius: 50%;
-        font-size: 10px;
-        position: relative;
-      
-        left: 30px;
-    }
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    position: absolute; /* Change from relative to absolute */
+    top: 50%;
+    left: 20px; /* Adjust the left positioning */
+    transform: translateY(-50%); /* Center vertically */
+}
 </style>
 
 <?php
