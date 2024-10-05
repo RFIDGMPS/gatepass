@@ -19,7 +19,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 include '../connection.php';
 
 // Query to get the count of lost cards requested today
-$query = "SELECT COUNT(*) AS new_lost_cards FROM lostcard WHERE DATE(date_requested) = CURRENT_DATE()";
+$query = "SELECT COUNT(*) AS new_lost_cards FROM lostcard WHERE DATE(date_requested) = CURRENT_DATE() AND status = 0";
 $result = $db->query($query);
 $new_lost_cards = 0;
 
