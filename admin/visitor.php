@@ -142,7 +142,20 @@ $(document).on('click', '.d_visitor_id', function(){
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="inputTime"><b>RFID Number: </b></label>
-                                        <input name="rfid_number" type="text" id="rfid_number" class="form-control" autocomplete="off" minlength="10" maxlength="10">
+                                        <input 
+    name="rfid_number" 
+    type="text" 
+    id="rfid_number" 
+    class="form-control" 
+    autocomplete="off" 
+    minlength="10" 
+    maxlength="10"
+    oninput="validateRFID()" 
+    onblur="validateRFID()" 
+    pattern="\d{10}" 
+    title="Enter exactly 10 digits" 
+    required
+>
                                         <span class="visitor-error" id="visitor-error" style="color:red;font-size:10px;"></span>
                                     </div>
                                 </div>
@@ -156,7 +169,23 @@ $(document).on('click', '.d_visitor_id', function(){
                     </div>
                 </div>
             </div>
+
             <script>
+// Function to validate RFID input length
+function validateRFID() {
+    var inputField = document.getElementById('rfid_number');
+    var errorDiv = document.getElementById('visitor-error');
+    
+    // Check if the length of the value is less than 10
+    if (inputField.value.length < 10) {
+        errorDiv.innerHTML = 'Enter exactly 10 digits.';
+    } else {
+        errorDiv.innerHTML = ''; // Clear the error if the input is valid
+    }
+}
+</script>
+            <script>
+                
             function resetForm() {
                  document.getElementById('visitor-error').innerHTML = '';
                  document.getElementById('evisitor-error').innerHTML = '';
