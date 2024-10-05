@@ -51,7 +51,7 @@ include 'header.php';
                                     <thead>
                                         <tr>
                                         <th scope="col">Action</th>
-                                        <th></th>
+                                     
                                             <th scope="col">Photo</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">RFID Number</th>
