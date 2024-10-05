@@ -53,6 +53,7 @@ include 'header.php';
                                 <table class="table table-border" id="myDataTable">
                                     <thead>
                                         <tr>
+                                        <th scope="col" >ID</th>
                                             <th scope="col" >Department</th>
                                             <th scope="col" >Authorized Role</th>
                                             <th scope="col">Room</th>
@@ -74,6 +75,7 @@ include 'header.php';
                                  <?php $results = mysqli_query($db, "SELECT * FROM rooms ORDER BY id DESC"); ?>
                                  <?php while ($row = mysqli_fetch_array($results)) { ?>
                                     <tr  class="table-<?php echo $row['id'];?>">
+                                    <td><?php echo $row['id']; ?></td>
                                     <td class="department"><?php echo $row['department']; ?></td>
                                     <td><?php echo $row['authorized_personnel']; ?></td>
                                             <td><?php echo $row['room']; ?></td>
