@@ -218,49 +218,63 @@ include '../connection.php';
                                        </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
-                                       <div class="form-group">
-                                          <label>ROLE:</label>
-                                          <select required class="form-control dept_ID" name="role" id="role" autocomplete="off">
-                                            
-                                             <?php
-										  $sql = "SELECT * FROM role";
-$result = $db->query($sql);
+    <div class="form-group">
+        <label>ROLE:</label>
+        <select required class="form-control dept_ID" name="role" id="role" autocomplete="off" onchange="updateCategory()">
+            <?php
+                $sql = "SELECT * FROM role";
+                $result = $db->query($sql);
 
-// Initialize an array to store department options
-$role_options = [];
+                // Fetch and display role options
+                while ($row = $result->fetch_assoc()) {
+                    $role = $row['role'];
+                    echo "<option value='$role'>$role</option>";
+                }
+            ?>
+        </select>
+        <span class="pob-error"></span>
+    </div>
+</div>
 
-// Fetch and store department options
-while ($row = $result->fetch_assoc()) {
-    $id = $row['id'];
-    $role = $row['role'];
-    $role_options[] = "<option value='$role'>$role</option>";
-}?>
-                          <?php
-    // Output department options
-    foreach ($role_options as $option) {
-        echo $option;
+<div class="col-lg-5 col-md-6 col-sm-12" id="lnamez">
+    <div class="form-group">
+        <label>Category:</label>
+        <select required class="form-control" name="category" id="category" autocomplete="off">
+            <!-- Category options will be populated by JavaScript -->
+        </select>
+        <span class="id-error"></span>
+    </div>
+</div>
+
+<script>
+function updateCategory() {
+    var role = document.getElementById('role').value;
+    var categorySelect = document.getElementById('category');
+    
+    // Clear the existing options
+    categorySelect.innerHTML = '';
+
+    if (role === 'Student') {
+        // If the role is 'Student', show 'Student' only in category
+        var option = document.createElement('option');
+        option.value = 'Student';
+        option.text = 'Student';
+        categorySelect.appendChild(option);
+    } else {
+        // If the role is not 'Student', show 'Regular' and 'Contractual'
+        var option1 = document.createElement('option');
+        option1.value = 'Regular';
+        option1.text = 'Regular';
+        categorySelect.appendChild(option1);
+
+        var option2 = document.createElement('option');
+        option2.value = 'Contractual';
+        option2.text = 'Contractual';
+        categorySelect.appendChild(option2);
     }
-    ?>    
-                                            
-                                          </select>
-                                          <span class="pob-error"></span>
-                                       </div>
-                                    </div>
-                                    <div class="col-lg-5 col-md-6 col-sm-12" id="lnamez">
-                                       <div class="form-group">
-                                      
-                                          <label>Category:</label>
-                                          <select required class="form-control" name="category" id="category" autocomplete="off">
-                                             <option value="Regular">Regular</option>
-                                             <option value="Contractual">Contractual</option>
-                                             <option value="Contractual">Student</option>
-                                          </select>
-                                         
-                                          <span class="id-error"></span>
-                                       </div>
-                                    </div>
-                                    
-                                 </div>
+}
+</script>
+
                                  <div class="row mb-3 mt-1">
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                        <div class="form-group">
