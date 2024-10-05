@@ -228,7 +228,13 @@ include '../connection.php';
                 // Fetch and display role options
                 while ($row = $result->fetch_assoc()) {
                     $role = $row['role'];
-                    echo "<option value='$role'>$role</option>";
+                    
+                    // Set 'Student' as the default selected option
+                    if ($role === 'Student') {
+                        echo "<option value='$role' selected>$role</option>";
+                    } else {
+                        echo "<option value='$role'>$role</option>";
+                    }
                 }
             ?>
         </select>
@@ -247,6 +253,11 @@ include '../connection.php';
 </div>
 
 <script>
+// Ensure the 'Student' role is preselected and categories updated accordingly
+document.addEventListener('DOMContentLoaded', function () {
+    updateCategory(); // Initialize category based on the default selected role
+});
+
 function updateCategory() {
     var role = document.getElementById('role').value;
     var categorySelect = document.getElementById('category');
