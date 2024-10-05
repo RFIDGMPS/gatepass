@@ -1,7 +1,8 @@
 <?php
 // Query to count new lost cards
 include 'connection.php';
-$query = "SELECT COUNT(*) AS new_lost_cards FROM lost_card WHERE status = 'new'";
+
+$query = "SELECT COUNT(*) AS new_lost_cards FROM lost_card WHERE date_requested = CURRENT_DATE()";
 $result = $db->query($query);
 $new_lost_cards = 0;
 
