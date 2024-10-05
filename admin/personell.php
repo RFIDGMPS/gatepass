@@ -221,7 +221,7 @@ include '../connection.php';
                                        <div class="form-group">
                                           <label>ROLE:</label>
                                           <select required class="form-control dept_ID" name="role" id="role" autocomplete="off">
-                                             <option value="">&larr; Select Role &rarr;</option>
+                                            
                                              <?php
 										  $sql = "SELECT * FROM role";
 $result = $db->query($sql);
@@ -312,7 +312,7 @@ while ($row = $result->fetch_assoc()) {
                                        <div class="form-group">
                                           <label>SEX:</label>
                                           <select required class="form-control dept_ID" name="sex" id="sex_id" autocomplete="off">
-                                             <option value="">&larr; Select Section &rarr;</option>
+                                            
                                              <option value="Male">Male</option>
                                              <option value="Female">Female</option>
                                           </select>
@@ -325,7 +325,7 @@ while ($row = $result->fetch_assoc()) {
                                        <div class="form-group">
                                           <label>CIVIL STATUS:</label>
                                           <select required class="form-control dept_ID" name="stat" id="stat_id" autocomplete="off">
-                                             <option value="">&larr; Select Status &rarr;</option>
+                                        
                                              <option value="Single">Single</option>
                                              <option value="Married">Married</option>
                                              <option value="Widowed">Widowed</option>
@@ -351,7 +351,7 @@ while ($row = $result->fetch_assoc()) {
                                        <div class="form-group">
                                           <label>DEPARTMENT:</label>
                                           <select required class="form-control" name="department" id="department" autocomplete="off">
-										  <option value="">&larr; Select Department &rarr;</option>
+										
 <?php
 										  $sql = "SELECT * FROM department";
 $result = $db->query($sql);
