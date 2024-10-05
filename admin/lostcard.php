@@ -110,7 +110,7 @@ if ($result->num_rows > 0) {
         $relativeTime = timeAgo($row['date_requested']);
         echo "<tr>
                 <td width='14%'>
-                    <center>";
+                ";
     
         if ($row['status'] == 0) {
             // Block button
@@ -135,7 +135,7 @@ if ($result->num_rows > 0) {
             echo "<span class='badge bg-danger'>Blocked</span>";
         }
     
-        echo "</center></td>
+        echo "</td>
               <td><img src='uploads/" . $row['photo'] . "' width='50' height='50'> 
                   <img src='uploads/" . $row['verification_photo'] . "' width='50' height='50'></td>
               <td>" . $row['full_name'] . "</td>
