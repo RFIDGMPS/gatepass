@@ -50,7 +50,7 @@ include 'header.php';
                                 <table class="table table-border" id="myDataTable">
                                     <thead>
                                         <tr>
-                                        <th scope="col" style="width:20%;">Action</th>
+                                        <th scope="col" style="display:flex;">Action</th>
                                      
                                             <th scope="col">Photo</th>
                                             <th scope="col">Name</th>
