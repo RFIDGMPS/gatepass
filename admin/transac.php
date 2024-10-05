@@ -113,6 +113,12 @@ $db->close();
             if (isset($_POST['rfid_number'])) {
                 $rfid_number = $_POST['rfid_number'];
             
+                // Check if the RFID number is exactly 10 digits
+                if (strlen($rfid_number) !== 10 || !ctype_digit($rfid_number)) {
+                    echo 'RFID number must be exactly 10 digits.';
+                    return;
+                }
+            
                 // Prepare the query to check if the RFID number already exists
                 $checkQuery = "SELECT * FROM visitor WHERE rfid_number = ?";
                 $checkStmt = $db->prepare($checkQuery);
@@ -122,7 +128,7 @@ $db->close();
             
                 // Check if the RFID number already exists
                 if ($checkResult->num_rows > 0) {
-                    echo 'RFID number already exist.';
+                    echo 'RFID number already exists.';
                 } else {
                     // Prepare the insert query
                     $insertQuery = "INSERT INTO visitor (rfid_number) VALUES (?)";
