@@ -121,16 +121,14 @@ if ($result->num_rows > 0) {
                     <button type='submit' class='btn btn-outline-primary btn-sm btn-edit'>
                         <i class='bi bi-plus-edit'></i> Block
                     </button>
-                  </form>";
-    
-            // Delete button
-            echo "<form method='POST' action='update_status.php'>
-                    <input type='hidden' name='action' value='delete'>
+                     <input type='hidden' name='action' value='delete'>
                     <input type='hidden' name='personnel_id' value='" . $row['id'] . "'>
                     <button type='submit' class='btn btn-outline-danger btn-sm btn-del'>
                         <i class='bi bi-plus-trash'></i> Delete
                     </button>
                   </form>";
+    
+          
         } else {
             echo "<span class='badge bg-danger'>Blocked</span>";
         }
