@@ -217,6 +217,35 @@ include '../connection.php';
                                           </label>
                                        </div>
                                     </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                       <div class="form-group">
+                                          <label>ROLE:</label>
+                                          <select required class="form-control dept_ID" name="role" id="role" autocomplete="off">
+                                             <option value="">&larr; Select Role &rarr;</option>
+                                             <?php
+										  $sql = "SELECT * FROM role";
+$result = $db->query($sql);
+
+// Initialize an array to store department options
+$role_options = [];
+
+// Fetch and store department options
+while ($row = $result->fetch_assoc()) {
+    $id = $row['id'];
+    $role = $row['role'];
+    $role_options[] = "<option value='$role'>$role</option>";
+}?>
+                          <?php
+    // Output department options
+    foreach ($role_options as $option) {
+        echo $option;
+    }
+    ?>    
+                                            
+                                          </select>
+                                          <span class="pob-error"></span>
+                                       </div>
+                                    </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12" id="lnamez">
                                        <div class="form-group">
                                           <label>ID Number:</label>
@@ -353,35 +382,7 @@ while ($row = $result->fetch_assoc()) {
                                           <span class="dprt-error"></span>
                                        </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-12">
-                                       <div class="form-group">
-                                          <label>ROLE:</label>
-                                          <select required class="form-control dept_ID" name="role" id="role" autocomplete="off">
-                                             <option value="">&larr; Select Role &rarr;</option>
-                                             <?php
-										  $sql = "SELECT * FROM role";
-$result = $db->query($sql);
-
-// Initialize an array to store department options
-$role_options = [];
-
-// Fetch and store department options
-while ($row = $result->fetch_assoc()) {
-    $id = $row['id'];
-    $role = $row['role'];
-    $role_options[] = "<option value='$role'>$role</option>";
-}?>
-                          <?php
-    // Output department options
-    foreach ($role_options as $option) {
-        echo $option;
-    }
-    ?>    
-                                            
-                                          </select>
-                                          <span class="pob-error"></span>
-                                       </div>
-                                    </div>
+                                   
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                        <div class="form-group">
                                           <label>STATUS:</label>
