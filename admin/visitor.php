@@ -51,7 +51,7 @@ include 'header.php';
                                     <thead>
                                         <tr>
                                             <th scope="col" >ID</th>
-                                            <th scope="col">RFID Number</th>
+                                            <th scope="col" style="text-align:left;">RFID Number</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -62,7 +62,7 @@ include 'header.php';
                                  <?php while ($row = mysqli_fetch_array($results)) { ?>
                                     <tr  class="table-<?php echo $row['id'];?>">
                                             <td><?php echo $row['id']; ?></td>
-                                            <td class="rfid_number"><?php echo $row['rfid_number']; ?></td>
+                                            <td style="text-align:left;" class="rfid_number"><?php echo $row['rfid_number']; ?></td>
                                             <td width="14%">
                                             <center>
                                           <button rfid="<?php echo $row['rfid_number'];?>" data-id="<?php echo $row['id'];?>" class="btn btn-outline-primary btn-sm btn-edit e_visitor_id" >
@@ -81,6 +81,13 @@ include 'header.php';
                     </div>
                 </div>
             </div>
+            <script>
+$(document).ready(function() {
+    $('#myDataTable').DataTable({
+        order: [[0, 'desc']] // Adjust the index (0) to the appropriate column
+    });
+});
+</script>
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script>
  // Event delegation: Bind click event to a parent element that always exists
