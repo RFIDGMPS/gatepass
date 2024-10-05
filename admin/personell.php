@@ -56,7 +56,7 @@ include '../connection.php';
                                     <th scope="col">RFID Number</th>
                                     <th scope="col">Full Name</th>
                                     <th scope="col">Role</th>
-                                    <th scope="col">Contact Number</th>
+                                    <th scope="col">Category</th>
                                     <th scope="col">Department</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
