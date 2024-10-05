@@ -117,7 +117,7 @@ if ($result->num_rows > 0) {
                
             ";
         echo "
-                <td>
+                <td style='display:flex;'>
                 ";
     
                 
