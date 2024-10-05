@@ -1,5 +1,5 @@
 <style>
-    .badge {
+    .badge1 {
         background-color: red;
         color: white;
   
@@ -110,7 +110,7 @@ if ($result1->num_rows > 0) {
     <i class="fas fa-id-badge"></i> Lost Card
     <?php 
     if ($new_lost_cards > 0): ?>
-        <span class="badge"><?php echo $new_lost_cards; ?></span>
+        <span class="badge1"><?php echo $new_lost_cards; ?></span>
     <?php endif; ?>
 </a>
             <!-- Settings -->
