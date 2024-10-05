@@ -50,7 +50,7 @@ include 'header.php';
                                 <table class="table table-border" id="myDataTable">
                                     <thead>
                                         <tr>
-                                        <th scope="col">Action</th>
+                                        <th scope="col" style="width:20%;">Action</th>
                                      
                                             <th scope="col">Photo</th>
                                             <th scope="col">Name</th>
@@ -109,7 +109,7 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $relativeTime = timeAgo($row['date_requested']);
         echo "<tr>
-                <td width='14%'>
+                <td>
                 ";
     
         if ($row['status'] == 0) {
