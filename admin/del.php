@@ -48,11 +48,25 @@ $db->close();
 
         break;
 		case 'visitor':
-			$db->query("DELETE FROM `visitor` WHERE `id` = '$_REQUEST[id]'") or die(mysqli_error($db));
-			echo'<script type="text/javascript">
-					alert("Successfully Deleted.");
-					window.location = "visitor.php";
-				</script>	';
+			if (isset($_REQUEST['id'])) {
+                // Prepare the DELETE query
+                $query = "DELETE FROM visitor WHERE id = ?";
+                $stmt = $db->prepare($query);
+            
+                // Bind the `id` parameter
+                $stmt->bind_param('i', $_REQUEST['id']);
+            
+                // Execute the query and check for success
+                if ($stmt->execute()) {
+                    echo 'success';
+                } else {
+                    echo 'Error in deleting record: ' . $stmt->error;
+                }
+            
+                // Close the statement
+                $stmt->close();
+            }
+            
 			break;
 			case 'role':
 			
