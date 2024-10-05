@@ -109,7 +109,7 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $relativeTime = timeAgo($row['date_requested']);
         echo "<tr>
-                <td style='vertical-align:middle;text-align:right;'>
+                <td style='vertical-align:middle;'>
                 ";
     
         if ($row['status'] == 0) {
