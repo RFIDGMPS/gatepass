@@ -16,6 +16,15 @@ $current_page = basename($_SERVER['PHP_SELF']);
 ?>
 <?php
 include '../connection.php';
+$query = "SELECT COUNT(*) AS new_lost_cards FROM lost_card WHERE date_requested = CURRENT_DATE()";
+$result3 = $db->query($query);
+$new_lost_cards = 0;
+
+if ($row1 = $result3->fetch_assoc()) {
+    $new_lost_cards = $row1['new_lost_cards'];
+}
+
+
 $logo1 = "";
 // Fetch data from the about table
 $sql = "SELECT * FROM about LIMIT 1";
@@ -105,13 +114,7 @@ if ($result1->num_rows > 0) {
             <!-- Lost and Found -->
             <a href="lostcard.php" class="nav-item nav-link <?php echo ($current_page == 'lostcard.php') ? 'active' : ''; ?>">
     <i class="fas fa-id-badge"></i> Lost Card
-    <?php $query = "SELECT COUNT(*) AS new_lost_cards FROM lost_card WHERE date_requested = CURRENT_DATE()";
-$result3 = $db->query($query);
-$new_lost_cards = 0;
-
-if ($row1 = $result3->fetch_assoc()) {
-    $new_lost_cards = $row1['new_lost_cards'];
-}
+    <?php 
     if ($new_lost_cards > 0): ?>
         <span class="badge"><?php echo $new_lost_cards; ?></span>
     <?php endif; ?>
