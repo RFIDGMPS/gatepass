@@ -1,34 +1,31 @@
 <?php
-
+// Query to count new lost cards
 include 'connection.php';
-// SQL query to select records from the lostcard table
-$query = "SELECT personnel_id, date_requested, verification_photo, status FROM lostcard";
+$query = "SELECT COUNT(*) AS new_lost_cards FROM lost_card WHERE status = 'new'";
 $result = $db->query($query);
+$new_lost_cards = 0;
 
-// Check if the query was successful
-if ($result && $result->num_rows > 0) {
-    // Start the HTML table
-    echo "<table border='1'>
-            <tr>
-                <th>Personnel ID</th>
-                <th>Date Requested</th>
-                <th>Verification Photo</th>
-                <th>Status</th>
-            </tr>";
-
-    // Fetch and display each row of data
-    while ($row = $result->fetch_assoc()) {
-        echo "<tr>
-                <td>" . htmlspecialchars($row['personnel_id']) . "</td>
-                <td>" . htmlspecialchars($row['date_requested']) . "</td>
-                <td><img src='uploads/" . htmlspecialchars($row['verification_photo']) . "' alt='Verification Photo' style='width:100px; height:auto;'></td>
-                <td>" . htmlspecialchars($row['status']) . "</td>
-              </tr>";
-    }
-
-    // End the table
-    echo "</table>";
-} else {
-    echo "No records found.";
+if ($row = $result->fetch_assoc()) {
+    $new_lost_cards = $row['new_lost_cards'];
 }
 ?>
+
+<a href="lostcard.php" class="nav-item nav-link <?php echo ($current_page == 'lostcard.php') ? 'active' : ''; ?>">
+    <i class="fas fa-id-badge"></i> Lost Card
+    <?php if ($new_lost_cards > 0): ?>
+        <span class="badge"><?php echo $new_lost_cards; ?></span>
+    <?php endif; ?>
+</a>
+
+<style>
+    .badge {
+        background-color: red;
+        color: white;
+        padding: 2px 7px;
+        border-radius: 50%;
+        font-size: 12px;
+        position: relative;
+        top: -8px;
+        left: 5px;
+    }
+</style>
