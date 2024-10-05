@@ -148,7 +148,11 @@ switch ($_GET['edit'])
 if (isset($_GET['id']) && isset($_POST['rfid_number'])) {
     $id = $_GET['id'];
     $rfid_number = $_POST['rfid_number'];
-
+	
+	if (strlen($rfid_number) !== 10 || !ctype_digit($rfid_number)) {
+        echo 'RFID number must be exactly 10 digits.';
+        return;
+    }
     // Prepare a query to check if the RFID number already exists for a different ID
     $checkQuery = "SELECT * FROM visitor WHERE rfid_number = ? AND id != ?";
     $checkStmt = $db->prepare($checkQuery);

@@ -283,7 +283,7 @@ if (!showError(inputField, 'visitor-error', 'This field is required.')) {
                             <h5 class="modal-title"><i class="bi bi-pencil"></i> Edit Visitor Card</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="POST"  class="edit-form" role="form" action="">
+                        <!-- <form method="POST"  class="edit-form" role="form" action=""> -->
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-editdept"></div>
                              
@@ -299,9 +299,9 @@ if (!showError(inputField, 'visitor-error', 'This field is required.')) {
                             <div class="modal-footer">
                                 <input type="hidden" name="" id="edit_departmentid">
                                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-outline-primary" id="btn-editvisitor">Update</button>
+                                <button type="button" class="btn btn-outline-primary" id="btn-editvisitor">Update</button>
                             </div>
-                        </form>
+                        <!-- </form> -->
                     </div>
                 </div>
             </div>
@@ -323,10 +323,6 @@ $('#btn-editvisitor').click(function(){
 function showError(input, errorId, message) {
     if (input.value === '') {
         document.getElementById(errorId).innerHTML = message;
-        input.focus();
-        return false;
-    }    else if (input.value.length !== 10) {
-        document.getElementById('evisitor-error').innerHTML = 'Enter 10 digits.';
         input.focus();
         return false;
     }else {
