@@ -253,13 +253,7 @@ while ($row = $result->fetch_assoc()) {
                                           <span class="id-error"></span>
                                        </div>
                                     </div>
-                                    <div class="col-lg-5 col-md-6 col-sm-12">
-                                       <div class="form-group">
-                                          <label>RFID NUMBER:</label>
-                                          <input required type="text" class="form-control" name="rfid_number" id="rfid_number" minlength="10" maxlength="10" autocomplete="off">
-                                          <span class="rfidno-error"></span>
-                                       </div>
-                                    </div>
+                                    
                                  </div>
                                  <div class="row mb-3 mt-1">
                                     <div class="col-lg-3 col-md-6 col-sm-12">
@@ -382,7 +376,13 @@ while ($row = $result->fetch_assoc()) {
                                           <span class="dprt-error"></span>
                                        </div>
                                     </div>
-                                   
+                                    <div class="col-lg-5 col-md-6 col-sm-12">
+                                       <div class="form-group">
+                                          <label>RFID NUMBER:</label>
+                                          <input required type="text" class="form-control" name="rfid_number" id="rfid_number" minlength="10" maxlength="10" autocomplete="off">
+                                          <span class="rfidno-error"></span>
+                                       </div>
+                                    </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                        <div class="form-group">
                                           <label>STATUS:</label>
