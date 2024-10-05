@@ -59,7 +59,7 @@ include 'header.php';
                                     <tbody>
                                         
                                         <?php include '../connection.php'; ?>
-                                 <?php $results = mysqli_query($db, "SELECT * FROM department ORDER BY department_id DESC"); ?>
+                                 <?php $results = mysqli_query($db, "SELECT * FROM department"); ?>
                                  <?php while ($row = mysqli_fetch_array($results)) { ?>
                                     <tr  class="table-<?php echo $row['department_id'];?>">
                                   
@@ -86,6 +86,13 @@ include 'header.php';
                     </div>
                 </div>
             </div>
+            <script>
+$(document).ready(function() {
+    $('#myDataTable').DataTable({
+        order: [[0, 'desc']] // Adjust the index (0) to the appropriate column
+    });
+});
+</script>
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script>
  $('.d_department_id').click(function(){
