@@ -363,7 +363,7 @@ if (!showError(inputField, 'evisitor-error', 'This field is required.')) {
                 showConfirmButton: false,
                 timer: 1500
             }).then(() => {
-                window.location.href = 'role.php'; // Redirect after 1.5 seconds
+                window.location.href = 'visitor.php'; // Redirect after 1.5 seconds
             });
                     } else {
                         Swal.fire({
