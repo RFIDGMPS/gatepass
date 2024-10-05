@@ -37,6 +37,15 @@ if ($result1->num_rows > 0) {
     $row = $result1->fetch_assoc();
     $username = $row['username'];
 } 
+
+
+$query = "SELECT COUNT(*) AS new_lost_cards FROM lost_card WHERE date_requested = CURRENT_DATE()";
+$result3 = $db->query($query);
+$new_lost_cards = 0;
+
+if ($row = $result3->fetch_assoc()) {
+    $new_lost_cards = $row['new_lost_cards'];
+}
 ?>
 <div class="sidebar pe-4 pb-3" style="background-color: #fcaf42">
     <nav class="navbar navbar-light">
@@ -105,7 +114,7 @@ if ($result1->num_rows > 0) {
             <!-- Lost and Found -->
             <a href="lostcard.php" class="nav-item nav-link <?php echo ($current_page == 'lostcard.php') ? 'active' : ''; ?>">
     <i class="fas fa-id-badge"></i> Lost Card
-    <?php $new_lost_cards =1;
+    <?php 
     if ($new_lost_cards > 0): ?>
         <span class="badge"><?php echo $new_lost_cards; ?></span>
     <?php endif; ?>
