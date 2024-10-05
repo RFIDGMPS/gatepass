@@ -104,6 +104,13 @@ include 'header.php';
                     </div>
                 </div>
             </div>
+            <script>
+$(document).ready(function() {
+    $('#myDataTable').DataTable({
+        order: [[0, 'desc']] // Adjust the index (0) to the appropriate column
+    });
+});
+</script>
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script>
  $('.d_room_id').click(function(){
