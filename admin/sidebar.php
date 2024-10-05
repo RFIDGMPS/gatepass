@@ -1,13 +1,13 @@
 <style>
     .badge1 {
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    font-size: 10px;
-    position: absolute; /* Change from relative to absolute */
-    top: 50%;
-    left: 20px; /* Adjust the left positioning */
-    transform: translateY(-50%); /* Center vertically */
+        background-color: red;
+        color: white;
+        padding: 2px 7px;
+        border-radius: 50%;
+        font-size: 12px;
+        position: relative;
+        top: -8px;
+        left: 5px;
 }
 </style>
 
