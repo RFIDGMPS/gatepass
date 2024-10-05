@@ -81,7 +81,7 @@ if ($result1->num_rows > 0) {
             <div id="visitorSubmenu" class="collapse <?php echo in_array($current_page, ['visitor.php', 'visitor_logs.php']) ? 'show' : ''; ?>" data-bs-parent=".navbar-nav">
                 <ul class="navbar-nav ps-3">
                     <li>
-                        <a href="visitor.php" class="nav-item nav-link <?php echo ($current_page == 'visitor.php') ? 'active' : ''; ?>">Visitor List</a>
+                        <a href="visitor.php" class="nav-item nav-link <?php echo ($current_page == 'visitor.php') ? 'active' : ''; ?>">Card List</a>
                     </li>
                     <li>
                         <a href="visitor_logs.php" class="nav-item nav-link <?php echo ($current_page == 'visitor_logs.php') ? 'active' : ''; ?>">Visitor Logs</a>
