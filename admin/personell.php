@@ -257,6 +257,27 @@ while ($row = $result->fetch_assoc()) {
       <span class="id-error"></span>
    </div>
 </div>
+<script>// Function to check the selected role and toggle input fields accordingly
+function checkRole() {
+    var role = document.getElementById('role').value;
+    var dynamicLabel = document.getElementById('dynamic-label');
+    var idInput = document.getElementById('id_no');
+    var categorySelect = document.getElementById('category');
+
+    if (role === 'Student') {
+        dynamicLabel.innerHTML = "ID Number:";
+        idInput.style.display = "block";   // Show the ID Number input field
+        categorySelect.style.display = "none";  // Hide the Category dropdown
+    } else {
+        dynamicLabel.innerHTML = "Category:";
+        idInput.style.display = "none";    // Hide the ID Number input field
+        categorySelect.style.display = "block"; // Show the Category dropdown
+    }
+}
+
+// Call checkRole function on page load to set the default view based on the current role
+window.onload = checkRole;
+</script>
                                  <div class="row mb-3 mt-1">
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                        <div class="form-group">
