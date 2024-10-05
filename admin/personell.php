@@ -218,35 +218,26 @@ include '../connection.php';
                                        </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
-                                       <div class="form-group">
-                                          <label>ROLE:</label>
-                                          <select required class="form-control dept_ID" name="role" id="role" autocomplete="off">
-                                            
-                                             <?php
-										  $sql = "SELECT * FROM role";
-$result = $db->query($sql);
+   <div class="form-group">
+      <label>ROLE:</label>
+      <select required class="form-control dept_ID" name="role" id="role" autocomplete="off" onchange="checkRole()">
+         <?php
+         $sql = "SELECT * FROM role";
+         $result = $db->query($sql);
 
-// Initialize an array to store department options
-$role_options = [];
+         // Fetch and store role options
+         while ($row = $result->fetch_assoc()) {
+             $role = $row['role'];
+             echo "<option value='$role'>$role</option>";
+         }
+         ?>
+      </select>
+      <span class="pob-error"></span>
+   </div>
+</div>
 
-// Fetch and store department options
-while ($row = $result->fetch_assoc()) {
-    $id = $row['id'];
-    $role = $row['role'];
-    $role_options[] = "<option value='$role'>$role</option>";
-}?>
-                          <?php
-    // Output department options
-    foreach ($role_options as $option) {
-        echo $option;
-    }
-    ?>    
-                                            
-                                          </select>
-                                          <span class="pob-error"></span>
-                                       </div>
-                                    </div>
-                                    <div class="col-lg-5 col-md-6 col-sm-12" id="dynamic-field">
+<!-- Section to toggle between ID Number or Category -->
+<div class="col-lg-5 col-md-6 col-sm-12" id="dynamic-field">
    <div class="form-group">
       <label id="dynamic-label"></label>
       <input required type="text" class="form-control" name="id_no" id="id_no" style="display:none;" autocomplete="off">
@@ -257,6 +248,7 @@ while ($row = $result->fetch_assoc()) {
       <span class="id-error"></span>
    </div>
 </div>
+
 <script>// Function to check the selected role and toggle input fields accordingly
 function checkRole() {
     var role = document.getElementById('role').value;
