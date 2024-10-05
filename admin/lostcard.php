@@ -114,7 +114,7 @@ if ($result->num_rows > 0) {
                     <img src='uploads/" . $row['verification_photo'] . "' width='50' height='50'></td>
                 <td>" . $row['full_name'] . "</td>
                 <td>" . $row['rfid_number'] . "</td>
-                <td>" . $relativeTime . "</td>
+               
             </tr>";
         echo "<tr>
                 <td>
@@ -143,6 +143,8 @@ if ($result->num_rows > 0) {
         } else {
             echo "<span class='badge bg-danger'>Blocked</span>";
         }
+
+        echo ' <td>" . $relativeTime . "</td>';
     
     }
     
