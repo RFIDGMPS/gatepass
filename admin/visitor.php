@@ -170,9 +170,9 @@ $(document).on('click', '.d_visitor_id', function(){
                 </div>
             </div>
 
+     \
             <script>
-// Function to validate RFID input length
-function validateRFID() {
+                function validateRFID() {
     var inputField = document.getElementById('rfid_number');
     var errorDiv = document.getElementById('visitor-error');
     
@@ -183,9 +183,6 @@ function validateRFID() {
         errorDiv.innerHTML = ''; // Clear the error if the input is valid
     }
 }
-</script>
-            <script>
-                
             function resetForm() {
                  document.getElementById('visitor-error').innerHTML = '';
                  document.getElementById('evisitor-error').innerHTML = '';
