@@ -50,11 +50,12 @@ include 'header.php';
                                 <table class="table table-border" id="myDataTable">
                                     <thead>
                                         <tr>
-                                        <th scope="col">Action</th>
+                                        
                                      
                                             <th scope="col">Photo</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">RFID Number</th>
+                                            <th scope="col">Action</th>
                                             <th scope="col"></th>
                                         </tr>
                                     </thead>
@@ -108,17 +109,18 @@ if ($result->num_rows > 0) {
 
     while ($row = $result->fetch_assoc()) {
         $relativeTime = timeAgo($row['date_requested']);
-        echo "<tr>
-                <td>
-                ";
-    
-                echo "</td>
+        echo "</td>
                 <td><img src='uploads/" . $row['photo'] . "' width='50' height='50'> 
                     <img src='uploads/" . $row['verification_photo'] . "' width='50' height='50'></td>
                 <td>" . $row['full_name'] . "</td>
                 <td>" . $row['rfid_number'] . "</td>
                 <td>" . $relativeTime . "</td>
             </tr>";
+        echo "<tr>
+                <td>
+                ";
+    
+                
         if ($row['status'] == 0) {
             // Block button
             echo "<form method='POST' action='update_status.php'>
