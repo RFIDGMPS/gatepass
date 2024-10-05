@@ -110,6 +110,7 @@ if ($result->num_rows > 0) {
         $relativeTime = timeAgo($row['date_requested']);
         echo "<tr>
                 <td>
+                <center>
                 ";
     
         if ($row['status'] == 0) {
@@ -133,7 +134,7 @@ if ($result->num_rows > 0) {
             echo "<span class='badge bg-danger'>Blocked</span>";
         }
     
-        echo "</td>
+        echo "</center></td>
               <td><img src='uploads/" . $row['photo'] . "' width='50' height='50'> 
                   <img src='uploads/" . $row['verification_photo'] . "' width='50' height='50'></td>
               <td>" . $row['full_name'] . "</td>
