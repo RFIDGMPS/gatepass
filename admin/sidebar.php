@@ -4,10 +4,10 @@
         color: white;
         padding: 2px 7px;
         border-radius: 50%;
-        font-size: 12px;
+        font-size: 10px;
         position: relative;
-        top: -8px;
-        left: 5px;
+    
+        left: 30px;
 }
 </style>
 
