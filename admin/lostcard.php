@@ -109,14 +109,14 @@ if ($result->num_rows > 0) {
 
     while ($row = $result->fetch_assoc()) {
         $relativeTime = timeAgo($row['date_requested']);
-        echo "</td>
+        echo "<tr></td>
                 <td><img src='uploads/" . $row['photo'] . "' width='50' height='50'> 
                     <img src='uploads/" . $row['verification_photo'] . "' width='50' height='50'></td>
                 <td>" . $row['full_name'] . "</td>
                 <td>" . $row['rfid_number'] . "</td>
                
-            </tr>";
-        echo "<tr>
+            ";
+        echo "
                 <td>
                 ";
     
@@ -144,7 +144,7 @@ if ($result->num_rows > 0) {
             echo "<span class='badge bg-danger'>Blocked</span>";
         }
 
-        echo "<td>" . $relativeTime . "</td>";
+        echo "<td>" . $relativeTime . "</td></tr>";
     
     }
     
