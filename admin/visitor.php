@@ -283,7 +283,7 @@ if (!showError(inputField, 'visitor-error', 'This field is required.')) {
                             <h5 class="modal-title"><i class="bi bi-pencil"></i> Edit Visitor Card</h5>
                             <button type="button" onclick="resetForm()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <!-- <form method="POST"  class="edit-form" role="form" action=""> -->
+                        <form id="myForm">
                             <div class="modal-body">
                                 <div class="col-lg-12 mt-1" id="mgs-editdept"></div>
                              
@@ -301,7 +301,7 @@ if (!showError(inputField, 'visitor-error', 'This field is required.')) {
                                 <button type="button" onclick="resetForm()" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-outline-primary" id="btn-editvisitor">Update</button>
                             </div>
-                        <!-- </form> -->
+                        </form>
                     </div>
                 </div>
             </div>
