@@ -6,8 +6,8 @@
         border-radius: 50%;
         font-size: 12px;
         position: relative;
-        top: -8px;
-        left: 5px;
+      
+        left: 10px;
     }
 </style>
 
