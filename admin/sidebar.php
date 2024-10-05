@@ -1,3 +1,16 @@
+<style>
+    .badge {
+        background-color: red;
+        color: white;
+        padding: 2px 7px;
+        border-radius: 50%;
+        font-size: 12px;
+        position: relative;
+        top: -8px;
+        left: 5px;
+    }
+</style>
+
 <?php
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
@@ -91,9 +104,11 @@ if ($result1->num_rows > 0) {
 
             <!-- Lost and Found -->
             <a href="lostcard.php" class="nav-item nav-link <?php echo ($current_page == 'lostcard.php') ? 'active' : ''; ?>">
-                <i class="fas fa-id-badge"></i> Lost Card
-            </a>
-
+    <i class="fas fa-id-badge"></i> Lost Card
+    <?php if ($new_lost_cards > 0): ?>
+        <span class="badge"><?php echo $new_lost_cards; ?></span>
+    <?php endif; ?>
+</a>
             <!-- Settings -->
             <a href="settings.php" class="nav-item nav-link <?php echo ($current_page == 'settings.php') ? 'active' : ''; ?>">
                 <i class="fa fa-cog me-2"></i>Settings
