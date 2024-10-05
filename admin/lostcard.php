@@ -41,7 +41,7 @@ include 'header.php';
                         <div class="bg-light rounded h-100 p-4">
                             <div class="row">
                                 <div class="col-9">
-                                    <h6 class="mb-4">Messages</h6>
+                                    <h6 class="mb-4">Card Deactivation Request</h6>
                                 </div>
 
                             </div>
@@ -50,7 +50,7 @@ include 'header.php';
                                 <table class="table table-border" id="myDataTable">
                                     <thead>
                                         <tr>
-                                        <th scope="col">Action</th>
+                                        <th scope="col" style="width: 150px;">Action</th>
                                             <th scope="col">Photo</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">RFID Number</th>
