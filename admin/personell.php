@@ -367,13 +367,13 @@ function updateCategory() {
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                        <div class="form-group">
                                           <label>CONTACT NUMBER:</label>
-                                          <input type="text" class="form-control" name="contact_number" id="contact_number" placeholder="Optional" minlength="11" maxlength="11" autocomplete="off">
+                                          <input type="text" class="form-control" name="contact_number" id="contact_number" placeholder="Optional..." minlength="11" maxlength="11" autocomplete="off">
                                        </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                        <div class="form-group">
                                           <label>EMAIL ADDRESS:</label>
-                                          <input type="email" class="form-control" name="email_address" id="email_address" placeholder="Optional" autocomplete="off">
+                                          <input type="email" class="form-control" name="email_address" id="email_address" placeholder="Optional..." autocomplete="off">
                                        </div>
                                     </div>
                                  </div>

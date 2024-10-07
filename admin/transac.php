@@ -11,35 +11,87 @@
 switch ($_GET['action'])
 {
     case 'add':
+    
         $id_no = $_POST['id_no'];
- $rfid_number = $_POST['rfid_number'];
- $last_name = $_POST['last_name'];
- $first_name = $_POST['first_name'];
- $middle_name = $_POST['middle_name'];
- $date_of_birth = $_POST['date_of_birth'];
- $place_of_birth = $_POST['place_of_birth'];
- $role = $_POST['role'];
- $sex = $_POST['sex'];
- $civil_status = $_POST['stat'];
- $contact_number = $_POST['contact_number'];
- $email_address = $_POST['email_address'];
- $department = $_POST['department'];
- 
- $section = $_POST['section'];
- $status = $_POST['status'];
- $complete_address = $_POST['complete_address'];
- $photo = $_FILES['photo']['name'];
-
- $target_dir = "uploads/";
- $target_file = $target_dir . basename($_FILES["photo"]["name"]);
- move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
-        $query = "INSERT INTO personell (id_no, rfid_number, last_name, first_name, middle_name, date_of_birth, role, sex, civil_status, contact_number, email_address, department, section, status, complete_address, photo, place_of_birth)
-        VALUES ('$id_no', '$rfid_number', '$last_name', '$first_name', '$middle_name', '$date_of_birth', '$role', '$sex', '$civil_status', '$contact_number', '$email_address', '$department', '$section', '$status', '$complete_address', '$photo', '$place_of_birth')";
-        mysqli_query($db, $query) or die('Error in updating Database');
-        echo '<script type="text/javascript">
-        alert("Successfully added.");
-        window.location = "personell.php";
-</script>';
+        $rfid_number = $_POST['rfid_number'];
+        $last_name = $_POST['last_name'];
+        $first_name = $_POST['first_name'];
+        $middle_name = $_POST['middle_name'];
+        $date_of_birth = $_POST['date_of_birth'];
+        $place_of_birth = $_POST['place_of_birth'];
+        $role = $_POST['role'];
+        $sex = $_POST['sex'];
+        $civil_status = $_POST['stat'];
+        $contact_number = $_POST['contact_number'];
+        $email_address = $_POST['email_address'];
+        $department = $_POST['department'];
+        $section = $_POST['section'];
+        $status = $_POST['status'];
+        $complete_address = $_POST['complete_address'];
+        $photo = $_FILES['photo']['name'];
+        
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($_FILES["photo"]["name"]);
+        
+        // Validate image upload (check file type and size)
+        $allowed_file_types = ['image/jpeg', 'image/png', 'image/gif'];
+        $file_type = mime_content_type($_FILES['photo']['tmp_name']);
+        $file_size = $_FILES['photo']['size'];
+        
+        if (!in_array($file_type, $allowed_file_types)) {
+            echo "Only JPEG, PNG, and GIF files are allowed.";
+            exit;
+        }
+        
+        if ($file_size > 2 * 1024 * 1024) { // 2 MB limit
+            echo "File size must be less than 2MB.";
+            exit;
+        }
+        
+        // Use prepared statements to prevent SQL injection
+        $stmt = $db->prepare("SELECT * FROM personell WHERE rfid_number = ?");
+        $stmt->bind_param("s", $rfid_number);
+        $stmt->execute();
+        $rfid_result = $stmt->get_result();
+        
+        $stmt = $db->prepare("SELECT * FROM personell WHERE first_name = ? AND middle_name = ? AND last_name = ?");
+        $stmt->bind_param("sss", $first_name, $middle_name, $last_name);
+        $stmt->execute();
+        $fullname_result = $stmt->get_result();
+        
+        if ($rfid_result->num_rows > 0) {
+            echo 'RFID number already exists.';
+        } elseif ($fullname_result->num_rows > 0) {
+            echo 'Full name already exists.';
+        } else {
+            // Proceed with file upload and database insertion
+            if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
+                $query = "INSERT INTO personell 
+                         (id_no, rfid_number, last_name, first_name, middle_name, date_of_birth, role, sex, civil_status, contact_number, email_address, department, section, status, complete_address, photo, place_of_birth)
+                          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                
+                // Prepare and bind parameters to prevent SQL injection
+                $stmt = $db->prepare($query);
+                $stmt->bind_param(
+                    "sssssssssssssssss", 
+                    $id_no, $rfid_number, $last_name, $first_name, $middle_name, $date_of_birth, $role, $sex, $civil_status, 
+                    $contact_number, $email_address, $department, $section, $status, $complete_address, $photo, $place_of_birth
+                );
+        
+                if ($stmt->execute()) {
+                    echo 'success';
+                } else {
+                    echo 'Error in updating Database';
+                }
+            } else {
+                echo 'Error uploading photo.';
+            }
+        }
+        
+        $stmt->close();
+        $db->close();
+       
+        
     break;
     case 'add_department':
 // Get the POST data
