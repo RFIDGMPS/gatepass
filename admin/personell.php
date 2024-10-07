@@ -458,7 +458,7 @@ while ($row = $result->fetch_assoc()) {
 
     <form class="edit-form" role="form" method="post" action="" enctype="multipart/form-data">
     <div class="modal-body" id="editModal">
-<div class="row justify-content-md-center">
+<div class="row justify-content-md-center" style="padding-bottom:10px;">
    <div id="msg-emp" style=""></div>
    <div class="col-sm-12 col-md-12 col-lg-10">
       <div class="" style="border: 1PX solid #b3f0fc;padding: 1%;background-color: #f7cfa1;color: black;font-size: 1.2rem">PERSONAL INFORMATION</div>
