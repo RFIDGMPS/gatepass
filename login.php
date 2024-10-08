@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
         die("CSRF token validation failed.");
     }
-    
+
     $location = htmlspecialchars(trim($_POST['location']), ENT_QUOTES, 'UTF-8');
     $password1 = htmlspecialchars(trim($_POST['Ppassword']), ENT_QUOTES, 'UTF-8');
     $Prfid_number = htmlspecialchars(trim($_POST['Prfid_number']), ENT_QUOTES, 'UTF-8');
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($result3->num_rows > 0) {
             $instructor = $result3->fetch_assoc();
             // Verify password against the hashed password stored in the database
-            if (password_verify($password1, $instructor['password'])) {  // Ensure 'password' is hashed in the DB
+            if (password_verify($password1, $room['password'])) {  // Ensure 'password' is hashed in the DB
                 if ($instructor['department'] == $room['department'] && $instructor['status'] == 'Active' && $instructor['role'] == $room['authorized_personnel']) {
                     $_SESSION['location'] = $room['room'];
                     $_SESSION['department'] = $room['department'];
