@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-3">
-                                <a href="index.html" class="">
+                                <a href="index.php" class="">
                                     <h3 class="text-warning">GPMS</h3>
                                 </a>
                                 <h3>Sign In</h3>

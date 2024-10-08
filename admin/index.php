@@ -52,47 +52,54 @@ if (empty($_SESSION['csrf_token'])) {
 }
 include '../connection.php'; // Always sanitize database connections
 
+$errorMessage = ''; // Initialize the error message
+
 // Sanitize inputs and handle login
 if (isset($_POST['login'])) {
     if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-        // Token invalid, reject the request
-        die('CSRF token validation failed.');
-    }
-    // Validate and sanitize username and password inputs
-    $username1 = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
-    $password1 = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
-
-    // Escape inputs to prevent SQL injection
-    $username1 = mysqli_real_escape_string($db, $username1);
-    $password1 = mysqli_real_escape_string($db, $password1);
-
-    // Fetch user securely using prepared statements
-    $sql = "SELECT * FROM user WHERE username = ? LIMIT 1";
-    $stmt = $db->prepare($sql);
-    $stmt->bind_param("s", $username1);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        // Verify the password using password hashing
-        if (password_verify($password1, $row['password'])) {
-            // Store the username in session to indicate successful login
-            $_SESSION['username'] = $username1;
-
-            // Redirect to the dashboard securely
-            echo '<script type="text/javascript">window.location = "dashboard.php";</script>';
-            exit();
-        } else {
-            echo '<script>alert("Invalid username or password.");</script>';
-        }
+        // Token invalid, set the error message for CSRF failure
+        $errorMessage = "CSRF token validation failed.";
     } else {
-        echo '<script>alert("Invalid username or password.");</script>';
-    }
+        // Validate and sanitize username and password inputs
+        $username1 = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
+        $password1 = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
 
-    $stmt->close();
+        // Escape inputs to prevent SQL injection
+        $username1 = mysqli_real_escape_string($db, $username1);
+        $password1 = mysqli_real_escape_string($db, $password1);
+
+        // Fetch user securely using prepared statements
+        $sql = "SELECT * FROM user WHERE username = ? LIMIT 1";
+        $stmt = $db->prepare($sql);
+        $stmt->bind_param("s", $username1);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            // Verify the password using password hashing
+            if (password_verify($password1, $row['password'])) {
+                // Store the username in session to indicate successful login
+                $_SESSION['username'] = $username1;
+
+                // Redirect to the dashboard securely
+                echo '<script type="text/javascript">window.location = "dashboard.php";</script>';
+                exit();
+            } else {
+                $errorMessage = "Invalid username or password.";
+            }
+        } else {
+            $errorMessage = "Invalid username or password.";
+        }
+
+        $stmt->close();
+    }
 }
+
+// Pass the error message to JavaScript
+echo "<script>var errorMessage = '" . addslashes($errorMessage) . "';</script>";
 ?>
+
 
 <!-- HTML and JavaScript portion -->
 <!DOCTYPE html>
@@ -106,31 +113,36 @@ if (isset($_POST['login'])) {
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
                     <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
-                        <form id="logform" method="POST">
-                        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-    
-                            <div class="d-flex align-items-center justify-content-between mb-3">
-                                <a href="index.html">
-                                    <h3 class="text-warning">ADMIN</h3>
-                                </a>
-                                <h3>Sign In</h3>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="off" required>
-                                <label for="username">Username</label>
-                            </div>
-                            <div class="form-floating mb-4">
-                                <input id="password" type="password" class="form-control" name="password" placeholder="Password" autocomplete="off" required>
-                                <label for="password">Password</label>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <div class="form-check">
-                                    <input type="checkbox" id="remember" class="form-check-input" onclick="togglePasswordVisibility()">
-                                    <label class="form-check-label" for="remember">Show Password</label>
-                                </div>
-                            </div>
-                            <button type="submit" name="login" class="btn btn-warning py-3 w-100 mb-4">Sign In</button>
-                        </form>
+                    <form id="logform" method="POST">
+    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+    <div id="myalert3" style="display:none;">
+        <div class="alert alert-danger">
+            <span id="alerttext"></span>
+        </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <a href="index.html">
+            <h3 class="text-warning">ADMIN</h3>
+        </a>
+        <h3>Sign In</h3>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="off" required>
+        <label for="username">Username</label>
+    </div>
+    <div class="form-floating mb-4">
+        <input id="password" type="password" class="form-control" name="password" placeholder="Password" autocomplete="off" required>
+        <label for="password">Password</label>
+    </div>
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div class="form-check">
+            <input type="checkbox" id="remember" class="form-check-input" onclick="togglePasswordVisibility()">
+            <label class="form-check-label" for="remember">Show Password</label>
+        </div>
+    </div>
+    <button type="submit" name="login" class="btn btn-warning py-3 w-100 mb-4">Sign In</button>
+</form>
+
                     </div>
                 </div>
             </div>
@@ -147,6 +159,11 @@ if (isset($_POST['login'])) {
                 passwordField.type = "password";
             }
         }
+    // Check if there is an error message and display it in the alert box
+    if (typeof errorMessage !== 'undefined' && errorMessage !== '') {
+        document.getElementById('myalert3').style.display = 'block';
+        document.getElementById('alerttext').innerText = errorMessage;
+    }
 
     </script>
        <script type="text/javascript">
