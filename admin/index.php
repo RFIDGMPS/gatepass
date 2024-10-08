@@ -87,9 +87,11 @@ if (isset($_POST['login'])) {
                 exit();
             } else {
                 $errorMessage = "Invalid username or password.";
+                echo '<script>fadeOutAlert();</script>';
             }
         } else {
             $errorMessage = "Invalid username or password.";
+            echo '<script>fadeOutAlert();</script>';
         }
 
         $stmt->close();
