@@ -2,11 +2,19 @@
 session_start();
 include 'connection.php';  // Ensure this file contains the DB connection logic
 
+// Content Security Policy header
+header("Content-Security-Policy: default-src 'self'; script-src 'self';");
+
 // Regenerate session ID to prevent session fixation attacks
 session_regenerate_id(true);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Sanitize and validate input
+
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die("CSRF token validation failed.");
+    }
+    
     $location = htmlspecialchars(trim($_POST['location']), ENT_QUOTES, 'UTF-8');
     $password1 = htmlspecialchars(trim($_POST['Ppassword']), ENT_QUOTES, 'UTF-8');
     $Prfid_number = htmlspecialchars(trim($_POST['Prfid_number']), ENT_QUOTES, 'UTF-8');
@@ -28,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $personell = $result1->fetch_assoc();
             
             // Use a constant for the password and hash it properly in the database
-            $hashedPassword = password_hash("gate123", PASSWORD_DEFAULT);
+            $hashedPassword = password_hash("gate123", PASSWORD_DEFAULT); // Replace with a stored hash in DB
 
             if (password_verify($password1, $hashedPassword)) {
                 if ($personell['role'] === 'Security Personnel' && $personell['status'] === 'Active') {
@@ -90,5 +98,4 @@ if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     session_set_cookie_params($params["lifetime"], $params["path"], $params["domain"], true, true);  // Secure and HttpOnly flags
 }
-
 ?>
