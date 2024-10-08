@@ -41,8 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (password_verify($password1, $hashedPassword)) {
                 if ($personell['role'] === 'Security Personnel' && $personell['status'] === 'Active') {
                     // Successful login
-                    $_SESSION['location'] = 'Main Gate';
-                    $_SESSION['department'] = 'main';
+                    $_SESSION['location'] = 'Gate';
+                    $_SESSION['department'] = 'Main';
                     echo 'success';  // Send 'success' response
                     exit();
                 } else {
