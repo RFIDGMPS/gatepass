@@ -141,7 +141,7 @@ mysqli_close($db);
             }
             
             
-            echo $descr; ?>)</span></i></h5>
+            echo $department.': '.$descr; ?>)</span></i></h5>
         </div>
     </div>
     <div style="text-align: right; margin-left: 10px;">
