@@ -81,25 +81,16 @@ if (isset($_POST['login'])) {
             if (password_verify($password1, $row['password'])) {
                 // Store the username in session to indicate successful login
                 $_SESSION['username'] = $username1;
-        
+
                 // Redirect to the dashboard securely
                 echo '<script type="text/javascript">window.location = "dashboard.php";</script>';
                 exit();
             } else {
-                echo '<script type="text/javascript">
-                        document.getElementById("myalert3").style.display = "block";
-                        document.getElementById("alerttext").innerText = "Invalid username or password.";
-                        fadeOutAlert();
-                      </script>';
+                $errorMessage = "Invalid username or password.";
             }
         } else {
-            echo '<script type="text/javascript">
-                    document.getElementById("myalert3").style.display = "block";
-                    document.getElementById("alerttext").innerText = "Invalid username or password.";
-                    fadeOutAlert();
-                  </script>';
+            $errorMessage = "Invalid username or password.";
         }
-        
 
         $stmt->close();
     }
@@ -173,7 +164,7 @@ echo "<script>var errorMessage = '" . addslashes($errorMessage) . "';</script>";
         document.getElementById('myalert3').style.display = 'block';
         document.getElementById('alerttext').innerText = errorMessage;
     }
-    function fadeOutAlert() {
+  function fadeOutAlert() {
         setTimeout(function() {
             $("#myalert3").fadeOut('slow');
         }, 3000);
