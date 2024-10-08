@@ -238,6 +238,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     function ctrlShiftKey(e, keyCode) {
       return e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0);
     }
+  
 
     document.onkeydown = (e) => {
       // Disable F12, Ctrl + Shift + I, Ctrl + Shift + J, Ctrl + U
