@@ -2,9 +2,7 @@
 session_start();
 include 'connection.php';
 
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); // Secure token generation
-}
+
 // Function to sanitize input data
 function sanitizeInput($data) {
     return htmlspecialchars(stripslashes(trim($data)));
