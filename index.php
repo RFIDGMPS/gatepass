@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include 'connection.php';
@@ -6,7 +5,6 @@ include 'connection.php';
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); // Secure token generation
 }
-
 // Function to sanitize input data
 function sanitizeInput($data) {
     return htmlspecialchars(stripslashes(trim($data)));
@@ -174,7 +172,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
- 
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
        <script type="text/javascript">
     // Disable right-click
     document.addEventListener('contextmenu', (e) => e.preventDefault());
