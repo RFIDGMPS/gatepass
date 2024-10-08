@@ -125,7 +125,7 @@ if (isset($_POST['login'])) {
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <div class="form-check">
-                                    <input onclick="togglePasswordVisibility()" type="checkbox" id="remember" class="form-check-input">
+                                    <input type="checkbox" id="remember" class="form-check-input" onclick="togglePasswordVisibility()">
                                     <label class="form-check-label" for="remember">Show Password</label>
                                 </div>
                             </div>
