@@ -222,7 +222,7 @@ if (isset($_POST['submit'])) {
            
         } else {
      
-            if($department == 'main'){
+            if($department == 'Main'){
             // Check if user is already logged today
             $query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged'";
             $result1 = mysqli_query($db, $query1);
@@ -322,7 +322,7 @@ if ($row) {
         // Check if RFID number exists in visitor table
        
 
-        if($department != 'main'){
+        if($department != 'Main'){
             $voice = 'You\'re not allowed to enter this room.';
             $time_in_out='UNAUTHORIZE';
             echo "<script>const audio = document.getElementById('myAudio');
@@ -1008,7 +1008,7 @@ Webcam.snap(function(data_uri){
          </script>
 
          <?php
-         if($department == 'main') { ?>
+         if($department == 'Main') { ?>
         <button class="chatbot-toggler" style="background:#FBC257;">
     <span class="material-symbols-rounded"><i class="fa fa-id-badge" aria-hidden="true"></i></span>
     <span class="material-symbols-outlined"><i class="fa fa-times" aria-hidden="true"></i></span>
