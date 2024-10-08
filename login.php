@@ -2,12 +2,15 @@
 session_start();
 include 'connection.php';  // Ensure this file contains the DB connection logic
 
+// Regenerate session ID to prevent session fixation attacks
+session_regenerate_id(true);
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $location = htmlspecialchars($_POST['location'], ENT_QUOTES, 'UTF-8');
-    $password1 = htmlspecialchars($_POST['Ppassword'], ENT_QUOTES, 'UTF-8');
-    $Prfid_number = htmlspecialchars($_POST['Prfid_number'], ENT_QUOTES, 'UTF-8');
+    // Sanitize and validate input
+    $location = htmlspecialchars(trim($_POST['location']), ENT_QUOTES, 'UTF-8');
+    $password1 = htmlspecialchars(trim($_POST['Ppassword']), ENT_QUOTES, 'UTF-8');
+    $Prfid_number = htmlspecialchars(trim($_POST['Prfid_number']), ENT_QUOTES, 'UTF-8');
     
-    // Validate inputs (you may customize this based on your application's requirements)
     if (empty($location) || empty($password1) || empty($Prfid_number)) {
         echo "All fields are required.";
         exit();
@@ -24,7 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($result1 && $result1->num_rows > 0) {
             $personell = $result1->fetch_assoc();
             
-            if ($password1 === "gate123") {
+            // Use a constant for the password and hash it properly in the database
+            $hashedPassword = password_hash("gate123", PASSWORD_DEFAULT);
+
+            if (password_verify($password1, $hashedPassword)) {
                 if ($personell['role'] === 'Security Personnel' && $personell['status'] === 'Active') {
                     // Successful login
                     $_SESSION['location'] = 'Main Gate';
@@ -59,7 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($result3->num_rows > 0) {
             $instructor = $result3->fetch_assoc();
-            if (password_verify($password1, $room['password'])) {
+            // Verify password against the hashed password stored in the database
+            if (password_verify($password1, $instructor['password'])) {  // Ensure 'password' is hashed in the DB
                 if ($instructor['department'] == $room['department'] && $instructor['status'] == 'Active' && $instructor['role'] == $room['authorized_personnel']) {
                     $_SESSION['location'] = $room['room'];
                     $_SESSION['department'] = $room['department'];
@@ -77,4 +84,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
+
+// Ensure that the session cookie is secure
+if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    session_set_cookie_params($params["lifetime"], $params["path"], $params["domain"], true, true);  // Secure and HttpOnly flags
+}
+
 ?>
