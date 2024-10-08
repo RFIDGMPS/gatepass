@@ -1,9 +1,11 @@
 <?php
 include 'connection.php';
-if (isset($_GET['department'])) {
-    $selected_department = $_GET['department'];
 
-    // Query to fetch rooms based on the selected department
+if (isset($_GET['department'])) {
+    // Sanitize user input to prevent potential attacks
+    $selected_department = filter_var($_GET['department'], FILTER_SANITIZE_STRING);
+
+    // Query to fetch rooms based on the selected department using prepared statements
     $sql = "SELECT * FROM rooms WHERE department = ?";
     $stmt = $db->prepare($sql);
     $stmt->bind_param("s", $selected_department);
