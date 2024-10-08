@@ -93,7 +93,7 @@ if (empty($_SESSION['csrf_token'])) {
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
                     <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
                          <form role="form" id="logform" method="POST">
-                          
+                         <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                          <div id="myalert3" style="display:none;">
     <div class="alert alert-danger">
         <span id="alerttext"></span>
