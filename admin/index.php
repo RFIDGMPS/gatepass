@@ -120,7 +120,7 @@ if (isset($_POST['login'])) {
                                 <label for="username">Username</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off" required>
+                                <input id="password" type="password" class="form-control" name="password" placeholder="Password" autocomplete="off" required>
                                 <label for="password">Password</label>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-4">
