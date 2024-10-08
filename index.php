@@ -1,235 +1,192 @@
-
 <?php
 session_start();
 include 'connection.php';
+
+// Set session cookies to secure options
+ini_set('session.cookie_httponly', 1); // Prevent JavaScript access to session cookie
+ini_set('session.cookie_secure', 1);   // Use only over HTTPS
+ini_set('session.use_only_cookies', 1); // Use only cookies for session
+
+// Function to sanitize input
+function sanitizeInput($data) {
+    return htmlspecialchars(stripslashes(trim($data)));
+}
+
+// Check if user is already logged in
+if (isset($_SESSION['user_id'])) {
+    header('Location: main.php'); // Redirect to main page if already logged in
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-      <meta charset="utf-8">
-      <title>Administrator</title>
-      <meta content="width=device-width, initial-scale=1.0" name="viewport">
-      <meta content="" name="keywords">
-      <meta content="" name="description">
-      <!-- Favicon -->
-      <!--     <link href="img/favicon.ico" rel="icon"> -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-      <link href="admin/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-      <link href="admin/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-      <link href="admin/css/bootstrap.min.css" rel="stylesheet">
-      <link href="admin/css/style.css" rel="stylesheet">
-      <link href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css" rel="stylesheet" />
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-      <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-      <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
-      <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-      <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-      <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/2.2.3/jquery.elevatezoom.js" integrity="sha512-EjW7LChk2bIML+/kvj1NDrPSKHqfQ+zxJGBUKcopijd85cGwAX8ojz+781Rc0e7huwyI3j5Bn6rkctL3Gy61qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-      <style type="text/css">
-         @media (max-width: 576px) and (max-width: 768px) {
-         #lnamez {
-         margin-top: 30%;
-         display: block;
-         /* remove extra space below image */
-         }
-         #up_img {
-         position: relative;
-         margin-top: 4%;
-         display: block;
-         /* remove extra space below image */
-         }
-         }
-         @media (max-width: 992px) and (max-width: 1200px) {
-         #lnamez {
-         margin-top: 30%;
-         display: block;
-         /* remove extra space below image */
-         }
-         #up_img {
-         position: relative;
-         margin-top: 4%;
-         display: block;
-         /* remove extra space below image */
-         }
-         }
-      </style>
-      
-   </head>
-<?php
-// Start the session
-//session_start();
-
-?>
-
-
+    <meta charset="utf-8">
+    <title>Administrator</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <!-- Favicon -->
+    <!-- <link href="img/favicon.ico" rel="icon"> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="admin/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="admin/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="admin/css/style.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/2.2.3/jquery.elevatezoom.js" integrity="sha512-EjW7LChk2bIML+/kvj1NDrPSKHqfQ+zxJGBUKcopijd85cGwAX8ojz+781Rc0e7huwyI3j5Bn6rkctL3Gy61qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style type="text/css">
+        /* Responsive styles */
+        @media (max-width: 576px), (max-width: 768px) {
+            #lnamez {
+                margin-top: 30%;
+                display: block;
+            }
+            #up_img {
+                position: relative;
+                margin-top: 4%;
+                display: block;
+            }
+        }
+        @media (max-width: 992px), (max-width: 1200px) {
+            #lnamez {
+                margin-top: 30%;
+                display: block;
+            }
+            #up_img {
+                position: relative;
+                margin-top: 4%;
+                display: block;
+            }
+        }
+    </style>
+</head>
 
 <body>
     <div class="container-fluid position-relative bg-white d-flex p-0">
-        <!-- Spinner Start
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-      Spinner End -->
-
-
-        <!-- Sign In Start -->
         <div class="container-fluid">
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
                     <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
-                         <form role="form" id="logform" method="POST">
-                          
-                         <div id="myalert3" style="display:none;">
-    <div class="alert alert-danger">
-        <span id="alerttext"></span>
-    </div>
-</div>
-
-
-
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <a href="index.html" class="">
-                                <h3 class="text-warning">GPMS</h3>
-                            </a>
-                            <h3>Sign In</h3>
-                        </div>
-                        <div >
-                        <select class="form-control mb-4" name="roomdpt" id="roomdpt" autocomplete="off" onchange="fetchRooms()">
-    <!-- Main is selected by default -->
-    <option value="Main" selected>Main</option>
-    <?php
-    $sql = "SELECT * FROM department";
-    $result = $db->query($sql);
-
-    // Fetch department options (excluding Main)
-    while ($row = $result->fetch_assoc()) {
-        $department_name = $row['department_name'];
-        if ($department_name !== 'Main') {
-            echo "<option value='$department_name'>$department_name</option>";
-        }
-    }
-    ?>
-</select>
-
-<select class="form-control mb-4" name="location" id="location" autocomplete="off">
-    <!-- Gate is the default room -->
-    <option value="Gate" selected>Gate</option>
-</select>
-
-<script>
-function fetchRooms() {
-    var selectedDepartment = document.getElementById('roomdpt').value;
-
-    // If "Main" is selected, show "Gate"
-    if (selectedDepartment === "Main") {
-        document.getElementById('location').innerHTML = "<option value='Gate' selected>Gate</option>";
-    } else if (selectedDepartment) {
-        // Create an XMLHttpRequest object for other departments
-        var xhr = new XMLHttpRequest();
-
-        // Define the callback function to handle the server's response
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                // Replace the room options in the 'location' dropdown
-                document.getElementById('location').innerHTML = xhr.responseText;
-            }
-        };
-
-        // Prepare and send the AJAX request
-        xhr.open('GET', 'get_rooms.php?department=' + encodeURIComponent(selectedDepartment), true);
-        xhr.send();
-    } else {
-        // If no department is selected, clear the location dropdown
-        document.getElementById('location').innerHTML = "<option value=''>Select Room</option>";
-    }
-}
-</script>
-
-
-                        </div>
-                       
-                        <div class="form-floating mb-4">
-    <input id="remember" type="password" class="form-control" name="Ppassword" placeholder="Password" autocomplete="off">
-    <label for="floatingPassword">Password</label>
-   
-</div>
-
-                            
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="form-check">
-                                <input type="checkbox" id="remember" onclick="myFunction()"  class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Show Password</label>
+                        <form role="form" id="logform" method="POST">
+                            <div id="myalert3" style="display:none;">
+                                <div class="alert alert-danger">
+                                    <span id="alerttext"></span>
+                                </div>
                             </div>
-                        </div>
-                        <input style="border-color:#084298" type="text" name="Prfid_number" class="form-control" placeholder="Tap RFID card" autofocus>
-                        <button type="submit">Submit</button>
-                   </form>
-                   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function(){
-        $('#logform').on('submit', function(event){
-            event.preventDefault();  // Prevent form from reloading the page
 
-            // Gather form data
-            var formData = $(this).serialize();
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <a href="index.html" class="">
+                                    <h3 class="text-warning">GPMS</h3>
+                                </a>
+                                <h3>Sign In</h3>
+                            </div>
+                            <div>
+                                <select class="form-control mb-4" name="roomdpt" id="roomdpt" autocomplete="off" onchange="fetchRooms()">
+                                    <option value="Main" selected>Main</option>
+                                    <?php
+                                    $sql = "SELECT * FROM department";
+                                    $result = $db->query($sql);
+                                    while ($row = $result->fetch_assoc()) {
+                                        $department_name = $row['department_name'];
+                                        if ($department_name !== 'Main') {
+                                            echo "<option value='$department_name'>$department_name</option>";
+                                        }
+                                    }
+                                    ?>
+                                </select>
 
-            // Send form data via AJAX
-            $.ajax({
-                url: 'login.php',  // PHP file to handle the form submission
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    // Check the response content
-                    if (response.trim() === 'success') {
-                        // Redirect to the main page if successful
-                        window.location.href = "main.php";
-                    } else {
-                        // Show the error message and prevent page reload
-                        $('#alerttext').html(response);  // Set the response message
-                        document.getElementById("myalert3").style.display = "block";  // Show alert
-                        
-                        // Fade out the alert box after 3 seconds
-                        setTimeout(function() {
-                            $("#myalert3").fadeOut("slow");
-                        }, 3000);
-                    }
-                },
-                error: function() {
-                    $('#alerttext').html("Error in form submission.");  // Handle AJAX error
-                    document.getElementById("myalert3").style.display = "block";  // Show error alert
-                }
-            });
-        });
-    });
-</script>
+                                <select class="form-control mb-4" name="location" id="location" autocomplete="off">
+                                    <option value="Gate" selected>Gate</option>
+                                </select>
 
+                                <script>
+                                    function fetchRooms() {
+                                        var selectedDepartment = document.getElementById('roomdpt').value;
+                                        if (selectedDepartment === "Main") {
+                                            document.getElementById('location').innerHTML = "<option value='Gate' selected>Gate</option>";
+                                        } else if (selectedDepartment) {
+                                            var xhr = new XMLHttpRequest();
+                                            xhr.onreadystatechange = function () {
+                                                if (xhr.readyState === 4 && xhr.status === 200) {
+                                                    document.getElementById('location').innerHTML = xhr.responseText;
+                                                }
+                                            };
+                                            xhr.open('GET', 'get_rooms.php?department=' + encodeURIComponent(selectedDepartment), true);
+                                            xhr.send();
+                                        } else {
+                                            document.getElementById('location').innerHTML = "<option value=''>Select Room</option>";
+                                        }
+                                    }
+                                </script>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <input id="password" type="password" class="form-control" name="Ppassword" placeholder="Password" autocomplete="off" required>
+                                <label for="floatingPassword">Password</label>
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <div class="form-check">
+                                    <input type="checkbox" id="show-password" onclick="togglePassword()" class="form-check-input">
+                                    <label class="form-check-label" for="show-password">Show Password</label>
+                                </div>
+                            </div>
+                            <input style="border-color:#084298" type="text" name="Prfid_number" class="form-control" placeholder="Tap RFID card" autofocus required>
+                            <button type="submit">Submit</button>
+                        </form>
+
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script>
+                            $(document).ready(function(){
+                                $('#logform').on('submit', function(event){
+                                    event.preventDefault();  // Prevent form from reloading the page
+                                    var formData = $(this).serialize();  // Gather form data
+
+                                    // Send form data via AJAX
+                                    $.ajax({
+                                        url: 'login.php',  // PHP file to handle the form submission
+                                        type: 'POST',
+                                        data: formData,
+                                        success: function(response) {
+                                            if (response.trim() === 'success') {
+                                                window.location.href = "main.php"; // Redirect to main page
+                                            } else {
+                                                $('#alerttext').html(response);  // Set the response message
+                                                document.getElementById("myalert3").style.display = "block";  // Show alert
+                                                setTimeout(function() {
+                                                    $("#myalert3").fadeOut("slow"); // Fade out alert after 3 seconds
+                                                }, 3000);
+                                            }
+                                        }
+                                    });
+                                });
+                            });
+
+                            function togglePassword() {
+                                var passwordInput = document.getElementById("password");
+                                passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
         </div>
-      
     </div>
-    <script>
-        function myFunction() {
-            var x = document.getElementById("remember");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
-        }
-    </script>
+    <script src="admin/js/bootstrap.bundle.min.js"></script>
        <script type="text/javascript">
     // Disable right-click
     document.addEventListener('contextmenu', (e) => e.preventDefault());
