@@ -99,6 +99,12 @@ switch ($_GET['action'])
             }
         }
         
+        header('Content-Type: application/json');
+        if ($success) {
+            echo json_encode(['success' => true, 'message' => 'User added successfully']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to add user']);
+        }
         $stmt->close();
         $db->close();
     
