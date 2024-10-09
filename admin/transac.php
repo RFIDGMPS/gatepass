@@ -28,6 +28,7 @@ switch ($_GET['action'])
         $department = $_POST['department'];
         $section = $_POST['section'];
         $status = $_POST['status'];
+        $category = $_POST['category'];
         $complete_address = $_POST['complete_address'];
         
         if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
@@ -80,14 +81,14 @@ switch ($_GET['action'])
         } else {
             // Proceed with database insertion
             $query = "INSERT INTO personell 
-                     (id_no, rfid_number, last_name, first_name, middle_name, date_of_birth, role, sex, civil_status, contact_number, email_address, department, section, status, complete_address, photo, place_of_birth)
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                     (id_no, category, rfid_number, last_name, first_name, middle_name, date_of_birth, role, sex, civil_status, contact_number, email_address, department, section, status, complete_address, photo, place_of_birth)
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             // Prepare and bind parameters to prevent SQL injection
             $stmt = $db->prepare($query);
             $stmt->bind_param(
-                "sssssssssssssssss", 
-                $id_no, $rfid_number, $last_name, $first_name, $middle_name, $date_of_birth, $role, $sex, $civil_status, 
+                "ssssssssssssssssss", 
+                $id_no, $category, $rfid_number, $last_name, $first_name, $middle_name, $date_of_birth, $role, $sex, $civil_status, 
                 $contact_number, $email_address, $department, $section, $status, $complete_address, $photo, $place_of_birth
             );
         

@@ -56,7 +56,7 @@ include '../connection.php';
                                     <th scope="col">RFID Number</th>
                                     <th scope="col">Full Name</th>
                                     <th scope="col">Role</th>
-                                    <th scope="col">Contact Number</th>
+                                    <th scope="col">Category</th>
                                     <th scope="col">Department</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
@@ -76,7 +76,7 @@ include '../connection.php';
 									<input class="place_of_birth" type="hidden" value="<?php echo $row['place_of_birth']; ?>" />
 									<input class="sex" type="hidden" value="<?php echo $row['sex']; ?>" />
 									<input class="civil_status" type="hidden" value="<?php echo $row['civil_status']; ?>" />
-									<input class="contact_number" type="hidden" value="<?php echo $row['contact_number']; ?>" />
+									<input class="contact_number" type="hidden" value="<?php echo $row['category']; ?>" />
 									<input class="email_address" type="hidden" value="<?php echo $row['email_address']; ?>" />
 									<input class="status" type="hidden" value="<?php echo $row['status']; ?>" />
 									<input class="department" type="hidden" value="<?php echo $row['department']; ?>" />
@@ -89,7 +89,7 @@ include '../connection.php';
                                     <td class="rfid"><?php echo $row['rfid_number']; ?></td>
                                     <td><?php echo $row['first_name'] .' '.$row['last_name']; ?></td>
                                     <td><?php echo $row['role']; ?></td>
-                                    <td><?php echo $row['contact_number']; ?></td>
+                                    <td><?php echo $row['category']; ?></td>
                                     <td><?php echo $row['department']; ?></td>
                                     <td><?php if ($row['status'] == 'Active') {
 											echo '<span class="badge bg-success">Active</span>';
@@ -192,7 +192,7 @@ include '../connection.php';
 		 
 		 </script>
             <!-- Modal -->
-            <form role="form" method="post" action="transac.php?action=add" enctype="multipart/form-data">
+            <form id="myForm" role="form" method="post" action="transac.php?action=add" enctype="multipart/form-data">
                <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg">
                      <div class="modal-content">
@@ -441,7 +441,39 @@ while ($row = $result->fetch_assoc()) {
                   </div>
                </div>
             </form>
-          
+            <script>
+document.getElementById('myForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    // Create a FormData object from the form
+    let formData = new FormData(this);
+
+    // Send form data using fetch()
+    fetch('transac.php?action=add', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            // 'Content-Type': 'application/json' // No need to set this for FormData
+        }
+    })
+    .then(response => response.json()) // Assuming the server responds with JSON
+    .then(data => {
+        if (data.success) {
+            // Handle success (e.g., show success message or redirect)
+            alert('User added successfully!');
+            // Optionally, you can reset the form
+            document.getElementById('myForm').reset();
+        } else {
+            // Handle error (e.g., show error messages)
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+</script>
+
             <!-- Modal -->
 
                <div class="modal fade" id="editemployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
