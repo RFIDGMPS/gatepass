@@ -122,7 +122,8 @@ if (isset($_POST['login'])) {
     }
 }
 
-// Pass the necessary variables to JavaScript
+// Pass the error message to JavaScript
+echo "<script>var errorMessage = '" . addslashes($errorMessage) . "';</script>";
 $remainingLockoutTime = max(0, $lockoutTime - (time() - $_SESSION['lockout']));
 echo "<script>var lockout = { attempts: " . $_SESSION['login_attempts'] . ", remaining: " . $remainingLockoutTime . " };</script>";
 ?>
