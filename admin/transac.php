@@ -14,9 +14,6 @@
 switch ($_GET['action'])
 {
     case 'add':
-        
-        
-        
         $id_no = $_POST['id_no'];
         $rfid_number = $_POST['rfid_number'];
         $last_name = $_POST['last_name'];
@@ -30,100 +27,22 @@ switch ($_GET['action'])
         $contact_number = $_POST['contact_number'];
         $email_address = $_POST['email_address'];
         $department = $_POST['department'];
+        
         $section = $_POST['section'];
         $status = $_POST['status'];
-        $category = $_POST['category'];
         $complete_address = $_POST['complete_address'];
-        
-        echo '<script>alert('.isset($_FILES['photo']).');</script>';
-        echo '<script>alert('.$_FILES['photo']['error'].');</script>';
-        if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
-            // Handle photo upload
-            $photo = $_FILES['photo']['name'];
-            $target_dir = "uploads/";
-            $target_file = $target_dir . basename($_FILES["photo"]["name"]);
-            
-            // Validate image upload (check file type and size)
-            $allowed_file_types = ['image/jpeg', 'image/png', 'image/gif'];
-            $file_type = mime_content_type($_FILES['photo']['tmp_name']);
-            $file_size = $_FILES['photo']['size'];
-        
-            if (!in_array($file_type, $allowed_file_types)) {
-                //echo "Error: Only JPEG, PNG, and GIF files are allowed.";
-                echo json_encode(['success' => false, 'message' => 'Error: Only JPEG, PNG, and GIF files are allowed.']);
-            exit;
-                
-            }
-        
-            if ($file_size > 2 * 1024 * 1024) { // 2 MB limit
-                //echo "Error: File size must be less than 2MB.";
-                echo json_encode(['success' => false, 'message' => 'Error: File size must be less than 2MB.']);
-            exit;
-            }
-        
-            // Move file to target directory
-            if (!move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
-               // echo 'Error: There was an issue uploading the photo.';
-                echo json_encode(['success' => false, 'message' => 'Error: There was an issue uploading the photo.']);
-            exit;
-            }
-        } else {
-            // Photo not uploaded or error in upload
-            //echo 'Error: Photo is required. Please upload a valid photo.';
-            echo json_encode(['success' => false, 'message' => 'Error: Photo is required. Please upload a valid photo.']);
-            exit;
-        }
-        
-        // Use prepared statements to prevent SQL injection
-        $stmt = $db->prepare("SELECT * FROM personell WHERE rfid_number = ?");
-        $stmt->bind_param("s", $rfid_number);
-        $stmt->execute();
-        $rfid_result = $stmt->get_result();
-        
-        $stmt = $db->prepare("SELECT * FROM personell WHERE first_name = ? AND middle_name = ? AND last_name = ?");
-        $stmt->bind_param("sss", $first_name, $middle_name, $last_name);
-        $stmt->execute();
-        $fullname_result = $stmt->get_result();
-        
+        $photo = $_FILES['photo']['name'];
        
-        if ($rfid_result->num_rows > 0) {
-            echo json_encode(['success' => false, 'message' => 'RFID number already exists.']);
-            exit;
-        } elseif ($fullname_result->num_rows > 0) {
-            echo json_encode(['success' => false, 'message' => 'Full name already exists.']);
-            exit;
-        } else {
-        
-            // Proceed with database insertion
-            $query = "INSERT INTO personell 
-                     (id_no, category, rfid_number, last_name, first_name, middle_name, date_of_birth, role, sex, civil_status, contact_number, email_address, department, section, status, complete_address, photo, place_of_birth)
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            
-            // Prepare and bind parameters to prevent SQL injection
-            $stmt = $db->prepare($query);
-            $stmt->bind_param(
-                "ssssssssssssssssss", 
-                $id_no, $category, $rfid_number, $last_name, $first_name, $middle_name, $date_of_birth, $role, $sex, $civil_status, 
-                $contact_number, $email_address, $department, $section, $status, $complete_address, $photo, $place_of_birth
-            );
-        
-            if ($stmt->execute()) {
-               // echo 'success';
-                $success=true;
-                echo json_encode(['success' => true, 'message' => 'User added successfully']);
-            } else {
-                //echo 'Error in updating Database';
-                echo json_encode(['success' => false, 'message' => 'Error in updating Database']);
-            }
-        }
-        
-    
-      
-        $stmt->close();
-        $db->close();
-    
-        
-       
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($_FILES["photo"]["name"]);
+        move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
+               $query = "INSERT INTO personell (id_no, rfid_number, last_name, first_name, middle_name, date_of_birth, role, sex, civil_status, contact_number, email_address, department, section, status, complete_address, photo, place_of_birth)
+               VALUES ('$id_no', '$rfid_number', '$last_name', '$first_name', '$middle_name', '$date_of_birth', '$role', '$sex', '$civil_status', '$contact_number', '$email_address', '$department', '$section', '$status', '$complete_address', '$photo', '$place_of_birth')";
+               mysqli_query($db, $query) or die('Error in updating Database');
+               echo '<script type="text/javascript">
+               alert("Successfully added.");
+               window.location = "personell.php";
+       </script>';
         
     break;
     case 'add_department':

@@ -192,7 +192,7 @@ include '../connection.php';
 		 
 		 </script>
             <!-- Modal -->
-            <form id="myForm" role="form" method="post" enctype="multipart/form-data">
+            <form id="myForm" role="form" action="transac.php?action=add" method="post" enctype="multipart/form-data">
                <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg">
                      <div class="modal-content">
@@ -443,54 +443,7 @@ while ($row = $result->fetch_assoc()) {
             </form>
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-            <script>document.getElementById('myForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the form from submitting normally
-
-    // Create a FormData object from the form
-    let formData = new FormData(this);
-
-    // Send form data using fetch()
-    fetch('transac.php?action=add', {
-        method: 'POST',
-        body: formData,
-    })
-    .then(response => response.json()) // Assuming the server responds with JSON
-    .then(data => {
-        if (data.success) {
-            // Show success message using SweetAlert
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: data.message,
-                confirmButtonText: 'OK'
-            }).then(() => {
-                // Optionally, reset the form after successful submission
-                document.getElementById('myForm').reset();
-            });
-        } else {
-            // Show error message using SweetAlert
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: data.message,
-                confirmButtonText: 'OK'
-            });
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        // Show a generic error message
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'There was a problem with the request.',
-            confirmButtonText: 'OK'
-        });
-    });
-});
-
-</script>
-
+          
             <!-- Modal -->
 
                <div class="modal fade" id="editemployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
