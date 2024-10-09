@@ -468,7 +468,7 @@ $(document).ready(function() {
                 } else {
                     Swal.fire({
                         title: "Error",
-                        text: "Failed to add record.",
+                        text: "Failed to add record." + response.trim(),
                         icon: "error",
                         confirmButtonText: "OK"
                     });
