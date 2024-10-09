@@ -35,6 +35,8 @@ switch ($_GET['action'])
         $category = $_POST['category'];
         $complete_address = $_POST['complete_address'];
         
+        echo '<script>alert('.isset($_FILES['photo']).');</script>';
+        echo '<script>alert('.$_FILES['photo']['error'].');</script>';
         if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
             // Handle photo upload
             $photo = $_FILES['photo']['name'];
