@@ -192,7 +192,7 @@ include '../connection.php';
 		 
 		 </script>
             <!-- Modal -->
-            <form id="myForm" role="form" method="post" action="transac.php?action=add" enctype="multipart/form-data">
+            <form id="myForm" role="form" method="post" enctype="multipart/form-data">
                <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg">
                      <div class="modal-content">
