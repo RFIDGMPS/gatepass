@@ -30,14 +30,15 @@ switch ($_GET['action'])
         
         $section = $_POST['section'];
         $status = $_POST['status'];
+        $category = $_POST['category'];
         $complete_address = $_POST['complete_address'];
         $photo = $_FILES['photo']['name'];
        
         $target_dir = "uploads/";
         $target_file = $target_dir . basename($_FILES["photo"]["name"]);
         move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
-               $query = "INSERT INTO personell (id_no, rfid_number, last_name, first_name, middle_name, date_of_birth, role, sex, civil_status, contact_number, email_address, department, section, status, complete_address, photo, place_of_birth)
-               VALUES ('$id_no', '$rfid_number', '$last_name', '$first_name', '$middle_name', '$date_of_birth', '$role', '$sex', '$civil_status', '$contact_number', '$email_address', '$department', '$section', '$status', '$complete_address', '$photo', '$place_of_birth')";
+               $query = "INSERT INTO personell (id_no, category, rfid_number, last_name, first_name, middle_name, date_of_birth, role, sex, civil_status, contact_number, email_address, department, section, status, complete_address, photo, place_of_birth)
+               VALUES ('$id_no', '$category', '$rfid_number', '$last_name', '$first_name', '$middle_name', '$date_of_birth', '$role', '$sex', '$civil_status', '$contact_number', '$email_address', '$department', '$section', '$status', '$complete_address', '$photo', '$place_of_birth')";
                mysqli_query($db, $query) or die('Error in updating Database');
                echo '<script type="text/javascript">
                alert("Successfully added.");
