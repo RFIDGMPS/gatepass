@@ -192,7 +192,7 @@ include '../connection.php';
 		 
 		 </script>
             <!-- Modal -->
-            <form id="myForm" role="form" action="transac.php?action=add" method="post" enctype="multipart/form-data">
+            <form id="myForm" role="form" method="post" enctype="multipart/form-data">
                <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg">
                      <div class="modal-content">
@@ -441,30 +441,52 @@ while ($row = $result->fetch_assoc()) {
                   </div>
                </div>
             </form>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function () {
-  if (window.success === true) {
-    Swal.fire({
-      title: "Success!",
-      text: "Successfully added.",
-      icon: "success",
-      confirmButtonText: "OK"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location = "personell.php"; // Redirect after confirmation
-      }
+$(document).ready(function() {
+    $('#myForm').on('submit', function(e) {
+        e.preventDefault(); // Prevent the form from submitting the traditional way
+
+        $.ajax({
+            url: 'transac.php?action=add', // Replace with your PHP script path
+            type: 'POST',
+            data: $(this).serialize(), // Serialize form data
+            success: function(response) {
+                // Assume response is either "success" or "error"
+                if (response === 'success') {
+                    Swal.fire({
+                        title: "Success!",
+                        text: "Successfully added.",
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location = "personell.php"; // Redirect after confirmation
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Error",
+                        text: "Failed to add record.",
+                        icon: "error",
+                        confirmButtonText: "OK"
+                    });
+                }
+            },
+            error: function() {
+                Swal.fire({
+                    title: "Error",
+                    text: "An unexpected error occurred.",
+                    icon: "error",
+                    confirmButtonText: "OK"
+                });
+            }
+        });
     });
-  } else if (window.success === false) {
-    Swal.fire({
-      title: "Error",
-      text: "Failed to add record.",
-      icon: "error",
-      confirmButtonText: "OK"
-    });
-  }
 });
 </script>
+
 
 
           

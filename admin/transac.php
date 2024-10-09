@@ -38,9 +38,9 @@ switch ($_GET['action'])
                VALUES ('$id_no', '$category', '$rfid_number', '$last_name', '$first_name', '$middle_name', '$date_of_birth', '$role', '$sex', '$civil_status', '$contact_number', '$email_address', '$department', '$section', '$status', '$complete_address', '$photo', '$place_of_birth')";
                mysqli_query($db, $query) or die('Error in updating Database');
                if (mysqli_query($db, $query)) {
-                echo '<script type="text/javascript">window.success = true;</script>';
+                echo 'success'; // Return success response
             } else {
-                echo '<script type="text/javascript">window.success = false;</script>';
+                echo 'error'; // Return error response
             }
         
     break;
