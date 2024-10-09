@@ -56,34 +56,33 @@ if (empty($_SESSION['csrf_token'])) {
 include '../connection.php';
 
 // Initialize variables for login attempts
-$maxAttempts = 5; // Max failed login attempts allowed
-$lockoutTime = 300; // Lockout time in seconds (e.g., 300 seconds = 5 minutes)
+$maxAttempts = 3; // Limit to 3 failed login attempts
+$lockoutTime = 300; // Lockout time in seconds (5 minutes)
 $errorMessage = '';
 
 // Check if the session has 'login_attempts' and 'lockout' set
 if (!isset($_SESSION['login_attempts'])) {
     $_SESSION['login_attempts'] = 0;
-    $_SESSION['lockout'] = time(); // Track lockout time
+    $_SESSION['lockout'] = time();
 }
 
-// Handle form submission securely
+// Handle form submission
 if (isset($_POST['login'])) {
+    // Validate CSRF token
     if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-        // CSRF token invalid
         $errorMessage = "Invalid request.";
     } else {
         // Check if the user is locked out
         if ($_SESSION['login_attempts'] >= $maxAttempts && (time() - $_SESSION['lockout']) < $lockoutTime) {
-            // Calculate remaining lockout time
             $remainingTime = $lockoutTime - (time() - $_SESSION['lockout']);
             $errorMessage = "Too many failed login attempts. Please wait " . ceil($remainingTime / 60) . " minutes.";
         } else {
-            // Reset login attempts if the lockout time has passed
+            // Reset attempts if the lockout period is over
             if ($_SESSION['login_attempts'] >= $maxAttempts && (time() - $_SESSION['lockout']) >= $lockoutTime) {
                 $_SESSION['login_attempts'] = 0;
             }
 
-            // Sanitize and validate username and password
+            // Sanitize and validate inputs
             $username1 = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
             $password1 = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
 
@@ -93,15 +92,12 @@ if (isset($_POST['login'])) {
             $stmt->execute();
             $result = $stmt->get_result();
 
-            // Check if user exists and verify password
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 if (password_verify($password1, $row['password'])) {
-                    // Successful login, reset login attempts
+                    // Successful login
                     $_SESSION['login_attempts'] = 0;
-                    $_SESSION['username'] = $username1; // Store username in session
-
-                    // Redirect securely to dashboard
+                    $_SESSION['username'] = $username1;
                     header("Location: dashboard.php");
                     exit();
                 } else {
@@ -115,9 +111,9 @@ if (isset($_POST['login'])) {
                 $errorMessage = "Invalid username or password.";
             }
 
-            // If failed attempts reach max, set lockout time
+            // Lockout after max attempts
             if ($_SESSION['login_attempts'] >= $maxAttempts) {
-                $_SESSION['lockout'] = time(); // Start the lockout time
+                $_SESSION['lockout'] = time();
                 $errorMessage = "Too many failed login attempts. Please wait 5 minutes before trying again.";
             }
 
@@ -126,9 +122,12 @@ if (isset($_POST['login'])) {
     }
 }
 
-// Pass the error message to JavaScript
-echo "<script>var errorMessage = '" . addslashes($errorMessage) . "';</script>";
+// Pass the necessary variables to JavaScript
+$remainingLockoutTime = max(0, $lockoutTime - (time() - $_SESSION['lockout']));
+echo "<script>var lockout = { attempts: " . $_SESSION['login_attempts'] . ", remaining: " . $remainingLockoutTime . " };</script>";
 ?>
+
+
 
 
 
@@ -138,80 +137,102 @@ echo "<script>var errorMessage = '" . addslashes($errorMessage) . "';</script>";
 <html lang="en">
 <?php include 'header.php'; ?>
 
-<body>
-<div class="container-fluid position-relative bg-white d-flex p-0">
-        <!-- Login Form -->
-        <div class="container-fluid">
-            <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
-                <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
-                    <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
-                        <form id="logform" method="POST">
-                            <!-- CSRF token hidden field -->
-                            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+<body>  <div class="container-fluid position-relative bg-white d-flex p-0">
+    <div class="container-fluid">
+        <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+            <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+                <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
+                    <form id="logform" method="POST">
+                        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 
-                            <!-- Alert for error messages -->
-                            <div id="myalert3" style="display:none;">
-                                <div class="alert alert-danger">
-                                    <span id="alerttext"></span>
-                                </div>
+                        <div id="myalert3" style="display:none;">
+                            <div class="alert alert-danger">
+                                <span id="alerttext"></span>
                             </div>
+                        </div>
 
-                            <!-- Form header -->
-                            <div class="d-flex align-items-center justify-content-between mb-3">
-                                <h3 class="text-warning">ADMIN</h3>
-                                <h3>Sign In</h3>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h3 class="text-warning">ADMIN</h3>
+                            <h3>Sign In</h3>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input id="uname" type="text" class="form-control" name="username" placeholder="Username" autocomplete="off" required>
+                            <label for="username">Username</label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input id="password" type="password" class="form-control" name="password" placeholder="Password" autocomplete="off" required>
+                            <label for="password">Password</label>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="form-check">
+                                <input type="checkbox" id="remember" class="form-check-input" onclick="togglePasswordVisibility()">
+                                <label class="form-check-label" for="remember">Show Password</label>
                             </div>
+                        </div>
 
-                            <!-- Username field -->
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="off" required>
-                                <label for="username">Username</label>
-                            </div>
+                        <button id="but" type="submit" name="login" class="btn btn-warning py-3 w-100 mb-4">Sign In</button>
 
-                            <!-- Password field -->
-                            <div class="form-floating mb-4">
-                                <input id="password" type="password" class="form-control" name="password" placeholder="Password" autocomplete="off" required>
-                                <label for="password">Password</label>
-                            </div>
-
-                            <!-- Show Password Checkbox -->
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <div class="form-check">
-                                    <input type="checkbox" id="remember" class="form-check-input" onclick="togglePasswordVisibility()">
-                                    <label class="form-check-label" for="remember">Show Password</label>
-                                </div>
-                            </div>
-
-                            <!-- Sign In Button -->
-                            <button type="submit" name="login" class="btn btn-warning py-3 w-100 mb-4">Sign In</button>
-                        </form>
-                    </div>
+                        <!-- Countdown Timer -->
+                        <div id="lockout-message" class="text-danger" style="display: none;">
+                            Too many attempts. Try again in <span id="countdown"></span> seconds.
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        // Toggle password visibility
-        function togglePasswordVisibility() {
-            var passwordField = document.getElementById("password");
-            passwordField.type = passwordField.type === "password" ? "text" : "password";
-        }
+<script>
+    // Toggle password visibility
+    function togglePasswordVisibility() {
+        var passwordField = document.getElementById("password");
+        passwordField.type = passwordField.type === "password" ? "text" : "password";
+    }
 
-        // Display error messages
-        if (typeof errorMessage !== 'undefined' && errorMessage !== '') {
-            document.getElementById('myalert3').style.display = 'block';
-            document.getElementById('alerttext').innerText = errorMessage;
-            fadeOutAlert();
-        }
+    // Display error messages if any
+    if (typeof errorMessage !== 'undefined' && errorMessage !== '') {
+        document.getElementById('myalert3').style.display = 'block';
+        document.getElementById('alerttext').innerText = errorMessage;
+        fadeOutAlert();
+    }
 
-        // Fade out alert after 3 seconds
-        function fadeOutAlert() {
-            setTimeout(function() {
-                document.getElementById('myalert3').style.display = 'none';
-            }, 3000);
-        }
-    </script>
+    // Fade out alert after 3 seconds
+    function fadeOutAlert() {
+        setTimeout(function() {
+            document.getElementById('myalert3').style.display = 'none';
+        }, 3000);
+    }
+
+    // Handle lockout and countdown
+    if (lockout.attempts >= <?php echo $maxAttempts; ?> && lockout.remaining > 0) {
+        document.getElementById('uname').disabled = true;
+        document.getElementById('password').disabled = true;
+        document.getElementById('but').disabled = true;
+
+        // Show lockout message and countdown timer
+        document.getElementById('lockout-message').style.display = 'block';
+        var countdownElement = document.getElementById('countdown');
+        var remainingTime = lockout.remaining;
+
+        var interval = setInterval(function() {
+            remainingTime--;
+            countdownElement.textContent = remainingTime;
+
+            // Re-enable form after countdown
+            if (remainingTime <= 0) {
+                clearInterval(interval);
+                document.getElementById('uname').disabled = false;
+                document.getElementById('password').disabled = false;
+                document.getElementById('but').disabled = false;
+                document.getElementById('lockout-message').style.display = 'none';
+            }
+        }, 1000);
+    }
+</script>
 
        <script type="text/javascript">
     // Disable right-click
