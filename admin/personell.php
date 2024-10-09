@@ -443,8 +443,7 @@ while ($row = $result->fetch_assoc()) {
             </form>
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-            <script>
-document.getElementById('myForm').addEventListener('submit', function(event) {
+            <script>document.getElementById('myForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Create a FormData object from the form
@@ -454,18 +453,15 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
     fetch('transac.php?action=add', {
         method: 'POST',
         body: formData,
-        headers: {
-            // 'Content-Type': 'application/json' // No need to set this for FormData
-        }
     })
     .then(response => response.json()) // Assuming the server responds with JSON
     .then(data => {
-      if (data.success) {
+        if (data.success) {
             // Show success message using SweetAlert
             Swal.fire({
                 icon: 'success',
                 title: 'Success',
-                text: 'User added successfully!',
+                text: data.message,
                 confirmButtonText: 'OK'
             }).then(() => {
                 // Optionally, reset the form after successful submission
@@ -482,16 +478,17 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
         }
     })
     .catch(error => {
-      //   console.error('Error:', error);
-
+        console.error('Error:', error);
+        // Show a generic error message
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'There was a problem with the request.' + data.message,
+            text: 'There was a problem with the request.',
             confirmButtonText: 'OK'
         });
     });
 });
+
 </script>
 
             <!-- Modal -->
