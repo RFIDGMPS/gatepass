@@ -43,65 +43,93 @@
 ?>
 
 <?php
-// Start the session securely
 session_start();
-session_regenerate_id(true); // Protect against session fixation attacks
+session_regenerate_id(true); // Prevent session fixation attacks
 
+// Generate CSRF token if not already set
 if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); // Generate a secure random token
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
-include '../connection.php'; // Always sanitize database connections
 
-$errorMessage = ''; // Initialize the error message
+// Include database connection securely
+include '../connection.php';
 
-// Sanitize inputs and handle login
+// Initialize variables for login attempts
+$maxAttempts = 5; // Max failed login attempts allowed
+$lockoutTime = 300; // Lockout time in seconds (e.g., 300 seconds = 5 minutes)
+$errorMessage = '';
+
+// Check if the session has 'login_attempts' and 'lockout' set
+if (!isset($_SESSION['login_attempts'])) {
+    $_SESSION['login_attempts'] = 0;
+    $_SESSION['lockout'] = time(); // Track lockout time
+}
+
+// Handle form submission securely
 if (isset($_POST['login'])) {
     if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-        // Token invalid, set the error message for CSRF failure
-        $errorMessage = "CSRF token validation failed.";
+        // CSRF token invalid
+        $errorMessage = "Invalid request.";
     } else {
-        // Validate and sanitize username and password inputs
-        $username1 = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
-        $password1 = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
-
-        // Escape inputs to prevent SQL injection
-        $username1 = mysqli_real_escape_string($db, $username1);
-        $password1 = mysqli_real_escape_string($db, $password1);
-
-        // Fetch user securely using prepared statements
-        $sql = "SELECT * FROM user WHERE username = ? LIMIT 1";
-        $stmt = $db->prepare($sql);
-        $stmt->bind_param("s", $username1);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            // Verify the password using password hashing
-            if (password_verify($password1, $row['password'])) {
-                // Store the username in session to indicate successful login
-                $_SESSION['username'] = $username1;
-
-                // Redirect to the dashboard securely
-                echo '<script type="text/javascript">window.location = "dashboard.php";</script>';
-                exit();
-            } else {
-                $errorMessage = "Invalid username or password.";
-                
-            }
+        // Check if the user is locked out
+        if ($_SESSION['login_attempts'] >= $maxAttempts && (time() - $_SESSION['lockout']) < $lockoutTime) {
+            // Calculate remaining lockout time
+            $remainingTime = $lockoutTime - (time() - $_SESSION['lockout']);
+            $errorMessage = "Too many failed login attempts. Please wait " . ceil($remainingTime / 60) . " minutes.";
         } else {
-            $errorMessage = "Invalid username or password.";
-            
-        }
+            // Reset login attempts if the lockout time has passed
+            if ($_SESSION['login_attempts'] >= $maxAttempts && (time() - $_SESSION['lockout']) >= $lockoutTime) {
+                $_SESSION['login_attempts'] = 0;
+            }
 
-        $stmt->close();
+            // Sanitize and validate username and password
+            $username1 = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
+            $password1 = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+
+            // Use prepared statements to prevent SQL injection
+            $stmt = $db->prepare("SELECT * FROM user WHERE username = ? LIMIT 1");
+            $stmt->bind_param("s", $username1);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            // Check if user exists and verify password
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                if (password_verify($password1, $row['password'])) {
+                    // Successful login, reset login attempts
+                    $_SESSION['login_attempts'] = 0;
+                    $_SESSION['username'] = $username1; // Store username in session
+
+                    // Redirect securely to dashboard
+                    header("Location: dashboard.php");
+                    exit();
+                } else {
+                    // Invalid password
+                    $_SESSION['login_attempts']++;
+                    $errorMessage = "Invalid username or password.";
+                }
+            } else {
+                // Invalid username
+                $_SESSION['login_attempts']++;
+                $errorMessage = "Invalid username or password.";
+            }
+
+            // If failed attempts reach max, set lockout time
+            if ($_SESSION['login_attempts'] >= $maxAttempts) {
+                $_SESSION['lockout'] = time(); // Start the lockout time
+                $errorMessage = "Too many failed login attempts. Please wait 5 minutes before trying again.";
+            }
+
+            $stmt->close();
+        }
     }
 }
 
 // Pass the error message to JavaScript
 echo "<script>var errorMessage = '" . addslashes($errorMessage) . "';</script>";
-echo '<script>fadeOutAlert();</script>';
 ?>
+
+
 
 
 <!-- HTML and JavaScript portion -->
@@ -110,42 +138,52 @@ echo '<script>fadeOutAlert();</script>';
 <?php include 'header.php'; ?>
 
 <body>
-    <div class="container-fluid position-relative bg-white d-flex p-0">
-        <!-- Sign In Form -->
+<div class="container-fluid position-relative bg-white d-flex p-0">
+        <!-- Login Form -->
         <div class="container-fluid">
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
                     <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
-                    <form id="logform" method="POST">
-    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-    <div id="myalert3" style="display:none;">
-        <div class="alert alert-danger">
-            <span id="alerttext"></span>
-        </div>
-    </div>
-    <div class="d-flex align-items-center justify-content-between mb-3">
-        <a href="index.html">
-            <h3 class="text-warning">ADMIN</h3>
-        </a>
-        <h3>Sign In</h3>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="off" required>
-        <label for="username">Username</label>
-    </div>
-    <div class="form-floating mb-4">
-        <input id="password" type="password" class="form-control" name="password" placeholder="Password" autocomplete="off" required>
-        <label for="password">Password</label>
-    </div>
-    <div class="d-flex align-items-center justify-content-between mb-4">
-        <div class="form-check">
-            <input type="checkbox" id="remember" class="form-check-input" onclick="togglePasswordVisibility()">
-            <label class="form-check-label" for="remember">Show Password</label>
-        </div>
-    </div>
-    <button type="submit" name="login" class="btn btn-warning py-3 w-100 mb-4">Sign In</button>
-</form>
+                        <form id="logform" method="POST">
+                            <!-- CSRF token hidden field -->
+                            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 
+                            <!-- Alert for error messages -->
+                            <div id="myalert3" style="display:none;">
+                                <div class="alert alert-danger">
+                                    <span id="alerttext"></span>
+                                </div>
+                            </div>
+
+                            <!-- Form header -->
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h3 class="text-warning">ADMIN</h3>
+                                <h3>Sign In</h3>
+                            </div>
+
+                            <!-- Username field -->
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="off" required>
+                                <label for="username">Username</label>
+                            </div>
+
+                            <!-- Password field -->
+                            <div class="form-floating mb-4">
+                                <input id="password" type="password" class="form-control" name="password" placeholder="Password" autocomplete="off" required>
+                                <label for="password">Password</label>
+                            </div>
+
+                            <!-- Show Password Checkbox -->
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <div class="form-check">
+                                    <input type="checkbox" id="remember" class="form-check-input" onclick="togglePasswordVisibility()">
+                                    <label class="form-check-label" for="remember">Show Password</label>
+                                </div>
+                            </div>
+
+                            <!-- Sign In Button -->
+                            <button type="submit" name="login" class="btn btn-warning py-3 w-100 mb-4">Sign In</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -153,27 +191,27 @@ echo '<script>fadeOutAlert();</script>';
     </div>
 
     <script>
-        // Function to toggle password visibility
+        // Toggle password visibility
         function togglePasswordVisibility() {
             var passwordField = document.getElementById("password");
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-            } else {
-                passwordField.type = "password";
-            }
+            passwordField.type = passwordField.type === "password" ? "text" : "password";
         }
-    // Check if there is an error message and display it in the alert box
-    if (typeof errorMessage !== 'undefined' && errorMessage !== '') {
-        document.getElementById('myalert3').style.display = 'block';
-        document.getElementById('alerttext').innerText = errorMessage;
-        fadeOutAlert();
-    }
-  function fadeOutAlert() {
-        setTimeout(function() {
-            $("#myalert3").fadeOut('slow');
-        }, 3000);
-    }
+
+        // Display error messages
+        if (typeof errorMessage !== 'undefined' && errorMessage !== '') {
+            document.getElementById('myalert3').style.display = 'block';
+            document.getElementById('alerttext').innerText = errorMessage;
+            fadeOutAlert();
+        }
+
+        // Fade out alert after 3 seconds
+        function fadeOutAlert() {
+            setTimeout(function() {
+                document.getElementById('myalert3').style.display = 'none';
+            }, 3000);
+        }
     </script>
+
        <script type="text/javascript">
     // Disable right-click
     document.addEventListener('contextmenu', (e) => e.preventDefault());
