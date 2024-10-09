@@ -74,11 +74,16 @@ switch ($_GET['action'])
         $stmt->execute();
         $fullname_result = $stmt->get_result();
         
+        header('Content-Type: application/json');
+
         if ($rfid_result->num_rows > 0) {
-            echo 'Error: RFID number already exists.';
+            echo json_encode(['success' => false, 'message' => 'RFID number already exists.']);
+            exit;
         } elseif ($fullname_result->num_rows > 0) {
-            echo 'Error: Full name already exists.';
+            echo json_encode(['success' => false, 'message' => 'Full name already exists.']);
+            exit;
         } else {
+        
             // Proceed with database insertion
             $query = "INSERT INTO personell 
                      (id_no, category, rfid_number, last_name, first_name, middle_name, date_of_birth, role, sex, civil_status, contact_number, email_address, department, section, status, complete_address, photo, place_of_birth)
@@ -99,7 +104,7 @@ switch ($_GET['action'])
             }
         }
         
-        header('Content-Type: application/json');
+    
         if ($success) {
             echo json_encode(['success' => true, 'message' => 'User added successfully']);
         } else {
