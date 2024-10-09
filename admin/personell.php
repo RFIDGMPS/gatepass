@@ -441,6 +441,8 @@ while ($row = $result->fetch_assoc()) {
                   </div>
                </div>
             </form>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
             <script>
 document.getElementById('myForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the form from submitting normally
@@ -458,18 +460,36 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
     })
     .then(response => response.json()) // Assuming the server responds with JSON
     .then(data => {
-        if (data.success) {
-            // Handle success (e.g., show success message or redirect)
-            alert('User added successfully!');
-            // Optionally, you can reset the form
-            document.getElementById('myForm').reset();
+      if (data.success) {
+            // Show success message using SweetAlert
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'User added successfully!',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                // Optionally, reset the form after successful submission
+                document.getElementById('myForm').reset();
+            });
         } else {
-            // Handle error (e.g., show error messages)
-            alert('Error: ' + data.message);
+            // Show error message using SweetAlert
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: data.message,
+                confirmButtonText: 'OK'
+            });
         }
     })
     .catch(error => {
         console.error('Error:', error);
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'There was a problem with the request.',
+            confirmButtonText: 'OK'
+        });
     });
 });
 </script>
