@@ -1,5 +1,12 @@
 <?php
-       
+       ini_set('display_errors', 1);
+       ini_set('display_startup_errors', 1);
+       error_reporting(E_ALL);
+
+       header('Content-Type: application/json');
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: POST");
+        header("Access-Control-Allow-Headers: Content-Type");
  include('../connection.php');
        
        
@@ -11,8 +18,8 @@
 switch ($_GET['action'])
 {
     case 'add':
-        header('Content-Type: application/json');
-
+        
+        
         
         $id_no = $_POST['id_no'];
         $rfid_number = $_POST['rfid_number'];
