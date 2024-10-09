@@ -87,11 +87,11 @@ if (isset($_POST['login'])) {
                 exit();
             } else {
                 $errorMessage = "Invalid username or password.";
-                echo '<script>fadeOutAlert();</script>';
+                
             }
         } else {
             $errorMessage = "Invalid username or password.";
-            echo '<script>fadeOutAlert();</script>';
+            
         }
 
         $stmt->close();
@@ -100,6 +100,7 @@ if (isset($_POST['login'])) {
 
 // Pass the error message to JavaScript
 echo "<script>var errorMessage = '" . addslashes($errorMessage) . "';</script>";
+echo '<script>fadeOutAlert();</script>';
 ?>
 
 
@@ -165,6 +166,7 @@ echo "<script>var errorMessage = '" . addslashes($errorMessage) . "';</script>";
     if (typeof errorMessage !== 'undefined' && errorMessage !== '') {
         document.getElementById('myalert3').style.display = 'block';
         document.getElementById('alerttext').innerText = errorMessage;
+        fadeOutAlert();
     }
   function fadeOutAlert() {
         setTimeout(function() {
