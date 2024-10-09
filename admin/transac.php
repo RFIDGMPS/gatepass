@@ -11,7 +11,8 @@
 switch ($_GET['action'])
 {
     case 'add':
-    
+        header('Content-Type: application/json');
+
         
         $id_no = $_POST['id_no'];
         $rfid_number = $_POST['rfid_number'];
@@ -79,8 +80,7 @@ switch ($_GET['action'])
         $stmt->execute();
         $fullname_result = $stmt->get_result();
         
-        header('Content-Type: application/json');
-
+       
         if ($rfid_result->num_rows > 0) {
             echo json_encode(['success' => false, 'message' => 'RFID number already exists.']);
             exit;
