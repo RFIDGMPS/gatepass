@@ -487,7 +487,7 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'There was a problem with the request.',
+            text: 'There was a problem with the request.' + data,
             confirmButtonText: 'OK'
         });
     });
