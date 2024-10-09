@@ -43,23 +43,28 @@ switch ($_GET['action'])
             $file_size = $_FILES['photo']['size'];
         
             if (!in_array($file_type, $allowed_file_types)) {
-                echo "Error: Only JPEG, PNG, and GIF files are allowed.";
-                exit;
+                //echo "Error: Only JPEG, PNG, and GIF files are allowed.";
+                echo json_encode(['success' => false, 'message' => 'Error: Only JPEG, PNG, and GIF files are allowed.']);
+            exit;
+                
             }
         
             if ($file_size > 2 * 1024 * 1024) { // 2 MB limit
-                echo "Error: File size must be less than 2MB.";
-                exit;
+                //echo "Error: File size must be less than 2MB.";
+                echo json_encode(['success' => false, 'message' => 'Error: File size must be less than 2MB.']);
+            exit;
             }
         
             // Move file to target directory
             if (!move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
-                echo 'Error: There was an issue uploading the photo.';
-                exit;
+               // echo 'Error: There was an issue uploading the photo.';
+                echo json_encode(['success' => false, 'message' => 'Error: There was an issue uploading the photo.']);
+            exit;
             }
         } else {
             // Photo not uploaded or error in upload
-            echo 'Error: Photo is required. Please upload a valid photo.';
+            //echo 'Error: Photo is required. Please upload a valid photo.';
+            echo json_encode(['success' => false, 'message' => 'Error: Photo is required. Please upload a valid photo.']);
             exit;
         }
         
@@ -98,9 +103,12 @@ switch ($_GET['action'])
             );
         
             if ($stmt->execute()) {
-                echo 'success';
+               // echo 'success';
+                $success=true;
+                echo json_encode(['success' => true, 'message' => 'User added successfully']);
             } else {
-                echo 'Error in updating Database';
+                //echo 'Error in updating Database';
+                echo json_encode(['success' => false, 'message' => 'Error in updating Database']);
             }
         }
         
