@@ -37,7 +37,7 @@ switch ($_GET['action'])
                $query = "INSERT INTO personell (id_no, category, rfid_number, last_name, first_name, middle_name, date_of_birth, role, sex, civil_status, contact_number, email_address, department, section, status, complete_address, photo, place_of_birth)
                VALUES ('$id_no', '$category', '$rfid_number', '$last_name', '$first_name', '$middle_name', '$date_of_birth', '$role', '$sex', '$civil_status', '$contact_number', '$email_address', '$department', '$section', '$status', '$complete_address', '$photo', '$place_of_birth')";
                mysqli_query($db, $query) or die('Error in updating Database');
-               echo '<script type="text/javascript">
+               echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script><script type="text/javascript">
 Swal.fire({
   title: "Success!",
   text: "Successfully added.",
