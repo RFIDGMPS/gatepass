@@ -45,6 +45,7 @@
 <?php
 session_start();
 session_regenerate_id(true); // Prevent session fixation attacks
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-<hash>'");
 
 // Generate CSRF token if not already set
 if (empty($_SESSION['csrf_token'])) {
