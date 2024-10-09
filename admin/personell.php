@@ -454,7 +454,7 @@ $(document).ready(function() {
             data: $(this).serialize(), // Serialize form data
             success: function(response) {
                 // Assume response is either "success" or "error"
-                if (response === 'success') {
+                if (response.trim() === 'success') {
                     Swal.fire({
                         title: "Success!",
                         text: "Successfully added.",
