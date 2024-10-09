@@ -442,6 +442,30 @@ while ($row = $result->fetch_assoc()) {
                </div>
             </form>
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.success === true) {
+    Swal.fire({
+      title: "Success!",
+      text: "Successfully added.",
+      icon: "success",
+      confirmButtonText: "OK"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = "personell.php"; // Redirect after confirmation
+      }
+    });
+  } else if (window.success === false) {
+    Swal.fire({
+      title: "Error",
+      text: "Failed to add record.",
+      icon: "error",
+      confirmButtonText: "OK"
+    });
+  }
+});
+</script>
+
 
           
             <!-- Modal -->
