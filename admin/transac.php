@@ -38,9 +38,17 @@ switch ($_GET['action'])
                VALUES ('$id_no', '$category', '$rfid_number', '$last_name', '$first_name', '$middle_name', '$date_of_birth', '$role', '$sex', '$civil_status', '$contact_number', '$email_address', '$department', '$section', '$status', '$complete_address', '$photo', '$place_of_birth')";
                mysqli_query($db, $query) or die('Error in updating Database');
                echo '<script type="text/javascript">
-               alert("Successfully added.");
-               window.location = "personell.php";
-       </script>';
+Swal.fire({
+  title: "Success!",
+  text: "Successfully added.",
+  icon: "success",
+  confirmButtonText: "OK"
+}).then((result) => {
+  if (result.isConfirmed) {
+    window.location = "personell.php"; // Redirect to the desired page
+  }
+});
+</script>';
         
     break;
     case 'add_department':
