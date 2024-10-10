@@ -192,8 +192,8 @@ include '../connection.php';
 		 
 		 </script>
             <!-- Modal -->
-            <form id="myForm" role="form" method="post" enctype="multipart/form-data">
-               <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" >
+            <form id="myForm" role="form" method="post" action="transac.php?action=add" enctype="multipart/form-data">
+               <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg">
                      <div class="modal-content">
                         <div class="modal-header">
@@ -212,7 +212,7 @@ include '../connection.php';
                                     <div class="col-lg-3 col-md-6 col-sm-12" id="up_img">
                                        <div class="file-uploader">
                                           <label name="upload-label" class="upload-img-btn">
-                                          <input type="file" id="photo" name="photo" class="upload-field-1" style="display:none;" accept="image/*" title="Upload Foto.."/>
+                                          <input required type="file" id="photo" name="photo" class="upload-field-1" style="display:none;" accept="image/*" title="Upload Foto.."/>
                                           <img class="preview-1" src="../assets/img/pngtree-vector-add-user-icon-png-image_780447.jpg" style="width: 140px!important;height: 130px!important;position: absolute;border: 1px solid gray;" title="Upload Photo.." />
                                           </label>
                                        </div>
@@ -441,7 +441,7 @@ while ($row = $result->fetch_assoc()) {
                   </div>
                </div>
             </form>
-            <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+            <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -485,14 +485,14 @@ $(document).ready(function() {
         });
     });
 });
-</script>
+</script> -->
 
 
 
           
             <!-- Modal -->
 
-               <div class="modal fade" id="editemployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+               <div class="modal fade" id="editemployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg">
                      <div class="modal-content">
                         <div class="modal-header">
@@ -710,7 +710,7 @@ while ($row = $result->fetch_assoc()) {
                   </div>
                </div>
 
-            <div class="modal fade" id="delemployee-modal" tabindex="-1" aria-labelledby="exampleModalLabel">
+            <div class="modal fade" id="delemployee-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                <div class="modal-dialog">
                   <div class="modal-content">
                      <div class="modal-header">
