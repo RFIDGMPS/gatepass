@@ -193,7 +193,7 @@ include '../connection.php';
 		 </script>
             <!-- Modal -->
             <form id="myForm" role="form" method="post" enctype="multipart/form-data">
-               <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" >
+               <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" inert >
                   <div class="modal-dialog modal-lg">
                      <div class="modal-content">
                         <div class="modal-header">
@@ -492,7 +492,7 @@ $(document).ready(function() {
           
             <!-- Modal -->
 
-               <div class="modal fade" id="editemployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal fade" id="editemployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" inert>
                   <div class="modal-dialog modal-lg">
                      <div class="modal-content">
                         <div class="modal-header">
@@ -710,7 +710,7 @@ while ($row = $result->fetch_assoc()) {
                   </div>
                </div>
 
-            <div class="modal fade" id="delemployee-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="delemployee-modal" tabindex="-1" aria-labelledby="exampleModalLabel" inert>
                <div class="modal-dialog">
                   <div class="modal-content">
                      <div class="modal-header">
