@@ -1,84 +1,34 @@
 <?php
 include 'connection.php';
-// // Step 2: Query to fetch data from the `personell_logs` table
-// $sql = "SELECT * FROM personell_logs";
-// $result = $db->query($sql);
 
-$sql = "ALTER TABLE personell_logs 
-        ADD COLUMN time_in_am VARCHAR(255) NOT NULL,
-        ADD COLUMN time_out_am VARCHAR(255) NOT NULL,
-        ADD COLUMN time_in_pm VARCHAR(255) NOT NULL,
-        ADD COLUMN time_out_pm VARCHAR(255) NOT NULL;";
-
-// Execute query
-if ($db->query($sql) === TRUE) {
-    echo "Columns added successfully!";
-} else {
-    echo "Error adding columns: " . $db->error;
+// Check connection
+if ($db->connect_error) {
+    die("Connection failed: " . $db->connect_error);
 }
-?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personell Logs</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-    </style>
-</head>
-<body>
+// Step 2: Function to check if a column exists in the table
+function columnExists($db, $table, $column) {
+    $result = $db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS 
+                            WHERE TABLE_NAME = '$table' AND COLUMN_NAME = '$column' AND TABLE_SCHEMA = '$dbname'");
+    return $result->num_rows > 0;
+}
 
-<h2>Personell Logs</h2>
-
-<?php
-// Step 3: Display the table if data exists
-if ($result->num_rows > 0) {
-    echo "<table>";
-    echo "<tr>
-            <th>ID</th>
-            <th>Personnel ID</th>
-            <th>Date Logged</th>
-            <th>Time In AM</th>
-            <th>Time Out AM</th>
-            <th>Time In PM</th>
-            <th>Time Out PM</th>
-            <th>Location</th>
-          </tr>";
-    
-    // Fetch and display each row
-    while($row = $result->fetch_assoc()) {
-        echo "<tr>
-                <td>{$row['id']}</td>
-                <td>{$row['personell_id']}</td>
-                <td>{$row['date_logged']}</td>
-                <td>{$row['time_in_am']}</td>
-                <td>{$row['time_out_am']}</td>
-                <td>{$row['time_in_pm']}</td>
-                <td>{$row['time_out_pm']}</td>
-                <td>{$row['location']}</td>
-              </tr>";
+// Step 3: Add columns if they do not exist
+$columns = ['time_in_am', 'time_out_am', 'time_in_pm', 'time_out_pm'];
+foreach ($columns as $column) {
+    if (!columnExists($db, 'personell_logs', $column)) {
+        $sql = "ALTER TABLE personell_logs ADD COLUMN $column VARCHAR(255) NOT NULL";
+        if ($db->query($sql) === TRUE) {
+            echo "Column '$column' added successfully!<br>";
+        } else {
+            echo "Error adding column '$column': " . $db->error . "<br>";
+        }
+    } else {
+        echo "Column '$column' already exists.<br>";
     }
-    
-    echo "</table>";
-} else {
-    echo "No records found.";
 }
 
-// Close the connection
+// Close connection
 $db->close();
-?>
 
-</body>
-</html>
+?>
