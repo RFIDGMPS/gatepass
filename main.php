@@ -221,46 +221,97 @@ if (isset($_POST['submit'])) {
     </script>";
            
         } else {
-     
-            if($department == 'Main'){
-            // Check if user is already logged today
-            $query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged'";
-            $result1 = mysqli_query($db, $query1);
-            $user1 = mysqli_fetch_assoc($result1);
+     // Check if user is already logged today
+     if($department == 'Main'){
+$query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged'";
+$result1 = mysqli_query($db, $query1);
+$user1 = mysqli_fetch_assoc($result1);
 
-            if ($user1) {
-                // Update existing log entry
-                if (($user1['time_out'] == '')) {
-                    //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
-                    $time_in_out = 'TIME OUT';
+// Get current time period (AM/PM)
+$current_period = date('A');
+
+if ($user1) {
+    // Update existing log entry
+    if ($current_period === "AM") {
+        $update_field = ($user1['time_out_am'] == '') ? 'time_out_am' : null;
+    } else {
+        $update_field = ($user1['time_out_pm'] == '') ? 'time_out_pm' : null;
+    }
+    
+    if ($update_field) {
+        $time_in_out = 'TIME OUT';
+        $voice = 'Take care ' . $user['first_name'] . ' ' . $user['last_name'] . '!';
+
+        // Update the respective time_out column
+        $update_query = "UPDATE personell_logs SET $update_field = '$time' WHERE id = '{$user1['id']}'";
+        mysqli_query($db, $update_query);
+    } else {
+        echo "<script>alert('Please wait for the appropriate time period.');</script>";
+    }
+
+} else {
+    // Insert new log entry with the correct time_in field
+    if ($current_period === "AM") {
+        $time_field = 'time_in_am';
+        $voice = 'Good morning ' . $user['first_name'] . ' ' . $user['last_name'] . '!';
+    } else {
+        $time_field = 'time_in_pm';
+        $voice = 'Good afternoon ' . $user['first_name'] . ' ' . $user['last_name'] . '!';
+    }
+
+    // Insert into the respective time_in field
+    $insert_query = "INSERT INTO personell_logs (personnel_id, $time_field, date_logged, location) 
+                     VALUES ('{$user['id']}', '$time', '$date_logged', '$location')";
+    mysqli_query($db, $insert_query);
+}
+
+        }
+
+
+
+
+
+
+
+            // if($department == 'Main'){
+            // // Check if user is already logged today
+            // $query1 = "SELECT * FROM personell_logs WHERE personnel_id = '{$user['id']}' AND date_logged = '$date_logged'";
+            // $result1 = mysqli_query($db, $query1);
+            // $user1 = mysqli_fetch_assoc($result1);
+
+            // if ($user1) {
+            //     // Update existing log entry
+            //     if (($user1['time_out'] == '')) {
+            //         //$update_field = $current_period === "AM" ? 'time_out_am' : 'time_out_pm';
+            //         $time_in_out = 'TIME OUT';
                    
-                        $voice='Take care '.$user['first_name'].' ' . $user['last_name'].'!';
+            //             $voice='Take care '.$user['first_name'].' ' . $user['last_name'].'!';
                         
                     
-                    $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$user1['id']}'";
-                    mysqli_query($db, $update_query);
-                } else {
-                    echo "<script>alert('Please wait for the appropriate time period.');</script>";
-                }
-            } else {
+            //         $update_query = "UPDATE personell_logs SET time_out = '$time' WHERE id = '{$user1['id']}'";
+            //         mysqli_query($db, $update_query);
+            //     } else {
+            //         echo "<script>alert('Please wait for the appropriate time period.');</script>";
+            //     }
+            // } else {
               
-                // Insert new log entry
+            //     // Insert new log entry
            
-                $time_in_out = 'TIME IN';
-                //$time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
-                if(date('A') =="AM"){
-                    $voice='Good morning '.$user['first_name'].' ' . $user['last_name'].'!';
+            //     $time_in_out = 'TIME IN';
+            //     //$time_field = $current_period === "AM" ? 'time_in_am' : 'time_in_pm';
+            //     if(date('A') =="AM"){
+            //         $voice='Good morning '.$user['first_name'].' ' . $user['last_name'].'!';
                    
-                } 
-                if(date('A') =="PM"){
-                    $voice='Good afternoon '.$user['first_name'].' ' . $user['last_name'].'!';
+            //     } 
+            //     if(date('A') =="PM"){
+            //         $voice='Good afternoon '.$user['first_name'].' ' . $user['last_name'].'!';
                     
-                } 
-                $insert_query = "INSERT INTO personell_logs (personnel_id,time_in, date_logged, location) 
-                                 VALUES ('{$user['id']}','$time', '$date_logged', '$location')";
-                mysqli_query($db, $insert_query);
+            //     } 
+            //     $insert_query = "INSERT INTO personell_logs (personnel_id,time_in, date_logged, location) 
+            //                      VALUES ('{$user['id']}','$time', '$date_logged', '$location')";
+            //     mysqli_query($db, $insert_query);
                 
-            }
+            // }
         } else {
         // Check if user is already logged today
 // Query to get the latest log for the user
@@ -520,7 +571,7 @@ else {
     $alert='alert-danger'; 
 }
 
-    echo $time_in_out;
+  
 if($time_in_out == 'BLOCKED' || $time_in_out == 'STRANGER' || $time_in_out == 'UNAUTHORIZE'){      
     
     $row['photo']=$row['full_name']=$row['department']=$row['role']=$row['time_in']=$row['time_out'] = '';

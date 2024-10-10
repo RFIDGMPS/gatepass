@@ -1,32 +1,72 @@
 <?php
-// Query to count new lost cards
 include 'connection.php';
+// Step 2: Query to fetch data from the `personell_logs` table
+$sql = "SELECT * FROM personell_logs";
+$result = $db->query($sql);
 
-$query = "SELECT COUNT(*) AS new_lost_cards FROM lost_card WHERE date_requested = CURRENT_DATE()";
-$result = $db->query($query);
-$new_lost_cards = 0;
-
-if ($row = $result->fetch_assoc()) {
-    $new_lost_cards = $row['new_lost_cards'];
-}
 ?>
 
-<a href="lostcard.php" class="nav-item nav-link <?php echo ($current_page == 'lostcard.php') ? 'active' : ''; ?>">
-    <i class="fas fa-id-badge"></i> Lost Card
-    <?php if ($new_lost_cards > 0): ?>
-        <span class="badge"><?php echo $new_lost_cards; ?></span>
-    <?php endif; ?>
-</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personell Logs</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
 
-<style>
-    .badge {
-        background-color: red;
-        color: white;
-        padding: 2px 7px;
-        border-radius: 50%;
-        font-size: 12px;
-        position: relative;
-        top: -8px;
-        left: 5px;
+<h2>Personell Logs</h2>
+
+<?php
+// Step 3: Display the table if data exists
+if ($result->num_rows > 0) {
+    echo "<table>";
+    echo "<tr>
+            <th>ID</th>
+            <th>Personnel ID</th>
+            <th>Date Logged</th>
+            <th>Time In AM</th>
+            <th>Time Out AM</th>
+            <th>Time In PM</th>
+            <th>Time Out PM</th>
+            <th>Location</th>
+          </tr>";
+    
+    // Fetch and display each row
+    while($row = $result->fetch_assoc()) {
+        echo "<tr>
+                <td>{$row['id']}</td>
+                <td>{$row['personell_id']}</td>
+                <td>{$row['date_logged']}</td>
+                <td>{$row['time_in_am']}</td>
+                <td>{$row['time_out_am']}</td>
+                <td>{$row['time_in_pm']}</td>
+                <td>{$row['time_out_pm']}</td>
+                <td>{$row['location']}</td>
+              </tr>";
     }
-</style>
+    
+    echo "</table>";
+} else {
+    echo "No records found.";
+}
+
+// Close the connection
+$db->close();
+?>
+
+</body>
+</html>
