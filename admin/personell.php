@@ -192,8 +192,7 @@ include '../connection.php';
 		 
 		 </script>
             <!-- Modal -->
-              <!-- Modal -->
-              <form id="myForm" role="form" method="post" action="transac.php?action=add" enctype="multipart/form-data">
+            <form role="form" method="post" action="transac.php?action=add" enctype="multipart/form-data">
                <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg">
                      <div class="modal-content">
@@ -205,7 +204,7 @@ include '../connection.php';
                         </div>
                         <div class="col-lg-11 mb-2 mt-1" id="mgs-emp" style="margin-left: 4%"></div>
                         <div class="modal-body">
-                           <div class="row justify-content-md-center"  style="padding-bottom:10px;">
+                           <div class="row justify-content-md-center">
                               <div id="msg-emp" style=""></div>
                               <div class="col-sm-12 col-md-12 col-lg-10">
                                  <div class="" style="border: 1PX solid #b3f0fc;padding: 1%;background-color: #f7cfa1;color: black;font-size: 1.2rem">PERSONAL INFORMATION</div>
@@ -214,79 +213,25 @@ include '../connection.php';
                                        <div class="file-uploader">
                                           <label name="upload-label" class="upload-img-btn">
                                           <input required type="file" id="photo" name="photo" class="upload-field-1" style="display:none;" accept="image/*" title="Upload Foto.."/>
-                                          <img class="preview-1" src="../assets/img/pngtree-vector-add-user-icon-png-image_780447.jpg" style="width: 140px!important;height: 130px!important;position: absolute;border: 1px solid gray;" title="Upload Photo.." />
+                                          <img class="preview-1" src="../assets/img/pngtree-vector-add-user-icon-png-image_780447.jpg" style="width: 140px!important;height: 130px!important;position: absolute;border: 1px solid gray;top: 15%" title="Upload Photo.." />
                                           </label>
                                        </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-12">
-    <div class="form-group">
-        <label>ROLE:</label>
-        <select required class="form-control dept_ID" name="role" id="role" autocomplete="off" onchange="updateCategory()">
-            <?php
-                $sql = "SELECT * FROM role";
-                $result = $db->query($sql);
-
-                // Fetch and display role options
-                while ($row = $result->fetch_assoc()) {
-                    $role = $row['role'];
-                    
-                    // Set 'Student' as the default selected option
-                    if ($role === 'Student') {
-                        echo "<option value='$role' selected>$role</option>";
-                    } else {
-                        echo "<option value='$role'>$role</option>";
-                    }
-                }
-            ?>
-        </select>
-        <span class="pob-error"></span>
-    </div>
-</div>
-
-<div class="col-lg-5 col-md-6 col-sm-12" id="lnamez">
-    <div class="form-group">
-        <label>Category:</label>
-        <select required class="form-control" name="category" id="category" autocomplete="off">
-            <!-- Category options will be populated by JavaScript -->
-        </select>
-        <span class="id-error"></span>
-    </div>
-</div>
-
-<script>
-// Ensure the 'Student' role is preselected and categories updated accordingly
-document.addEventListener('DOMContentLoaded', function () {
-    updateCategory(); // Initialize category based on the default selected role
-});
-
-function updateCategory() {
-    var role = document.getElementById('role').value;
-    var categorySelect = document.getElementById('category');
-    
-    // Clear the existing options
-    categorySelect.innerHTML = '';
-
-    if (role === 'Student') {
-        // If the role is 'Student', show 'Student' only in category
-        var option = document.createElement('option');
-        option.value = 'Student';
-        option.text = 'Student';
-        categorySelect.appendChild(option);
-    } else {
-        // If the role is not 'Student', show 'Regular' and 'Contractual'
-        var option1 = document.createElement('option');
-        option1.value = 'Regular';
-        option1.text = 'Regular';
-        categorySelect.appendChild(option1);
-
-        var option2 = document.createElement('option');
-        option2.value = 'Contractual';
-        option2.text = 'Contractual';
-        categorySelect.appendChild(option2);
-    }
-}
-</script>
-
+                                    <div class="col-lg-4 col-md-6 col-sm-12" id="lnamez">
+                                       <div class="form-group">
+                                          <label>ID Number:</label>
+                                          <input required type="text" class="form-control" name="id_no" id="id_no" autocomplete="off">
+                                          <span class="id-error"></span>
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-5 col-md-6 col-sm-12">
+                                       <div class="form-group">
+                                          <label>RFID NUMBER:</label>
+                                          <input required type="text" class="form-control" name="rfid_number" id="rfid_number" minlength="10" maxlength="10" autocomplete="off">
+                                          <span class="rfidno-error"></span>
+                                       </div>
+                                    </div>
+                                 </div>
                                  <div class="row mb-3 mt-1">
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                        <div class="form-group">
@@ -344,7 +289,7 @@ function updateCategory() {
                                        <div class="form-group">
                                           <label>SEX:</label>
                                           <select required class="form-control dept_ID" name="sex" id="sex_id" autocomplete="off">
-                                            
+                                             <option value="">&larr; Select Section &rarr;</option>
                                              <option value="Male">Male</option>
                                              <option value="Female">Female</option>
                                           </select>
@@ -357,7 +302,7 @@ function updateCategory() {
                                        <div class="form-group">
                                           <label>CIVIL STATUS:</label>
                                           <select required class="form-control dept_ID" name="stat" id="stat_id" autocomplete="off">
-                                        
+                                             <option value="">&larr; Select Status &rarr;</option>
                                              <option value="Single">Single</option>
                                              <option value="Married">Married</option>
                                              <option value="Widowed">Widowed</option>
@@ -368,13 +313,13 @@ function updateCategory() {
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                        <div class="form-group">
                                           <label>CONTACT NUMBER:</label>
-                                          <input type="text" class="form-control" name="contact_number" id="contact_number" placeholder="Optional..." minlength="11" maxlength="11" autocomplete="off">
+                                          <input type="text" class="form-control" name="contact_number" id="contact_number" placeholder="Optional" minlength="11" maxlength="11" autocomplete="off">
                                        </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                        <div class="form-group">
                                           <label>EMAIL ADDRESS:</label>
-                                          <input type="email" class="form-control" name="email_address" id="email_address" placeholder="Optional..." autocomplete="off">
+                                          <input type="email" class="form-control" name="email_address" id="email_address" placeholder="Optional" autocomplete="off">
                                        </div>
                                     </div>
                                  </div>
@@ -383,7 +328,7 @@ function updateCategory() {
                                        <div class="form-group">
                                           <label>DEPARTMENT:</label>
                                           <select required class="form-control" name="department" id="department" autocomplete="off">
-										
+										  <option value="">&larr; Select Department &rarr;</option>
 <?php
 										  $sql = "SELECT * FROM department";
 $result = $db->query($sql);
@@ -410,9 +355,31 @@ while ($row = $result->fetch_assoc()) {
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                        <div class="form-group">
-                                          <label>RFID NUMBER:</label>
-                                          <input required type="text" class="form-control" name="rfid_number" id="rfid_number" minlength="10" maxlength="10" autocomplete="off">
-                                          <span class="rfidno-error"></span>
+                                          <label>ROLE:</label>
+                                          <select required class="form-control dept_ID" name="role" id="role" autocomplete="off">
+                                             <option value="">&larr; Select Role &rarr;</option>
+                                             <?php
+										  $sql = "SELECT * FROM role";
+$result = $db->query($sql);
+
+// Initialize an array to store department options
+$role_options = [];
+
+// Fetch and store department options
+while ($row = $result->fetch_assoc()) {
+    $id = $row['id'];
+    $role = $row['role'];
+    $role_options[] = "<option value='$role'>$role</option>";
+}?>
+                          <?php
+    // Output department options
+    foreach ($role_options as $option) {
+        echo $option;
+    }
+    ?>    
+                                            
+                                          </select>
+                                          <span class="pob-error"></span>
                                        </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
