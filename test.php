@@ -2,7 +2,7 @@
 include 'connection.php';
 
 // Check connection
-$dbname = "gatepassdb";
+$dbname = "u510162695_gatepassdb";
 
 // Step 2: Function to check if a column exists in the table
 function columnExists($db, $table, $column) {
