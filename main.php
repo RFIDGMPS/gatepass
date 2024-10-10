@@ -265,7 +265,7 @@ if ($user1) {
     mysqli_query($db, $insert_query);
 }
 
-        }
+        
 
 
 
