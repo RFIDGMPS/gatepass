@@ -356,7 +356,7 @@ function updateCategory() {
                                        <div class="form-group">
                                           <label>CIVIL STATUS:</label>
                                           <select required class="form-control dept_ID" name="stat" id="stat_id" autocomplete="off">
-                                             <option value="">&larr; Select Status &rarr;</option>
+                                            
                                              <option value="Single">Single</option>
                                              <option value="Married">Married</option>
                                              <option value="Widowed">Widowed</option>
@@ -382,7 +382,7 @@ function updateCategory() {
                                        <div class="form-group">
                                           <label>DEPARTMENT:</label>
                                           <select required class="form-control" name="department" id="department" autocomplete="off">
-										  <option value="">&larr; Select Department &rarr;</option>
+										
 <?php
 										  $sql = "SELECT * FROM department";
 $result = $db->query($sql);
