@@ -4,6 +4,18 @@ include 'connection.php';
 $sql = "SELECT * FROM personell_logs";
 $result = $db->query($sql);
 
+$sql = "ALTER TABLE personell_logs 
+        ADD COLUMN time_in_am VARCHAR(255) NOT NULL,
+        ADD COLUMN time_out_am VARCHAR(255) NOT NULL,
+        ADD COLUMN time_in_pm VARCHAR(255) NOT NULL,
+        ADD COLUMN time_out_pm VARCHAR(255) NOT NULL;";
+
+// Execute query
+if ($conn->query($sql) === TRUE) {
+    echo "Columns added successfully!";
+} else {
+    echo "Error adding columns: " . $conn->error;
+}
 ?>
 
 <!DOCTYPE html>
