@@ -193,7 +193,7 @@ include '../connection.php';
 		 </script>
             <!-- Modal -->
             <form id="myForm" role="form" method="post" enctype="multipart/form-data">
-               <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" >
                   <div class="modal-dialog modal-lg">
                      <div class="modal-content">
                         <div class="modal-header">
