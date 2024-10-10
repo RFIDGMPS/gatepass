@@ -12,7 +12,6 @@ switch ($_GET['action'])
 {
     case 'add':
        
-        // Retrieve POST data securely
         $id_no = $_POST['id_no'];
         $rfid_number = $_POST['rfid_number'];
         $last_name = $_POST['last_name'];
@@ -26,55 +25,23 @@ switch ($_GET['action'])
         $contact_number = $_POST['contact_number'];
         $email_address = $_POST['email_address'];
         $department = $_POST['department'];
+        
         $section = $_POST['section'];
         $status = $_POST['status'];
         $category = $_POST['category'];
         $complete_address = $_POST['complete_address'];
         $photo = $_FILES['photo']['name'];
-        
-        // Set upload directory
+       
         $target_dir = "uploads/";
-        $target_file = $target_dir . basename($photo);
-        
-        // Move uploaded file
-        if (!move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
-            echo 'error'; // Handle file upload error
-            exit;
-        }
-        
-        // Check if RFID number and full name already exist
-        $check_query = "SELECT * FROM personell WHERE rfid_number = ? OR (first_name = ? AND last_name = ?)";
-        $stmt_check = $db->prepare($check_query);
-        $stmt_check->bind_param("sss", $rfid_number, $first_name, $last_name);
-        $stmt_check->execute();
-        $result = $stmt_check->get_result();
-        
-        if ($result->num_rows > 0) {
-            echo 'exists'; // Return response indicating record exists
-            exit;
-        }
-        
-        // Prepare the INSERT query
-        $query = "INSERT INTO personell (id_no, category, rfid_number, last_name, first_name, middle_name, date_of_birth, role, sex, civil_status, contact_number, email_address, department, section, status, complete_address, photo, place_of_birth)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
-        $stmt = $db->prepare($query);
-        $stmt->bind_param("sssssssssssssssss", $id_no, $category, $rfid_number, $last_name, $first_name, $middle_name, $date_of_birth, $role, $sex, $civil_status, $contact_number, $email_address, $department, $section, $status, $complete_address, $photo, $place_of_birth);
-        
-        // Execute the statement
-        if ($stmt->execute()) {
-            echo 'success'; // Return success response
-        } else {
-            echo 'error'; // Return error response
-        }
-        
-        // Close the statement and connection
-        $stmt->close();
-        $stmt_check->close();
-        $db->close();
-        
-        
-        
+        $target_file = $target_dir . basename($_FILES["photo"]["name"]);
+        move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
+               $query = "INSERT INTO personell (id_no,category, rfid_number, last_name, first_name, middle_name, date_of_birth, role, sex, civil_status, contact_number, email_address, department, section, status, complete_address, photo, place_of_birth)
+               VALUES ('$id_no', '$category','$rfid_number', '$last_name', '$first_name', '$middle_name', '$date_of_birth', '$role', '$sex', '$civil_status', '$contact_number', '$email_address', '$department', '$section', '$status', '$complete_address', '$photo', '$place_of_birth')";
+               mysqli_query($db, $query) or die('Error in updating Database');
+               echo '<script type="text/javascript">
+               alert("Successfully added.");
+               window.location = "personell.php";
+       </script>';
     break;
     case 'add_department':
 // Get the POST data
