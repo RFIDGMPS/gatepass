@@ -212,7 +212,7 @@ include '../connection.php';
                                     <div class="col-lg-3 col-md-6 col-sm-12" id="up_img">
                                        <div class="file-uploader">
                                           <label name="upload-label" class="upload-img-btn">
-                                          <input required type="file" id="photo" name="photo" class="upload-field-1" style="display:none;" accept="image/*" title="Upload Foto.."/>
+                                          <input type="file" id="photo" name="photo" class="upload-field-1" style="display:none;" accept="image/*" title="Upload Foto.."/>
                                           <img class="preview-1" src="../assets/img/pngtree-vector-add-user-icon-png-image_780447.jpg" style="width: 140px!important;height: 130px!important;position: absolute;border: 1px solid gray;" title="Upload Photo.." />
                                           </label>
                                        </div>
