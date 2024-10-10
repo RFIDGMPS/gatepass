@@ -2,9 +2,7 @@
 include 'connection.php';
 
 // Check connection
-if ($db->connect_error) {
-    die("Connection failed: " . $db->connect_error);
-}
+
 
 // Step 2: Function to check if a column exists in the table
 function columnExists($db, $table, $column) {
