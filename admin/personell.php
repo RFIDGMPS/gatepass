@@ -56,7 +56,7 @@ include '../connection.php';
                                     <th scope="col">RFID Number</th>
                                     <th scope="col">Full Name</th>
                                     <th scope="col">Role</th>
-                                    <th scope="col">Contact Number</th>
+                                    <th scope="col">Category</th>
                                     <th scope="col">Department</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
@@ -77,6 +77,7 @@ include '../connection.php';
 									<input class="sex" type="hidden" value="<?php echo $row['sex']; ?>" />
 									<input class="civil_status" type="hidden" value="<?php echo $row['civil_status']; ?>" />
 									<input class="contact_number" type="hidden" value="<?php echo $row['contact_number']; ?>" />
+                           <input class="category" type="hidden" value="<?php echo $row['category']; ?>" />
 									<input class="email_address" type="hidden" value="<?php echo $row['email_address']; ?>" />
 									<input class="status" type="hidden" value="<?php echo $row['status']; ?>" />
 									<input class="department" type="hidden" value="<?php echo $row['department']; ?>" />
@@ -89,7 +90,7 @@ include '../connection.php';
                                     <td class="rfid"><?php echo $row['rfid_number']; ?></td>
                                     <td><?php echo $row['first_name'] .' '.$row['last_name']; ?></td>
                                     <td><?php echo $row['role']; ?></td>
-                                    <td><?php echo $row['contact_number']; ?></td>
+                                    <td><?php echo $row['category']; ?></td>
                                     <td><?php echo $row['department']; ?></td>
                                     <td><?php if ($row['status'] == 'Active') {
 											echo '<span class="badge bg-success">Active</span>';
