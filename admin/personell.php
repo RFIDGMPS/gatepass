@@ -56,7 +56,7 @@ include '../connection.php';
                                     <th scope="col">RFID Number</th>
                                     <th scope="col">Full Name</th>
                                     <th scope="col">Role</th>
-                                    <th scope="col">Category</th>
+                                    <th scope="col">Contact Number</th>
                                     <th scope="col">Department</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
@@ -76,7 +76,7 @@ include '../connection.php';
 									<input class="place_of_birth" type="hidden" value="<?php echo $row['place_of_birth']; ?>" />
 									<input class="sex" type="hidden" value="<?php echo $row['sex']; ?>" />
 									<input class="civil_status" type="hidden" value="<?php echo $row['civil_status']; ?>" />
-									<input class="contact_number" type="hidden" value="<?php echo $row['category']; ?>" />
+									<input class="contact_number" type="hidden" value="<?php echo $row['contact_number']; ?>" />
 									<input class="email_address" type="hidden" value="<?php echo $row['email_address']; ?>" />
 									<input class="status" type="hidden" value="<?php echo $row['status']; ?>" />
 									<input class="department" type="hidden" value="<?php echo $row['department']; ?>" />
@@ -89,7 +89,7 @@ include '../connection.php';
                                     <td class="rfid"><?php echo $row['rfid_number']; ?></td>
                                     <td><?php echo $row['first_name'] .' '.$row['last_name']; ?></td>
                                     <td><?php echo $row['role']; ?></td>
-                                    <td><?php echo $row['category']; ?></td>
+                                    <td><?php echo $row['contact_number']; ?></td>
                                     <td><?php echo $row['department']; ?></td>
                                     <td><?php if ($row['status'] == 'Active') {
 											echo '<span class="badge bg-success">Active</span>';
@@ -192,7 +192,8 @@ include '../connection.php';
 		 
 		 </script>
             <!-- Modal -->
-            <form id="myForm" role="form" method="post" action="transac.php?action=add" enctype="multipart/form-data">
+              <!-- Modal -->
+              <form id="myForm" role="form" method="post" action="transac.php?action=add" enctype="multipart/form-data">
                <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg">
                      <div class="modal-content">
@@ -441,54 +442,6 @@ while ($row = $result->fetch_assoc()) {
                   </div>
                </div>
             </form>
-            <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#myForm').on('submit', function(e) {
-        e.preventDefault(); // Prevent the form from submitting the traditional way
-
-        $.ajax({
-            url: 'transac.php?action=add', // Replace with your PHP script path
-            type: 'POST',
-            data: $(this).serialize(), // Serialize form data
-            success: function(response) {
-                // Assume response is either "success" or "error"
-                if (response.trim() === 'success') {
-                    Swal.fire({
-                        title: "Success!",
-                        text: "Successfully added.",
-                        icon: "success",
-                        confirmButtonText: "OK"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location = "personell.php"; // Redirect after confirmation
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        title: "Error",
-                        text: "Failed to add record." + response.trim(),
-                        icon: "error",
-                        confirmButtonText: "OK"
-                    });
-                }
-            },
-            error: function() {
-                Swal.fire({
-                    title: "Error",
-                    text: "An unexpected error occurred.",
-                    icon: "error",
-                    confirmButtonText: "OK"
-                });
-            }
-        });
-    });
-});
-</script> -->
-
-
-
           
             <!-- Modal -->
 
