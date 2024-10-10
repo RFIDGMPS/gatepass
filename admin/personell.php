@@ -343,7 +343,7 @@ function updateCategory() {
                                        <div class="form-group">
                                           <label>SEX:</label>
                                           <select required class="form-control dept_ID" name="sex" id="sex_id" autocomplete="off">
-                                             <option value="">&larr; Select Section &rarr;</option>
+                                          
                                              <option value="Male">Male</option>
                                              <option value="Female">Female</option>
                                           </select>
