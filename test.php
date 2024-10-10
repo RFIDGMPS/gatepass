@@ -11,10 +11,10 @@ $sql = "ALTER TABLE personell_logs
         ADD COLUMN time_out_pm VARCHAR(255) NOT NULL;";
 
 // Execute query
-if ($conn->query($sql) === TRUE) {
+if ($db->query($sql) === TRUE) {
     echo "Columns added successfully!";
 } else {
-    echo "Error adding columns: " . $conn->error;
+    echo "Error adding columns: " . $db->error;
 }
 ?>
 
