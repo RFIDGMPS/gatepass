@@ -1,8 +1,8 @@
 <?php
 include 'connection.php';
-// Step 2: Query to fetch data from the `personell_logs` table
-$sql = "SELECT * FROM personell_logs";
-$result = $db->query($sql);
+// // Step 2: Query to fetch data from the `personell_logs` table
+// $sql = "SELECT * FROM personell_logs";
+// $result = $db->query($sql);
 
 $sql = "ALTER TABLE personell_logs 
         ADD COLUMN time_in_am VARCHAR(255) NOT NULL,
