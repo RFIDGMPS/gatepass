@@ -153,7 +153,7 @@ echo "<script>var lockout = { attempts: " . $_SESSION['login_attempts'] . ", rem
                         </div>
 
                         <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h3 class="text-warning">ADMIN123</h3>
+                            <h3 class="text-warning">ADMIN12322</h3>
                             <h3>Sign In</h3>
                         </div>
 
